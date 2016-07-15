@@ -8,7 +8,7 @@ return [
      *
      * @var bool
      */
-    'status' => true,
+    'status'    => true,
 
     /**
      * Available languages
@@ -38,5 +38,6 @@ return [
         'it'    => ['it', 'it_IT', false],
         'pt-BR' => ['pt_BR', 'pt_BR', false],
         'sv'    => ['sv', 'sv_SE', false],
+        'zh'    => ['zh', 'zh_CN', false],
     ],
 ];
