@@ -16,28 +16,34 @@ return [
     'backend' => [
         'access' => [
             'users' => [
-                'activate' => 'Activate',
-                'change_password' => 'Change Password',
-                'deactivate' => 'Deactivate',
-                'delete_permanently' => 'Delete Permanently',
-                'login_as' => 'Login As :user',
-                'resend_email' => 'Resend Confirmation E-mail',
-                'restore_user' => 'Restore User',
+                'activate'           => '激活',
+                'change_password'    => '修改密码',
+                'deactivate'         => '冻结',
+                'delete_permanently' => '永久删除',
+                'login_as'           => '以 :user 的身份登录',
+                'resend_email'       => '重新发送E-mail',
+                'restore_user'       => '重置用户',
             ],
+        ],
+
+        'verification' => [
+            'grant'    => '通过审核',
+            'deny'     => '驳回请求',
+            'checkout' => '查看详情',
         ],
     ],
 
     'general' => [
-        'cancel' => 'Cancel',
+        'cancel' => '取消',
 
         'crud' => [
-            'create' => 'Create',
-            'delete' => 'Delete',
-            'edit' => 'Edit',
-            'update' => 'Update',
+            'create' => '新建',
+            'delete' => '删除',
+            'edit'   => '编辑',
+            'update' => '更新',
         ],
 
-        'save' => 'Save',
-        'view' => 'View',
+        'save' => '保存',
+        'view' => '预览',
     ],
 ];

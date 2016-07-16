@@ -3,27 +3,32 @@
 namespace App\Http\Controllers\Backend\Verification;
 
 use App\Models\Application;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use Illuminate\Support\Facades\App;
+use Yajra\Datatables\Facades\Datatables;
 
 class ApplicationController extends VerificationController
 {
     public function index()
     {
-        return view('backend.verification.application.index');
+        return view('backend.verification.application.index')
+            ->withUser(access()->user());
     }
 
-    public function getInfoNeedToVerified()
+    public function unhandled()
     {
-        $info = Application::where('verification', 0)->orderBy('created_at', 'desc')->get();
-        $user = $info->user;
-        dd($info);
-        return response()->json(compact("info", "user"));
+        return Datatables::of(Application::with('user')
+            ->select(['id', 'name', 'type', 'created_at', 'user_id'])
+            ->where('verification', 0)
+            ->orderBy('created_at', 'desc')
+            ->get()
+        )
+            ->addColumn('operations', function($apply){
+                return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.backend.verification.checkout') . '"></i></a> ';
+            })
+            ->make(true);
     }
 
-    public function passVerify($id)
+    public function grant($id)
     {
         $apply = Application::find($id)->first();
         $apply->verification = 1;
@@ -32,8 +37,21 @@ class ApplicationController extends VerificationController
         return response()->json(['success' => true]);
     }
 
-    public function lab($id){
-        $apply = Application::find(1)->user;
-        dd($apply);
+    public function deny($id)
+    {
+        $apply = Application::find($id);
+        $apply->verification = -1;
+        $apply->save();
+
+        return response()->json(['success' => true]);
     }
+
+    public function detail($id)
+    {
+        $application = Application::find($id);
+        $application->user;
+        return view('backend.verification.application.detail', $application);
+    }
+
+
 }

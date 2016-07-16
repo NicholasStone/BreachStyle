@@ -13,10 +13,10 @@ return [
 	*/
 
 	'backend' => [
-		'none' => 'There is no recent history.',
-		'none_for_type' => 'There is no history for this type.',
-		'none_for_entity' => "There is no history for this :entity.",
-		'recent_history' => 'Recent History',
+		'none' => '没有可以显示的历史记录',
+		'none_for_type' => '此类历史没有可显示的记录',
+		'none_for_entity' => "没有 :entity 的历史记录",
+		'recent_history' => '最近历史记录',
 
 		'roles' => [
 			'created' => 'created role',

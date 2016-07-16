@@ -14,9 +14,12 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('userid');
+            $table->unsignedInteger('userid')->unique();
             $table->string('name');
+            $table->string('school_name', 30);
+            $table->string('college_name', 30);
             $table->string('email')->unique();
+            $table->string('tel', 11)->unique();
             $table->string('password')->nullable();
             $table->string('confirmation_code');
             $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);

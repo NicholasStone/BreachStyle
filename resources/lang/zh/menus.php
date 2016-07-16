@@ -51,6 +51,7 @@ return [
             'main'        => '信息审核',
             'personal'    => '个体信息审核',
             'application' => '成果展示申请审核',
+            'branch'      => '党支部信息审核',
         ],
     ],
 

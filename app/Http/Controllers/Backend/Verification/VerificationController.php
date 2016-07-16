@@ -12,7 +12,11 @@ abstract class VerificationController extends Controller
 {
     public abstract function index();
 
-    public abstract function getInfoNeedToVerified();
+    public abstract function unhandled();
 
-    public abstract function passVerify($id);
+    public abstract function grant($id);
+
+    public abstract function deny($id);
+
+    public abstract function detail($id);
 }

@@ -1,6 +1,6 @@
 @extends ('backend.layouts.master')
 
-@section ('title', trans('labels.backend.access.users.management'))
+@section ('title', trans('"labels.backend.verification.branch.management"'))
 
 @section('after-styles-end')
     {{ Html::style("css/backend/plugin/datatables/dataTables.bootstrap.min.css") }}
@@ -8,7 +8,7 @@
 
 @section('page-header')
     <h1>
-        {{ trans('labels.backend.access.users.management') }}
+        {{ trans('"labels.backend.verification.branch.management"') }}
         <small>{{ trans('labels.backend.access.users.active') }}</small>
     </h1>
 @endsection
@@ -17,11 +17,11 @@
     <div class="box box-success">
         <div class="box-header with-border">
             <h3 class="box-title">
-                用户个人信息审核
+                {{trans("labels.backend.verification.branch.management")}}
             </h3>
 
             {{--<div class="box-tools pull-right">--}}
-                {{--@include('backend.access.includes.partials.header-buttons')--}}
+            {{--@include('backend.access.includes.partials.header-buttons')--}}
             {{--</div><!--box-tools pull-right-->--}}
         </div><!-- /.box-header -->
 
@@ -31,12 +31,11 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>姓名</th>
-                        <th>电话</th>
-                        <th></th>
-                        <th>#</th>
-                        <th>#</th>
-                        <th>#</th>
+                        <th>成果名称</th>
+                        <th>成果类别</th>
+                        <th>所在学校</th>
+                        <th>申报联系人</th>
+                        <th>部门</th>
                     </tr>
                     </thead>
                 </table>
@@ -67,14 +66,14 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route("admin.access.user.get") }}',
+                    url: '{{ route("admin.verify.application.get") }}',
                     type: 'post',
                     data: {status: 1, trashed: false}
                 },
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
-                    {data: 'email', name: 'email'},
+                    {data: 'type', name: 'type'},
                     {data: 'confirmed', name: 'confirmed'},
                     {data: 'roles', name: 'roles'},
                     {data: 'created_at', name: 'created_at'},

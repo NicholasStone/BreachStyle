@@ -16,42 +16,57 @@ return [
     'backend' => [
         'access' => [
             'users' => [
-                'delete_user_confirm' => 'Are you sure you want to delete this user permanently? Anywhere in the application that references this user\'s id will most likely error. Proceed at your own risk. This can not be un-done.',
-                'if_confirmed_off' => '(If confirmed is off)',
-                'restore_user_confirm' => 'Restore this user to its original state?',
+                'delete_user_confirm'  => '你确定要删除此用户吗？（此操作不能撤销）.',
+                'if_confirmed_off'     => '(If confirmed is off)',
+                'restore_user_confirm' => '重置此用户到初始状态？',
+            ],
+        ],
+
+        'verification' => [
+            'application' => [
+                'title'  => '成果展示申请详情',
+                'name'   => '成功名称',
+                'type'   => '推荐种类',
+                'common' => '党支部情况介绍',
+                'user'   => '申报联系人',
+                'tel'    => '手机',
+                'dept'   => '部门',
+                'email'  => '通信地址及E-mail',
+                'school' => '所在院校',
+                'summary'=> '成功简介',
             ],
         ],
 
         'dashboard' => [
-            'title' => 'Administrative Dashboard',
-            'welcome' => 'Welcome',
+            'title'   => '管理员面板',
+            'welcome' => '欢迎',
         ],
 
         'general' => [
-            'all_rights_reserved' => 'All Rights Reserved.',
-            'are_you_sure' => 'Are you sure?',
-            'boilerplate_link' => 'Laravel 5 Boilerplate',
-            'continue' => 'Continue',
-            'member_since' => 'Member since',
-            'minutes' => ' minutes',
-            'search_placeholder' => 'Search...',
-            'timeout' => 'You were automatically logged out for security reasons since you had no activity in ',
+            'all_rights_reserved' => '版权所有',
+            'are_you_sure'        => '您确定吗？',
+            'boilerplate_link'    => 'Laravel 5 Boilerplate',
+            'continue'            => '继续',
+            'member_since'        => 'Member since',
+            'minutes'             => ' 分钟',
+            'search_placeholder'  => '搜索...',
+            'timeout'             => '由于您长时间处于为操作状态，处于安全原因已自动注销',
 
             'see_all' => [
-                'messages' => 'See all messages',
-                'notifications' => 'View all',
-                'tasks' => 'View all tasks',
+                'messages'      => '查看所有信息',
+                'notifications' => '查看所有',
+                'tasks'         => '查看所有任务',
             ],
 
             'status' => [
-                'online' => 'Online',
-                'offline' => 'Offline',
+                'online'  => '在线',
+                'offline' => '离线',
             ],
 
             'you_have' => [
-                'messages' => '{0} You don\'t have messages|{1} You have 1 message|[2,Inf] You have :number messages',
+                'messages'      => '{0} You don\'t have messages|{1} You have 1 message|[2,Inf] You have :number messages',
                 'notifications' => '{0} You don\'t have notifications|{1} You have 1 notification|[2,Inf] You have :number notifications',
-                'tasks' => '{0} You don\'t have tasks|{1} You have 1 task|[2,Inf] You have :number tasks',
+                'tasks'         => '{0} You don\'t have tasks|{1} You have 1 task|[2,Inf] You have :number tasks',
             ],
         ],
     ],
@@ -59,7 +74,7 @@ return [
     'emails' => [
         'auth' => [
             'password_reset_subject' => 'Your Password Reset Link',
-            'reset_password' => 'Click here to reset your password',
+            'reset_password'         => 'Click here to reset your password',
         ],
     ],
 
@@ -73,7 +88,7 @@ return [
         'tests' => [
             'based_on' => [
                 'permission' => 'Permission Based - ',
-                'role' => 'Role Based - ',
+                'role'       => 'Role Based - ',
             ],
 
             'js_injected_from_controller' => 'Javascript Injected from a Controller',
@@ -81,23 +96,23 @@ return [
             'using_blade_extensions' => 'Using Blade Extensions',
 
             'using_access_helper' => [
-                'array_permissions' => 'Using Access Helper with Array of Permission Names or ID\'s where the user does have to possess all.',
+                'array_permissions'     => 'Using Access Helper with Array of Permission Names or ID\'s where the user does have to possess all.',
                 'array_permissions_not' => 'Using Access Helper with Array of Permission Names or ID\'s where the user does not have to possess all.',
-                'array_roles' => 'Using Access Helper with Array of Role Names or ID\'s where the user does have to possess all.',
-                'array_roles_not' => 'Using Access Helper with Array of Role Names or ID\'s where the user does not have to possess all.',
-                'permission_id' => 'Using Access Helper with Permission ID',
-                'permission_name' => 'Using Access Helper with Permission Name',
-                'role_id' => 'Using Access Helper with Role ID',
-                'role_name' => 'Using Access Helper with Role Name',
+                'array_roles'           => 'Using Access Helper with Array of Role Names or ID\'s where the user does have to possess all.',
+                'array_roles_not'       => 'Using Access Helper with Array of Role Names or ID\'s where the user does not have to possess all.',
+                'permission_id'         => 'Using Access Helper with Permission ID',
+                'permission_name'       => 'Using Access Helper with Permission Name',
+                'role_id'               => 'Using Access Helper with Role ID',
+                'role_name'             => 'Using Access Helper with Role Name',
             ],
 
-            'view_console_it_works' => 'View console, you should see \'it works!\' which is coming from FrontendController@index',
-            'you_can_see_because' => 'You can see this because you have the role of \':role\'!',
+            'view_console_it_works'          => 'View console, you should see \'it works!\' which is coming from FrontendController@index',
+            'you_can_see_because'            => 'You can see this because you have the role of \':role\'!',
             'you_can_see_because_permission' => 'You can see this because you have the permission of \':permission\'!',
         ],
 
         'user' => [
-            'profile_updated' => 'Profile successfully updated.',
+            'profile_updated'  => 'Profile successfully updated.',
             'password_updated' => 'Password successfully updated.',
         ],
 

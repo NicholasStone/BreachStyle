@@ -66,6 +66,9 @@
                     <li class="{{ Active::pattern('admin/verification/application') }}">
                         {{ link_to('admin/verify/application', trans('menus.backend.verification.application')) }}
                     </li>
+                    <li class="{{ Active::pattern('admin/verification/branch') }}">
+                        {{ link_to('admin/verify/application', trans('menus.backend.verification.branch')) }}
+                    </li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->
