@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Backend\Verification;
 
 use App\Models\Application;
-use App\Http\Requests;
+use App\Http\Controllers\Common\FileStorage;
 use Yajra\Datatables\Facades\Datatables;
 
 class ApplicationController extends VerificationController
 {
+    use FileStorage;
+
     public function index()
     {
         return view('backend.verification.application.index')
@@ -52,6 +54,4 @@ class ApplicationController extends VerificationController
         $application->user;
         return view('backend.verification.application.detail', $application);
     }
-
-
 }

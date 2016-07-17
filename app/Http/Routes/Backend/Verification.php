@@ -32,5 +32,6 @@ Route::group([
     Route::get('application/grant/{id}', 'ApplicationController@grant')->name('admin.verify.application.grant');
     Route::get('application/deny/{id}', 'ApplicationController@deny')->name('admin.verify.application.deny');
     Route::get('application/detail/{id}', 'ApplicationController@detail')->name('admin.verify.application.detail');
+    Route::get('lab', 'ApplicationController@lab')->name('admin.verify.application.detail');
 
 });

@@ -20,7 +20,8 @@ class CreateApplicationsTable extends Migration
             $table->string('commons');
             $table->text('summary');
             $table->boolean('verification')->default(0);
-            $table->string('img_hash');
+            $table->string('img_hash', 32)->nullable();
+            $table->string('type', 20)->nullable();
             $table->timestamps();
         });
     }
