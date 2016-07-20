@@ -40,5 +40,10 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
 });
 
 Route::group(['namespace' => 'Common', 'prefix'=>'common', 'middleware'=>'web'], function (){
-    require (__DIR__.'Routes/Common/File.php');
+    require (__DIR__.'/Routes/Common/File.php');
+    require (__DIR__.'/Routes/Common/Universities.php');
 });
+//Route::any('lab',function (){
+//    $user = \App\Models\Access\User\User::find(1);
+//    echo $user->branch_type;
+//});

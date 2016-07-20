@@ -9,20 +9,19 @@ Route::group(['namespace' => 'Party',], function () {
     });
 
     Route::group(['prefix' => 'course'], function () {
-
+        Route::get('index', 'CourseController@index')->name('frontend.course.index');
+        Route::get('submit', 'CourseController@create')->name('frontend.course.create');
+        Route::post('submit', 'CourseController@store')->name('frontend.course.store');
     });
 
     Route::group(['prefix' => 'case'], function () {
-
+//        Route::get('index', 'CaseController@index')->name('frontend.case.index');
+        Route::get('submit', 'CaseController@create')->name('frontend.case.create');
+        Route::post('submit', 'CaseController@store')->name('frontend.case.store');
     });
 
     Route::group(['prefix' => 'recommend'], function () {
-        Route::group(['prefix' => 'instructor'], function (){
 
-        });
-        Route::group(['prefix' => 'student'], function (){
-
-        });
     });
 
 });

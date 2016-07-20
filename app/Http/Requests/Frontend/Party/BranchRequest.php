@@ -24,10 +24,15 @@ class BranchRequest extends Request
     public function rules()
     {
         return [
-            'name'             => 'required',
-            'avatar'           => 'required',
-            'school'           => 'required',
-            'total_membership' => 'required',
+            'name'              => 'required',
+            'avatar'            => 'required',
+            'school'            => 'required',
+            'secretary'         => 'required|exists:users,name',
+            'secretary_summary' => 'required|max:100',
+            'total_membership'  => 'required',
+            'tel'               => 'required|string|size:11',
+            'address'           => 'required|max:200',
+            'summary'           => 'required|max:300',
         ];
     }
 }

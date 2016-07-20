@@ -31,7 +31,8 @@ class CaseController extends Controller
      */
     public function create()
     {
-        return view("frontend.party.case.index");
+        return view("frontend.party.case.index")
+            ->withUser(access()->user());
     }
 
     /**
@@ -44,12 +45,15 @@ class CaseController extends Controller
     {
         $application = Application::new();
         $apply = $request->all();
-        $this->putFile($request->file('img'), "Application/Case");
+        $img_hash = $this->putFile($request->file('img'), "Application/Case");
+        $apply_hash = $this->putFile($request->file('apply'), "Application/Apply");
         $application->name = $apply['name'];
-        $application->type = $apply['type'];
+        $application->type = '工作案例';
         $application->detail = $apply['detail'];
         $application->summary = $apply['summary'];
         $application->branch_name = Auth::user()->branch_name;
+        $application->img_hash = $img_hash;
+        $application->apply_hash = $apply_hash;
         $application->save();
     }
 

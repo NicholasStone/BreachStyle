@@ -21,7 +21,7 @@
         <div class="box-body">
             <dl class="dl-horizontal">
                 <dt>{{ trans('strings.backend.verification.branch.name') }}</dt><dd>{{ $name }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.creator') }}</dt><dd>{{ $creator['name'] }}</dd>
+                <dt>{{ trans('creator') }}</dt><dd>{{ $creator['nacreator</dd>
                 <dt>{{ trans('strings.backend.verification.branch.type') }}</dt><dd>{{ $type }}</dd>
                 <dt>{{ trans('strings.backend.verification.branch.school') }}</dt><dd>{{ $creator['school_name'] }}</dd>
                 <dt>{{ trans('strings.backend.verification.branch.address') }}</dt><dd>{{ $address }}</dd>

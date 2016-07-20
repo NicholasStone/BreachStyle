@@ -3,6 +3,7 @@
 namespace App\Models\Access\User;
 
 use App\Models\Access\User\Traits\UserAccess;
+use App\Models\Branch;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Access\User\Traits\Attribute\UserAttribute;
@@ -35,4 +36,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_name', 'name');
+    }
+
+    public function getBranchTypeAttribute()
+    {
+        return $this->branch->type;
+    }
 }

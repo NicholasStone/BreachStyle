@@ -9,7 +9,7 @@ class Branch extends Model
 {
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator', 'name');
+        return $this->belongsTo(User::class, 'secretary', 'name');
     }
 
     public function members()

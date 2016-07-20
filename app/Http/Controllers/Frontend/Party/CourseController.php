@@ -27,7 +27,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+        return view("backend.party.course.create")
+            ->withUser(access()->user());
     }
 
     /**
@@ -38,7 +39,18 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $application = Application::new();
+        $apply = $request->all();
+        $img_hash = $this->putFile($request->file('img'), "Application/Course");
+        $apply_hash = $this->putFile($request->file('apply'), "Application/Apply");
+        $application->name = $apply['name'];
+        $application->type = '微党课';
+        $application->summary = $apply['summary'];
+        $application->branch_name = Auth::user()->branch_name;
+        $application->course_lecturer = $apply['course_lectuer'];
+        $application->img_hash = $img_hash;
+        $application->apply_hash = $apply_hash;
+        $application->save();
     }
 
     /**

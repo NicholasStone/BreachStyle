@@ -19,9 +19,10 @@ class CreateBranchesTable extends Migration
             $table->enum('type', ["学生党支部", "教师党支部"]);
             $table->boolean('verification')->default(0);
             $table->string('address');
-            $table->string('commons');
+            $table->string('summary', 300);
             $table->unsignedInteger('total_membership');
-            $table->string('creator', 50);
+            $table->string('secretary', 50);
+            $table->string('secretary_summary', 100);
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Frontend\Party;
 
 use App\Http\Requests\Request;
 
-class InstructorRequest extends Request
+class RecommendRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,11 @@ class InstructorRequest extends Request
     public function rules()
     {
         return [
-            //
+            'name'    => 'required',
+            'summary' => 'required|max:300',
+            'apply'   => 'required|mimes:jpeg,jpg',
+            'img'     => 'required|mimes:jpeg,gif,png',
+            'detail'  => 'required',
         ];
     }
 }
