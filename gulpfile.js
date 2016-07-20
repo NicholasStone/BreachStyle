@@ -24,10 +24,6 @@ elixir(function (mix) {
             'frontend/style.css',
             'frontend/swipeslider.css'
         ], 'public/css/frontend.css')
-        .styles([
-            'frontend/video.css',
-            'frontend/video-js.css'
-        ], 'public/css/frontend/video.css')
         .copy(
             'resources/assets/js/frontend/swipeslider.min.js',
             'public/js/swipeslider.min.js'
