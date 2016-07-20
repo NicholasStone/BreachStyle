@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HistoryTypeTableSeeder::class);
 
         Model::reguard();
+        $this->call('ProvincesTableSeeder');
+        $this->call('UniversitiesTableSeeder');
     }
 }
