@@ -1,0 +1,320 @@
+.personal{
+	width: 100%;
+	overflow: hidden;
+}
+.personal .content{
+	width: 800px;
+	overflow: hidden;
+	margin: 40px auto;
+}
+.idCard{
+	width: 100%;
+	overflow: hidden;
+	float: left;
+	background: #ffffff;
+}
+.idCard .idCardList{
+	width: 100%;
+	overflow: hidden;
+}
+.idCard .idCardList li.headImg{
+	width: 25%;
+	float: left;
+}
+.idCard .idCardList li.headImg .headImgBox{
+	width: 80%;
+	height: 0;
+	padding-top: 80%;
+	position: relative;
+	margin: 16px;
+}
+.idCard .idCardList li.headImg .headImgBox img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.idCard .idCardList li.personInfo{
+	width: 45%;
+	float: left;
+}
+.idCard .idCardList li.personInfo ul{
+	width: 100%;
+	margin: 16px 0;
+}
+.idCard .idCardList li.personInfo ul li{
+	width: 100%;
+	float: left;
+	line-height: 40px;
+}
+.idCard .idCardList li.personInfo ul li p{
+	color: #7f7f7f;
+}
+.idCard .idCardList li.personInfo ul li p span{
+	color: #363636;
+}
+.idCard .idCardList li.personInfo ul li p i{
+	margin-right: 12px;
+	color: #7f7f7f;
+}
+.idCard .idCardList li.certify{
+	position: relative;
+}
+.idCard .idCardList li.certify img{
+	margin-top: 16px;
+}
+.idCard .idCardList li.certify a{
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	color: #acacac;
+	font-size: .875em;
+}
+.idCard .idCardList li.certify a span{
+	margin-left: 8px;
+	color: #3b3a46;
+}
+.bindDepart{
+	width: 100%;
+	padding: 4px 16px 16px;
+	overflow: hidden;
+}
+.bindDepart p{
+	color: #7f7f7f;
+	float: left;
+	padding-top: 8px;
+}
+.bindDepart p span{
+	color: #363636;
+}
+.bindDepart p i{
+	margin-right: 12px;
+	color: #7f7f7f;
+}
+.bindDepart a{
+	width: 125px;
+	height: 36px;
+	background: #E43E2F;
+	color: #ffffff;
+	display: block;
+	margin-left: 30px;
+	text-align: center;
+	line-height: 36px;
+	float: left;
+}
+
+
+.floatPanel{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.48);
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.floatPanel .editPanel{
+	width: 280px;
+	display: none;
+	height: 300px;
+	background: #ffffff;
+	border-radius: 8px;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	padding: 0 20px;
+}
+.floatPanel .editPanel h3{
+	line-height: 32px;
+	text-align: center;
+	padding-top: 16px;
+	color: #131313;
+}
+.floatPanel .editPanel p{
+	color: #131313;
+	margin: 16px 0 6px;
+}
+.floatPanel .editPanel input{
+	width: 100%;
+	height: 32px;
+	text-indent: 1em;
+	outline: none;
+	color: #131313;
+}
+.floatPanel .editPanel .BtnList{
+	width: 100%;
+	margin-top: 40px;
+}
+.floatPanel .editPanel .BtnList #editSave{
+	width: 120px;
+	margin-right: 40px;
+	height: 32px;
+	outline: none;
+	border: none;
+	background: #E43E2F;
+	color: #ffffff;
+	float: left;
+	cursor: pointer;
+}
+.floatPanel .editPanel .BtnList #editCancel{
+	width: 120px;
+	height: 32px;
+	outline: none;
+	border: none;
+	float: left;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+
+.floatPanel .bindPanel h3{
+	line-height: 32px;
+	text-align: center;
+	padding-top: 16px;
+	color: #131313;
+}
+.floatPanel .bindPanel p{
+	color: #131313;
+	margin: 16px 0 6px;
+}
+.floatPanel .bindPanel{
+	display: none;
+	width: 280px;
+	height: 230px;
+	background: #ffffff;
+	border-radius: 8px;
+	position: relative;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	padding: 0 20px;
+}
+.floatPanel .bindPanel select{
+	width: 100%;
+	height: 40px;
+}
+.floatPanel .bindPanel select option{
+	width: 100% !important;
+}
+.floatPanel .bindPanel .BtnList{
+	width: 100%;
+	margin-top: 40px;
+}
+.floatPanel .bindPanel .BtnList #bindSave{
+	width: 120px;
+	margin-right: 40px;
+	height: 32px;
+	outline: none;
+	border: none;
+	background: #E43E2F;
+	color: #ffffff;
+	float: left;
+	cursor: pointer;
+}
+.floatPanel .bindPanel .BtnList #bindCancel{
+	width: 120px;
+	height: 32px;
+	outline: none;
+	border: none;
+	float: left;
+	color: #ffffff;
+	cursor: pointer;
+}
+.createDepart{
+	float: right;
+	color: #E43E2F;
+	font-size: .875em;
+	margin: 12px 0;
+}
+
+
+
+.bindinfo{
+	width: 100%;
+}
+.bindinfo .content{
+	width: 640px;
+	margin: 40px auto;
+	overflow: hidden;
+}
+.bindinfo .content .headImg{
+	width: 50%;
+	overflow: hidden;
+	float: left;
+}
+.bindinfo .content .headImg .headImgBox{
+	width: 56.25%;
+	height: 0;
+	padding-top: 56.25%;
+	position: relative;
+}
+.bindinfo .content .headImg .headImgBox img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.bindinfo .content .infoList{
+	width: 50%;
+	float: left;
+	overflow: hidden;
+}
+.bindinfo .content .infoList p{
+	width: 100%;
+	line-height: 48px;
+}
+.bindinfo .content .infoList p input{
+	outline: none;
+	margin-left: 20px;
+	height: 30px;
+	border: 1px solid #d6bec1;
+	text-indent: 1em;
+}
+.bindinfo .content .infoList input.submitBtn{
+	width: 110px;
+	height: 36px;
+	border: none;
+	outline: none;
+	background: #E43E2F;
+	color: #ffffff;
+	margin-top: 32px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

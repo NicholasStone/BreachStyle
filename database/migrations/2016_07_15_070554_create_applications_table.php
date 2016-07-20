@@ -15,12 +15,13 @@ class CreateApplicationsTable extends Migration
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->enum('type', ['工作案例','微党课','教师党支部推荐展示','学生党支部推荐展示']);
-            $table->unsignedInteger('user_id');
-            $table->string('commons');
-            $table->text('summary');
+            $table->enum('type', ['工作案例', '微党课', '教师党支部推荐展示', '学生党支部推荐展示']);
+            $table->string('summary');
+            $table->text('detail');
             $table->boolean('verification')->default(0);
-            $table->string('img_hash', 32)->nullable();
+            $table->string('branch_name', 50);
+            $table->string('img_hash', 32);
+            $table->string('apply_hash', 32);
             $table->string('type', 20)->nullable();
             $table->timestamps();
         });

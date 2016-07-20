@@ -82,12 +82,6 @@ return [
 
                 ],
             ],
-            'personal'    => [
-                'management' => '个人信息审核',
-                'table'      => [
-
-                ],
-            ],
             'branch'      => [
                 'management' => '党支部信息审核',
 

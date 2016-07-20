@@ -45,6 +45,7 @@ return [
         'sidebar' => [
             'dashboard' => '仪表盘',
             'general'   => '全体',
+            'settings'  => '首页设置',
         ],
 
         'verification' => [

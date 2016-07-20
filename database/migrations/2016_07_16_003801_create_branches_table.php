@@ -15,8 +15,13 @@ class CreateBranchesTable extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50)->unique();
-            $table->string('parent_branch', 50);
-            $table->unsignedInteger('creator');
+            $table->string('avatar', 32);
+            $table->enum('type', ["学生党支部", "教师党支部"]);
+            $table->boolean('verification')->default(0);
+            $table->string('address');
+            $table->string('commons');
+            $table->unsignedInteger('total_membership');
+            $table->string('creator', 50);
             $table->timestamps();
         });
     }

@@ -16,14 +16,8 @@
         <!-- Styles -->
         @yield('before-styles-end')
 
-        <!-- Check if the language is set to RTL, so apply the RTL layouts -->
-        <!-- Otherwise apply the normal LTR layouts -->
-        @langRTL
-            {{ Html::style(elixir('css/backend-rtl.css')) }}
-            {{ Html::style(elixir('css/rtl.css')) }}
-        @else
-            {{ Html::style(elixir('css/backend.css')) }}
-        @endif
+        {{ Html::style(elixir('css/backend.css')) }}
+        {{ Html::style('//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css') }}
 
         @yield('after-styles-end')
 
@@ -62,8 +56,7 @@
         </div><!-- ./wrapper -->
 
         <!-- JavaScripts -->
-        {{ HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js') }}
-        <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery/jquery-2.1.4.min.js')}}"><\/script>')</script>
+        {{ Html::script('//cdn.bootcss.com/jquery/2.2.4/jquery.min.js') }}
         {{ Html::script('js/vendor/bootstrap/bootstrap.min.js') }}
 
         @yield('before-scripts-end')

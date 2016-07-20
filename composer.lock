@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d21342064f55d99b69e91c0364bf501e",
-    "content-hash": "7b0349c99951da6664fd2460cf54fe59",
+    "hash": "803f1ee3558c1508fb0d66e3eb842a2d",
+    "content-hash": "35ffa4db89269190e2be2e197f4dc8de",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -3228,6 +3228,52 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2015-12-08 16:14:14"
+        },
+        {
+            "name": "uxweb/sweet-alert",
+            "version": "1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uxweb/sweet-alert.git",
+                "reference": "45177ff359982a327387ba7fb11e0309ea43187e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packagist.phpcomposer.com/files/uxweb/sweet-alert/45177ff359982a327387ba7fb11e0309ea43187e.zip",
+                "reference": "45177ff359982a327387ba7fb11e0309ea43187e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "UxWeb\\SweetAlert\\": "src/SweetAlert/"
+                },
+                "files": [
+                    "src/SweetAlert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Uziel Bueno",
+                    "email": "ux.webs@gmail.com"
+                }
+            ],
+            "description": "A simple PHP package to show Sweet Alerts with the Laravel Framework",
+            "keywords": [
+                "alert",
+                "laravel",
+                "sweet"
+            ],
+            "time": "2016-07-10 21:08:39"
         },
         {
             "name": "vlucas/phpdotenv",

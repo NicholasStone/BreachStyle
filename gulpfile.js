@@ -1,100 +1,71 @@
 var elixir = require('laravel-elixir');
 require('./elixir-extensions');
 
-elixir(function(mix) {
- mix
-     //.phpUnit()
-     //.compressHtml()
+elixir(function (mix) {
+    mix
+    //.phpUnit()
+    //.compressHtml()
 
     /**
      * Copy needed files from /node directories
      * to /public directory.
      */
-     .copy(
-       'node_modules/font-awesome/fonts',
-       'public/build/fonts/font-awesome'
-     )
-     .copy(
-       'node_modules/bootstrap-sass/assets/fonts/bootstrap',
-       'public/build/fonts/bootstrap'
-     )
-     .copy(
-       'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
-       'public/js/vendor/bootstrap'
-     )
+        .styles([
+            'frontend/caseDetail.css',
+            'frontend/caseList.css',
+            'frontend/comment.css',
+            'frontend/courseList.css',
+            'frontend/create.css',
+            'frontend/depart.css',
+            'frontend/iconfont.css',
+            'frontend/myachieve.css',
+            'frontend/personal.css',
+            'frontend/show.css',
+            'frontend/style.css',
+            'frontend/swipeslider.css'
+        ], 'public/css/frontend.css')
+        .styles([
+            'frontend/video.css',
+            'frontend/video-js.css'
+        ], 'public/css/frontend/video.css')
+        .copy(
+            'resources/assets/js/frontend/swipeslider.min.js',
+            'public/js/swipeslider.min.js'
+        )
 
-     /**
-      * Process frontend SCSS stylesheets
-      */
-     .sass([
-        'frontend/app.scss',
-        'plugin/sweetalert/sweetalert.scss'
-     ], 'resources/assets/css/frontend/app.css')
+        /**
+         * Process backend SCSS stylesheets
+         */
+        .sass([
+            'backend/app.scss',
+            'backend/plugin/toastr/toastr.scss',
+            'plugin/sweetalert/sweetalert.scss'
+        ], 'resources/assets/css/backend/app.css')
 
-     /**
-      * Combine pre-processed frontend CSS files
-      */
-     .styles([
-        'frontend/app.css'
-     ], 'public/css/frontend.css')
+        /**
+         * Combine pre-processed backend CSS files
+         */
+        .styles([
+            'backend/app.css'
+        ], 'public/css/backend.css')
 
-     /**
-      * Combine frontend scripts
-      */
-     .scripts([
-        'plugin/sweetalert/sweetalert.min.js',
-        'plugins.js',
-        'frontend/app.js'
-     ], 'public/js/frontend.js')
+        /**
+         * Combine backend scripts
+         */
+        .scripts([
+            'plugin/sweetalert/sweetalert.min.js',
+            'plugins.js',
+            'backend/app.js',
+            'backend/plugin/toastr/toastr.min.js',
+            'backend/custom.js'
+        ], 'public/js/backend.js')
 
-     /**
-      * Process backend SCSS stylesheets
-      */
-     .sass([
-         'backend/app.scss',
-         'backend/plugin/toastr/toastr.scss',
-         'plugin/sweetalert/sweetalert.scss'
-     ], 'resources/assets/css/backend/app.css')
-
-     /**
-      * Combine pre-processed backend CSS files
-      */
-     .styles([
-         'backend/app.css'
-     ], 'public/css/backend.css')
-
-     /**
-      * Make RTL (Right To Left) CSS stylesheet for the backend
-      */
-     .rtlCss()
-
-     /**
-      * Combine backend scripts
-      */
-     .scripts([
-         'plugin/sweetalert/sweetalert.min.js',
-         'plugins.js',
-         'backend/app.js',
-         'backend/plugin/toastr/toastr.min.js',
-         'backend/custom.js'
-     ], 'public/js/backend.js')
-
-     /**
-      * Combine pre-processed rtl CSS files
-      */
-     .styles([
-         'rtl/bootstrap-rtl.css'
-     ], 'public/css/rtl.css')
-
-    /**
-      * Apply version control
-      */
-     .version([
-         "public/css/frontend.css",
-         "public/js/frontend.js",
-         "public/css/backend.css",
-         "public/css/backend-rtl.css",
-         "public/js/backend.js",
-         "public/css/rtl.css"
-     ]);
+        /**
+         * Apply version control
+         */
+        .version([
+            "public/css/frontend.css",
+            "public/css/backend.css",
+            "public/js/backend.js"
+        ]);
 });

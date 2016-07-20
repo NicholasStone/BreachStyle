@@ -1,11 +1,11 @@
 <?php
 
-Route::group(['middleware' => 'web'], function() {
+Route::group(['middleware' => 'web'], function () {
     /**
      * Switch between the included languages
      */
     Route::group(['namespace' => 'Language'], function () {
-        require (__DIR__ . '/Routes/Language/Language.php');
+        require(__DIR__ . '/Routes/Language/Language.php');
     });
 
     /**
@@ -13,8 +13,9 @@ Route::group(['middleware' => 'web'], function() {
      * Namespaces indicate folder structure
      */
     Route::group(['namespace' => 'Frontend'], function () {
-        require (__DIR__ . '/Routes/Frontend/Frontend.php');
-        require (__DIR__ . '/Routes/Frontend/Access.php');
+        require(__DIR__ . '/Routes/Frontend/Frontend.php');
+        require(__DIR__ . '/Routes/Frontend/Access.php');
+        require(__DIR__ . '/Routes/Frontend/Party.php');
     });
 });
 
@@ -31,8 +32,13 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
      *
      * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
      */
-    require (__DIR__ . '/Routes/Backend/Dashboard.php');
-    require (__DIR__ . '/Routes/Backend/Access.php');
-    require (__DIR__ . '/Routes/Backend/LogViewer.php');
-    require (__DIR__ . '/Routes/Backend/Verification.php');
+    require(__DIR__ . '/Routes/Backend/Dashboard.php');
+    require(__DIR__ . '/Routes/Backend/Access.php');
+    require(__DIR__ . '/Routes/Backend/LogViewer.php');
+    require(__DIR__ . '/Routes/Backend/Verification.php');
+    request(__DIR__ . '/Routes/Backend/Settings.php');
+});
+
+Route::group(['namespace' => 'Common', 'prefix'=>'common', 'middleware'=>'web'], function (){
+    require (__DIR__.'Routes/Common/File.php');
 });

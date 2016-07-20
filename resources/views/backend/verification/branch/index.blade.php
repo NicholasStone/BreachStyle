@@ -1,6 +1,6 @@
 @extends ('backend.layouts.master')
 
-@section ('title', trans('"labels.backend.verification.branch.management"'))
+@section ('title', trans("labels.backend.verification.branch.management"))
 
 @section('after-styles-end')
     {{ Html::style("css/backend/plugin/datatables/dataTables.bootstrap.min.css") }}
@@ -8,7 +8,7 @@
 
 @section('page-header')
     <h1>
-        {{ trans('"labels.backend.verification.branch.management"') }}
+        {{ trans("labels.backend.verification.branch.management") }}
         <small>{{ trans('labels.backend.access.users.active') }}</small>
     </h1>
 @endsection
@@ -27,33 +27,22 @@
 
         <div class="box-body">
             <div class="table-responsive">
-                <table id="users-table" class="table table-condensed table-hover">
+                <table id="branchs-table" class="table table-condensed table-hover">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>成果名称</th>
-                        <th>成果类别</th>
+                        <th>支部名称</th>
+                        <th>支部类型</th>
+                        <th>支部书记</th>
                         <th>所在学校</th>
-                        <th>申报联系人</th>
-                        <th>部门</th>
+                        <th>总人数</th>
+                        <th>提交时间</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                 </table>
             </div><!--table-responsive-->
         </div><!-- /.box-body -->
     </div><!--box-->
-
-    <div class="box box-info">
-        <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('history.backend.recent_history') }}</h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-            </div><!-- /.box tools -->
-        </div><!-- /.box-header -->
-        <div class="box-body">
-            {!! history()->renderType('User') !!}
-        </div><!-- /.box-body -->
-    </div><!--box box-success-->
 @stop
 
 @section('after-scripts-end')
@@ -62,23 +51,21 @@
 
     <script>
         $(function() {
-            $('#users-table').DataTable({
+            $('#branchs-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route("admin.verify.application.get") }}',
-                    type: 'post',
-                    data: {status: 1, trashed: false}
+                    url: '{{ route("admin.verify.branch.get") }}',
+                    type: 'post'
                 },
                 columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'type', name: 'type'},
-                    {data: 'confirmed', name: 'confirmed'},
-                    {data: 'roles', name: 'roles'},
-                    {data: 'created_at', name: 'created_at'},
-                    {data: 'updated_at', name: 'updated_at'},
-                    {data: 'actions', name: 'actions'}
+                    {data: 'name'},
+                    {data: 'type'},
+                    {data: 'creator.name'},
+                    {data: 'creator.school_name'},
+                    {data: 'total_membership'},
+                    {data: 'created_at'},
+                    {data: 'operations'}
                 ],
                 order: [[0, "asc"]],
                 searchDelay: 500

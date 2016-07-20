@@ -1,51 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="_token" content="{{ csrf_token() }}" />
 
         <title>@yield('title', app_name())</title>
 
         <!-- Meta -->
-        <meta name="description" content="@yield('meta_description', 'Laravel 5 Boilerplate')">
-        <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
+
         @yield('meta')
 
         <!-- Styles -->
         @yield('before-styles-end')
-
+        {{ Html::style("//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css") }}
+        {{ Html::style("//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css") }}
         {{ Html::style(elixir('css/frontend.css')) }}
-
-        <!-- Check if the language is set to RTL, so apply the RTL layouts -->
-        @langRTL
-            {!! Html::style(elixir('css/rtl.css')) !!}
-        @endif
 
         @yield('after-styles-end')
 
-        <!-- Fonts -->
-        {{ Html::style('https://fonts.googleapis.com/css?family=Lato:100,300,400,700') }}
     </head>
-    <body id="app-layout">
-        @include('includes.partials.logged-in-as')
+    <body>
         @include('frontend.includes.nav')
 
         <div class="container">
             @include('includes.partials.messages')
             @yield('content')
         </div><!-- container -->
-
-        <!-- Scripts -->
-        {{ HTML::script('https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js') }}
-        <script>window.jQuery || document.write('<script src="{{asset('js/vendor/jquery/jquery-2.1.4.min.js')}}"><\/script>')</script>
-        {!! Html::script('js/vendor/bootstrap/bootstrap.min.js') !!}
-
+        @include('frontend.includes.footer')
         @yield('before-scripts-end')
-        {!! Html::script(elixir('js/frontend.js')) !!}
+        {!! Html::script("//cdn.bootcss.com/jquery/2.1.1/jquery.min.js") !!}
+        {!! Html::script("//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js") !!}
+        @include("sweet::alert")
         @yield('after-scripts-end')
-
-        @include('includes.partials.ga')
     </body>
 </html>

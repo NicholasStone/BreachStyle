@@ -34,6 +34,10 @@
                 {{ link_to_route('admin.dashboard', trans('menus.backend.sidebar.dashboard')) }}
             </li>
 
+            {{--<li class="{{ Active::pattern('admin/settings') }}">--}}
+                {{--{{ link_to_route('admin.settings', trans('menus.backend.sidebar.sittings')) }}--}}
+            {{--</li>--}}
+
             @permission('manage-users')
                 <li class="{{ Active::pattern('admin/access/*') }}">
                     {{ link_to_route('admin.access.user.index', trans('menus.backend.access.title')) }}
@@ -60,14 +64,11 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu {{ Active::pattern('admin/verification*', 'menu-open') }}" style="display: none; {{ Active::pattern('admin/verification*', 'display: block;') }}">
-                    <li class="{{ Active::pattern('admin/verification/personal') }}">
-                        {{ link_to('admin/verify/personal', trans('menus.backend.verification.personal')) }}
-                    </li>
                     <li class="{{ Active::pattern('admin/verification/application') }}">
                         {{ link_to('admin/verify/application', trans('menus.backend.verification.application')) }}
                     </li>
                     <li class="{{ Active::pattern('admin/verification/branch') }}">
-                        {{ link_to('admin/verify/application', trans('menus.backend.verification.branch')) }}
+                        {{ link_to('admin/verify/branch', trans('menus.backend.verification.branch')) }}
                     </li>
                 </ul>
             </li>

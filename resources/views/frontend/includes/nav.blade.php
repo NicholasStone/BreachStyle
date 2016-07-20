@@ -1,59 +1,83 @@
-<nav class="navbar navbar-default">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#frontend-navbar-collapse">
-                <span class="sr-only">{{ trans('labels.general.toggle_navigation') }}</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            {{ link_to_route('frontend.index', app_name(), [], ['class' => 'navbar-brand']) }}
-        </div><!--navbar-header-->
-
-        <div class="collapse navbar-collapse" id="frontend-navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li>{{ link_to_route('frontend.index', trans('navs.general.home')) }}</li>
-                <li>{{ link_to_route('frontend.macros', trans('navs.frontend.macros')) }}</li>
+<!-- topbar -->
+<div class="topbar">
+    <div class="content">
+        <div class="welcome">
+            <p>您好，欢迎来到
+                <a href="http://www.univs.cn/index.shtml" target="_blank">中国大学生在线</a>！</p>
+        </div>
+        <div class="home">
+            <ul class="homeList">
+                <li class="homePage">
+                    <a href="http://www.univs.cn/">
+                        <i></i>首页
+                    </a>
+                </li>
+                <li class="weibo">
+                    <a href="javascript:;">
+                        <i></i>微在线<span></span>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="">微博</a>
+                        </li>
+                        <li>
+                            <a href="">微信</a>
+                        </li>
+                        <li>
+                            <a href="">客户端</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="search">
+                    <form>
+                        <input type="text" name="search" id="search" placeholder="搜索关键字" />
+                        <input type="submit" name="sub" id="sub" value="" />
+                    </form>
+                </li>
+                <li class="login">
+                    <a href="javascript:;" class="loginBtn">登录</a>
+                    <a href="" class="reg">注册</a>
+                </li>
             </ul>
+        </div>
+    </div>
+</div>
+<!-- topbar -->
 
-            <ul class="nav navbar-nav navbar-right">
-                @if (config('locale.status') && count(config('locale.languages')) > 1)
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ trans('menus.language-picker.language') }}
-                            <span class="caret"></span>
-                        </a>
+<div class="clearfix"></div>
 
-                        @include('includes.partials.lang')
-                    </li>
-                @endif
+<!-- banner -->
+<div class="banner">
+    <div class="bannerBox">
+        <img src="{{ asset("img/banner.jpg") }}" />
+    </div>
+</div>
+<!-- banner -->
 
-                @if (access()->guest())
-                    <li>{{ link_to('login', trans('navs.frontend.login')) }}</li>
-                    <li>{{ link_to('register', trans('navs.frontend.register')) }}</li>
-                @else
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            {{ access()->user()->name }} <span class="caret"></span>
-                        </a>
+<div class="clearfix"></div>
 
-                        <ul class="dropdown-menu" role="menu">
-                            <li>{{ link_to_route('frontend.user.dashboard', trans('navs.frontend.dashboard')) }}</li>
+<!-- mainNav -->
+<div class="mainNav">
+    <div class="content">
+        <ul>
+            <li class="nav">
+                <a href="javascript:;">首页</a>
+            </li>
+            <li class="nav">
+                <a href="javascript:;">活动详情</a>
+            </li>
+            <li class="nav">
+                <a href="javascript:;">活动要求</a>
+            </li>
+            <li class="nav">
+                <a href="javascript:;">成果展示</a>
+            </li>
+            <li class="upload">
+                <a href="javascript:;"><span>上传成果</span></a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- mainNav -->
 
-                            @if (access()->user()->canChangePassword())
-                                <li>{{ link_to_route('auth.password.change', trans('navs.frontend.user.change_password')) }}</li>
-                            @endif
-
-                            @permission('view-backend')
-                            <li>{{ link_to_route('admin.dashboard', trans('navs.frontend.user.administration')) }}</li>
-                            @endauth
-
-                            <li>{{ link_to_route('auth.logout', trans('navs.general.logout')) }}</li>
-                        </ul>
-                    </li>
-                @endif
-            </ul>
-        </div><!--navbar-collapse-->
-    </div><!--container-->
-</nav>
+<div class="clearfix"></div>

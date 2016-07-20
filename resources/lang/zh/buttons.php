@@ -41,6 +41,7 @@ return [
             'delete' => '删除',
             'edit'   => '编辑',
             'update' => '更新',
+            'detail' => '详情'
         ],
 
         'save' => '保存',

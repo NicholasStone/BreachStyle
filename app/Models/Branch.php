@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model
 {
-    public function user()
+    public function creator()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'creator', 'name');
     }
 
-    public function member()
+    public function members()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'name', 'branch_name');
     }
+
+    public function application()
+    {
+        return $this->hasMany(Application::class, 'branch_name', 'name');
+    }
+
 }

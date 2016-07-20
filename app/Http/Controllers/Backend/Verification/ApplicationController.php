@@ -25,7 +25,7 @@ class ApplicationController extends VerificationController
             ->get()
         )
             ->addColumn('operations', function($apply){
-                return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.backend.verification.checkout') . '"></i></a> ';
+                return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
             })
             ->make(true);
     }

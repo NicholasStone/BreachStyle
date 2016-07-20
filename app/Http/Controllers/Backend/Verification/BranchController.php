@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Backend\Verification;
 
 use App\Models\Branch;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Yajra\Datatables\Datatables;
 
 class BranchController extends VerificationController
 {
-    //
     public function index()
     {
         return view("backend.verification.branch.index")
@@ -19,29 +15,48 @@ class BranchController extends VerificationController
 
     public function unhandled()
     {
-        return Datatables::of(Branch::where('verification', 0)->get())->make(true);
+        return Datatables::of(
+            Branch::with('creator')
+                ->where('verification', 0)
+                ->orderBy('created_at', 'asc')
+                ->get())
+            ->addColumn('operations', function ($branch) {
+                return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
+            })
+            ->make(true);
     }
 
     public function grant($id)
     {
-        $branch = Branch::find($id)->first();
+        $branch = Branch::findOrFail($id);
         $branch->verification = 1;
         $branch->save();
+        alert()->success("操作成功");
 
-        return response()->json(["success" => true]);
+        return redirect()->route('admin.verify.branch');
     }
 
     public function detail($id)
     {
-        // TODO: Implement detail() method.
+        $branch = Branch::with('creator')->where('id', $id)->firstOrFail();
+        $branch->creator;
+        return view('backend.verification.branch.detail', $branch);
     }
 
     public function deny($id)
     {
-        $branch = Branch::find($id)->first();
-        $branch->verification = -1;
-        $branch->save();
+        $branch = Branch::findOrFail($id);
+        $application = $branch->application;
+        if ($application->count()) {
+            $application->delete();
+        }
+        $members = $branch->members;
+        $members->each(function ($member){
+            $member->branch_name = null;
+            $member->save();
+        });
+        $branch->delete();
 
-        return response()->json(["success" => true]);
+        return redirect()->route('admin.verify.branch');
     }
 }

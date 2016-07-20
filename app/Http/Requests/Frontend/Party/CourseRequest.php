@@ -24,7 +24,13 @@ class CourseRequest extends Request
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique',
+            'type' => 'required|in:工作案例,微党课,教师党支部推荐展示,学生党支部推荐爱展示',
+            'commons' => 'required|max:200',
+            'detail' => 'required',
+            'img' => 'required|max:2',
+            'apply' => 'required',
+            'video' => 'required'
         ];
     }
 }

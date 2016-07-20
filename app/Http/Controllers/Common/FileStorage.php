@@ -9,13 +9,12 @@ use Illuminate\Support\Facades\Storage;
 
 trait FileStorage
 {
-    protected function putFile(UploadedFile $file, Application $application, $path)
+    protected function putFile(UploadedFile $file, $path)
     {
-        $application->file_type = $file->getMimeType();
-        Storage::put($path . '/' . md5_file($file->getRealPath()), file_get_contents($file->getRealPath()));
-        $application->save();
+        $hash = md5_file($file->getRealPath());
+        Storage::put($path . '/' . $hash, file_get_contents($file->getRealPath()));
 
-        return true;
+        return $hash;
     }
 
     protected function getFile($path, $hash)

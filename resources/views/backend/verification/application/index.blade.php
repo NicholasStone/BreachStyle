@@ -27,7 +27,7 @@
 
         <div class="box-body">
             <div class="table-responsive">
-                <table id="users-table" class="table table-condensed table-hover">
+                <table id="table" class="table table-condensed table-hover">
                     <thead>
                     <tr>
                         <th>成果名称</th>
@@ -62,7 +62,7 @@
 
     <script>
         $(function () {
-            $('#users-table').DataTable({
+            $('#table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
