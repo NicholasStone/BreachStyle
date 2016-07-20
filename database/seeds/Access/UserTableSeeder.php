@@ -34,6 +34,8 @@ class UserTableSeeder extends Seeder
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
+                'tel'               => '12345678901',
+                'tel_work'          => '12345678901'
             ],
             [
                 'name'              => 'Backend User',
@@ -43,6 +45,8 @@ class UserTableSeeder extends Seeder
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
+                'tel'               => '12345678902',
+                'tel_work'          => '12345678902'
             ],
             [
                 'name'              => 'Default User',
@@ -52,6 +56,8 @@ class UserTableSeeder extends Seeder
                 'confirmed'         => true,
                 'created_at'        => Carbon::now(),
                 'updated_at'        => Carbon::now(),
+                'tel'               => '12345678903',
+                'tel_work'          => '12345678903'
             ],
         ];
 
