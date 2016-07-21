@@ -32,8 +32,6 @@
                     <tr>
                         <th>成果名称</th>
                         <th>成果类别</th>
-                        <th>所在学校</th>
-                        <th>申报联系人</th>
                         <th>申报时间</th>
                         <th>操作</th>
                     </tr>
@@ -72,8 +70,6 @@
                 columns: [
                     {data: 'name'},
                     {data: 'type'},
-                    {data: 'user.school_name'},
-                    {data: 'user.name'},
                     {data: 'created_at'},
                     {data: 'operations'}
                 ],

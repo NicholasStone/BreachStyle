@@ -21,14 +21,16 @@
         <div class="box-body">
             <dl class="dl-horizontal">
                 <dt>{{ trans('strings.backend.verification.branch.name') }}</dt><dd>{{ $name }}</dd>
-                <dt>{{ trans('creator') }}</dt><dd>{{ $creator['nacreator</dd>
                 <dt>{{ trans('strings.backend.verification.branch.type') }}</dt><dd>{{ $type }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.school') }}</dt><dd>{{ $creator['school_name'] }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.secretary') }}</dt><dd>{{ $secretary['name'] }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.tel') }}</dt><dd>{{ $tel }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.secretary-summary') }}</dt><dd>{{ $secretary_summary }}</dd>
                 <dt>{{ trans('strings.backend.verification.branch.address') }}</dt><dd>{{ $address }}</dd>
                 <dt>{{ trans('strings.backend.verification.branch.total-membership') }}</dt><dd>{{ $total_membership }}</dd>
-                <dt>{{ trans('commons') }}</dt><dd>{{ $commons }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.summary') }}</dt><dd>{{ $summary }}</dd>
             </dl>
-            <img src="{{ asset('img/check.png') }}" alt="" style="position: absolute;top: 50px; right: 200px;">
+            {{--<img src="{{ asset('img/check.png') }}" alt="" style="position: absolute;top: 50px; right: 200px;">--}}
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Danghui.svg/2000px-Danghui.svg.png" alt="" style="position: absolute;top: 70px; right: 200px; width: 100px; height: 100px">
             <div>
                 <a href="{{ route('admin.verify.branch.grant', $id) }}" class="btn bg-olive">通过</a>
                 <a href="{{ route('admin.verify.branch.deny', $id) }}" class="btn bg-maroon">驳回</a>

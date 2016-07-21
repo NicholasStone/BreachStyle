@@ -1,5 +1,5 @@
 <?php
-
+//Auth::loginUsingId(1);
 Route::group(['middleware' => 'web'], function () {
     /**
      * Switch between the included languages

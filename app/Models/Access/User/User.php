@@ -3,6 +3,7 @@
 namespace App\Models\Access\User;
 
 use App\Models\Access\User\Traits\UserAccess;
+use App\Models\Application;
 use App\Models\Branch;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,11 +40,12 @@ class User extends Authenticatable
 
     public function branch()
     {
-        return $this->belongsTo(Branch::class, 'branch_name', 'name');
+        return $this->belongsTo(Branch::class, 'name', 'branch_name');
     }
 
     public function getBranchTypeAttribute()
     {
         return $this->branch->type;
     }
+
 }

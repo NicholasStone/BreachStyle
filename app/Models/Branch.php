@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model
 {
-    public function creator()
+    public function secretary()
     {
         return $this->belongsTo(User::class, 'secretary', 'name');
     }

@@ -17,6 +17,7 @@ class CreateBranchesTable extends Migration
             $table->string('name', 50)->unique();
             $table->string('avatar', 32);
             $table->enum('type', ["学生党支部", "教师党支部"]);
+            $table->string('university');
             $table->boolean('verification')->default(0);
             $table->string('address');
             $table->string('summary', 300);
