@@ -19,7 +19,7 @@ class ApplicationController extends VerificationController
     public function unhandled()
     {
         return Datatables::of(Application::with('user')
-            ->select(['id', 'name', 'type', 'created_at', 'user_id'])
+            ->select(['id', 'name', 'type', 'created_at'])
             ->where('verification', 0)
             ->orderBy('created_at', 'desc')
             ->get()

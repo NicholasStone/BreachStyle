@@ -58,12 +58,12 @@
                     </li>
                 </ul>
             </li>
-            <li class="{{ Active::pattern('admin/verification*') }} treeview">
+            <li class="{{ Active::pattern('admin/verification/*') }} treeview">
                 <a href="#">
                     <span>{{ trans('menus.backend.verification.main') }}</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
-                <ul class="treeview-menu {{ Active::pattern('admin/verification*', 'menu-open') }}" style="display: none; {{ Active::pattern('admin/verification*', 'display: block;') }}">
+                <ul class="treeview-menu {{ Active::pattern('admin/verification/*', 'menu-open') }}" style="display: none; {{ Active::pattern('admin/verification/*', 'display: block;') }}">
                     <li class="{{ Active::pattern('admin/verification/application') }}">
                         {{ link_to('admin/verify/application', trans('menus.backend.verification.application')) }}
                     </li>
