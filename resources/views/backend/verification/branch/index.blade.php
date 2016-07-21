@@ -32,8 +32,6 @@
                     <tr>
                         <th>支部名称</th>
                         <th>支部类型</th>
-                        <th>支部书记</th>
-                        <th>所在学校</th>
                         <th>总人数</th>
                         <th>提交时间</th>
                         <th>操作</th>
@@ -61,8 +59,6 @@
                 columns: [
                     {data: 'name'},
                     {data: 'type'},
-                    {data: 'creator.name'},
-                    {data: 'creator.school_name'},
                     {data: 'total_membership'},
                     {data: 'created_at'},
                     {data: 'operations'}

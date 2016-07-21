@@ -16,13 +16,11 @@
             <dl class="dl-horizontal">
                 <dt>{{ trans('strings.backend.verification.application.name') }}</dt><dd>{{ $name }}</dd>
                 <dt>{{ trans('strings.backend.verification.application.type') }}</dt><dd>{{ $type }}</dd>
-                <dt>{{ trans('strings.backend.verification.application.school') }}</dt><dd>{{ $user['school_name'] }}</dd>
-                <dt>{{ trans('strings.backend.verification.application.user') }}</dt><dd>{{ $user['name'] }}</dd>
-                <dt>{{ trans('strings.backend.verification.application.dept') }}</dt><dd>{{ $user['college_name'] }}</dd>
-                <dt>{{ trans('strings.backend.verification.application.tel') }}</dt><dd>{{ $user['tel'] }}</dd>
-                <dt>{{ trans('strings.backend.verification.application.email') }}</dt><dd>{{ $user['email'] }}</dd>
-                <dt>{{ trans('strings.backend.verification.application.common') }}</dt><dd>{{ $commons }}</dd>
+                <dt>{{ trans('strings.backend.verification.application.university') }}</dt><dd>{{ $branch['university'] }}</dd>
+                <dt>{{ trans('strings.backend.verification.application.user') }}</dt><dd>{{ $branch['secretary'] }}</dd>
+                <dt>{{ trans('strings.backend.verification.application.tel') }}</dt><dd>{{ $branch['tel'] }}</dd>
                 <dt>{{ trans('strings.backend.verification.application.summary') }}</dt><dd>{{ $summary }}</dd>
+                <dt>{{ trans('strings.backend.verification.application.detail') }}</dt><dd>{{ $detail }}</dd>
             </dl>
         </div><!-- /.box-body -->
     </div><!--box box-success-->

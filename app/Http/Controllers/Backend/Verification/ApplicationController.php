@@ -18,7 +18,7 @@ class ApplicationController extends VerificationController
 
     public function unhandled()
     {
-        return Datatables::of(Application::with('user')
+        return Datatables::of(Application::with('branch')
             ->select(['id', 'name', 'type', 'created_at'])
             ->where('verification', 0)
             ->orderBy('created_at', 'desc')
@@ -51,7 +51,7 @@ class ApplicationController extends VerificationController
     public function detail($id)
     {
         $application = Application::find($id);
-        $application->user;
+        $application->branch;
         return view('backend.verification.application.detail', $application);
     }
 }
