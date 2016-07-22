@@ -1,7 +1,7 @@
 <?php
-Route::group(['namespace' => 'Party',], function () {
+Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'branch'], function () {
-        Route::get('index', 'BranchController@index')->name('frontend.branch.index');
+//        Route::get('index', 'BranchController@index')->name('frontend.branch.index');
         Route::get('bind', 'BranchController@show')->name('frontend.branch.bind');
         Route::post('bind', 'BranchController@update')->name('frontend.branch.update');
         Route::get('establish', 'BranchController@create')->name('frontend.branch.establish');

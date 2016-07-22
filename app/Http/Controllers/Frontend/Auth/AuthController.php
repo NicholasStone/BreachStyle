@@ -32,7 +32,7 @@ class AuthController extends Controller
     public function __construct(UserRepositoryContract $user)
     {
         //Where to redirect after logging out
-        $this->redirectAfterLogout = route('admin.dashboard');
+        $this->redirectAfterLogout = route('frontend.index');
 
         $this->user = $user;
     }
@@ -71,7 +71,8 @@ class AuthController extends Controller
         $privateKey = \Config::get('app.private-key');
         $token = date("YmdHis", time());
         $checkCode = md5($token.$subSiteId.$privateKey);
-        return response(compact("subSiteId", "token", "checkCode"));
+        $returnUrl = route('frontend.index');
+        return response(compact("subSiteId", "token", "checkCode", "returnUrl"));
     }
 
     public function binding()

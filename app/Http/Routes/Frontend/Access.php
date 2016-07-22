@@ -17,6 +17,10 @@ Route::group(['namespace' => 'Auth'], function () {
         // Change Password Routes
         Route::get('password/change', 'PasswordController@showChangePasswordForm')->name('auth.password.change');
         Route::post('password/change', 'PasswordController@changePassword')->name('auth.password.change');
+
+        //录入个人信息
+        Route::get('binding', 'AuthController@binding')->name('auth.binding');
+        Route::post('binding', 'AuthController@ssoRegister')->name('auth.binding.register');
     });
 
     /**
@@ -43,9 +47,5 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('password/reset/{token?}', 'PasswordController@showResetForm')->name('auth.password.reset');
         Route::post('password/reset', 'PasswordController@reset')->name('auth.password.reset');
         Route::post('password/email', 'PasswordController@sendResetLinkEmail')->name('auth.password.email');
-
-        //录入个人信息
-        Route::get('binding', 'AuthController@binding')->name('auth.binding');
-        Route::post('binding', 'AuthController@ssoRegister')->name('auth.binding.register');
     });
 });

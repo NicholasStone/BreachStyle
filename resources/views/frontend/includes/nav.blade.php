@@ -49,7 +49,7 @@
 <!-- banner -->
 <div class="banner">
     <div class="bannerBox">
-        <img src="img/banner.jpg"/>
+        <img src="{{ asset('img/banner.jpg') }}"/>
     </div>
 </div>
 <!-- banner -->
@@ -61,22 +61,22 @@
     <div class="content">
         <ul>
             <li class="nav">
-                <a href="javascript:;">首页</a>
+                <a href="{{ route('frontend.index') }}">首页</a>
             </li>
             <li class="nav">
                 <a href="{{ route('frontend.index') }}">活动详情</a>
             </li>
             <li class="nav">
-                <a href="#activeInfo">参与党支部</a>
+                <a href="">参与党支部</a>
             </li>
             <li class="nav">
-                <a href="#require">热度榜</a>
+                <a href="">热度榜</a>
             </li>
             <li class="nav">
                 <a href="javascript:;">成果展示</a>
             </li>
             <li class="upload">
-                <a href="javascript:;"><span>上传成果</span></a>
+                <a href="{{ route('frontend.case.create') }}"><span>上传成果</span></a>
             </li>
         </ul>
     </div>
@@ -92,16 +92,30 @@
     var floatLogin = document.createElement('div');
     var box = document.getElementsByTagName("body")[0];
     function loginSuccess() {
-        $.get({
-            url: "{{ route("frontend.auth.token") }}",
+        console.log('loginSuccess');
+        $.ajax({
+            method:'get',
+            url: "{{ route("auth.token") }}",
             success: function (data) {
-                $.get({
+                console.log(data);
+                console.log('1');
+                $.ajax({
+                    method:'get',
                     url: "http://uzone.univs.cn/checkSSOLogin.action",
                     data: data,
+                    crossDomain: true,
+                    header:{
+                        'Access-Control-Allow-Origin':'uzone.univs.cn'
+                    },
                     success: function (data) {
+                        console.log(data);
+                        console.log('2');
                         $.post({
-                            url: "{{ route('auth.sso-auth') }}",
-                            data:data
+                            url: "{{ route('auth.oss-login') }}",
+                            data:data,
+                            success:function () {
+                                console.log(3);
+                            }
                         })
                     }
                 })

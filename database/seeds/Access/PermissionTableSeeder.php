@@ -38,7 +38,7 @@ class PermissionTableSeeder extends Seeder
         $permission_model          = config('access.permission');
         $viewBackend               = new $permission_model;
         $viewBackend->name         = 'view-backend';
-        $viewBackend->display_name = 'View Backend';
+        $viewBackend->display_name = '登录后台';
         $viewBackend->sort         = 1;
         $viewBackend->created_at   = Carbon::now();
         $viewBackend->updated_at   = Carbon::now();
@@ -50,7 +50,7 @@ class PermissionTableSeeder extends Seeder
         $permission_model          = config('access.permission');
         $manageUsers               = new $permission_model;
         $manageUsers->name         = 'manage-users';
-        $manageUsers->display_name = 'Manage Users';
+        $manageUsers->display_name = '用户管理';
         $manageUsers->sort         = 2;
         $manageUsers->created_at   = Carbon::now();
         $manageUsers->updated_at   = Carbon::now();
@@ -59,8 +59,17 @@ class PermissionTableSeeder extends Seeder
         $permission_model          = config('access.permission');
         $manageRoles               = new $permission_model;
         $manageRoles->name         = 'manage-roles';
-        $manageRoles->display_name = 'Manage Roles';
+        $manageRoles->display_name = '角色管理';
         $manageRoles->sort         = 3;
+        $manageRoles->created_at   = Carbon::now();
+        $manageRoles->updated_at   = Carbon::now();
+        $manageRoles->save();
+
+        $permission_model          = config('access.permission');
+        $manageRoles               = new $permission_model;
+        $manageRoles->name         = 'submit';
+        $manageRoles->display_name = '上传成果';
+        $manageRoles->sort         = 4;
         $manageRoles->created_at   = Carbon::now();
         $manageRoles->updated_at   = Carbon::now();
         $manageRoles->save();
