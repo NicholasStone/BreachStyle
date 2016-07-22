@@ -26,21 +26,26 @@ Route::group(['namespace' => 'Auth'], function () {
         // Authentication Routes
         Route::get('login', 'AuthController@showLoginForm')->name('auth.login');
         Route::post('login', 'AuthController@login')->name('auth.login');
-
+        Route::get('token', 'AuthController@ssoToken')->name('auth.token');
+        Route::get('sso-login','AuthController@ossAuth')->name('auth.oss-login');
         // Socialite Routes
-        Route::get('login/{provider}', 'AuthController@loginThirdParty')->name('auth.provider');
+//        Route::get('login/{provider}', 'AuthController@loginThirdParty')->name('auth.provider');
 
         // Registration Routes
-        Route::get('register', 'AuthController@showRegistrationForm')->name('auth.register');
-        Route::post('register', 'AuthController@register')->name('auth.register');
+//        Route::get('register', 'AuthController@showRegistrationForm')->name('auth.register');
+//        Route::post('register', 'AuthController@register')->name('auth.register');
 
         // Confirm Account Routes
-        Route::get('account/confirm/{token}', 'AuthController@confirmAccount')->name('account.confirm');
-        Route::get('account/confirm/resend/{user_id}', 'AuthController@resendConfirmationEmail')->name('account.confirm.resend');
+//        Route::get('account/confirm/{token}', 'AuthController@confirmAccount')->name('account.confirm');
+//        Route::get('account/confirm/resend/{user_id}', 'AuthController@resendConfirmationEmail')->name('account.confirm.resend');
 
         // Password Reset Routes
         Route::get('password/reset/{token?}', 'PasswordController@showResetForm')->name('auth.password.reset');
         Route::post('password/reset', 'PasswordController@reset')->name('auth.password.reset');
         Route::post('password/email', 'PasswordController@sendResetLinkEmail')->name('auth.password.email');
+
+        //录入个人信息
+        Route::get('binding', 'AuthController@binding')->name('auth.binding');
+        Route::post('binding', 'AuthController@ssoRegister')->name('auth.binding.register');
     });
 });

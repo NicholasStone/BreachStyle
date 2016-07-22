@@ -24,7 +24,7 @@
 	overflow: hidden;
 }
 .comment .content .publish textarea{
-	width: 100%;
+	width: 99.5%;
 	height: 125px;
 	resize: none;
 	outline: none;
@@ -100,9 +100,23 @@
 
 
 
-
-
-
+@media (max-width: 1200px) {
+	.comment .content{
+		width: 95%;
+	}
+}
+@media (max-width: 640px) {
+	.comment .content .commentList ul li .userPic{
+		width: 8%;
+		padding-top: 8%;
+	}
+	.comment .content .commentList ul li .comment_ctt{
+		width: 90%;
+	}
+	.comment .content .commentList ul li .comment_ctt p{
+		font-size: .75em;
+	}
+}
 
 
 

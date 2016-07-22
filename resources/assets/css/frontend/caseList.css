@@ -101,3 +101,76 @@
 	float: left;
 	width: 20%;
 }
+
+
+@media(max-width: 1200px) {
+	.achievementList .content{
+		width: 95%;
+	}
+}
+@media(max-width: 886px) {
+	.caseList ul li{
+		width: 100%;
+		padding-top: 24%;
+	}
+	.achievementList .content .nav .rank{
+		display: none;
+	}
+	.achievementList .content .nav .NavList{
+		width: 100%;
+	}
+}
+@media(max-width: 720px) {
+	.caseList ul li{
+		padding-top: 26%;
+	}
+}
+@media(max-width: 640px) {
+	.caseList ul li{
+		padding-top: 26%;
+	}
+	.caseList ul li.type1 .outBox .top .left h3,.caseList ul li.type1 .outBox .top .right div{
+		font-size: 1em;
+		margin-top: 18px;
+	}
+	.caseList ul li.type1 .outBox .top .left p{
+		margin-top: 12px;
+		font-size: .75em;
+	}
+	.caseList ul li.type1 .outBox .bottom span.depart{
+		font-size: .75em;
+	}
+	.caseList ul li.type1 .outBox .bottom span{
+		font-size: .75em;
+	}
+}
+@media(max-width: 560px) {
+	.caseList ul li{
+		padding-top: 28%;
+	}
+}
+@media(max-width: 480px) {
+	.caseList ul li{
+		padding-top: 30%;
+	}
+}
+@media(max-width: 440px) {
+	.caseList ul li{
+		padding-top: 32%;
+	}
+}
+@media(max-width: 400px) {
+	.caseList ul li{
+		padding-top: 34%;
+	}
+}
+@media(max-width: 360px) {
+	.caseList ul li{
+		padding-top: 36%;
+	}
+}
+@media(max-width: 321px){
+	.caseList ul li{
+		padding-top: 38%;
+	}
+}

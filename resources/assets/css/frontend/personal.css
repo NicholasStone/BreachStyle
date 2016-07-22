@@ -3,7 +3,7 @@
 	overflow: hidden;
 }
 .personal .content{
-	width: 800px;
+	width: 900px;
 	overflow: hidden;
 	margin: 40px auto;
 }
@@ -103,8 +103,18 @@
 	line-height: 36px;
 	float: left;
 }
-
-
+.form-group{
+	margin: 6px 0;
+}
+.form-group select{
+	width: 120px;
+	height: 32px;
+}
+.form-group label{
+	display: block;
+	float: left;
+	line-height: 32px;
+}
 .floatPanel{
 	width: 100%;
 	height: 100%;
@@ -244,35 +254,85 @@
 }
 .bindinfo .content{
 	width: 640px;
+	padding: 40px 0 80px 50px;
 	margin: 40px auto;
 	overflow: hidden;
+	background: url(../img/infoBg.jpg) center center no-repeat;
+	background-size: 100% 100%;
 }
-.bindinfo .content .headImg{
-	width: 50%;
+.bindinfo .content .infoList{
+	width: 100%;
+	float: left;
 	overflow: hidden;
+}
+.bindinfo .content .infoList .infoListLeft{
+	width: 45%;
 	float: left;
 }
-.bindinfo .content .headImg .headImgBox{
-	width: 56.25%;
+.bindinfo .content .infoList .infoListLeft .uploadImg{
+	width: 50%;
 	height: 0;
-	padding-top: 56.25%;
+	padding-top: 50%;
 	position: relative;
 }
-.bindinfo .content .headImg .headImgBox img{
-	width: 100%;
-	height: 100%;
+.bindinfo .content .infoList .infoListLeft .uploadImg input{
+	display: none;
+}
+.bindinfo .content .infoList .infoListLeft .uploadImg label{
+	cursor: pointer;
 	position: absolute;
 	top: 0;
 	left: 0;
+	width: 100%;
+	height: 100%;
 }
-.bindinfo .content .infoList{
-	width: 50%;
+.bindinfo .content .infoList .infoListLeft .uploadImg .imgBox{
+	width: 100%;
+	height: 100%;
+	background: #EDDFC0;
+}
+.bindinfo .content .infoList .infoListLeft .uploadImg .imgBox img{
+	width: 100%;
+	height: 100%;
+}
+.bindinfo .content .infoList .infoListLeft .uploadImg h4{
+	font-size: .875em;
+	color: #818181;
+	margin-top: 12px;
+	text-align: center;
+}
+.bindinfo .content .infoList .infoListLeft .uploadImg h4 span{
+	color: #B2201B;
+}
+.bindinfo .content .infoList .infoListRight{
+	width: 55%;
 	float: left;
-	overflow: hidden;
 }
 .bindinfo .content .infoList p{
 	width: 100%;
 	line-height: 48px;
+}
+.bindinfo .content .infoList .row{
+	width: 100%;
+	overflow: hidden;
+}
+.bindinfo .content .infoList .row p{
+	float: left;
+	width: auto;
+	margin-right: 20px;
+}
+.bindinfo .content .infoList .row .radioitem{
+	width: 70px;
+	height: 32px;
+	margin-right: 10px;
+	border: 1px solid #b1b1b1;
+	float: left;
+	margin-top: 7px;
+	text-align: center;
+	line-height: 32px;
+	background: #ffffff;
+	font-size: .875em;
+	color: #b1b1b1;
 }
 .bindinfo .content .infoList p input{
 	outline: none;
@@ -280,6 +340,10 @@
 	height: 30px;
 	border: 1px solid #d6bec1;
 	text-indent: 1em;
+}
+.bindinfo .content .infoList p span{
+	margin-left: 24px;
+	color: #E43E2F;
 }
 .bindinfo .content .infoList input.submitBtn{
 	width: 110px;
@@ -297,7 +361,26 @@
 
 
 
-
+@media (max-width: 640px) {
+	.bindinfo .content{
+		width: 95%;
+	}
+	.bindinfo .content .infoList,.bindinfo .content .headImg{
+		width: 100%;
+	}
+	.bindinfo .content .headImg .headImgBox{
+		width: 28%;
+		padding-top: 28%;
+		margin: 0 auto;
+	}
+	.bindinfo .content .infoList p{
+		text-align: center;
+	}
+	.bindinfo .content .infoList input.submitBtn{
+		width: 20%;
+		margin-left: 40%;
+	}
+}
 
 
 

@@ -28,7 +28,7 @@ class RecommendController extends Controller
      */
     public function create()
     {
-        return view('frontend.recommend.create')->withUser(access()->user());
+        return view('frontend.party.recommend.create')->withUser(access()->user());
     }
 
     /**

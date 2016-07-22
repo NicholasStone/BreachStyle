@@ -21,7 +21,7 @@
 	padding: .375em 1.5em .25em;
 	color: #b09192;
 }
-.caseDetail .content .title p span{
+.caseDetail .content .title p a{
 	color: #E43E2F;
 }
 .caseDetail .content .title .data{
@@ -97,8 +97,48 @@
 }
 
 
-
-
+@media (max-width: 1200px) {
+	.caseDetail .content{
+		width: 95%;
+	}
+}
+@media (max-width: 640px) {
+	.caseDetail .content{
+		width: 95%;
+	}
+	.caseDetail .content .title h3{
+		font-size: 1em;
+	}
+	.caseDetail .content .title p{
+		font-size: .75em;
+	}
+	.caseDetail .content .title .data{
+		padding: .25em 1em 0 1em;
+	}
+	.caseDetail .content .title .data span{
+		font-size: .75em;
+	}
+	.caseDetail .content .title .data .line{
+		margin-top: 20px;
+	}
+	.caseDetail .content .article p{
+		font-size: .875em;
+	}
+	.caseDetail .content .click{
+		width: 120px;
+		height: 36px;
+	}
+	.caseDetail .content .click a{
+		line-height: 36px;
+		font-size: .875em;
+	}
+	.caseDetail .content .click p{
+		font-size: .75em;
+	}
+	.comment .content .commentLength p{
+		font-size: 0.875em;
+	}
+}
 
 
 

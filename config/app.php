@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Shanghai',
 
     /*
     |--------------------------------------------------------------------------
@@ -134,6 +134,11 @@ return [
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
+    //子站id
+    'sub-site-id' => env('SUB_SITE_ID'),
+
+    //密钥
+    'private-key' => env('PRIVATE_KEY'),
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

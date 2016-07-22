@@ -30,13 +30,13 @@
                 </li>
                 <li class="search">
                     <form>
-                        <input type="text" name="search" id="search" placeholder="搜索关键字" />
-                        <input type="submit" name="sub" id="sub" value="" />
+                        <input type="text" name="search" id="search" placeholder="搜索关键字"/>
+                        <input type="submit" name="sub" id="sub" value=""/>
                     </form>
                 </li>
                 <li class="login">
-                    <a href="javascript:;" class="loginBtn">登录</a>
-                    <a href="" class="reg">注册</a>
+                    <a href="javascript:;" class="loginBtn" id="login">登录</a>
+                    <a href="http://uzone.univs.cn/signup.jsp" class="reg">注册</a>
                 </li>
             </ul>
         </div>
@@ -49,7 +49,7 @@
 <!-- banner -->
 <div class="banner">
     <div class="bannerBox">
-        <img src="{{ asset("img/banner.jpg") }}" />
+        <img src="img/banner.jpg"/>
     </div>
 </div>
 <!-- banner -->
@@ -64,10 +64,13 @@
                 <a href="javascript:;">首页</a>
             </li>
             <li class="nav">
-                <a href="javascript:;">活动详情</a>
+                <a href="{{ route('frontend.index') }}">活动详情</a>
             </li>
             <li class="nav">
-                <a href="javascript:;">活动要求</a>
+                <a href="#activeInfo">参与党支部</a>
+            </li>
+            <li class="nav">
+                <a href="#require">热度榜</a>
             </li>
             <li class="nav">
                 <a href="javascript:;">成果展示</a>
@@ -81,3 +84,41 @@
 <!-- mainNav -->
 
 <div class="clearfix"></div>
+<script>
+    window.onload = function () {
+        document.domain = "univs.cn";
+    }
+    var loginBtn = document.getElementById('login');
+    var floatLogin = document.createElement('div');
+    var box = document.getElementsByTagName("body")[0];
+    function loginSuccess() {
+        $.get({
+            url: "{{ route("frontend.auth.token") }}",
+            success: function (data) {
+                $.get({
+                    url: "http://uzone.univs.cn/checkSSOLogin.action",
+                    data: data,
+                    success: function (data) {
+                        $.post({
+                            url: "{{ route('auth.sso-auth') }}",
+                            data:data
+                        })
+                    }
+                })
+            }
+        });
+    }
+    function closeLoginFrame() {
+        floatLogin.remove();
+    }
+    loginBtn.addEventListener('click', function () {
+        floatLogin.className = "floatLogin";
+        box.appendChild(floatLogin);
+        var iFrame = document.createElement("iframe");
+        iFrame.src = "http://uzone.univs.cn/sso.action";
+        floatLogin.appendChild(iFrame);
+        iFrame.style.width = "490px";
+        iFrame.style.height = "337px";
+        iFrame.style.border = "none";
+    });
+</script>

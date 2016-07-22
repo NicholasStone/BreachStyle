@@ -13,7 +13,7 @@
 }
 .departInfo .content .showCard .ImgShow{
 	width: 25%;
-	padding-top: 30%;
+	padding-top: 25%;
 	height: 0;
 	position: relative;
 	margin: 1% 1% 3%;
@@ -312,7 +312,7 @@
 	display: none;
 }
 .departInfo .content .idCard .btnList label,.departInfo .content .idCard .btnList a{
-	width: 50%;
+	width: 100%;
 	height: 36px;
 	background: #b4b4b4;
 	display: block;

@@ -1,5 +1,5 @@
 <?php
 
-Route::get('file/progress', 'FileController@progress')->name('file.progress');
-Route::get('file/upload', 'FileController@upload')->name('file.upload');
-Route::get('file/download/{hash}', 'FileController@download')->name('file.download');
+Route::get('video/progress', 'VideoController@progress')->name('video.progress');
+Route::get('video/upload', 'VideoController@upload')->name('video.upload');
+Route::get('video/download/{hash}', 'VideoController@download')->name('video.download');

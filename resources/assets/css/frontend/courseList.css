@@ -74,7 +74,6 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-	float: left;
 	color: #a7a7a7;
 }
 .mainList .caseList ul li .outBox p{
@@ -105,14 +104,58 @@
 }
 
 
-
-
-
-
-
-
-
-
+@media (max-width: 1200px) {
+	.achievementList .content{
+		width: 95%;
+	}
+}
+@media (max-width: 1024px){
+	.mainList .caseList ul li{
+		width: 31.3333%;
+		padding-top: 33.3333%;
+	}
+}
+@media (max-width: 886px){
+	.achievementList .content .nav .rank{
+		display: none;
+	}
+	.achievementList .content .nav .NavList{
+		width: 100%;
+	}
+	.mainList .caseList ul li{
+		padding-top: 35.3333%;
+	}
+}
+@media (max-width: 720px){
+	.mainList .caseList ul li{
+		width: 48%;
+		padding-top: 48%;
+	}
+}
+@media (max-width: 640px){
+	.mainList .caseList ul li{
+		padding-top: 50%;
+	}
+}
+@media (max-width: 560px){
+	.mainList .caseList ul li{
+		padding-top: 52%;
+	}
+}
+@media (max-width: 520px){
+	.mainList .caseList ul li{
+		width: 90%;
+		padding-top: 90%;
+		margin: 0 5%;
+	}
+}
+@media (max-width: 420px){
+	.mainList .caseList ul li{
+		width: 94%;
+		padding-top: 96%;
+		margin: 0 3%;
+	}
+}
 
 
 

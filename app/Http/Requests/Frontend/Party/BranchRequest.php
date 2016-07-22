@@ -33,6 +33,7 @@ class BranchRequest extends Request
             'tel'               => 'required|string|size:11',
             'address'           => 'required|max:200',
             'summary'           => 'required|max:300',
+            'apply'             => 'required|max:2'
         ];
     }
 }

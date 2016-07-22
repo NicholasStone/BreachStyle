@@ -7,12 +7,12 @@
                 <div class="container">
                     <div id="full_feature" class="swipslider">
                         <ul class="sw-slides">
-                            {{--<li class="sw-slide">--}}
-                                {{--<a href="#">--}}
-                                    {{--<img src="img/summer_beach.jpg" alt="Summer beach concept"--}}
-                                         {{--oncontextmenu="return false;">--}}
-                                {{--</a>--}}
-                            {{--</li>--}}
+                            <li class="sw-slide">
+                                <a href="#">
+                                    <img src="img/summer_beach.jpg" alt="Summer beach concept"
+                                         oncontextmenu="return false;">
+                                </a>
+                            </li>
                             <li class="sw-slide">
                                 <a href="#">
                                     <img src="img/lang_yie_ar_kung_fu.jpg" alt="Lang from Yie Ar Kung Fu"
@@ -102,7 +102,7 @@
                     <div class="logo"></div>
                     <div class="data">
                         <h2><span>5678</span>个</h2>
-                        <p>支持单位</p>
+                        <p>参与高校</p>
                     </div>
                 </li>
                 <li class="achievement">
@@ -116,10 +116,107 @@
         </div>
     </div>
     <!-- Achievements -->
+    <!-- ChinaMap -->
+    <div class="ChinaMap">
+        <div class="content">
+            <div class="title">
+                <img src="img/hot.png"/>
+            </div>
+            <div class="items" id="Item9">
+                <a href="javascript:;" class="fold"></a>
+                <div class="itemCon">
+                    <div id="Region" style="position:relative; height:360px;">
+                        <div class="regionMap" id="RegionMap"></div>
+                        <div class="regionList" id="MapControl">
+                            <div class="regionTop">
+                                <div class="regionTopLeft">
+                                    <h3 id="oclick">点击地图查看省份</h3>
+                                    <div class="progress">
+                                        <span id="progress"></span>
+                                    </div>
+                                </div>
+                                <div class="regionTopRight">
+                                    <a href="#"><span class="iconfont">&#xe61a; </span>查看更多活跃高校》</a>
+                                </div>
+                            </div>
+                            <div class="regionBottom">
+                                <div class="display">
+                                    <span class="triangle"></span>
+                                    <ul>
+                                        <li>
+                                            <div class="schoolLogo">
+                                                <img src="img/check.png"/>
+                                            </div>
+                                            <div class="schoolInfo">
+                                                <h3>太原理工大学</h3>
+                                                <p><span>40</span>成果</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="schoolLogo">
+                                                <img src="img/check.png"/>
+                                            </div>
+                                            <div class="schoolInfo">
+                                                <h3>太原理工大学</h3>
+                                                <p><span>40</span>成果</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="schoolLogo">
+                                                <img src="img/check.png"/>
+                                            </div>
+                                            <div class="schoolInfo">
+                                                <h3>太原理工大学</h3>
+                                                <p><span>40</span>成果</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="schoolLogo">
+                                                <img src="img/check.png"/>
+                                            </div>
+                                            <div class="schoolInfo">
+                                                <h3>太原理工大学</h3>
+                                                <p><span>40</span>成果</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="schoolLogo">
+                                                <img src="img/check.png"/>
+                                            </div>
+                                            <div class="schoolInfo">
+                                                <h3>太原理工大学</h3>
+                                                <p><span>40</span>成果</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="schoolLogo">
+                                                <img src="img/check.png"/>
+                                            </div>
+                                            <div class="schoolInfo">
+                                                <h3>太原理工大学</h3>
+                                                <p><span>40</span>成果</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="MapColor">
+                            <p>%=参与高校数/当地高校数</p>
+                            <span class="stateInitColor1"><i></i>90%~100%</span>
+                            <span class="stateInitColor2"><i></i>60%~89%</span>
+                            <span class="stateInitColor3"><i></i>10%~59%</span>
+                            <span class="stateInitColor4"><i></i>0%~9%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ChinaMap -->
     <div class="clearfix"></div>
-
     <!-- activeInfo -->
-    <div class="activeInfo">
+    <div class="activeInfo" id="activeInfo">
         <div class="content">
             <div class="info">
                 <div class="title">
@@ -162,17 +259,24 @@
                     <img src="img/download.png"/>
                 </div>
                 <div class="downLoad">
-                    <a href="">报名表下载<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="#">1.报名表下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
-                    <a href="#">活动通知下载<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="#">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
+                </div>
+                <div class="downLoad">
+                    <a href="#">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
+                </div>
+                <div class="note">
+                    <p>备注:</p>
+                    <p>1.必须由党支部书记上传</p>
+                    <p>2.系统默认创建党支部者为改党支部的党支部书记</p>
                 </div>
             </div>
         </div>
     </div>
     <!-- activeInfo -->
     <div class="clearfix"></div>
-
     <!-- time -->
     <div class="time">
         <div class="content">
@@ -204,11 +308,10 @@
         </div>
     </div>
     <!-- time -->
-
     <div class="clearfix"></div>
 
     <!-- activerequire -->
-    <div class="require">
+    <div class="require" id="require">
         <div class="content">
             <div class="title">
                 <img src="img/require.png"/>
@@ -230,6 +333,7 @@
         </div>
     </div>
     <!-- activerequire -->
+
     <div class="clearfix"></div>
 
     <!-- show -->
@@ -238,6 +342,83 @@
             <div class="title"><img src="img/achivement.png"/></div>
             <div class="showList">
                 <ul class="showListBox">
+                    <li class="case">
+                        <div class="showTitle"><img src="img/case.png"/></div>
+                        <ul>
+                            <li class="type1">
+                                <div class="outBox">
+                                    <div class="top">
+                                        <div class="right">
+                                            <div>
+                                                <img src="img/redhead.jpg"/>
+                                            </div>
+                                        </div>
+                                        <div class="left">
+                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
+                                            <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="right">
+                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
+                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
+                                        </div>
+                                        <div class="left">
+                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="type1">
+                                <div class="outBox">
+                                    <div class="top">
+                                        <div class="right">
+                                            <div>
+                                                <img src="img/redhead.jpg"/>
+                                            </div>
+                                        </div>
+                                        <div class="left">
+                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
+                                            <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="right">
+                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
+                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
+                                        </div>
+                                        <div class="left">
+                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="type1">
+                                <div class="outBox">
+                                    <div class="top">
+                                        <div class="right">
+                                            <div>
+                                                <img src="img/redhead.jpg"/>
+                                            </div>
+                                        </div>
+                                        <div class="left">
+                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
+                                            <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
+                                        </div>
+                                    </div>
+                                    <div class="bottom">
+                                        <div class="right">
+                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
+                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
+                                        </div>
+                                        <div class="left">
+                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="vedio">
                         <div class="showTitle"><img src="img/vedio.png"/></div>
                         <ul>
@@ -299,79 +480,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="case">
-                        <div class="showTitle"><img src="img/case.png"/></div>
-                        <ul>
-                            <li class="type1">
-                                <div class="outBox">
-                                    <div class="top">
-                                        <div class="left">
-                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
-                                            <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
-                                        </div>
-                                        <div class="right">
-                                            <div>
-                                                <img src="img/redhead.jpg"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="left">
-                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
-                                        </div>
-                                        <div class="right">
-                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
-                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="type2">
-                                <div class="outBox">
-                                    <div class="top">
-                                        <div class="left">
-                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
-                                            <p>
-                                                这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="left">
-                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
-                                        </div>
-                                        <div class="right">
-                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
-                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="type1">
-                                <div class="outBox">
-                                    <div class="top">
-                                        <div class="left">
-                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
-                                            <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
-                                        </div>
-                                        <div class="right">
-                                            <div>
-                                                <img src="img/redhead.jpg"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="left">
-                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
-                                        </div>
-                                        <div class="right">
-                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
-                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
+
                 </ul>
             </div>
             <div class="recTeaStu">
@@ -385,7 +494,7 @@
                         <div class="data">
                             <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
                             <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>支部案例</span>
+                                <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
                                 <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
@@ -402,7 +511,7 @@
                         <div class="data">
                             <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
                             <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>支部案例</span>
+                                <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
                                 <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
@@ -419,7 +528,7 @@
                         <div class="data">
                             <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
                             <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>支部案例</span>
+                                <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
                                 <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
@@ -436,7 +545,7 @@
                         <div class="data">
                             <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
                             <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>支部案例</span>
+                                <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
                                 <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
@@ -456,7 +565,7 @@
                         <div class="data">
                             <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
                             <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>支部案例</span>
+                                <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
                                 <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
@@ -473,7 +582,7 @@
                         <div class="data">
                             <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
                             <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>支部案例</span>
+                                <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
                                 <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
@@ -490,7 +599,7 @@
                         <div class="data">
                             <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
                             <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>支部案例</span>
+                                <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
                                 <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
@@ -507,7 +616,7 @@
                         <div class="data">
                             <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
                             <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>支部案例</span>
+                                <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
                                 <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
@@ -516,7 +625,6 @@
                             <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
                         </div>
                     </li>
-
                 </ul>
             </div>
             <div class="lookmore">
@@ -525,16 +633,251 @@
         </div>
     </div>
     <!-- show -->
+    <!-- show -->
     <div class="clearfix"></div>
 @endsection
 
 @section('after-scripts-end')
     {!! Html::script('js/swipeslider.min.js') !!}
+    {!! Html::script('//cdn.bootcss.com/raphael/2.2.1/raphael.min.js') !!}
+    {!! Html::script('js/chinaMapConfig.js') !!}
+    {!! Html::script('js/map.js') !!}
+    <script type="text/javascript">
+        $(function() {
+            // 外部控制地图
+            var mapObj = {};
+            var stateColorList = ['d7201d', 'd84f45', 'd99992', 'cccccc'];
+
+            // $.ajax({
+            // 	url: projectName+'/idea123Action.do?method=getIdea123MapData&reportName='+reportName,
+            // 	data: data,
+            // 	dataType: 'json',
+            // 	success: function(data){
+
+            var data = {
+                "jiangsu": {
+                    "value": "30.05%",
+                    "index": "1",
+                    "stateInitColor": "0"
+                },
+                "henan": {
+                    "value": "19.77%",
+                    "index": "2",
+                    "stateInitColor": "0"
+                },
+                "anhui": {
+                    "value": "10.85%",
+                    "index": "3",
+                    "stateInitColor": "0"
+                },
+                "zhejiang": {
+                    "value": "10.02%",
+                    "index": "4",
+                    "stateInitColor": "0"
+                },
+                "liaoning": {
+                    "value": "8.46%",
+                    "index": "5",
+                    "stateInitColor": "0"
+                },
+                "beijing": {
+                    "value": "4.04%",
+                    "index": "6",
+                    "stateInitColor": "1"
+                },
+                "hubei": {
+                    "value": "3.66%",
+                    "index": "7",
+                    "stateInitColor": "1"
+                },
+                "jilin": {
+                    "value": "2.56%",
+                    "index": "8",
+                    "stateInitColor": "1"
+                },
+                "shanghai": {
+                    "value": "2.47%",
+                    "index": "9",
+                    "stateInitColor": "1"
+                },
+                "guangxi": {
+                    "value": "2.3%",
+                    "index": "10",
+                    "stateInitColor": "1"
+                },
+                "sichuan": {
+                    "value": "1.48%",
+                    "index": "11",
+                    "stateInitColor": "2"
+                },
+                "guizhou": {
+                    "value": "0.99%",
+                    "index": "12",
+                    "stateInitColor": "2"
+                },
+                "hunan": {
+                    "value": "0.78%",
+                    "index": "13",
+                    "stateInitColor": "2"
+                },
+                "shandong": {
+                    "value": "0.7%",
+                    "index": "14",
+                    "stateInitColor": "2"
+                },
+                "guangdong": {
+                    "value": "0.44%",
+                    "index": "15",
+                    "stateInitColor": "2"
+                },
+                "jiangxi": {
+                    "value": "0.34%",
+                    "index": "16",
+                    "stateInitColor": "3"
+                },
+                "fujian": {
+                    "value": "0.27%",
+                    "index": "17",
+                    "stateInitColor": "3"
+                },
+                "yunnan": {
+                    "value": "0.23%",
+                    "index": "18",
+                    "stateInitColor": "3"
+                },
+                "hainan": {
+                    "value": "0.21%",
+                    "index": "19",
+                    "stateInitColor": "3"
+                },
+                "shanxi": {
+                    "value": "76.11%",
+                    "index": "20",
+                    "stateInitColor": "1"
+                },
+                "hebei": {
+                    "value": "0.11%",
+                    "index": "21",
+                    "stateInitColor": "4"
+                },
+                "neimongol": {
+                    "value": "0.04%",
+                    "index": "22",
+                    "stateInitColor": "4"
+                },
+                "tianjin": {
+                    "value": "0.04%",
+                    "index": "23",
+                    "stateInitColor": "4"
+                },
+                "gansu": {
+                    "value": "0.04%",
+                    "index": "24",
+                    "stateInitColor": "4"
+                },
+                "shaanxi": {
+                    "value": "0.02%",
+                    "index": "25",
+                    "stateInitColor": "0"
+                },
+                "macau": {
+                    "value": "0.0%",
+                    "index": "26",
+                    "stateInitColor": "1"
+                },
+                "hongkong": {
+                    "value": "0.0%",
+                    "index": "27",
+                    "stateInitColor": "3"
+                },
+                "taiwan": {
+                    "value": "0.0%",
+                    "index": "28",
+                    "stateInitColor": "4"
+                },
+                "qinghai": {
+                    "value": "0.0%",
+                    "index": "29",
+                    "stateInitColor": "5"
+                },
+                "xizang": {
+                    "value": "0.0%",
+                    "index": "30",
+                    "stateInitColor": "5"
+                },
+                "ningxia": {
+                    "value": "0.0%",
+                    "index": "31",
+                    "stateInitColor": "5"
+                },
+                "xinjiang": {
+                    "value": "0.0%",
+                    "index": "32",
+                    "stateInitColor": "5"
+                },
+                "heilongjiang": {
+                    "value": "0.0%",
+                    "index": "33",
+                    "stateInitColor": "5"
+                },
+                "chongqing": {
+                    "value": "0.0%",
+                    "index": "34",
+                    "stateInitColor": "5"
+                }
+            };
+//                var i = 1;
+//                for(k in data) {
+//                    if(i <= 12) {
+//                        var _cls = i < 4 ? 'active' : '';
+//                        $('#MapControl .list1').append('<li name="' + k + '"><div class="mapInfo"><i class="' + _cls + '">' + (i++) + '</i><span>' + chinaMapConfig.names[k] + '</span><b>' + data[k].value + '</b></div></li>')
+//                    } else if(i <= 24) {
+//                        $('#MapControl .list2').append('<li name="' + k + '"><div class="mapInfo"><i>' + (i++) + '</i><span>' + chinaMapConfig.names[k] + '</span><b>' + data[k].value + '</b></div></li>')
+//                    } else {
+//                        $('#MapControl .list3').append('<li name="' + k + '"><div class="mapInfo"><i>' + (i++) + '</i><span>' + chinaMapConfig.names[k] + '</span><b>' + data[k].value + '</b></div></li>')
+//                    }
+//                }
+
+            var mapObj_1 = {};
+
+            $('#RegionMap').SVGMap({
+                external: mapObj_1,
+                mapName: 'china',
+                mapWidth: 530,
+                mapHeight: 400,
+                stateData: data,
+                // stateTipWidth: 118,
+                // stateTipHeight: 47,
+                // stateTipX: 2,
+                // stateTipY: 0,
+                stateTipHtml: function(mapData, obj) {
+                    var _value = mapData[obj.id].value;
+                    var _idx = mapData[obj.id].index;
+                    var active = '';
+                    _idx < 4 ? active = 'active' : active = '';
+                    var tipStr = '<div class="mapInfo"><i class="' + active + '">' + _idx + '</i><span>' + obj.name + '</span><b>' + _value + '</b></div>';
+                    return tipStr;
+                },
+                clickCallback: function(stateData, obj) {
+                    var h3 = document.getElementById("oclick");
+                    var progress = document.getElementById("progress");
+                    h3.innerHTML = obj.name + "<span>" + (stateData)[obj.id].value + "</span>";
+                    var newstr = (stateData)[obj.id].value.replace(/%/, "");
+                    progress.style.width = (stateData)[obj.id].value;
+
+                }
+            });
+            $('#MapColor').show();
+            // 	}
+            // });
+        });
+    </script>
     <script type="text/javascript">
         $(window).load(function () {
             $('#full_feature').swipeslider();
         });
     </script>
+
     <script type="text/javascript">
         var bgBtn = document.getElementById('bgDetail');
         var bgContent = document.getElementById('bg');

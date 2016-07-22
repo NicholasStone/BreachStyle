@@ -1,46 +1,167 @@
 @extends("frontend.layouts.master")
 
+@section("after-styles-end")
+    {!! Html::style('//cdn.bootcss.com/froala-editor/1.2.2/css/froala_editor.min.css') !!}
+@endsection
+
 @section("content")
     <!-- createDepart -->
     <div class="create">
         <div class="content">
             <div class="crtDepart">
-                <form>
-                    <p>党支部名称<span>*</span> :</p>
-                    <input type="text" name="name" id="name" class="name" placeholder="请输入党支部名称" />
-                    <div class="radioBox">
-                        <p>党支部类型:</p>
-                        <div class="radioitem">
-                            <input type="radio" name="show" id="teashow" value="tea"/><label for="teashow">教师党支部</label>
-                        </div>
-                        <div class="radioitem">
-                            <input type="radio" name="show" id="stushow" value="stu"/><label for="stushow">学生党支部</label>
-                        </div>
-                    </div>
-                    <p>党支部情况介绍<span>*</span> :</p>
-                    <div id="editor">
-                        <div id="edit">
+                <form method="post" action="{{ route('frontend.branch.create') }}">
+                    {!! csrf_field() !!}
+                    <div class="uploadImg">
+                        <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()"/>
+                        <label for="headImg">
+                            <div class="imgBox" id="imgBox">
 
+                            </div>
+                        </label>
+                        <h4>党支部配图<span>*</span> : </h4>
+                    </div>
+                    <div class="row">
+                        <h4>党支部名称<span>*</span> : </h4>
+                        <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"/>
+                    </div>
+                    <div class="row">
+                        <h4>党支部类型:</h4>
+                        <div class="radioitem">
+                            <input type="radio" name="type" id="teashow" value="教师党支部"/><label for="teashow">教师党支部</label>
+                        </div>
+                        <div class="radioitem">
+                            <input type="radio" name="type" id="stushow" value="学生党支部"/><label for="stushow">学生党支部</label>
                         </div>
                     </div>
-                    <div class="uploadFile" id="imgFile">
-                        <p>党支部认证资料<span>*</span> :</p>
-                        <div class="uploadBtn">
-                            <input type="file" name="certify" id="certify0" onchange="loadVedioFile()" accept="image/*"/>
-                            <label for="certify0"><span>上传认证资料</span></label>
+                    <div class="row">
+                        <h4>所在学校<span>*</span> : </h4>
+                        <input type="text" name="university" id="school" class="school"/>
+                    </div>
+                    <div class="row">
+                        <h4>党支部书记名称<span>*</span> : </h4>
+                        <input type="text" name="secretary" id="leader" class="leader"/>
+                        <span class="note">默认创建党支部者为党支部书记</span>
+                    </div>
+                    <div class="row">
+                        <h4>党支部书记简介<span>*</span> : </h4>
+                        <textarea class="introduce" oninput="wordChange()" id="intro" name="secretary_summary"></textarea>
+                        <p class="tips">还可以输入<span id="word">100</span>字</p>
+                    </div>
+                    <div class="row">
+                        <h4>党员人数<span>*</span> : </h4>
+                        <input type="text" name="total_membership" id="people" class="people"/>
+                    </div>
+                    <div class="row">
+                        <h4>手机号<span>*</span> : </h4>
+                        <input type="text" name="tel" id="mobilePhone" class="mobile"/>
+                    </div>
+                    <div class="row">
+                        <h4>通讯地址<span>*</span> : </h4>
+                        <input type="text" name="address" id="address" class="address"/>
+                    </div>
+                    <div class="row">
+                        <h4>党支部情况介绍<span>*</span> :</h4>
+                        <div id="editor">
+                            <div id='edit'>
+
+                            </div>
                         </div>
                     </div>
-                    <div class="uploadFile" id="vedioFile">
-                        <p>党支部视频介绍<span>*</span> :</p>
-                        <div class="uploadBtn">
-                            <input type="file" name="vedioInfo" id="vedioInfo"   onchange="loadVedioFile()" accept="video/*"/>
-                            <label for="vedioInfo"><span>上传宣传视频</span></label>
-                        </div>
+                    <div class="row">
+                        <h4>党支部认证表<span>*</span> : </h4>
+                        <input type="file" name="apply" id="departCertify" accept="image/*" class="casePreview"
+                               onchange="uploadCertify()"/>
+                        <label for="departCertify">
+                            <span>添加图片</span>
+                        </label>
+                    </div>
+                    <div class="submitBtn">
+                        <input type="submit" name="submit" id="submit" value="确认创建"/>
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <!-- createDepart -->
+@endsection
 
+@section("after-scripts-end")
+    {!! Html::script('//cdn.bootcss.com/froala-editor/1.2.2/js/froala_editor.min.js') !!}
+    {!! Html::script('//cdn.bootcss.com/froala-editor/1.2.2/js/plugins/video.min.js') !!}
+    <script>
+        function wordChange(){
+            var intro = document.getElementById('intro');
+            var word = document.getElementById('word');
+            if(intro.value.length >= 100){
+                alert("超出字符限制");
+                word.innerHTML = 0;
+            }
+            word.innerHTML = (100-intro.value.length);
+        }
+        $(function() {
+            $('#edit').editable({
+                inlineMode: false,
+                alwaysBlank: true
+            })
+        });
+
+        $(function() {
+            $.ajax({
+                type: "GET",
+                url: "data/province.json",
+                data: {
+
+                },
+                dataType: "json",
+                success: function(data) {
+                    var province = document.getElementById('provinceList');
+                    for(var i=0;i<data.length;i++){
+                        var li = document.createElement('li');
+                        var a = document.createElement('a');
+                        a.index = data[i].id;
+                        a.innerHTML = data[i].name;
+                        li.appendChild(a);
+                        province.appendChild(li);
+
+                        a.addEventListener('click',function(){
+
+                        });
+                    }
+                }
+            });
+        });
+
+        function uploadCertify(){
+            var departCertify = document.getElementById("departCertify").files;
+            alert("已选择 " + departCertify[0].name);
+        }
+
+        var imgSelect = document.getElementById("headImg");
+        var loadImageFile = (function() {
+            if (window.FileReader) {
+                var oPreviewImg = null,
+                        oFReader = new window.FileReader(),
+                        rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                oFReader.onload = function(oFREvent) {
+                    if (!oPreviewImg) {
+                        var newPreview = document.getElementById("imgBox");
+                        oPreviewImg = document.createElement('img');
+                        newPreview.appendChild(oPreviewImg);
+                    }
+                    oPreviewImg.src = oFREvent.target.result;
+                };
+                return function() {
+                    var aFiles = document.getElementById("headImg").files;
+                    if (aFiles.length === 0) {
+                        return;
+                    }
+                    if (!rFilter.test(aFiles[0].type)) {
+                        alert("你必须选择一个图片!");
+                        return;
+                    }
+                    oFReader.readAsDataURL(aFiles[0]);
+                }
+            }
+        }	)();
+    </script>
 @endsection

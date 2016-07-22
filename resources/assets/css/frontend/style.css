@@ -1,3 +1,16 @@
+::-webkit-scrollbar {
+  		width: 7px;
+  		height: 7px;
+  		cursor: pointer；
+	}
+	::-webkit-scrollbar-track {
+  		background-color: rgb(240,240,240);
+  		border-radius: 12px
+	}
+	::-webkit-scrollbar-thumb {
+  		border-radius: 10px;
+  		background-color: #e43e2f
+	}
 * {
 	margin: 0;
 	padding: 0;
@@ -23,6 +36,20 @@ body {
 	width: 100%;
 	padding-top: 58%;
 }
+.floatLogin{
+	width: 490px;
+	height: 335px;
+	display: block;
+	background: #ffffff;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+}
 /* topbar */
 .topbar {
 	width: 100%;
@@ -39,7 +66,6 @@ body {
 	float: left;
 }
 .topbar .content .welcome p {
-	width: 200px;
 	line-height: 40px;
 	color: #a3a3a3;
 	font-size: .75em;
@@ -99,6 +125,13 @@ body {
 	border: 1px solid #dddddd;
 	border-top: none;
 	background: #f7f7f7;
+	position: absolute;
+	top: 41px;
+	left: 0;
+	z-index: 3;
+}
+.topbar .content .home .homeList li.weibo{
+	position: relative;
 }
 .topbar .content .home .homeList li.weibo ul li {
 	height: 30px;
@@ -167,8 +200,7 @@ body {
 	color: #454545;
 	display: block;
 	line-height: 24px;
-	text-align: center;
-	border-radius: 4px;
+	text-align: center border-radius: 4px;
 }
 
 /*  banner  */
@@ -184,6 +216,7 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
+	background: #d63115;
 }
 .banner .bannerBox img {
 	height: 100%;
@@ -210,7 +243,7 @@ body {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, .12);
 }
 .mainNav .content {
-	width: 900px;
+	width: 1024px;
 	height: 100%;
 	margin: 0 auto;
 }
@@ -219,7 +252,7 @@ body {
 	height: 100%;
 }
 .mainNav .content ul li {
-	width: 20%;
+	width: 16.66%;
 	height: 100%;
 	float: left;
 }
@@ -253,6 +286,62 @@ body {
 	margin-left: 17%;
 }
 
+/* searchBox */
+.searchBox{
+	width: 100%;
+	height: 200px;
+	background: url(../img/1920.jpg);
+}
+.searchBox .mask{
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.5);
+}
+.searchBox .mask .content{
+	width: 900px;
+	height: 42px;
+	margin: 0 auto;
+	padding-top: 79px;
+}
+.searchBox .mask .content ul{
+	width: 100%;
+	height: 100%;
+}
+.searchBox .mask .content ul li{
+	width: 33.3333%;
+	float: left;
+}
+.searchBox .mask .content ul li.selectSchool input{
+	width: 80%;
+	height: 42px;
+	border: none;
+	outline: none;
+	color: #b3151e;
+	text-indent: .875em;
+}
+.searchBox .mask .content ul li.Search input{
+	width: 70%;
+	height: 42px;
+	border: none;
+	outline: none;
+	color: #b3151e;
+	float: left;
+	text-indent: .875em;
+}
+.searchBox .mask .content ul li.Search button{
+	width: 20%;
+	border: none;
+	outline: none;
+	height: 42px;
+	float: left;
+	color: #b61420;
+	cursor: pointer;
+	background: url(../img/searchBg.png) no-repeat center center;
+}
+.searchBox .mask .content ul li.selectDepart select{
+	width: 80%;
+	height: 42px;
+}
 /* slider&news */
 .sliderNews {
 	width: 100%;
@@ -551,6 +640,17 @@ body {
 	margin-top: 10px;
 }
 
+/* ChinaMap*/
+.ChinaMap{
+	width: 100%;
+	overflow: hidden;
+	margin-top: 60px;
+}
+.ChinaMap .content{
+	width: 1200px;
+	margin: 0 auto;
+}
+
 /* activeInfo */
 .activeInfo{
 	width: 100%;
@@ -632,21 +732,27 @@ body {
 	width: 180px;
 	height: 36px;
 	border-radius: 18px;
-	border: 1px solid #E43E2F;
-	margin-top: 50px;
-	margin-left: 20px;
 }
 .downLoad a{
 	width: 100%;
 	height: 100%;
 	display: block;
-	text-align: center;
-	line-height: 36px;
+	line-height: 24px;
 	color: #E43E2F;
 	font-size: .875em;
 }
 .downLoad a span{
 	margin-left: 20px;
+}
+.activeInfo .content .note{
+	width: 100%;
+	margin-top: 24px;
+}
+.activeInfo .content .note p{
+	color: #E43E2F;
+	width: 80%;
+	line-height: 32px;
+	font-size: .875em;
 }
 .activeInfo .content .title{
 	margin-bottom: 26px;
@@ -655,7 +761,9 @@ body {
 	width: 25%;
 	float: left;
 }
-
+.activeInfo .content .contact .title{
+	margin-bottom: 32px;
+}
 /*require*/
 .require{
 	width: 100%;
@@ -1208,7 +1316,7 @@ body {
 .footer{
 	height: 170px;
 	width: 100%;
-	background: url(img/footer.png) no-repeat;
+	background: url(../img/footer.png) no-repeat;
 }
 .footer .content{
 	width: 655px;
@@ -1224,13 +1332,13 @@ body {
 	margin-bottom: 40px;
 }
 .footer .content div p{
-	width: 50%;
 	float: left;
+	margin-right: 24px;
 }
 .footer .content div p span{
 	color: #f5dca4;
 }
-.footer .content div p.sub{
+.footer .content div p{
 	text-align: right;
 }
 
@@ -1272,7 +1380,7 @@ body {
 }
 .achievementList .content .nav .NavList{
 	float: left;
-	width: 60%;
+	width: 75%;
 }
 .achievementList .content .nav .NavList ul{
 	width: 100%;
@@ -1301,7 +1409,7 @@ body {
 }
 .achievementList .content .nav .rank{
 	float: left;
-	width: 38%;
+	width: 23%;
 }
 .achievementList .content .nav .rank p{
 	width: 100%;
@@ -1654,7 +1762,12 @@ body {
 	.show .content .showList .showListBox li.case ul li.type2{
 		padding-top: 27%;
 	}
-	
+	.mainNav .content ul li{
+		width: 25%;
+	}
+	.mainNav .content ul li.upload{
+		display: none; 
+	}
 }
 @media (max-width: 560px) {
 	.mainNav .content ul li.nav a{
@@ -1724,6 +1837,16 @@ body {
 		padding-top: 112%;
 		margin: 0 2% 20px;
 	}
+	.achievements .content ul li .data h2{
+		font-size: .75em;
+		margin-top: 4px;
+	}
+	.achievements .content ul li .data h2 span{
+		font-size: 1.5em;
+	}
+	.achievements .content ul li .data p{
+		margin-top: 4px;
+	}
 }
 
 @media (max-width: 440px) {
@@ -1752,6 +1875,18 @@ body {
 	}
 	.show .content .showList .showListBox li.case ul li.type2{
 		padding-top: 36%;
+	}
+	.topbar .content .home .homeList li.login .reg{
+		display: none;
+	}
+	.show .content .showList .showListBox li.vedio ul li .outBox h3{
+	    margin: 10px 0 8px;
+	}
+	.show .content .showList .showListBox li.vedio ul li .outBox .author{
+		margin-bottom: 6px;
+	}
+	.show .content .showList .showListBox li.vedio ul li .outBox p{
+		margin-bottom: 12px;
 	}
 }
 @media (max-width: 340px){

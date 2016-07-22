@@ -16,7 +16,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view("backend.party.course.index")
+        return view("frontend.party.course.index")
             ->withUser(access()->user());
     }
 
@@ -27,7 +27,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view("backend.party.course.create")
+        return view("frontend.party.course.create")
             ->withUser(access()->user());
     }
 

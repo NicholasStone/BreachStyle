@@ -31,7 +31,7 @@ class CaseController extends Controller
      */
     public function create()
     {
-        return view("frontend.party.case.index")
+        return view("frontend.party.case.create")
             ->withUser(access()->user());
     }
 

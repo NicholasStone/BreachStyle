@@ -8,7 +8,7 @@ use App\Http\Requests\Request;
  * Class UpdateProfileRequest
  * @package App\Http\Requests\Frontend\User
  */
-class UpdateProfileRequest extends Request
+class BindRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -36,7 +36,8 @@ class UpdateProfileRequest extends Request
             'university' => 'required|exists:universities,name',
             'tel_work'   => 'required',
             'tel'        => 'required',
-            'email'      => 'sometimes|required|email',
+            'email'      => 'required|email',
+            'avator'     => 'required|max:1.5'
         ];
     }
 }

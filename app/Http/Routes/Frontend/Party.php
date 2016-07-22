@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Party',], function () {
     });
 
     Route::group(['prefix' => 'course'], function () {
-        Route::get('index', 'CourseController@index')->name('frontend.course.index');
+//        Route::get('index', 'CourseController@index')->name('frontend.course.index');
         Route::get('submit', 'CourseController@create')->name('frontend.course.create');
         Route::post('submit', 'CourseController@store')->name('frontend.course.store');
     });
@@ -21,7 +21,8 @@ Route::group(['namespace' => 'Party',], function () {
     });
 
     Route::group(['prefix' => 'recommend'], function () {
-
+        Route::get('submit', 'RecommendController@create')->name('frontend.recommend.create');
+        Route::post('submit', 'RecommendController@store')->name('frontend.recommend.store');
     });
 
 });
