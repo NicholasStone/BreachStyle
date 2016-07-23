@@ -202,7 +202,14 @@ body {
 	line-height: 24px;
 	text-align: center border-radius: 4px;
 }
-
+.topbar .content .home .homeList li.login-out{
+	padding-top: 8px;
+}
+.topbar .content .home .homeList li.login-out a{
+	color: #454545;
+	font-size: .75em;
+	margin: 0 8px;
+}
 /*  banner  */
 .banner {
 	width: 100%;
@@ -697,7 +704,7 @@ body {
 .activeInfo .content .info .infoList ul li p.tits span{
 	color: #2d2b26;
 	font-weight: 600;
-	
+
 }
 .activeInfo .content .info .infoList ul li a{
 	position: absolute;
@@ -1766,7 +1773,7 @@ body {
 		width: 25%;
 	}
 	.mainNav .content ul li.upload{
-		display: none; 
+		display: none;
 	}
 }
 @media (max-width: 560px) {

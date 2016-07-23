@@ -29,14 +29,7 @@ class UpdateProfileRequest extends Request
     {
         return [
             'name'       => 'required',
-            'id_number'  => 'required|string|size:18',
-            'type'       => 'required|in:学生,教师',
-            'province'   => 'required|exists:province,name',
-            'city'       => 'required|max:20',
-            'university' => 'required|exists:universities,name',
-            'tel_work'   => 'required',
             'tel'        => 'required',
-            'email'      => 'sometimes|required|email',
         ];
     }
 }

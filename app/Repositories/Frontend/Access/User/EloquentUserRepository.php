@@ -237,19 +237,7 @@ class EloquentUserRepository implements UserRepositoryContract
     {
         $user = $this->find($id);
         $user->name = $input['name'];
-
-        if ($user->canChangeEmail()) {
-            //Address is not current address
-            if ($user->email != $input['email']) {
-                //Emails have to be unique
-                if ($this->findByEmail($input['email'])) {
-                    throw new GeneralException(trans('exceptions.frontend.auth.email_taken'));
-                }
-
-                $user->email = $input['email'];
-            }
-        }
-
+        $user->tel = $input['tel'];
         return $user->save();
     }
 

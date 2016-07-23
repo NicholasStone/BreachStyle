@@ -1,8 +1,8 @@
 <?php
 Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'branch'], function () {
-//        Route::get('index', 'BranchController@index')->name('frontend.branch.index');
         Route::get('bind', 'BranchController@show')->name('frontend.branch.bind');
+//        Route::get('index', 'BranchController@index')->name('frontend.branch.index');
         Route::post('bind', 'BranchController@update')->name('frontend.branch.update');
         Route::get('establish', 'BranchController@create')->name('frontend.branch.establish');
         Route::post('create', 'BranchController@store')->name('frontend.branch.create');

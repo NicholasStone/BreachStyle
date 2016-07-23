@@ -5,10 +5,11 @@
     <div class="bindinfo">
         <div class="content">
             <div class="infoList">
-                <form>
+                <form method="post" action="{{ route("sso.complete") }}" enctype="multipart/form-data">
+                    {!! csrf_field() !!}
                     <div class="infoListLeft">
                         <div class="uploadImg">
-                            <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()"/>
+                            <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()" required/>
                             <label for="headImg">
                                 <div class="imgBox" id="imgBox">
                                 </div>
@@ -17,8 +18,8 @@
                         </div>
                     </div>
                     <div class="infoListRight">
-                        <p>真实姓名<input type="type" name="name" id="realName" value=""/><span>*</span></p>
-                        <p>身份证号<input type="type" name="id_number" id="idnumber" value=""/><span>*</span></p>
+                        <p>真实姓名<input type="text" name="name" id="realName" required/><span>*</span></p>
+                        <p>身份证号<input type="text" name="id_number" id="idnumber" required/><span>*</span></p>
                         <div class="row">
                             <p>用户类型</p>
                             <div class="radioitem">
@@ -37,15 +38,19 @@
                                 <select class="form-control" id="province1" name="province"></select>
                             </div>
                             <div class="form-group">
-                                <label class="sr-only" for="city1" >市</label>
+                                <label class="sr-only" for="city1">市</label>
                                 <select class="form-control" id="city1" name="city"></select>
                             </div>
                         </div>
-                        <p><label for="university">所在大学</label><input type="text" name="school" id="university" value=""/><span>*</span></p>
-                        <p><label for="tel_work">办公电话</label><input type="tel" name="tel_work" id="tel_work" value=""/><span>*</span></p>
-                        <p><label for="tel">绑定手机</label><input type="tel" name="tel" id="tel" value=""/><span>*</span></p>
-                        <p><label for="email">绑定邮箱</label><input type="email" name="email" id="email" value=""/><span>*</span></p>
-                        <input type="submit" name="sub" id="sub" class="submitBtn" value="提交"/>
+                        <p><label for="school">所在大学</label><input type="text" name="university" id="school"
+                                                                      required/><span>*</span></p>
+                        <p><label for="tel_work">办公电话</label><input type="tel" name="tel_work" id="tel_work"
+                                                                    required/><span>*</span></p>
+                        <p><label for="tel">绑定手机</label><input type="tel" name="tel" id="tel" required/><span>*</span>
+                        </p>
+                        <p><label for="email">绑定邮箱</label><input type="email" name="email" id="email"
+                                                                 required/><span>*</span></p>
+                        <input type="submit" id="sub" class="submitBtn" value="提交"/>
                     </div>
                 </form>
             </div>

@@ -26,14 +26,14 @@ class BranchRequest extends Request
         return [
             'name'              => 'required',
             'avatar'            => 'required',
-            'school'            => 'required',
+            'university'        => 'required|exists:universities,name',
             'secretary'         => 'required|exists:users,name',
             'secretary_summary' => 'required|max:100',
             'total_membership'  => 'required',
-            'tel'               => 'required|string|size:11',
+            'tel'               => 'required',
             'address'           => 'required|max:200',
             'summary'           => 'required|max:300',
-            'apply'             => 'required|max:2'
+            'apply'             => 'required',
         ];
     }
 }

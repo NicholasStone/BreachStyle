@@ -65,6 +65,7 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
+                data:{status:1, trashed:0},
                 ajax: {
                     url: '{{ route("admin.access.user.get") }}',
                     type: 'get',

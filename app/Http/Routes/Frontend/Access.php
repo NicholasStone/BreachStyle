@@ -18,9 +18,6 @@ Route::group(['namespace' => 'Auth'], function () {
         Route::get('password/change', 'PasswordController@showChangePasswordForm')->name('auth.password.change');
         Route::post('password/change', 'PasswordController@changePassword')->name('auth.password.change');
 
-        //录入个人信息
-        Route::get('binding', 'AuthController@binding')->name('auth.binding');
-        Route::post('binding', 'AuthController@ssoRegister')->name('auth.binding.register');
     });
 
     /**
@@ -30,8 +27,7 @@ Route::group(['namespace' => 'Auth'], function () {
         // Authentication Routes
         Route::get('login', 'AuthController@showLoginForm')->name('auth.login');
         Route::post('login', 'AuthController@login')->name('auth.login');
-        Route::get('token', 'AuthController@ssoToken')->name('auth.token');
-        Route::get('sso-login','AuthController@ossAuth')->name('auth.oss-login');
+
         // Socialite Routes
 //        Route::get('login/{provider}', 'AuthController@loginThirdParty')->name('auth.provider');
 
@@ -40,8 +36,8 @@ Route::group(['namespace' => 'Auth'], function () {
 //        Route::post('register', 'AuthController@register')->name('auth.register');
 
         // Confirm Account Routes
-//        Route::get('account/confirm/{token}', 'AuthController@confirmAccount')->name('account.confirm');
-//        Route::get('account/confirm/resend/{user_id}', 'AuthController@resendConfirmationEmail')->name('account.confirm.resend');
+        Route::get('account/confirm/{token}', 'AuthController@confirmAccount')->name('account.confirm');
+        Route::get('account/confirm/resend/{user_id}', 'AuthController@resendConfirmationEmail')->name('account.confirm.resend');
 
         // Password Reset Routes
         Route::get('password/reset/{token?}', 'PasswordController@showResetForm')->name('auth.password.reset');

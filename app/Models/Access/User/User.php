@@ -5,6 +5,7 @@ namespace App\Models\Access\User;
 use App\Models\Access\User\Traits\UserAccess;
 use App\Models\Application;
 use App\Models\Branch;
+use App\Models\University;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Access\User\Traits\Attribute\UserAttribute;
@@ -25,6 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'user_id',
         'name',
         'email',
         'password',
@@ -37,7 +39,7 @@ class User extends Authenticatable
         'type',
         'province',
         'city',
-        'avator'
+        'avatar'
     ];
 
     /**
@@ -57,9 +59,13 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class, 'name', 'branch_name');
     }
 
+    public function university()
+    {
+        return $this->belongsTo(University::class, 'university', 'name');
+    }
+
     public function getBranchTypeAttribute()
     {
         return $this->branch->type;
     }
-
 }

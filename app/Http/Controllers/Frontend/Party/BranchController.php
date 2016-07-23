@@ -28,7 +28,7 @@ class BranchController extends Controller
      */
     public function create()
     {
-        return view('frontend.party.branch.establish');
+        return view('frontend.party.branch.establish')->withUser(access()->user());
     }
 
     /**
@@ -37,17 +37,20 @@ class BranchController extends Controller
      * @param BranchRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BranchRequest $request)
+    public function store(Request $request)
     {
+        dd($request->all());
         $branch = Branch::new();
-        $hash = $this->putFile($request->file('avatar'), 'Applications/Branch');
+        $avatar = $this->putFile($request->file('avatar'), 'Branch/Avatar');
+        $apply_img = $this->putFile($request->file('apply'), 'Applications/Branch');
         $new = $request->all();
         $branch->name = $new['name'];
         $branch->creator = Auth::user()->name;
-        $branch->avatar = $hash;
+        $branch->avatar = $avatar;
         $branch->summary = $new['summary'];
         $branch->total_membership = $new['total_membership'];
         $branch->address = $new['address'];
+        $branch->apply_img = $apply_img;
         $branch->type = $new['type'];
         $branch->save();
         return redirect()->route('frontend.index');

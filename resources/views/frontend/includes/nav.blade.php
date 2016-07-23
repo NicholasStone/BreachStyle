@@ -34,10 +34,18 @@
                         <input type="submit" name="sub" id="sub" value=""/>
                     </form>
                 </li>
-                <li class="login">
-                    <a href="javascript:;" class="loginBtn" id="login">登录</a>
-                    <a href="http://uzone.univs.cn/signup.jsp" class="reg">注册</a>
-                </li>
+                @if(access()->guest())
+                    <li class="login">
+                        <a href="javascript:;" class="loginBtn" id="login">登录</a>
+                        <a href="http://uzone.univs.cn/signup.jsp" class="reg">注册</a>
+                    </li>
+                @else
+                    <li class="login-out">
+                        {{--<a href="{{ route('user.dashboard') }}">个人中心</a>--}}
+                        <a href="{{ route('frontend.user.profile.detail') }}">个人中心</a>
+                        <a href="{{ route('auth.logout') }}">退出</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -84,55 +92,40 @@
 <!-- mainNav -->
 
 <div class="clearfix"></div>
-<script>
-    window.onload = function () {
-        document.domain = "univs.cn";
-    }
-    var loginBtn = document.getElementById('login');
-    var floatLogin = document.createElement('div');
-    var box = document.getElementsByTagName("body")[0];
-    function loginSuccess() {
-        console.log('loginSuccess');
-        $.ajax({
-            method:'get',
-            url: "{{ route("auth.token") }}",
-            success: function (data) {
-                console.log(data);
-                console.log('1');
-                $.ajax({
-                    method:'get',
-                    url: "http://uzone.univs.cn/checkSSOLogin.action",
-                    data: data,
-                    crossDomain: true,
-                    header:{
-                        'Access-Control-Allow-Origin':'uzone.univs.cn'
-                    },
-                    success: function (data) {
-                        console.log(data);
-                        console.log('2');
-                        $.post({
-                            url: "{{ route('auth.oss-login') }}",
-                            data:data,
-                            success:function () {
-                                console.log(3);
-                            }
-                        })
-                    }
-                })
-            }
+@if(access()->guest())
+    <script>
+        window.onload = function () {
+            document.domain = "univs.cn";
+        }
+        var loginBtn = document.getElementById('login');
+        var floatLogin = document.createElement('div');
+        var box = document.getElementsByTagName("body")[0];
+        function loginSuccess() {
+            $.ajax({
+                method: 'get',
+                url: "{{ route("sso.token") }}",
+                success: function (data) {
+                    location.href = "http://uzone.univs.cn/checkSSOLogin.action" +
+                            "?returnUrl=" + "{{ route('sso.oss-login') }}" +
+                            "&subSiteId=" + data.subSiteId +
+                            "&checkCode=" + data.checkCode +
+                            "&token=" + data.token;
+
+                }
+            });
+        }
+        function closeLoginFrame() {
+            floatLogin.remove();
+        }
+        loginBtn.addEventListener('click', function () {
+            floatLogin.className = "floatLogin";
+            box.appendChild(floatLogin);
+            var iFrame = document.createElement("iframe");
+            iFrame.src = "http://uzone.univs.cn/sso.action";
+            floatLogin.appendChild(iFrame);
+            iFrame.style.width = "490px";
+            iFrame.style.height = "337px";
+            iFrame.style.border = "none";
         });
-    }
-    function closeLoginFrame() {
-        floatLogin.remove();
-    }
-    loginBtn.addEventListener('click', function () {
-        floatLogin.className = "floatLogin";
-        box.appendChild(floatLogin);
-        var iFrame = document.createElement("iframe");
-        iFrame.src = "http://uzone.univs.cn/sso.action";
-        floatLogin.appendChild(iFrame);
-        iFrame.style.width = "490px";
-        iFrame.style.height = "337px";
-        iFrame.style.border = "none";
-    });
-</script>
+    </script>
+@endif

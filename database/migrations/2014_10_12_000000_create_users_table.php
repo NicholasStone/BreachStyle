@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('city',20);
             $table->string('confirmation_code');
             $table->string('password')->nullable();
+            $table->boolean('status')->default(true);
             $table->boolean('confirmed')->default(config('access.users.confirm_email') ? false : true);
             $table->rememberToken();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

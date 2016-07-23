@@ -16,6 +16,7 @@ Route::group(['middleware' => 'web'], function () {
         require(__DIR__ . '/Routes/Frontend/Frontend.php');
         require(__DIR__ . '/Routes/Frontend/Access.php');
         require(__DIR__ . '/Routes/Frontend/Party.php');
+        require(__DIR__ . '/Routes/Frontend/SSOAuth.php');
     });
 });
 
@@ -43,7 +44,3 @@ Route::group(['namespace' => 'Common', 'prefix'=>'common', 'middleware'=>'web'],
     require (__DIR__.'/Routes/Common/File.php');
     require (__DIR__.'/Routes/Common/Universities.php');
 });
-//Route::any('lab',function (){
-//    $user = \App\Models\Access\User\User::find(1);
-//    echo $user->branch_type;
-//});

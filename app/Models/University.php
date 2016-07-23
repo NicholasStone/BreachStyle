@@ -12,4 +12,9 @@ class University extends Model
     {
         return $this->belongsTo(Province::class);
     }
+
+    public function branch()
+    {
+        return $this->hasMany(Branch::class, 'branch_name', 'name');
+    }
 }

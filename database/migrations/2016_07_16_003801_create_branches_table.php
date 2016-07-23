@@ -24,6 +24,7 @@ class CreateBranchesTable extends Migration
             $table->unsignedInteger('total_membership');
             $table->string('secretary', 50);
             $table->string('secretary_summary', 100);
+            $table->string('apply_img', 32);
             $table->timestamps();
         });
     }

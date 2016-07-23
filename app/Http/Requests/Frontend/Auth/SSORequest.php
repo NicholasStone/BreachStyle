@@ -4,7 +4,7 @@ namespace App\Http\Requests\Frontend\Auth;
 
 use App\Http\Requests\Request;
 
-class SinglePointRequest extends Request
+class SSORequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class SinglePointRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'required',
+            'uId' => 'required',
+            'checkCode' => 'required',
         ];
     }
 }

@@ -2164,8 +2164,8 @@
 	height: 100%;
 	background-color: rgba(0,0,0,0.48);
 	position: fixed;
-	top: 0;
-	left: 0;
+	top: 50%;
+	left: 50%;
 	display: none;
 }
 .floatPanel .editPanel{
@@ -2301,7 +2301,7 @@
 	padding: 40px 0 80px 50px;
 	margin: 40px auto;
 	overflow: hidden;
-	background: url(../img/infoBg.jpg) center center no-repeat;
+	background: url("/public/img/infoBg.jpg") center center no-repeat;
 	background-size: 100% 100%;
 }
 .bindinfo .content .infoList{
@@ -2398,13 +2398,6 @@
 	color: #ffffff;
 	margin-top: 32px;
 }
-
-
-
-
-
-
-
 @media (max-width: 640px) {
 	.bindinfo .content{
 		width: 95%;
@@ -2425,27 +2418,6 @@
 		margin-left: 40%;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .schoolList{
 	width: 100%;
 	margin: 30px 0;
@@ -3041,7 +3013,14 @@ body {
 	line-height: 24px;
 	text-align: center border-radius: 4px;
 }
-
+.topbar .content .home .homeList li.login-out{
+	padding-top: 8px;
+}
+.topbar .content .home .homeList li.login-out a{
+	color: #454545;
+	font-size: .75em;
+	margin: 0 8px;
+}
 /*  banner  */
 .banner {
 	width: 100%;
@@ -3536,7 +3515,7 @@ body {
 .activeInfo .content .info .infoList ul li p.tits span{
 	color: #2d2b26;
 	font-weight: 600;
-	
+
 }
 .activeInfo .content .info .infoList ul li a{
 	position: absolute;
@@ -4605,7 +4584,7 @@ body {
 		width: 25%;
 	}
 	.mainNav .content ul li.upload{
-		display: none; 
+		display: none;
 	}
 }
 @media (max-width: 560px) {
