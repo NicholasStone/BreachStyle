@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
+use App\Http\Controllers\Common\FileStorage;
 use App\Http\Requests\Frontend\Party\CourseRequest;
 use App\Models\Application;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Controller;
 
 class CourseController extends Controller
 {
+    use FileStorage;
     /**
      * Display a listing of the resource.
      *
@@ -36,7 +38,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CourseRequest $request)
@@ -56,13 +58,41 @@ class CourseController extends Controller
         $application->save();
 
         alert()->success('提交成功，请等待审核');
+
         return redirect()->route('frontend.index');
+    }
+
+    /**
+     * 上传视频文件
+     * @param Request $request
+     * @return mixed
+     */
+    public function upload(Request $request)
+    {
+        if (!$request->hasFile('file')) {
+            return response()->json([
+                'jsonrpc' => '2.0',
+                'error'   => [
+                    'code'    => 103,
+                    'message' => '无法接收上传文件',
+                ],
+                'id'      => 'id',
+            ]);
+        }
+        $path = $this->saveVideo($request->file('file'));
+        \Session::set('video_path', $path);
+
+        return response()->json([
+            'jsonrpc' => '2.0',
+            'result'  => null,
+            'id'      => 'id',
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -73,7 +103,7 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -84,8 +114,8 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -96,7 +126,7 @@ class CourseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

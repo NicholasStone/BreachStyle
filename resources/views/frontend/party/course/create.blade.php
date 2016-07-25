@@ -114,11 +114,5 @@
             var coursePreview = document.getElementById("coursePreview").files;
             alert("已选择 " + coursePreview[0].name);
         }
-        $(function() {
-            $('#edit').editable({
-                inlineMode: false,
-                alwaysBlank: true
-            })
-        });
     </script>
 @endsection

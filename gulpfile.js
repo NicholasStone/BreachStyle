@@ -48,7 +48,7 @@ elixir(function (mix) {
             'public/js/upload.js'
         )
         .copy(
-            'resource/asset/js/plugin/intense/intense.js',
+            'resources/assets/js/plugin/intense/intense.js',
             'public/js/intense.js'
         )
 

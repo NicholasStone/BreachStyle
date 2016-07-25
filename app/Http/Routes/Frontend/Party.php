@@ -14,6 +14,7 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
 //        Route::get('index', 'CourseController@index')->name('frontend.course.index');
             Route::get('submit', 'CourseController@create')->name('frontend.course.create');
             Route::post('submit', 'CourseController@store')->name('frontend.course.store');
+            Route::post('video/upload', 'CourseController@upload')->name('frontend.course.upload');
         });
 
         Route::group(['prefix' => 'case'], function () {
