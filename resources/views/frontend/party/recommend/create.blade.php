@@ -1,7 +1,7 @@
 @extends("frontend.layouts.master")
 
 @section("after-styles-end")
-    {!! Html::style('//cdn.bootcss.com/froala-editor/1.2.2/css/froala_editor.min.css') !!}
+    @include('UEditor::head')
 @endsection
 
 @section("content")
@@ -19,18 +19,19 @@
                 </li>
             </ul>
             <div class="crtDepart">
-                <form>
+                <form action="{{ route('frontend.recommend.store') }}" method="post" enctype="multipart/form-data">
+                    {!! csrf_field() !!}
                     <div class="row">
                         <h4>推荐展示名称<span>*</span> : </h4>
-                        <input type="text" name="courseName" id="courseName" placeholder="请输入微党课名称" class="courseName" />
+                        <input type="text" name="name" id="courseName" placeholder="请输入课题名称" class="courseName" />
                     </div>
                     <div class="row">
                         <h4>推荐展示简介<span>*</span> : </h4>
-                        <textarea class="caseIntroduce"></textarea>
+                        <textarea class="caseIntroduce" name="summary"></textarea>
                     </div>
                     <div class="row">
                         <h4>上传报名表<span>*</span> : </h4>
-                        <input type="file" name="entry" id="entry" accept="image/*" class="casePreview" onchange="uploadEntry()"/>
+                        <input type="file" name="apply" id="entry" accept="image/*" class="casePreview" onchange="uploadEntry()"/>
                         <label for="entry">
                             <span>添加图片</span>
                         </label>
@@ -38,7 +39,7 @@
                     </div>
                     <div class="row">
                         <h4>推荐展示预览图<span>*</span> : </h4>
-                        <input type="file" name="showPreview" id="showPreview" accept="image/*" class="casePreview" onchange="uploadPreview()"/>
+                        <input type="file" name="img" id="showPreview" accept="image/*" class="casePreview" onchange="uploadPreview()"/>
                         <label for="showPreview">
                             <span>添加图片</span>
                         </label>
@@ -47,9 +48,9 @@
                     <div class="row">
                         <h4>推荐展示说明<span>*</span> :</h4>
                         <div id="editor">
-                            <div id='edit'>
-
-                            </div>
+                            <textarea id="detail" name="detail">
+                                {{ $summary or '' }}
+                            </textarea>
                         </div>
                     </div>
                     <div class="submitBtn">
@@ -62,8 +63,15 @@
 @endsection
 
 @section("after-scripts-end")
-    {!! Html::script('//cdn.bootcss.com/froala-editor/1.2.2/js/froala_editor.min.js') !!}
-    {!! Html::script('//cdn.bootcss.com/froala-editor/1.2.2/js/plugins/video.min.js') !!}
+    <script type="text/javascript">
+        var ue = UE.getEditor('detail', {
+            autoHeight: true,
+            maximumWords: 3000
+        });
+        ue.ready(function () {
+            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
+        });
+    </script>
     <script>
         function uploadEntry(){
             var entry = document.getElementById("entry").files;

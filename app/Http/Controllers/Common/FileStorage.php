@@ -3,22 +3,32 @@
 namespace App\Http\Controllers\Common;
 
 
-use App\Models\Application;
+use Storage;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 
 trait FileStorage
 {
-    protected function putFile(UploadedFile $file, $path)
+    private function save(UploadedFile $file, $path)
     {
         $hash = md5_file($file->getRealPath());
-        Storage::put($path . '/' . $hash, file_get_contents($file->getRealPath()));
+        $file_name = $path . '/' . $hash;
+        Storage::put($file_name, file_get_contents($file->getRealPath()));
 
-        return $hash;
+        return Storage::url($file_name);
     }
 
-    protected function getFile($path, $hash)
+    protected function saveImage(UploadedFile $file, $path)
     {
-        return Storage::get($path . '/' . $hash);
+        return $this->save($file, 'uploadImages/' . $path);
+    }
+
+    protected function saveVideo(UploadedFile $file)
+    {
+        return $this->save($file, 'uploadVideos');
+    }
+
+    protected function saveFile(UploadedFile $file)
+    {
+        return $this->save($file, 'uploadFiles');
     }
 }

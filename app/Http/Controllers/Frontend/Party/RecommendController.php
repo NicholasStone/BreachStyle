@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
+use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Common\FileStorage;
@@ -39,18 +40,21 @@ class RecommendController extends Controller
      */
     public function store(RecommendRequest $request)
     {
-        $application = Application::new();
+        $application = new Application();
         $apply = $request->all();
-        $img_hash = $this->putFile($request->file('img'), "Application/Recommend");
-        $apply_hash = $this->putFile($request->file('apply'), "Application/Apply");
+        $img_hash = $this->saveImage($request->file('img'), "Application/Recommend");
+        $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
         $application->name = $apply['name'];
         $application->type = Auth::user()->branch_type == '学生党支部'?'学生党支部推荐展示':'教师党支部推荐展示';
         $application->detail = $apply['detail'];
         $application->summary = $apply['summary'];
-        $application->branch_name = Auth::user()->branch_name;
+        $application->branch_id = Auth::user()->branch_id;
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
         $application->save();
+
+        alert()->success('提交成功，请等待审核');
+        return redirect()->route('frontend.index');
     }
 
     /**

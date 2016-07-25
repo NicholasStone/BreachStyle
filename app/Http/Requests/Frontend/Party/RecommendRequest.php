@@ -26,8 +26,8 @@ class RecommendRequest extends Request
         return [
             'name'    => 'required',
             'summary' => 'required|max:300',
-            'apply'   => 'required|mimes:jpeg,jpg',
-            'img'     => 'required|mimes:jpeg,gif,png',
+            'apply'   => 'required',
+            'img'     => 'required',
             'detail'  => 'required',
         ];
     }

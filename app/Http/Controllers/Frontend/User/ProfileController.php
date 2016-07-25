@@ -22,11 +22,6 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $user = Auth::user();
-        $branch = Branch::where('secretary', $user->name)->first();
-        if ($branch) {
-            $branch->secretary = $request->get('name');
-            $branch->save();
-        }
         $user->name = $request->get('name');
         $user->tel = $request->get('tel');
         $user->save();
@@ -35,9 +30,18 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * 用户信息
+     * @return $this
+     */
     public function show()
     {
-        $user = access()->user();
+        $user = Auth::user();
+        if(!$user->user_id)
+        {
+            return redirect()->route('admin.dashboard');
+        }
+        $user->branch;
         $university = $user->university;
         $branches = Branch::where('university', $university)->get();
         return view('frontend.user.detail')->with(compact("user", "branches"));

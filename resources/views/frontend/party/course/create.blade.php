@@ -2,7 +2,7 @@
 
 @section("after-styles-end")
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
-    {!! Html::style('//cdn.bootcss.com/froala-editor/1.2.2/css/froala_editor.min.css') !!}
+    @include('UEditor::head')
 @endsection
 
 @section("content")
@@ -21,7 +21,8 @@
             </ul>
 
             <div class="crtDepart">
-                <form>
+                <form method="post" action="{{ route('frontend.course.store') }}" enctype="multipart/form-data">
+                    {!! csrf_field() !!}
                     <div class="row">
                         <h4>微党课名称<span>*</span> : </h4>
                         <input type="text" name="courseName" id="courseName" placeholder="请输入微党课名称" class="courseName"/>
@@ -78,9 +79,9 @@
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
-                            <div id='edit'>
-
-                            </div>
+                            <textarea id="summary" name="summary">
+                                {{ $summary or '' }}
+                            </textarea>
                         </div>
                     </div>
                     <div class="submitBtn">
@@ -93,10 +94,17 @@
 @endsection
 
 @section("after-scripts-end")
-    {!! Html::script('//cdn.bootcss.com/froala-editor/1.2.2/js/froala_editor.min.js') !!}
-    {!! Html::script('//cdn.bootcss.com/froala-editor/1.2.2/js/plugins/video.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     {!! Html::script('js/upload.js') !!}
+    <script type="text/javascript">
+        var ue = UE.getEditor('summary', {
+            autoHeight: true,
+            maximumWords: 3000
+        });
+        ue.ready(function () {
+            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
+        });
+    </script>
     <script>
         function uploadEntry(){
             var entry = document.getElementById("entry").files;

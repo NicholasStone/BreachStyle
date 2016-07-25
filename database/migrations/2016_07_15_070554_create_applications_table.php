@@ -19,9 +19,9 @@ class CreateApplicationsTable extends Migration
             $table->string('summary');
             $table->text('detail')->nullable();
             $table->boolean('verification')->default(0);
-            $table->string('branch_name', 50);
-            $table->string('img_hash', 32);
-            $table->string('apply_hash', 32);
+            $table->unsignedInteger('branch_id');
+            $table->string('img_hash')->nullable();
+            $table->string('apply_hash');
             $table->string('video_hash')->nullable();
             $table->string('course_lecturer',20)->nullable();
             $table->timestamps();

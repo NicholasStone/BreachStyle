@@ -203,8 +203,8 @@ return [
         Yajra\Datatables\DatatablesServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
-	Orangehill\Iseed\IseedServiceProvider::class,
-
+	    Orangehill\Iseed\IseedServiceProvider::class,
+        Stevenyangecho\UEditor\UEditorServiceProvider::class,
         /*
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */

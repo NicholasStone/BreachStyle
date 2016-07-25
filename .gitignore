@@ -19,3 +19,9 @@ error.log
 Todo.rtf
 .vagrant
 route.list
+public/img/
+/npm-debug.log
+npm-debug.log
+public/build/css/font/
+public/upload/
+public/vendor/bin/

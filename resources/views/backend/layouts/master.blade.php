@@ -58,7 +58,10 @@
         <!-- JavaScripts -->
         {{ Html::script('//cdn.bootcss.com/jquery/2.2.4/jquery.min.js') }}
         {{ Html::script('js/vendor/bootstrap/bootstrap.min.js') }}
-
+        {{ Html::script('js/intense.js') }}
+        <script type="text/javascript">
+            Intense($(".thumbnail"));
+        </script>
         @yield('before-scripts-end')
         {{ HTML::script(elixir('js/backend.js')) }}
         @yield('after-scripts-end')

@@ -55,7 +55,7 @@ class BranchController extends VerificationController
         }
         $members = $branch->members;
         $members->each(function ($member){
-            $member->branch_name = null;
+            $member->branch_id = null;
             $member->save();
         });
         $branch->delete();

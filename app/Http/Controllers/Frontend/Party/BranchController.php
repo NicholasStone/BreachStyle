@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
-use App\Http\Controllers\Common\FileStorage;
+use Auth;
+use Validator;
 use App\Models\Branch;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Common\FileStorage;
 use App\Http\Requests\Frontend\Party\BranchRequest;
 
 class BranchController extends Controller
 {
     use FileStorage;
+
     /**
      * Display a listing of the resource.
      *
@@ -39,20 +42,41 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        $branch = Branch::new();
-        $avatar = $this->putFile($request->file('avatar'), 'Branch/Avatar');
-        $apply_img = $this->putFile($request->file('apply'), 'Applications/Branch');
-        $new = $request->all();
-        $branch->name = $new['name'];
-        $branch->creator = Auth::user()->name;
-        $branch->avatar = $avatar;
-        $branch->summary = $new['summary'];
-        $branch->total_membership = $new['total_membership'];
-        $branch->address = $new['address'];
-        $branch->apply_img = $apply_img;
-        $branch->type = $new['type'];
-        $branch->save();
+        $validate = Validator::make($request->all(), [
+            'name'              => 'required',
+            'avatar'            => 'required',
+            'university'        => 'required|exists:universities,name',
+            'secretary'         => 'required|exists:users,name',
+            'secretary_summary' => 'required|max:100',
+            'total_membership'  => 'required',
+            'tel'               => 'required',
+            'address'           => 'required|max:200',
+            'summary'           => 'required|max:300',
+            'apply'             => 'required',
+        ], [
+            'avatar.required' => '请上传配图',
+            'apply.required'  => '请上传支部认证表',
+        ]);
+        if ($validate->fails()) {
+            alert()->error($validate->errors()->all());
+
+            return redirect()->back()->with($request->all());
+        }
+        $avatar = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
+        $apply_img = $this->saveImage($request->file('apply'), 'Applications/Branch');
+        $user = Auth::user();
+        $all = $request->all();
+        $all['avatar'] = $avatar;
+        $all['apply_img'] = $apply_img;
+        $all['secretary'] = $user->name;
+        $all['university'] = $user->university;
+        $all['type'] = $user->type == '学生' ? '学生党支部' : '教师党支部';
+        $branch = Branch::create($all);
+        $user->branch_id = $branch ? $branch->id : '';
+        $user->attachRole(2);
+        $user->save();
+        alert()->success('支部创建成功，您可以上传成果或浏览首页');
+
         return redirect()->route('frontend.index');
     }
 

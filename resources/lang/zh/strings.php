@@ -33,6 +33,9 @@ return [
                 'dept'       => '部门',
                 'university' => '所在院校',
                 'summary'    => '成功简介',
+                'branch'     => '提交支部名称',
+                'img'        => '简介',
+                'apply'      => '申请表',
             ],
             'branch'      => [
                 'title'             => '支部详情',

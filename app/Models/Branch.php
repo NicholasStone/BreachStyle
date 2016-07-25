@@ -7,19 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Branch extends Model
 {
+    protected $fillable = ['name', 'secretary', 'secretary_summary', 'total_membership', 'summary', 'avatar', 'address', 'type', 'tel', 'university', 'apply_img'];
     public function secretary()
     {
-        return $this->belongsTo(User::class, 'secretary', 'name');
+        return $this->belongsTo(User::class, 'secretary');
     }
 
     public function members()
     {
-        return $this->hasMany(User::class, 'name', 'branch_name');
+        return $this->hasMany(User::class);
     }
 
     public function application()
     {
-        return $this->hasMany(Application::class, 'branch_name', 'name');
+        return $this->hasMany(Application::class);
     }
 
 }

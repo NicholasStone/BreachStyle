@@ -10,9 +10,12 @@ use App\Http\Controllers\Controller;
 class VideoController extends Controller
 {
     use FileStorage;
-    public function upload()
+    public function upload(Request $request)
     {
-        
+        if($request->hasFile('video')){
+
+        }
+        $path = $this->saveVideo($request->file('video'));
     }
 
     public function play()

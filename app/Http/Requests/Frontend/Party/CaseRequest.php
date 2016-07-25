@@ -27,8 +27,8 @@ class CaseRequest extends Request
             'name'    => 'required|max:20',
             'summary' => 'required|max:300',
             'detail'  => 'required',
-            'apply'   => 'required|mimes:jpeg,jpg',
-            'img'     => 'required|mimes:jpeg,gif,png',
+            'apply'   => 'required',
+            'img'     => 'required',
         ];
     }
 }

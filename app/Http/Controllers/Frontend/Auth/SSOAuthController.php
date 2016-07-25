@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Common\FileStorage;
 use App\Models\Access\User\User;
+use App\Models\Province;
+use App\Models\University;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Session;
@@ -35,7 +37,7 @@ class SSOAuthController extends Controller
             return redirect()->route('sso.fill');
         } else {
             Auth::login($user);
-            alert()->success('登录成功，请输入您的信息');
+            alert()->success('登录成功');
 
             return redirect()->route('frontend.index');
         }
@@ -54,7 +56,9 @@ class SSOAuthController extends Controller
 
     public function binding()
     {
-        return view('frontend.user.fill');
+        $universities = Province::with("universities")->where('name', '北京市')->first();
+        $universities = $universities->universities;
+        return view('frontend.user.fill',compact('universities'));
     }
 
     public function complete(Request $request)
@@ -67,18 +71,20 @@ class SSOAuthController extends Controller
         $fill = $request->all();
         $validate = Validator::make($fill, [
             'name'       => 'required',
-            'id_number'  => 'required',
+            'id_number'  => 'required|unique:users,id_number',
             'type'       => 'required|in:学生,教师',
             'province'   => 'required|exists:provinces,name',
             'city'       => 'required|max:20',
             'university' => 'required|exists:universities,name',
-            'tel_work'   => 'required',
-            'tel'        => 'required',
+            'tel_work'   => 'required|unique:users,tel',
+            'tel'        => 'required|unique:users,tel_work',
             'email'      => 'required|email',
             'avatar'     => 'required',
         ], [
             'university.exists' => '所填大学不存在',
-            'avatar.required' => '请上传头像',
+            'avatar.required'   => '请上传头像',
+            'tel.unique'        => '此电话已存在',
+            'tel_work.unique'   => '此工作电话已存在',
         ]);
         if ($validate->fails()) {
             alert()->error($validate->errors()->all());
@@ -86,16 +92,18 @@ class SSOAuthController extends Controller
             return redirect()->back();
         }
         $fill['user_id'] = Session::get('user_id');
-        $fill['avatar'] = $this->putFile($request->file('avatar'), 'User/Avatar');
+        $fill['avatar'] = $this->saveImage($request->file('avatar'), 'User/Avatar');
         $user = User::Create($fill);
         Auth::login($user);
         alert()->success('身份信息录入成功');
 
-        return redirect()->route('frontend.user.profile');
+        return redirect()->route('frontend.user.profile.detail');
     }
 
-    public function lab(Request $request)
+    public function getUniversity(Request $request)
     {
-        dd($request->all());
+        $universities = Province::with("universities")->where('name', $request->get('province'))->first();
+
+        return response()->json($universities['universities']);
     }
 }

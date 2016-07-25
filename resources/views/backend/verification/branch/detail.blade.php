@@ -27,10 +27,9 @@
                 <dt>{{ trans('strings.backend.verification.branch.secretary-summary') }}</dt><dd>{{ $secretary_summary }}</dd>
                 <dt>{{ trans('strings.backend.verification.branch.address') }}</dt><dd>{{ $address }}</dd>
                 <dt>{{ trans('strings.backend.verification.branch.total-membership') }}</dt><dd>{{ $total_membership }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.summary') }}</dt><dd>{{ $summary }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.summary') }}</dt><dd>{!! $summary !!}</dd>
             </dl>
-            {{--<img src="{{ asset('img/check.png') }}" alt="" style="position: absolute;top: 50px; right: 200px;">--}}
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Danghui.svg/2000px-Danghui.svg.png" alt="" style="position: absolute;top: 70px; right: 200px; width: 100px; height: 100px">
+            <img src="{{ asset($avatar) }}" alt="配图" class="thumbnail" style="position: absolute;top: 70px; right: 300px; width: 200px; height: 200px">
             <div>
                 <a href="{{ route('admin.verify.branch.grant', $id) }}" class="btn bg-olive">通过</a>
                 <a href="{{ route('admin.verify.branch.deny', $id) }}" class="btn bg-maroon">驳回</a>

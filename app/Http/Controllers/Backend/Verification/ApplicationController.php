@@ -36,16 +36,15 @@ class ApplicationController extends VerificationController
         $apply->verification = 1;
         $apply->save();
 
-        return response()->json(['success' => true]);
+        return redirect()->back()->withFlashSuccess("操作成功");
     }
 
     public function deny($id)
     {
-        $apply = Application::find($id);
-        $apply->verification = -1;
-        $apply->save();
+        $apply = Application::findOrFail($id);
+        $apply->delete();
 
-        return response()->json(['success' => true]);
+        return redirect()->route('admin.verify.application')->withFlashSuccess("操作成功");
     }
 
     public function detail($id)

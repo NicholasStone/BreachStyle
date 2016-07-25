@@ -1,28 +1,31 @@
 <?php
 Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
     Route::group(['prefix' => 'branch'], function () {
-        Route::get('bind', 'BranchController@show')->name('frontend.branch.bind');
+//        Route::get('bind', 'BranchController@show')->name('frontend.branch.bind');
 //        Route::get('index', 'BranchController@index')->name('frontend.branch.index');
         Route::post('bind', 'BranchController@update')->name('frontend.branch.update');
         Route::get('establish', 'BranchController@create')->name('frontend.branch.establish');
         Route::post('create', 'BranchController@store')->name('frontend.branch.create');
+        Route::get('get', 'BranchController@get')->name('frontend.branch.get');
     });
 
-    Route::group(['prefix' => 'course'], function () {
+    Route::group(['middleware' => 'submit'], function () {
+        Route::group(['prefix' => 'course'], function () {
 //        Route::get('index', 'CourseController@index')->name('frontend.course.index');
-        Route::get('submit', 'CourseController@create')->name('frontend.course.create');
-        Route::post('submit', 'CourseController@store')->name('frontend.course.store');
-    });
+            Route::get('submit', 'CourseController@create')->name('frontend.course.create');
+            Route::post('submit', 'CourseController@store')->name('frontend.course.store');
+        });
 
-    Route::group(['prefix' => 'case'], function () {
+        Route::group(['prefix' => 'case'], function () {
 //        Route::get('index', 'CaseController@index')->name('frontend.case.index');
-        Route::get('submit', 'CaseController@create')->name('frontend.case.create');
-        Route::post('submit', 'CaseController@store')->name('frontend.case.store');
-    });
+            Route::get('submit', 'CaseController@create')->name('frontend.case.create');
+            Route::post('submit', 'CaseController@store')->name('frontend.case.store');
+        });
 
-    Route::group(['prefix' => 'recommend'], function () {
-        Route::get('submit', 'RecommendController@create')->name('frontend.recommend.create');
-        Route::post('submit', 'RecommendController@store')->name('frontend.recommend.store');
+        Route::group(['prefix' => 'recommend'], function () {
+            Route::get('submit', 'RecommendController@create')->name('frontend.recommend.create');
+            Route::post('submit', 'RecommendController@store')->name('frontend.recommend.store');
+        });
     });
 
 });

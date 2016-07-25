@@ -9,7 +9,8 @@
                     {!! csrf_field() !!}
                     <div class="infoListLeft">
                         <div class="uploadImg">
-                            <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()" required/>
+                            <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()"
+                                   required/>
                             <label for="headImg">
                                 <div class="imgBox" id="imgBox">
                                 </div>
@@ -42,8 +43,12 @@
                                 <select class="form-control" id="city1" name="city"></select>
                             </div>
                         </div>
-                        <p><label for="school">所在大学</label><input type="text" name="university" id="school"
-                                                                      required/><span>*</span></p>
+                        <p><label for="school">所在大学</label>
+                        <select name="university" id="school" style="width: 120px;height: 32px;margin-left: 15px">
+                                @foreach($universities as $item)
+                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select><span>*</span></p>
                         <p><label for="tel_work">办公电话</label><input type="tel" name="tel_work" id="tel_work"
                                                                     required/><span>*</span></p>
                         <p><label for="tel">绑定手机</label><input type="tel" name="tel" id="tel" required/><span>*</span>
@@ -62,6 +67,28 @@
 @section('after-scripts-end')
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.data.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.min.js') !!}
+    <script type="text/javascript">
+        $(function () {
+            $('#province1').change(function () {
+                $.ajax({
+                    url: "{{ route('sso.universities') }}",
+                    method: 'get',
+                    data: {
+                        province: $("#province1").val(),
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function (data) {
+                        var school = $("#school");
+                        school.empty();
+                        $.each(data, function (index, val) {
+                            console.log(val);
+                            school.append($("<option>").val(val.name).text(val.name));
+                        });
+                    }
+                })
+            })
+        })
+    </script>
     <script type="text/javascript">
         var imgSelect = document.getElementById("headImg");
         var loadImageFile = (function () {

@@ -148,10 +148,9 @@
             },
             dnd: '#dndArea',
             paste: '#uploader',
-            swf: 'http://127.0.0.1:8080/dist/Uploader.swf',
             chunked: false,
             chunkSize: 512 * 1024,
-            server: 'http://127.0.0.1:8080/server/fileupload.php',
+            server: 'http://zhibu.univs.com/video/upload',
             // runtimeOrder: 'flash',
 
             // accept: {
@@ -402,7 +401,7 @@
             var text = '', stats;
 
             if ( state === 'ready' ) {
-                text = '选中' + fileCount + '张图片，共' +
+                text = '选中' + fileCount + '，共' +
                         WebUploader.formatSize( fileSize ) + '。';
             } else if ( state === 'confirm' ) {
                 stats = uploader.getStats();
@@ -413,12 +412,12 @@
 
             } else {
                 stats = uploader.getStats();
-                text = '共' + fileCount + '张（' +
+                text = '共' + fileCount + '个（' +
                         WebUploader.formatSize( fileSize )  +
-                        '），已上传' + stats.successNum + '张';
+                        '），已上传' + stats.successNum + '个';
 
                 if ( stats.uploadFailNum ) {
-                    text += '，失败' + stats.uploadFailNum + '张';
+                    text += '，失败' + stats.uploadFailNum + '个';
                 }
             }
 

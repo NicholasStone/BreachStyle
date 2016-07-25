@@ -43,18 +43,21 @@ class CaseController extends Controller
      */
     public function store(CaseRequest $request)
     {
-        $application = Application::new();
+        $application = new Application();
         $apply = $request->all();
-        $img_hash = $this->putFile($request->file('img'), "Application/Case");
-        $apply_hash = $this->putFile($request->file('apply'), "Application/Apply");
+        $img_hash = $this->saveImage($request->file('img'), "Application/Case");
+        $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
         $application->name = $apply['name'];
         $application->type = '工作案例';
         $application->detail = $apply['detail'];
         $application->summary = $apply['summary'];
-        $application->branch_name = Auth::user()->branch_name;
+        $application->branch_id = Auth::user()->branch_id;
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
         $application->save();
+
+        alert()->success('提交成功，请等待审核通过');
+        return redirect()->route('frontend.index');
     }
 
     /**

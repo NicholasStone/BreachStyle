@@ -47,6 +47,10 @@ elixir(function (mix) {
             'resources/assets/js/frontend/upload.js',
             'public/js/upload.js'
         )
+        .copy(
+            'resource/asset/js/plugin/intense/intense.js',
+            'public/js/intense.js'
+        )
 
         /**
          * Process backend SCSS stylesheets

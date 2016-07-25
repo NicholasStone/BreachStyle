@@ -9,7 +9,7 @@
                 <ul class="idCardList">
                     <li class="headImg">
                         <div class="headImgBox">
-                            <img src="{{ asset('img/'.$user['avatar']) }}"/>
+                            <img src="{{ asset($user['avatar']) }}"/>
                         </div>
                     </li>
                     <li class="personInfo">
@@ -34,9 +34,9 @@
                 </ul>
                 <div class="bindDepart">
                     <p>
-                        <i class="iconfont">&#xe60c;</i>党支部 : <span>{{ $user['branch_name'] or "未加入党支部" }}</span>
+                        <i class="iconfont">&#xe60c;</i>党支部 : <span>{{ $user['branch']['name'] or "未加入党支部" }}</span>
                     </p>
-                    @if(empty($user['branch_name']))
+                    @if(empty($user['branch_id']))
                         <a id="bind">加入党支部</a>
                         <a href="{{ route('frontend.branch.establish') }}">创建党支部</a>
                     @endif
@@ -48,6 +48,7 @@
 @endsection
 
 @section('before-scripts-end')
+
     <!-- floatPanel -->
     <div class="floatPanel" id="panel">
         <div class="editPanel" id="editPanel">
@@ -57,48 +58,56 @@
                 <p>姓名 :</p>
                 <input type="text" name="name" id="name" value="{{ $user['name'] }}"/>
                 <p>办公电话 :</p>
-                <input type="text" name="tel" id="tel" value="{{ $user['name'] }}"/>
+                <input type="text" name="tel" id="tel" value="{{ $user['tel'] }}"/>
                 <div class="BtnList">
                     <button type="submit" id="editSave">保 存</button>
                     <button type="button" id="editCancel">取 消</button>
                 </div>
             </form>
         </div>
-        <div class="bindPanel" id="bindPanel">
-            <form method="post" action="{{ route('frontend.user.profile.join') }}">
-                {!! csrf_field() !!}
-                <h3>绑定党支部</h3>
-                <p>请选择党支部 :</p>
-                <select name="bind">
-                    <option selected="selected" style="width: 280px;">请选择党支部</option>
-                    @foreach( $branches as $item)
-                        <option value="{{ $item }}">{{ $item }}</option>
-                    @endforeach
-                </select>
-                <a href="{{ route('frontend.branch.establish') }}" class="createDepart">创建党支部</a>
-                <div class="BtnList">
-                    <button type="submit" id="bindSave">保 存</button>
-                    <button type="button" id="bindCancel">取 消</button>
-                </div>
-            </form>
-        </div>
+        @if(empty($user['branch_id']))
+            <div class="bindPanel" id="bindPanel">
+                <form method="post" action="{{ route('frontend.user.profile.join') }}">
+                    {!! csrf_field() !!}
+                    <h3>绑定党支部</h3>
+                    <p>请选择党支部 :</p>
+                    <select name="bind">
+                        <option selected="selected" style="width: 280px;">请选择党支部</option>
+                        @foreach( $branches as $item)
+                            <option value="{{ $item }}">{{ $item }}</option>
+                        @endforeach
+                    </select>
+                    <a href="{{ route('frontend.branch.establish') }}" class="createDepart">创建党支部</a>
+                    <div class="BtnList">
+                        <button type="submit" id="bindSave">保 存</button>
+                        <button type="button" id="bindCancel">取 消</button>
+                    </div>
+                </form>
+            </div>
+            <script>
+                var bindPanel = document.getElementById('bindPanel');
+                var bindBtn = document.getElementById('bind');
+                var bindCancel = document.getElementById('bindCancel');
+                bindBtn.onclick = function () {
+                    panel.style.display = "block";
+                    bindPanel.style.display = "block";
+                }
+                bindCancel.onclick = function () {
+                    panel.style.display = "none";
+                    bindPanel.style.display = "none";
+                }
+            </script>
+        @endif
     </div>
     <!-- floatPanel -->
 @endsection
 
 @section('after-scripts-end')
     <script type="text/javascript">
-        var editBtn = document.getElementById('editPersonal');
-        var bindBtn = document.getElementById('bind');
-
         var panel = document.getElementById('panel');
-
+        var editBtn = document.getElementById('editPersonal');
         var editPanel = document.getElementById('editPanel');
         var editCancel = document.getElementById('editCancel');
-
-        var bindPanel = document.getElementById('bindPanel');
-        var bindCancel = document.getElementById('bindCancel');
-
 
         editBtn.onclick = function () {
             panel.style.display = "block";
@@ -108,14 +117,7 @@
             panel.style.display = "none";
             editPanel.style.display = "none";
         }
-        bindBtn.onclick = function () {
-            panel.style.display = "block";
-            bindPanel.style.display = "block";
-        }
-        bindCancel.onclick = function () {
-            panel.style.display = "none";
-            bindPanel.style.display = "none";
-        }
+
 
     </script>
 @endsection

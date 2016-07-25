@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
+use App\Http\Requests\Frontend\Party\CourseRequest;
+use App\Models\Application;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -37,9 +39,10 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        $application = Application::new();
+        dd($request->all());
+        $application = new Application();
         $apply = $request->all();
         $img_hash = $this->putFile($request->file('img'), "Application/Course");
         $apply_hash = $this->putFile($request->file('apply'), "Application/Apply");
@@ -47,10 +50,13 @@ class CourseController extends Controller
         $application->type = '微党课';
         $application->summary = $apply['summary'];
         $application->branch_name = Auth::user()->branch_name;
-        $application->course_lecturer = $apply['course_lectuer'];
+        $application->course_lecturer = $apply['course_lecturer'];
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
         $application->save();
+
+        alert()->success('提交成功，请等待审核');
+        return redirect()->route('frontend.index');
     }
 
     /**

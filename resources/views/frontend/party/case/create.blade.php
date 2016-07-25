@@ -1,7 +1,7 @@
 @extends("frontend.layouts.master")
 
 @section("after-styles-end")
-    {!! Html::style('//cdn.bootcss.com/froala-editor/1.2.2/css/froala_editor.min.css') !!}
+    @include('UEditor::head')
 @endsection
 
 @section('content')
@@ -19,26 +19,27 @@
                 </li>
             </ul>
             <div class="crtDepart">
-                <form enctype="multipart/form-data">
+                <form enctype="multipart/form-data" action="{{ route('frontend.case.store') }}" method="post">
+                    {!! csrf_field() !!}
                     <div class="row">
                         <h4>工作案例名称<span>*</span> : </h4>
-                        <input type="text" name="caseName" id="caseName" placeholder="请输入党支部名称" class="caseName" />
+                        <input type="text" name="name" id="caseName" placeholder="请输入案例名称" class="caseName" value="{{ $name or '' }}"/>
                     </div>
                     <div class="row">
                         <h4>工作案例简介<span>*</span> : </h4>
-                        <textarea class="caseIntroduce"></textarea>
+                        <textarea class="caseIntroduce" name="summary">{{ $summary or '' }}</textarea>
                     </div>
                     <div class="row">
                         <h4>工作案例说明<span>*</span> :</h4>
                         <div id="editor">
-                            <div id='edit'>
-
-                            </div>
+                            <textarea id="detail" name="detail">
+                                {{ $detail or '' }}
+                            </textarea>
                         </div>
                     </div>
                     <div class="row">
                         <h4>上传报名表<span>*</span> : </h4>
-                        <input type="file" name="caseEntry" id="caseEntry" accept="image/*" class="casePreview" onchange="uploadEntry()"/>
+                        <input type="file" name="apply" id="caseEntry" accept="image/*" class="casePreview" onchange="uploadEntry()"/>
                         <label for="caseEntry">
                             <span>添加图片</span>
                         </label>
@@ -46,20 +47,11 @@
                     </div>
                     <div class="row">
                         <h4>上传预览图<span>*</span> : </h4>
-                        <input type="file" name="casePreview" id="casePreview" accept="image/*" class="casePreview" onchange="uploadPreview()"/>
+                        <input type="file" name="img" id="casePreview" accept="image/*" class="casePreview" onchange="uploadPreview()"/>
                         <label for="casePreview">
                             <span>添加图片</span>
                         </label>
                         <p class="notes">支持jpg/png格式，RGB模式,最多上传1张图片，不要在图片上放置无关的东西</p>
-                    </div>
-                    <div class="row">
-                        <h4>是否为推荐展示:</h4>
-                        <div class="radioitem">
-                            <input type="radio" name="show" id="teashow" value="tea" /><label for="teashow">教师党支部推荐展示</label>
-                        </div>
-                        <div class="radioitem">
-                            <input type="radio" name="show" id="stushow" value="stu" /><label for="stushow">学生党支部推荐展示</label>
-                        </div>
                     </div>
                     <div class="submitBtn">
                         <input type="submit" name="submit" id="submit" value="确认提交" />
@@ -71,8 +63,15 @@
 @endsection
 
 @section("after-scripts-end")
-    {!! Html::script('//cdn.bootcss.com/froala-editor/1.2.2/js/froala_editor.min.js') !!}
-    {!! Html::script('//cdn.bootcss.com/froala-editor/1.2.2/js/plugins/video.min.js') !!}
+    <script type="text/javascript">
+        var ue = UE.getEditor('detail', {
+            autoHeight: true,
+            maximumWords: 3000
+        });
+        ue.ready(function () {
+            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
+        });
+    </script>
     <script>
         function uploadPreview(){
             var casePreview = document.getElementById("casePreview").files;
@@ -82,11 +81,5 @@
             var caseEntry = document.getElementById("caseEntry").files;
             alert("已选择 " + caseEntry[0].name);
         }
-        $(function() {
-            $('#edit').editable({
-                inlineMode: false,
-                alwaysBlank: true
-            })
-        });
     </script>
 @endsection
