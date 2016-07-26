@@ -5,6 +5,16 @@
  */
 Route::get('/', 'FrontendController@index')->name('frontend.index');
 Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
+Route::post('active', 'ActiveController@indexUniversityActive')->name('frontend.active');
+Route::get('active/detail', 'ActiveController@activeDetail')->name('frontend.active.detail');
+Route::post('active/province', 'ActiveController@provinceActive')->name('frontend.active.province');
+Route::group(['namespace' => 'Party'],function (){
+    Route::get('branch/index', 'BranchController@index')->name('frontend.branch.index');
+    Route::get('course/index', 'CourseController@index')->name('frontend.course.list');
+    Route::get('case/index', 'CaseController@index')->name('frontend.case.list');
+    Route::get('recommend/{type}/index', 'RecommendController@index')->name('frontend.recommend.list');
+    Route::get('search/{sort?}', "SearchController@search")->name('frontend.search');
+});
 
 /**
  * These frontend controllers require the user to be logged in

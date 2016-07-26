@@ -1,11 +1,16 @@
 @extends('frontend.layouts.master')
 
+@section('after-styles-end')
+    {!! Html::style(asset('css/frontend/map.css')) !!}
+    {!! Html::style(asset('css/frontend/active.css')) !!}
+@endsection
+
 @section('content')
     <!-- ChinaMap -->
     <div class="ChinaMap">
         <div class="content">
             <div class="title">
-                <img src="img/hot.png"/>
+                <img src="{{ asset('img/hot.png') }}"/>
             </div>
             <div class="items" id="Item9">
                 <a href="javascript:;" class="fold"></a>
@@ -85,15 +90,16 @@
         </div>
     </div>
     <!-- hotRank -->
+
 @endsection
 
 @section('after-scripts-end')
     {!! Html::script('//cdn.bootcss.com/raphael/2.2.1/raphael.min.js') !!}
-    {!! Html::script(elixir('js/chinaMapConfig.js')) !!}
-    {!! Html::script(elixir('js/map.js')) !!}
+    {!! Html::script('js/chinaMapConfig.js') !!}
+    {!! Html::script('js/map.js') !!}
 
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             // 外部控制地图
             var mapObj = {};
             var stateColorList = ['d7201d', 'd84f45', 'd99992', 'cccccc'];
@@ -300,7 +306,7 @@
                 // stateTipHeight: 47,
                 // stateTipX: 2,
                 // stateTipY: 0,
-                stateTipHtml: function(mapData, obj) {
+                stateTipHtml: function (mapData, obj) {
                     var _value = mapData[obj.id].value;
                     var _idx = mapData[obj.id].index;
                     var active = '';

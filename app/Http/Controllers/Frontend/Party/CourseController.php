@@ -6,21 +6,24 @@ use App\Http\Controllers\Common\FileStorage;
 use App\Http\Requests\Frontend\Party\CourseRequest;
 use App\Models\Application;
 use Illuminate\Http\Request;
-
+use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class CourseController extends Controller
 {
     use FileStorage;
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view("frontend.party.course.index")
+        return view("frontend.party.common.list", ['type' => '微党课'])
             ->withUser(access()->user());
     }
 
@@ -41,20 +44,40 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CourseRequest $request)
+    public function store(Request $request)
     {
-        dd($request->all());
+        $validate = Validator::make($request->all(), [
+            'name'            => 'required|unique',
+            'summary'         => 'required|max:200',
+            'course_lecturer' => 'required|max:20',
+            'apply'           => 'required',
+            'img'             => 'required',
+        ]);
+
+        if ($validate->failed()) {
+            alert()->error($validate->errors()->all()->toArray());
+
+            return redirect()->back();
+        }
+        if (!\Session::has('video_path')) {
+            alert()->error('请先上传视频');
+
+            return redirect()->back();
+        }
+
         $application = new Application();
         $apply = $request->all();
-        $img_hash = $this->putFile($request->file('img'), "Application/Course");
-        $apply_hash = $this->putFile($request->file('apply'), "Application/Apply");
+        $img_hash = $this->saveImage($request->file('img'), "Application/Course");
+        $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
         $application->name = $apply['name'];
         $application->type = '微党课';
         $application->summary = $apply['summary'];
-        $application->branch_name = Auth::user()->branch_name;
+        $application->branch_id = Auth::user()->branch_id;
+        $application->branch_type = Auth::user()->branch_type;
         $application->course_lecturer = $apply['course_lecturer'];
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
+        $application->video_hash = \Session::get('video_path');
         $application->save();
 
         alert()->success('提交成功，请等待审核');

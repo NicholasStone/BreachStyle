@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
-use App\Http\Controllers\Common\FileStorage;
+use Auth;
 use App\Models\Application;
 use Illuminate\Http\Request;
-use Auth;
-use App\Http\Requests\Frontend\Party\CaseRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Common\FileStorage;
+use App\Http\Requests\Frontend\Party\CaseRequest;
 
 class CaseController extends Controller
 {
@@ -16,11 +16,13 @@ class CaseController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('frontend.party.case.index')
+
+        return view('frontend.party.common.list', ['type' => '工作案例'])
             ->withUser(access()->user());
     }
 
@@ -52,11 +54,13 @@ class CaseController extends Controller
         $application->detail = $apply['detail'];
         $application->summary = $apply['summary'];
         $application->branch_id = Auth::user()->branch_id;
+        $application->branch_type = Auth::user()->branch_type;
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
         $application->save();
 
         alert()->success('提交成功，请等待审核通过');
+
         return redirect()->route('frontend.index');
     }
 

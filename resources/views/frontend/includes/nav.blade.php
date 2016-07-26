@@ -71,16 +71,16 @@
                 <a href="{{ route('frontend.index') }}">首页</a>
             </li>
             <li class="nav">
-                <a href="{{ route('frontend.index') }}">活动详情</a>
+                <a href="#activeInfo">活动详情</a>
             </li>
             <li class="nav">
-                <a href="">参与党支部</a>
+                <a href="{{ route('frontend.branch.index') }}">参与党支部</a>
             </li>
             <li class="nav">
-                <a href="">热度榜</a>
+                <a href="{{ route('frontend.active.detail') }}">热度榜</a>
             </li>
             <li class="nav">
-                <a href="javascript:;">成果展示</a>
+                <a href="{{ route('frontend.case.list') }}">成果展示</a>
             </li>
             <li class="upload">
                 <a href="{{ route('frontend.case.create') }}"><span>上传成果</span></a>

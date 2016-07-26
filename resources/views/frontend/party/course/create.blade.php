@@ -1,7 +1,9 @@
 @extends("frontend.layouts.master")
 
 @section("after-styles-end")
+    {!! Html::style(asset('css/frontend/create.css')) !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
+    {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
     @include('UEditor::head')
 @endsection
 
@@ -25,11 +27,11 @@
                     {!! csrf_field() !!}
                     <div class="row">
                         <h4>微党课名称<span>*</span> : </h4>
-                        <input type="text" name="courseName" id="courseName" placeholder="请输入微党课名称" class="courseName"/>
+                        <input type="text" name="name" id="courseName" placeholder="请输入微党课名称" class="courseName"/>
                     </div>
                     <div class="row">
                         <h4>微党课讲师<span>*</span> : </h4>
-                        <input type="text" name="courseTeacher" id="courseTeacher" class="courseTeacher"/>
+                        <input type="text" name="course_lecturer" id="courseTeacher" class="courseTeacher"/>
                         <span class="note">(默认为视频上传者)</span>
                     </div>
                     <div class="row">
@@ -59,7 +61,7 @@
                     </div>
                     <div class="row">
                         <h4>上传报名表<span>*</span> : </h4>
-                        <input type="file" name="entry" id="entry" accept="image/*" class="casePreview"
+                        <input type="file" name="apply" id="entry" accept="image/*" class="casePreview"
                                onchange="uploadEntry()"/>
                         <label for="entry">
                             <span>添加图片</span>
@@ -69,7 +71,7 @@
                     </div>
                     <div class="row">
                         <h4>微党课预览图<span>*</span> : </h4>
-                        <input type="file" name="coursePreview" id="coursePreview" accept="image/*" class="casePreview"
+                        <input type="file" name="img" id="coursePreview" accept="image/*" class="casePreview"
                                onchange="uploadPreview()"/>
                         <label for="coursePreview">
                             <span>添加图片</span>

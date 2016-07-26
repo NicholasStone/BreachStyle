@@ -1,5 +1,10 @@
 @extends('frontend.layouts.master')
 
+@section('after-styles-end')
+    {!! Html::style(asset('css/frontend/map.css'))!!}
+    {!! Html::style(asset('css/frontend/swipeslider.css'))!!}
+@endsection
+
 @section('content')
     <div class="sliderNews">
         <div class="content">
@@ -61,7 +66,7 @@
                             </li>
                             <li>
                                 <p>
-                                    <a href="#">这是一条新闻啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</a><span>6-17</span>
+                                    <a href="#">这是一啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</a><span>6-17</span>
                                 </p>
                             </li>
                             <li>
@@ -120,7 +125,9 @@
     <div class="ChinaMap">
         <div class="content">
             <div class="title">
-                <img src="img/hot.png"/>
+                <a href="{{ route('frontend.active.detail') }}">
+                    <img src="{{ asset('img/hot.png') }}"/>
+                </a>
             </div>
             <div class="items" id="Item9">
                 <a href="javascript:;" class="fold"></a>
@@ -136,7 +143,8 @@
                                     </div>
                                 </div>
                                 <div class="regionTopRight">
-                                    <a href="#"><span class="iconfont">&#xe61a; </span>查看更多活跃高校》</a>
+                                    <a href="javascript:void(0);"><i class="fa fa-university" aria-hidden="true"></i>
+                                        查看更多活跃高校》</a>
                                 </div>
                             </div>
                             <div class="regionBottom">
@@ -643,7 +651,7 @@
     {!! Html::script('js/chinaMapConfig.js') !!}
     {!! Html::script('js/map.js') !!}
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             // 外部控制地图
             var mapObj = {};
             var stateColorList = ['d7201d', 'd84f45', 'd99992', 'cccccc'];
@@ -850,7 +858,7 @@
                 // stateTipHeight: 47,
                 // stateTipX: 2,
                 // stateTipY: 0,
-                stateTipHtml: function(mapData, obj) {
+                stateTipHtml: function (mapData, obj) {
                     var _value = mapData[obj.id].value;
                     var _idx = mapData[obj.id].index;
                     var active = '';
@@ -858,7 +866,7 @@
                     var tipStr = '<div class="mapInfo"><i class="' + active + '">' + _idx + '</i><span>' + obj.name + '</span><b>' + _value + '</b></div>';
                     return tipStr;
                 },
-                clickCallback: function(stateData, obj) {
+                clickCallback: function (stateData, obj) {
                     var h3 = document.getElementById("oclick");
                     var progress = document.getElementById("progress");
                     h3.innerHTML = obj.name + "<span>" + (stateData)[obj.id].value + "</span>";

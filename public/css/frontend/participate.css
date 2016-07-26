@@ -1,0 +1,146 @@
+.participate{
+	width: 100%;
+	margin-top: 30px;
+}
+.participate .content{
+	width: 1200px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.participate .content .breadNav{
+	width: 100%;
+	overflow: hidden;
+}
+.participate .content .breadNav a,.participate .content .breadNav span{
+	float: left;
+	color: #e77446;
+	font-size: .875em;
+}
+.participate .content .breadNav span{
+	margin: 0 3px;
+}
+.participate .content .departeList{
+	width: 100%;
+	overflow: hidden;
+}
+.participate .content .departeList ul{
+	width: 100%;
+}
+.participate .content .departeList ul li{
+	width: 48%;
+	margin: 12px 1%;
+	height: 0;
+	padding-top: 14.5%;
+	float: left;
+	position: relative;
+	background: #fff5e3;
+	border-radius: 6px;
+	box-shadow: 0 0 12px rgba(0,0,0,.12);
+}
+.participate .content .departeList ul li .outbox{
+	width: 95%;
+	height: 90%;
+	display: block;
+	position: absolute;
+	top: 5%;
+	left: 2.5%;
+}
+.participate .content .departeList ul li .outbox .data{
+	width: 100%;
+	height: 50%;
+}
+.participate .content .departeList ul li .outbox .data .headimg{
+	width: 12.5%;
+	height: 0;
+	padding-top: 12.5%;
+	position: relative;
+	float: left;
+}
+.participate .content .departeList ul li .outbox .data .headimg img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.participate .content .departeList ul li .outbox .data .dataInfo{
+	width: 85%;
+	float: left;
+	margin-left: 2.5%;
+}
+.participate .content .departeList ul li .outbox .data .dataInfo a.title{
+	color: #691d1f;
+	font-size: 1em;
+	line-height: 2em;
+	font-weight: 500;
+	width: 100%;
+	display: block;
+}
+.participate .content .departeList ul li .outbox .data .dataInfo h3 span{
+	color: #b5151f;
+	font-size: 1em;
+}
+.participate .content .departeList ul li .outbox .data .dataInfo a{
+	width: auto;
+	height: auto;
+	color: #a5a7a6;
+	font-size: .875em;
+	margin-left: 12px;
+}
+.participate .content .departeList ul li .outbox .introduce{
+	width: 100%;
+	height: 50%;
+}
+.participate .content .departeList ul li .outbox .introduce p{
+	width: 100%;
+	display: -webkit-box;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    color: #777777;
+    line-height: 1.5em;
+    font-size: .875em;
+}
+.page{
+	background: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

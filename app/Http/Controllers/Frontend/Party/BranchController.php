@@ -21,7 +21,7 @@ class BranchController extends Controller
      */
     public function index()
     {
-        return view('frontend.party.branch.index');
+        return view('frontend.party.branch.participate');
     }
 
     /**

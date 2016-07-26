@@ -1,5 +1,8 @@
 @extends('frontend.layouts.master)
 
+@section('after-styles-end')
+    {!! Html::style(asset('css/frontend/schoolList.css')) !!}
+@endsection
 @section('content')
     <!-- schoolList -->
     <div class="schoolList">

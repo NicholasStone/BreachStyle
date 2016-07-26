@@ -1,0 +1,321 @@
+.achievementList .content .subList{
+	position: relative;
+}
+.subList .container{
+	width: 100%;
+}
+.subList .container .title{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background: #F7F1EB;
+	padding-left: 12px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.subList .container .title h3{
+	line-height: 40px;
+	color: #E43E2F;
+	font-weight: 400;
+	background: #fef7e6;
+	padding-left: 12px;
+}
+.subList .container .newList{
+	width: 100%;
+	overflow: hidden;
+}
+.subList .container .newList ol{
+	margin-top: 20px;
+	padding-left: 24px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.subList .container .newList ol li{
+	float: left;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	color: #897360;
+	font-size: .875em;
+}
+.subList .container .newList ol li p{
+	padding-right: 12px;
+	height: 100%;
+	float: right;
+}
+.subList .container .newList ol li p a{
+	color: #897360;
+    width: 200px;
+    margin-right: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    float: left;
+}
+.subList .container .newList ol li p span{
+	float: right;
+}
+.caseList{
+    margin-top: 0;
+}
+
+.courseShow{
+	width: 100%;
+}
+.courseShow .content{
+	width: 1200px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.courseShow .content ul{
+	width: 100%;
+	overflow: hidden;
+}
+.courseShow .content ul li{
+	width: 23%;
+	height: 0;
+	padding-top: 29%;
+	margin: 0 1%;
+	float: left;
+	position: relative;
+	background: #fff5dd;
+	cursor: pointer;
+}
+.courseShow .content ul li .vedioImgBox{
+	width: 100%;
+	height: 52%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.courseShow .content ul li .vedioImgBox img{
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+}
+.courseShow .content ul li .vedioImgBox span{
+	width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background: rgba(0,0,0,.32);
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    -khtml-opacity: 0;
+    opacity: 0;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;
+}
+.courseShow .content ul li .vedioImgBox span i{
+	width: 100%;
+    height: 100%;
+    z-index: 3;
+    display: block;
+    background: url(../img/play.png) no-repeat center center;
+}
+.courseShow .content ul li:hover .vedioImgBox span{
+	filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    -khtml-opacity: 1;
+    opacity: 1;
+}
+.courseShow .content ul li h3{
+	color: #793911;
+	font-size: 1.125em;
+	display: -webkit-box;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    position: absolute;
+    top: 54%;
+    left: 0;
+    padding: 1em 1em 0;
+    line-height: 1.75em;
+}
+.courseShow .content ul li .data{
+	position: absolute;
+	bottom: 1em;
+	left: 5%;
+	font-size: .75em;
+	color: #b6b5b1;
+	width: 90%;
+}
+.courseShow .content ul li .data span.depart{
+	width: 70%;
+	display: block;
+	float: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.courseShow .content ul li .data span{
+	float: right;
+}
+.achievementList .content .mainList{
+	width: 100%;
+	background: none;
+}
+.achievementList .content .mainList .caseList{
+	background: none;
+}
+.caseList ul{
+	border: none;
+}
+.page{
+	background: none;
+}
+.recTeaList{
+	overflow: hidden;
+	margin: 30px 0 20px;
+}
+.recTeaList li{
+	width: 31.333%;
+	height: 0;
+	padding-top: 35%;
+	position: relative;
+	float: left;
+	background: #fbefd8;
+	cursor: pointer;
+	margin: 0 1% 24px;
+	-webkit-transition: background-color .24s ease;
+	-moz-transition: background-color .24s ease;
+	-ms-transition: background-color .24s ease;
+	-o-transition: background-color .24s ease;
+	transition: background-color .24s ease;
+}
+.recTeaList li .imgBox{
+	width: 100%;
+	height: 52.5%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.recTeaList li .imgBox img{
+	width: 100%;
+	height: 100%;
+}
+.recTeaList li .data{
+	width: 100%;
+	height: 47.5%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+.recTeaList li .data h3{
+	width: 94%;
+	margin: 8px 3%;
+	color: #7f451b;
+	font-size: 1.125em;
+	font-weight: 400;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.recTeaList li .data p.department{
+	width: 94%;
+	margin: 0 3%;
+	font-size: .875em;
+	color: #a6a7ab;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.recTeaList li .data p.department span{
+	margin-right: 6px;
+}
+.recTeaList li .data p.article{
+	margin: 12px 3%;
+	font-size: .875em;
+	color: #55565a;
+	width: 94%;
+	display: -webkit-box;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.5em;
+}
+.recTeaList li .data p.article i{
+	margin-right: 6px;
+}
+.recTeaList li .data p.datas{
+	width: auto;
+	text-align: right;
+	width: 94%;
+	margin: 0 3%;
+	position: absolute;
+	bottom: 12px;
+	color: #a6a8a7;
+}
+.recTeaList li .data p.datas span{
+	margin-left: 24px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

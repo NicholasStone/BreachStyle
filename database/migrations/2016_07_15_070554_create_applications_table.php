@@ -20,10 +20,11 @@ class CreateApplicationsTable extends Migration
             $table->text('detail')->nullable();
             $table->boolean('verification')->default(0);
             $table->unsignedInteger('branch_id');
+            $table->enum('branch_type', ['学生党支部', '教师党支部']);
             $table->string('img_hash')->nullable();
             $table->string('apply_hash');
             $table->string('video_hash')->nullable();
-            $table->string('course_lecturer',20)->nullable();
+            $table->string('course_lecturer', 20)->nullable();
             $table->timestamps();
         });
     }

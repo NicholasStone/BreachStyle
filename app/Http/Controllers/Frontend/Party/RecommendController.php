@@ -12,14 +12,22 @@ use Illuminate\Support\Facades\Auth;
 class RecommendController extends Controller
 {
     use FileStorage;
+
     /**
      * Display a listing of the resource.
-     *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type)
     {
-        return view('frontend.recommend.index')->withUser(access()->user());
+        if ($type == 'student'){
+            $type = '学生党支部推荐展示';
+        }else if($type == 'instructor'){
+            $type = '教师党支部推荐展示';
+        }else{
+            return redirect()->back();
+        }
+        return view('frontend.party.common.list', ['type' => $type])->withUser(access()->user());
     }
 
     /**
@@ -49,6 +57,7 @@ class RecommendController extends Controller
         $application->detail = $apply['detail'];
         $application->summary = $apply['summary'];
         $application->branch_id = Auth::user()->branch_id;
+        $application->branch_type = Auth::user()->branch_type;
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
         $application->save();

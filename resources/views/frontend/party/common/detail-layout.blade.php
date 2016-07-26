@@ -1,5 +1,8 @@
 @extends("frontend.layouts.master")
-
+@section('after-styles-end')
+    {!! Html::style(asset('css/frontend/caseDetail.css')) !!}
+    {!! Html::style(asset('css/frontend/comment.css')) !!}
+@endsection
 @section('content')
     <!-- casedetail -->
     <div class="caseDetail">

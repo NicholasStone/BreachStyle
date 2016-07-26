@@ -1,5 +1,9 @@
 @extends("frontend.layouts.master")
 
+@section('after-styles-end')
+    {!! Html::style(asset('css/frontend/personal.css')) !!}
+@endsection
+
 @section('content')
 
     <!-- personal -->

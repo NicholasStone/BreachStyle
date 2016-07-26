@@ -1,0 +1,285 @@
+.regionList {
+	float: right;
+	width: 55%;
+	height: 400px;
+}
+
+.regionList ul {
+	float: left;
+	height: 100%;
+	margin-right: 5px;
+	display: inline;
+	font-family: "微软雅黑"
+}
+
+.regionList ul li {
+	height: 24px;
+	margin-left: 10px;
+	padding: 0 0px;
+	line-height: 24px;
+}
+
+.regionList ul li.select {
+	border: 1px solid #D3D3D3;
+	background: #FFF1BF
+}
+
+.mapInfo i {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin-top: 5px;
+	line-height: 15px;
+	font-style: normal;
+	background: #aeaeae;
+	color: #fff;
+	font-size: 11px;
+	font-family: Tahoma;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	text-align: center
+}
+
+.mapInfo i.active {
+	background: #E27F21;
+}
+
+.mapInfo span {
+	padding: 0 5px 0 3px;
+}
+
+.mapInfo b {
+	font-weight: normal;
+	color: #2770B5
+}
+
+.regionMap {
+	width: 45%;
+	float: left;
+	display: inline;
+}
+.regionTop{
+	width: 100%;
+	overflow: hidden;
+}
+.regionTop .regionTopLeft{
+	width: 50%;
+	float: left;
+}
+.regionTop .regionTopLeft .progress{
+	width: 100%;
+	height: 10px;
+	background: #ebbba2;
+	margin-top: 12px;
+	border-radius: 6px;
+}
+.regionTop .regionTopLeft .progress span{
+	width: 0%;
+	height: 100%;
+	display: block;
+	border-radius: 6px;
+	background: #bf3b40;
+	-webkit-transition: all .2s ease;
+	-moz-transition: all .2s ease;
+	-ms-transition: all .2s ease;
+	-o-transition: all .2s ease;
+	transition: all .2s ease;
+}
+.regionTop .regionTopRight{
+	width: 50%;
+	float: left;
+}
+.regionTop .regionTopLeft h3{
+	color: #670b11;
+	
+}
+.regionTop .regionTopLeft h3 span{
+	float: right;
+}
+.regionTop .regionTopRight a{
+	float: right;
+	color: #670b11;
+}
+.regionBottom{
+	width: 100%;
+}
+.regionBottom .display{
+	width: 100%;
+	height: 300px;
+	background: #f9f0da;
+	margin-top: 30px;
+	border-radius: 12px;
+	box-shadow: -2px 1px 12px rgba(0,0,0,.12);
+	position: relative;
+}
+.regionBottom .display .triangle{
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 16px solid #f9f0da;
+    position: absolute;
+    top: -16px;
+    right: 20%;
+}
+.regionBottom .display ul{
+	width: 100%;
+	height: 100%;
+}
+.regionBottom .display ul li{
+	width: 45%;
+	height: 24%;
+	margin: 24px 0 0 32px;
+	float: left;
+}
+.regionBottom .display ul li .schoolLogo{
+	width: 18%;
+	height: 0;
+	padding-top: 18%;
+	position: relative;
+	float: left;
+}
+.regionBottom .display ul li .schoolLogo img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.regionBottom .display ul li .schoolInfo{
+	width: 72%;
+	float: left;
+	padding-left: 3%;
+}
+.regionBottom .display ul li .schoolInfo h3{
+	color: #252525;
+	font-size: 1em;
+}
+.regionBottom .display ul li .schoolInfo p{
+	color: #616161;
+	font-size: .875em;
+}
+.stateTip,
+#StateTip {
+	display: none;
+	position: absolute;
+	padding: 8px;
+	background: #fff;
+	border: 2px solid #2385B1;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	font-size: 12px;
+	font-family: Tahoma;
+	color: #333;
+}
+
+.mapInfo i {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin-top: 5px;
+	line-height: 15px;
+	font-style: normal;
+	background: #aeaeae;
+	color: #fff;
+	font-size: 11px;
+	font-family: Tahoma;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	text-align: center
+}
+
+.mapInfo i.active {
+	background: #E27F21;
+}
+
+.mapInfo span {
+	padding: 0 5px 0 3px;
+}
+
+.mapInfo b {
+	font-weight: normal;
+	color: #2770B5
+}
+#MapColor{
+	width: 100%;
+	float: left;
+}
+#MapColor p{
+	width: 20%;
+	float: left;
+	color: #6f6e6d;
+	font-size: .875em;
+	line-height: 40px;
+}
+#MapColor span{
+	margin-left: 30px;
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	color: #71181a;
+}
+#MapColor span i{
+	width: 20px;
+	height: 20px;
+	display: block;
+	float: left;
+	margin: 10px 14px 0;
+}
+#MapColor span.stateInitColor0 i{
+	background: #860b15;
+}
+#MapColor span.stateInitColor1 i{
+	background: #b5131e;
+}
+#MapColor span.stateInitColor2 i{
+	background: #e05a2c;
+}
+#MapColor span.stateInitColor3 i{
+	background: #e0a833;
+}
+#MapColor span.stateInitColor4 i{
+	background: #a0bb55;
+}
+#MapColor span.stateInitColor5 i{
+	background: #cccccc;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

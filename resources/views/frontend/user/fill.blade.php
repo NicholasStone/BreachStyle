@@ -1,5 +1,9 @@
 @extends("frontend.layouts.master")
 
+@section('after-styles-end')
+    {!! Html::style(asset('css/frontend/personal.css')) !!}
+@endsection
+
 @section("content")
     <!-- bindinfo -->
     <div class="bindinfo">
@@ -44,7 +48,7 @@
                             </div>
                         </div>
                         <p><label for="school">所在大学</label>
-                        <select name="university" id="school" style="width: 120px;height: 32px;margin-left: 15px">
+                            <select name="university" id="school" style="width: 120px;height: 32px;margin-left: 15px">
                                 @foreach($universities as $item)
                                     <option value="{{ $item->name }}">{{ $item->name }}</option>
                                 @endforeach

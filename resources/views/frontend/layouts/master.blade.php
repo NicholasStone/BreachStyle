@@ -19,7 +19,8 @@
     @yield('before-styles-end')
     {!! Html::style("//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css") !!}
     {!! Html::style("//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.css") !!}
-    {!! Html::style(elixir('css/frontend.css')) !!}
+    {!! Html::style(asset('css/frontend/style.css'))!!}
+    {!! Html::style(asset('css/frontend/iconfont.css'))!!}
 
     @yield('after-styles-end')
     {!! Html::script("//cdn.bootcss.com/html5shiv/r29/html5.min.js") !!}

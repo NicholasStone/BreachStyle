@@ -1,0 +1,68 @@
+.schoolList{
+	width: 100%;
+	margin: 30px 0;
+}
+.schoolList .content{
+	width: 1200px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.schoolList .content .region{
+	width: 220px;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.schoolList .content .region h3{
+	width: 85%;
+	color: #691D1F;
+	font-size: 1em;
+}
+.schoolList .content .region h3 span{
+	float: right;
+}
+.schoolList .content .region .progress{
+	width: 85%;
+	height: 10px;
+	margin-top: 12px;
+	border-radius: 5px;
+	background: #eabaa3;
+}
+.schoolList .content .region .progress span{
+	display: block;
+	height: 10px;
+	background-color: #dd514c;
+	background-image: -webkit-gradient(linear,0 100%,100% 0,color-stop(.25,rgba(255,255,255,.15)),color-stop(.25,transparent),color-stop(.5,transparent),color-stop(.5,rgba(255,255,255,.15)),color-stop(.75,rgba(255,255,255,.15)),color-stop(.75,transparent),to(transparent));
+    background-image: -webkit-linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+    background-size: 36px 36px;
+    border-radius: 5px;
+}
+.schoolList .content p.data{
+	width: auto;
+	float: left;
+	color: #d11a27;
+	font-size: .875em;
+	margin-top: 12px;
+	overflow: hidden;
+	margin-bottom: 24px;
+}
+.schoolList .content table{
+	width: 95%;
+	margin: 24px auto;
+	border: 1px solid #bfb397;
+	background: #F8E9C8;
+}
+.schoolList .content table tr,.schoolList .content table tr td{
+	border: 1px solid #bfb397;
+}
+.schoolList .content table tr{
+	height: 38px;
+}
+.schoolList .content table tr td{
+	width: 6.6%;
+	text-indent: 1em;
+	color: #672c26;
+}
+.schoolList .content table tr td.schoolName{
+	width: 43.3%;
+}
