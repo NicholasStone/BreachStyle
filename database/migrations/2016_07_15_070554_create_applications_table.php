@@ -25,6 +25,7 @@ class CreateApplicationsTable extends Migration
             $table->string('apply_hash');
             $table->string('video_hash')->nullable();
             $table->string('course_lecturer', 20)->nullable();
+            $table->unsignedInteger('funcy')->default(0);
             $table->timestamps();
         });
     }

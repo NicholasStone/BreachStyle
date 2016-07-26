@@ -8,6 +8,8 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
         Route::get('get', 'BranchController@get')->name('frontend.branch.get');
     });
 
+    Route::post('comment', 'CommentController@create')->name('frontend.comment.create');
+
     Route::group(['middleware' => 'submit'], function () {
         Route::group(['prefix' => 'course'], function () {
             Route::get('submit', 'CourseController@create')->name('frontend.course.create');

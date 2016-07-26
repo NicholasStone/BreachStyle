@@ -2,7 +2,7 @@
 <div class="comment">
     <div class="content">
         <div class="commentLength">
-            <p>评论(<span>123</span>条)</p>
+            <p>评论(<span>{{ $comment->total }}</span>条)</p>
         </div>
         <div class="publish">
             <textarea class="review" placeholder="请输入评论内容"></textarea>
@@ -10,83 +10,19 @@
         </div>
         <div class="commentList">
             <ul>
-                <li>
-                    <div class="userPic">
-                        <img src="img/children_game_concept01.jpg"/>
-                    </div>
-                    <div class="comment_ctt">
-                        <span class="username">一根萝卜丁zZ</span>
-                        <span class="time">12天前</span>
-                        <span class="floor">1F</span>
-                        <p>这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="userPic">
-                        <img src="img/children_game_concept01.jpg"/>
-                    </div>
-                    <div class="comment_ctt">
-                        <span class="username">一根萝卜丁zZ</span>
-                        <span class="time">12天前</span>
-                        <span class="floor">1F</span>
-                        <p>这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是！</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="userPic">
-                        <img src="img/children_game_concept01.jpg"/>
-                    </div>
-                    <div class="comment_ctt">
-                        <span class="username">一根萝卜丁zZ</span>
-                        <span class="time">12天前</span>
-                        <span class="floor">1F</span>
-                        <p>这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是！</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="userPic">
-                        <img src="img/children_game_concept01.jpg"/>
-                    </div>
-                    <div class="comment_ctt">
-                        <span class="username">一根萝卜丁zZ</span>
-                        <span class="time">12天前</span>
-                        <span class="floor">1F</span>
-                        <p>这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="userPic">
-                        <img src="img/children_game_concept01.jpg"/>
-                    </div>
-                    <div class="comment_ctt">
-                        <span class="username">一根萝卜丁zZ</span>
-                        <span class="time">12天前</span>
-                        <span class="floor">1F</span>
-                        <p>这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="userPic">
-                        <img src="img/children_game_concept01.jpg"/>
-                    </div>
-                    <div class="comment_ctt">
-                        <span class="username">一根萝卜丁zZ</span>
-                        <span class="time">12天前</span>
-                        <span class="floor">1F</span>
-                        <p>这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！</p>
-                    </div>
-                </li>
-                <li>
-                    <div class="userPic">
-                        <img src="img/children_game_concept01.jpg"/>
-                    </div>
-                    <div class="comment_ctt">
-                        <span class="username">一根萝卜丁zZ</span>
-                        <span class="time">12天前</span>
-                        <span class="floor">1F</span>
-                        <p>这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！这是很长很长的一段评论，你觉得是不是呢？是不是呢?不是呢?是呢?呢？呢？英却斯汀！一颗赛艇！昂比哩污波！额妹英！</p>
-                    </div>
-                </li>
+                @foreach($comment->content as $key => $item)
+                    <li>
+                        <div class="userPic">
+                            <img src="{{ asset($item->user->avatar) }}"/>
+                        </div>
+                        <div class="comment_ctt">
+                            <span class="username">{{ $item->user->name }}</span>
+                            <span class="time">{{ \Carbon\Carbon::parse($item->created_at) }}</span>
+                            <span class="floor"> {{$key}}F </span>
+                            <p>{{ $item->detial }}</p>
+                        </div>
+                    </li>
+                @endforeach
             </ul>
         </div>
 

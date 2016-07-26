@@ -88,7 +88,8 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        //
+
+        return view('frontend.party.branch.index')->withUser(access()->user());
     }
 
     /**

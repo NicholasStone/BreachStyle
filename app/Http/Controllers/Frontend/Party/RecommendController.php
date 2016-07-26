@@ -27,7 +27,22 @@ class RecommendController extends Controller
         }else{
             return redirect()->back();
         }
-        return view('frontend.party.common.list', ['type' => $type])->withUser(access()->user());
+        $applications = [
+            //陪图
+            'img_hash' => '',
+            //名称
+            'name' => '',
+            //支部名称
+            'branch_name' => '',
+            //内容  压缩到200字
+            'detail' => '',
+            //点赞
+            'fancy' => '',
+            //评论
+            'comment' => '',
+        ];
+
+        return view('frontend.party.common.list', compact('type', 'applications'))->withUser(access()->user());
     }
 
     /**
@@ -74,7 +89,7 @@ class RecommendController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('frontend.recommend.detail');
     }
 
     /**

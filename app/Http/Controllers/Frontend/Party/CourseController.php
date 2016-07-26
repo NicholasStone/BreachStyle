@@ -23,7 +23,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view("frontend.party.common.list", ['type' => '微党课'])
+        $type = "微党课";
+        $application = '';
+        return view("frontend.party.common.list", compact('type'))
             ->withUser(access()->user());
     }
 
@@ -120,7 +122,7 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('frontend.party.course.detail');
     }
 
     /**
