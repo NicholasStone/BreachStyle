@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $timestamps = false;
+    public $timestamps = false;
 
     public function application()
     {

@@ -17,4 +17,9 @@ class Application extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

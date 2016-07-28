@@ -36,7 +36,7 @@
                                     method:"get",
                                     success:function () {
                                         url = "{{ route('frontend.unfancy', $id) }}";
-                                        //TODO 更改样式
+                                        this.css('background-color', 'red').css('color', '#fff').text('取消');
                                     }
                                 })
                             });

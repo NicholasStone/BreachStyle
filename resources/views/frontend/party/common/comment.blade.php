@@ -2,7 +2,7 @@
 <div class="comment">
     <div class="content">
         <div class="commentLength">
-            <p>评论(<span>{{ $comment->total }}</span>条)</p>
+            <p>评论(<span>{{ $comments->total }}</span>条)</p>
         </div>
         <div class="publish">
             <textarea class="review" placeholder="请输入评论内容"></textarea>
@@ -10,7 +10,7 @@
         </div>
         <div class="commentList">
             <ul>
-                @foreach($comment->content as $key => $item)
+                @foreach($comments->content as $key => $item)
                     <li>
                         <div class="userPic">
                             <img src="{{ asset($item->user->avatar) }}"/>

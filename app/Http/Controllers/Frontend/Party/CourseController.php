@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 use Validator;
 
 class CourseController extends Controller
@@ -122,7 +123,8 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        return view('frontend.party.course.detail');
+        $application = Application::find($id);
+        return view('frontend.party.course.detail', $application);
     }
 
     /**
