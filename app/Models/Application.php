@@ -22,4 +22,15 @@ class Application extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function getTotalCommentAttribute()
+    {
+        $comment = $this->comments();
+        return $comment->count();
+    }
+
+    public function getCommentsAttribute($value)
+    {
+        $value->user;
+    }
 }

@@ -88,8 +88,8 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-
-        return view('frontend.party.branch.index')->withUser(access()->user());
+        $branch = Branch::with('secretary')->where('id', $id)->first();
+        return view('frontend.party.branch.index', $branch);
     }
 
     /**

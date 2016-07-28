@@ -1,7 +1,7 @@
 @extends("frontend.layouts.master")
 
 @section("after-styles-end")
-    {!! Html::script('css/frontend/create.css') !!}
+    {!! Html::style('css/frontend/create.css') !!}
     @include('UEditor::head')
 @endsection
 

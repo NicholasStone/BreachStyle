@@ -19,7 +19,7 @@ Route::group(['namespace' => 'Party'],function (){
     Route::get('case/detail/{id}', 'CaseController@show')->name('frontend.case.show');
 
     Route::get('recommend/{type}/index', 'RecommendController@index')->name('frontend.recommend.list');
-    Route::get('recommend/detail/show', 'RecommendController@show')->name('frontend.recommend.show');
+    Route::get('recommend/detail/{id}', 'RecommendController@show')->name('frontend.recommend.show');
 
     Route::get('search/{sort?}', "SearchController@search")->name('frontend.search');
 });

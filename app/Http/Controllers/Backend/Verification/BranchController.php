@@ -29,11 +29,8 @@ class BranchController extends VerificationController
     public function grant($id)
     {
         $branch = Branch::findOrFail($id);
-        $secretary = $branch->secretary;
-        $secretary->attachRole(4);
         $branch->verification = 1;
         $branch->save();
-        alert()->success("操作成功");
 
         return redirect()->route('admin.verify.branch');
     }

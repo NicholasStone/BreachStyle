@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
+use App\Models\Application;
 use App\Models\Comment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,6 +21,9 @@ class CommentController extends Controller
             'comment'        => $request->get('comment'),
             'created_at'     => Carbon::now(),
         ]);
+        $application = Application::find($id);
+        $application->total_comment++;
+        $application->save();
         alert()->success('评论发表成功');
 
         return redirect()->back();

@@ -27,15 +27,16 @@ return [
                 'title'      => '成果展示申请详情',
                 'name'       => '成功名称',
                 'type'       => '推荐种类',
-                'detail'     => '党支部情况介绍',
+                'detail'     => '正文',
                 'user'       => '申报联系人',
                 'tel'        => '手机',
                 'dept'       => '部门',
                 'university' => '所在院校',
-                'summary'    => '成功简介',
+                'summary'    => '成果简介',
                 'branch'     => '提交支部名称',
                 'img'        => '简介',
                 'apply'      => '申请表',
+                'video'      => '视频'
             ],
             'branch'      => [
                 'title'             => '支部详情',

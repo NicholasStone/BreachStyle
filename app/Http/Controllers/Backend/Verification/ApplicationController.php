@@ -32,7 +32,7 @@ class ApplicationController extends VerificationController
 
     public function grant($id)
     {
-        $apply = Application::find($id)->first();
+        $apply = Application::find($id);
         $apply->verification = 1;
         $apply->save();
 

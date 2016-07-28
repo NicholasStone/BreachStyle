@@ -25,8 +25,8 @@ class CourseController extends Controller
     public function index()
     {
         $type = "微党课";
-        $application = '';
-        return view("frontend.party.common.list", compact('type'))
+        $applications = Application::with('branch')->where('type', $type)->where('verification', 1)->paginate();
+        return view("frontend.party.common.list", compact('type', 'applications'))
             ->withUser(access()->user());
     }
 
@@ -74,7 +74,7 @@ class CourseController extends Controller
         $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
         $application->name = $apply['name'];
         $application->type = '微党课';
-        $application->summary = $apply['summary'];
+        $application->detail = $apply['summary'];
         $application->branch_id = Auth::user()->branch_id;
         $application->branch_type = Auth::user()->branch_type;
         $application->course_lecturer = $apply['course_lecturer'];

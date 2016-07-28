@@ -32,27 +32,28 @@
                 @if($type == "学生党支部推荐展示" || $type == "教师党支部推荐展示")
                     @include('frontend.party.recommend.list')
                 @endif
-                <div class="page">
-                    <div class="pageList">
-                        <ul>
-                            <li class="first">
-                                <a href="#">首页</a>
-                            </li>
-                            <li class="prev">
-                                <a href="#">上一页</a>
-                            </li>
-                            <li class="pages active">
-                                <a href="#">1</a>
-                            </li>
-                            <li class="next">
-                                <a href="#">下一页</a>
-                            </li>
-                            <li class="last">
-                                <a href="#">尾页</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                {{--<div class="page">--}}
+                    {{--<div class="pageList">--}}
+                        {{--<ul>--}}
+                            {{--<li class="first">--}}
+                                {{--<a href="#">首页</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="prev">--}}
+                                {{--<a href="#">上一页</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="pages active">--}}
+                                {{--<a href="#">1</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="next">--}}
+                                {{--<a href="#">下一页</a>--}}
+                            {{--</li>--}}
+                            {{--<li class="last">--}}
+                                {{--<a href="#">尾页</a>--}}
+                            {{--</li>--}}
+                        {{--</ul>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {!! $applications->render() !!}
             </div>
         </div>
     </div>

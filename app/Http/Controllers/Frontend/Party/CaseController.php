@@ -22,21 +22,9 @@ class CaseController extends Controller
     public function index()
     {
         $type = "工作案例";
-        $applications = [
-            //陪图
-            'img_hash' => '',
-            //名称
-            'name' => '',
-            //支部名称
-            'branch_name' => '',
-            //内容  压缩到200字
-            'detail' => '',
-            //点赞
-            'fancy' => '',
-            //评论
-            'comment' => '',
-        ];
-        return view('frontend.party.common.list', compact("type"))
+        $applications = Application::with(['branch'])->where("type", $type)->where('verification', 1)->paginate(16);
+
+        return view('frontend.party.common.list', compact("type", "applications"))
             ->withUser(access()->user());
     }
 
@@ -86,9 +74,7 @@ class CaseController extends Controller
      */
     public function show($id)
     {
-        //
-
-        return view('frontend.party.case.detail');
+        return view('frontend.party.case.detail', Application::with(['branch', 'comments'])->where("id", $id)->first());
     }
 
     /**
