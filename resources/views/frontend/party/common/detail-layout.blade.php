@@ -21,12 +21,30 @@
             <div class="article">
                 @yield('article')
             </div>
-            @if(!access()->guest())
-                <div class="click">
-                    <a href="#"><span class="icon iconfont">&#xe604;</span> 点赞</a>
-                    <p>{{ $fancy }}人已赞</p>
-                </div>
-            @endif
+            <div class="click">
+                @unless(access()->guest())
+                    <a href="javascript:void(0);" id="fancy"><span class="icon iconfont">&#xe604;</span> 点赞</a>
+                    <script type="text/javascript">
+                        $(function () {
+                            var url = "{{ route('frontend.fancy', $id) }}";
+                            $("#fancy").click(function () {
+                                $.ajax({
+                                    url: url,
+                                    data:{
+                                        _token:"{{ csrf_token() }}"
+                                    },
+                                    method:"get",
+                                    success:function () {
+                                        url = "{{ route('frontend.unfancy', $id) }}";
+                                        //TODO 更改样式
+                                    }
+                                })
+                            });
+                        })
+                    </script>
+                @endunless
+                <p>{{ $fancy }}人已赞</p>
+            </div>
         </div>
     </div>
     <!-- casedetail -->

@@ -1,5 +1,8 @@
 <?php
 Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
+    Route::get('fancy/{id}', 'FancyController@funcy')->name('frontend.fancy');
+    Route::get('unfancy/{id}', 'FancyController@unfancy')->name('frontend.unfancy');
+
     Route::group(['prefix' => 'branch'], function () {
 //        Route::get('bind', 'BranchController@show')->name('frontend.branch.bind');
         Route::post('bind', 'BranchController@update')->name('frontend.branch.update');
@@ -11,6 +14,7 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
     Route::post('comment', 'CommentController@create')->name('frontend.comment.create');
 
     Route::group(['middleware' => 'submit'], function () {
+
         Route::group(['prefix' => 'course'], function () {
             Route::get('submit', 'CourseController@create')->name('frontend.course.create');
             Route::post('submit', 'CourseController@store')->name('frontend.course.store');
