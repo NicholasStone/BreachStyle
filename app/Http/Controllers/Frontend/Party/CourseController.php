@@ -26,6 +26,7 @@ class CourseController extends Controller
     {
         $type = "微党课";
         $applications = Application::with('branch')->where('type', $type)->where('verification', 1)->paginate();
+
         return view("frontend.party.common.list", compact('type', 'applications'))
             ->withUser(access()->user());
     }
@@ -124,7 +125,10 @@ class CourseController extends Controller
     public function show($id)
     {
         $application = Application::find($id);
-        return view('frontend.party.course.detail', $application);
+        $comments = $application->comments;
+        $branch = $application->branch;
+        $university = $branch->university;
+        return view('frontend.party.course.detail', compact('application', 'comments', 'branch', 'university'));
     }
 
     /**

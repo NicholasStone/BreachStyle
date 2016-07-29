@@ -11,7 +11,7 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
         Route::get('get', 'BranchController@get')->name('frontend.branch.get');
     });
 
-    Route::post('comment', 'CommentController@create')->name('frontend.comment.create');
+    Route::post('comment/{id}', 'CommentController@create')->name('frontend.comment.create');
 
     Route::group(['middleware' => 'submit'], function () {
 

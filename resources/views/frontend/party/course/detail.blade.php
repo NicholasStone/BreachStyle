@@ -1,6 +1,6 @@
 @extends("frontend.party.common.detail-layout")
 
-@section('after-styles-end')
+@section('sub-styles')
     {{ Html::style('//cdn.bootcss.com/video.js/5.11.0/video-js.min.css') }}
 @endsection
 
@@ -9,7 +9,14 @@
 @endsection
 
 @section('article')
-    <img src="{{ asset('img/children_game_concept02.jpg') }}"/>
-    <p>
-        那时和你在一起，幸福真的很容易，我把你的手掌握得很紧，久久不能平静，后来我们的关系，被你悄悄结了冰，你离我的身边越来越远，我能够发现，每次难过不让你看见，怕你违背心愿，其实你不懂我的时间，都是用来想念，我哼着为你写过的每首歌，可能现在的你已经不记得，而我对你还是深深的爱着，又怎么能割舍，请原谅我对你伪装的冷漠，不是整的洒脱或想的太多，因为你让我懂最深的爱最沉默。</p>
+    <video id="my-video" class="video-js" controls preload="auto" style="width: 100%; height: 640px"
+           poster="{{ asset($application->img_hash) }}" data-setup="{}">
+        <source src="{{ asset($application->video_hash) }}" type='video/mp4'>
+        <p class="vjs-no-js">
+            请开启您的浏览器的JavaScript功能，或使用<a href="http://videojs.com/html5-video-support/" target="_blank">支持HTML5技术的浏览器</a>
+        </p>
+    </video>
+    <div style="margin-top: 50px;">
+        {!! $application->detail !!}
+    </div>
 @endsection

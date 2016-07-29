@@ -23,4 +23,8 @@ class Branch extends Model
         return $this->hasMany(Application::class);
     }
 
+    public function getUniversityAttribute($value)
+    {
+        return University::with('province')->where('name', $value)->first();
+    }
 }

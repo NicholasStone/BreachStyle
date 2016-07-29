@@ -28,9 +28,4 @@ class Application extends Model
         $comment = $this->comments();
         return $comment->count();
     }
-
-    public function getCommentsAttribute($value)
-    {
-        $value->user;
-    }
 }

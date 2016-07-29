@@ -9,6 +9,8 @@ class Comment extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['user_id', 'application_id', 'comment', 'created_at'];
+
     public function application()
     {
         return $this->belongsTo(Application::class);
