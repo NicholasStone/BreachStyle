@@ -28,4 +28,9 @@ class Application extends Model
         $comment = $this->comments();
         return $comment->count();
     }
+
+    public function fancy()
+    {
+        return $this->hasMany(Fancy::class);
+    }
 }

@@ -9,7 +9,9 @@
         <div class="content">
             <div class="title">
                 <h3>{{ $application->name }}</h3>
-                <p>来源 : <a href="#">{{ $university->province->name }}</a><span>/</span><a href="#">{{ $university->name }}</a><span>/</span><a href="#">{{ $branch->name }}</a>
+                <p>来源 : <a href="#">{{ $university->province->name }}</a><span>/</span><a
+                            href="#">{{ $university->name }}</a><span>/</span><a
+                            href="{{ route('frontend.branch.show', $branch->id) }}">{{ $branch->name }}</a>
                 </p>
                 <div class="data">
                     <span><i class="icon iconfont">&#xe60e;</i>{{ $application->total_comment or 0 }}</span>
@@ -21,31 +23,36 @@
             <div class="article">
                 @yield('article')
             </div>
-            <div class="click">
+            <div class="click" id="click">
                 @unless(access()->guest())
                     <a href="javascript:void(0);" id="fancy"><span class="icon iconfont">&#xe604;</span> 点赞</a>
-                    @section('after-scripts-end')
-                        <script type="text/javascript">
-                            $(function () {
-                                var url = "{{ route('frontend.fancy', $application->id) }}";
-                                $("#fancy").click(function () {
-                                    $.ajax({
-                                        url: url,
-                                        data: {
-                                            _token: "{{ csrf_token() }}"
-                                        },
-                                        method: "get",
-                                        success: function () {
-                                            url = "{{ route('frontend.unfancy', $application->id) }}";
-                                            this.css('background-color', 'red').css('color', '#fff').text('取消');
-                                        }
-                                    })
-                                });
-                            })
-                        </script>
-                    @endsection
+                @section('after-scripts-end')
+                    <script type="text/javascript">
+                        $(function () {
+                            $("#fancy").click(function () {
+                                $.ajax({
+                                    url: "{{ route('frontend.fancy', $application->id) }}",
+                                    data: {
+                                        _token: "{{ csrf_token() }}"
+                                    },
+                                    method: "get",
+                                    success: function () {
+                                        var fancy = $('#fancy-total');
+                                        fancy.text(parseInt(fancy.text()) + 1);
+                                    },
+                                    error: function () {
+                                        alert('您已赞过');
+                                    }
+                                })
+                            });
+                        })
+                    </script>
+                @endsection
                 @endunless
-                <p>{{ $application->fancy }}人已赞</p>
+                <p>
+                    <d id="fancy-total">{{ $application->fancy }}</d>
+                    次赞
+                </p>
             </div>
         </div>
     </div>

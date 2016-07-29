@@ -1,6 +1,6 @@
 <?php
 Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
-    Route::get('fancy/{id}', 'FancyController@funcy')->name('frontend.fancy');
+    Route::get('fancy/{id}', 'FancyController@fancy')->name('frontend.fancy');
     Route::get('unfancy/{id}', 'FancyController@unfancy')->name('frontend.unfancy');
 
     Route::group(['prefix' => 'branch'], function () {

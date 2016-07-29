@@ -22,6 +22,7 @@ class CreateBranchesTable extends Migration
             $table->boolean('verification')->default(0);
             $table->string('address');
             $table->string('summary', 300);
+            $table->text('detail');
             $table->unsignedInteger('total_membership');
             $table->unsignedInteger('secretary');
             $table->string('secretary_summary', 100);

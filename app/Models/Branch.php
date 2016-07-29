@@ -18,13 +18,18 @@ class Branch extends Model
         return $this->hasMany(User::class);
     }
 
-    public function application()
+    public function getApplicationAttribute()
     {
-        return $this->hasMany(Application::class);
+        return Application::where('branch_id', $this->id)->where('verification', '1')->get();
     }
 
     public function getUniversityAttribute($value)
     {
         return University::with('province')->where('name', $value)->first();
+    }
+
+    public function getSecretaryAttribute($value)
+    {
+        return User::find($value);
     }
 }
