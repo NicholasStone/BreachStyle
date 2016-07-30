@@ -52,39 +52,13 @@
                     </div>
                     <div class="newList">
                         <ol>
-                            <li>
-                                <p>
-                                    <a href="#">这是一条新闻啊啊啊啊啊啊啊啊啊啊</a><span>6-17</span></p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#">这是一条新闻啊啊啊啊啊啊啊啊啊啊</a><span>6-17</span></p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#">这是一条新闻啊啊</a><span>6-17</span></p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#">这是一啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</a><span>6-17</span>
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#">这啊啊啊</a><span>6-17</span></p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#">这是一条新闻啊啊啊啊啊啊啊啊啊啊</a><span>6-17</span></p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#">这是一条新闻啊啊啊啊啊啊啊啊啊啊</a><span>6-17</span></p>
-                            </li>
-                            <li>
-                                <p>
-                                    <a href="#">这是一条新闻啊啊啊啊</a><span>6-17</span></p>
-                            </li>
+                            @foreach($last_trends as $trend)
+                                <li>
+                                    <p>
+                                        <a href="#">{{ $trend->detail }}</a><span>{{ $trend->created_at->format('m-h') }}</span>
+                                    </p>
+                                </li>
+                            @endforeach
                         </ol>
                     </div>
                 </div>
@@ -150,16 +124,8 @@
                             <div class="regionBottom">
                                 <div class="display">
                                     <span class="triangle"></span>
-                                    <ul>
-                                        <li>
-                                            <div class="schoolLogo">
-                                                <img src="img/check.png"/>
-                                            </div>
-                                            <div class="schoolInfo">
-                                                <h3>太原理工大学</h3>
-                                                <p><span>40</span>成果</p>
-                                            </div>
-                                        </li>
+                                    <ul id="inner">
+
                                         <li>
                                             <div class="schoolLogo">
                                                 <img src="img/check.png"/>
@@ -353,139 +319,54 @@
                     <li class="case">
                         <div class="showTitle"><img src="img/case.png"/></div>
                         <ul>
+                            @foreach($work_list as $work)
                             <li class="type1">
                                 <div class="outBox">
                                     <div class="top">
                                         <div class="right">
                                             <div>
-                                                <img src="img/redhead.jpg"/>
+                                                <img src="{{ $work->img_hash }}"/>
                                             </div>
                                         </div>
                                         <div class="left">
-                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
-                                            <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
+                                            <h3>{{ $work->summary }}</h3>
+                                            <p>{{ $work->detail }}</p>
                                         </div>
                                     </div>
                                     <div class="bottom">
                                         <div class="right">
-                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
-                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
+                                            <span><i class="icon iconfont">&#xe60e;</i>{{ $work->comments->count() }}</span>
+                                            <span><i class="icon iconfont">&#xe609;</i>{{ $work->fancy->count() }}</span>
                                         </div>
                                         <div class="left">
-                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
+                                            <span><i class="icon iconfont">&#xe60a;</i>{{ $work->branch->name }}</span>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <li class="type1">
-                                <div class="outBox">
-                                    <div class="top">
-                                        <div class="right">
-                                            <div>
-                                                <img src="img/redhead.jpg"/>
-                                            </div>
-                                        </div>
-                                        <div class="left">
-                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
-                                            <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="right">
-                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
-                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
-                                        </div>
-                                        <div class="left">
-                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="type1">
-                                <div class="outBox">
-                                    <div class="top">
-                                        <div class="right">
-                                            <div>
-                                                <img src="img/redhead.jpg"/>
-                                            </div>
-                                        </div>
-                                        <div class="left">
-                                            <h3>这是一个很长很长的标题，你觉得是不是呢？是不是呢？是不是？是？不是？</h3>
-                                            <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪就成了猪就成了猪就成了猪</p>
-                                        </div>
-                                    </div>
-                                    <div class="bottom">
-                                        <div class="right">
-                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
-                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
-                                        </div>
-                                        <div class="left">
-                                            <span><i class="icon iconfont">&#xe60a;</i>太原理工大学校党委</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
                         </ul>
                     </li>
                     <li class="vedio">
                         <div class="showTitle"><img src="img/vedio.png"/></div>
                         <ul>
-                            <li>
-                                <div class="outBox">
-                                    <div class="vedioImg">
-                                        <img src="img/wanted1.jpg"/>
+                            @foreach($tiny_list as $tiny)
+                                <li>
+                                    <div class="outBox">
+                                        <div class="vedioImg">
+                                            <img src="{{ $tiny->img_hash }}"/>
+                                        </div>
+                                        <h3>沃日你妹子</h3>
+                                        <span class="author"><i
+                                                    class="icon iconfont">&#xe60a;</i>{{ $tiny->branch->name }}</span>
+                                        <p>{{ $tiny->summary }}</p>
+                                        <div class="data">
+                                            <span class="review"><i class="icon iconfont">&#xe60e;</i> {{ $tiny->comments->count() }}</span>
+                                            <span class="like"><i class="icon iconfont">&#xe609;</i> {{ $tiny->fancy->count() }}</span>
+                                        </div>
                                     </div>
-                                    <h3>这是一个很长很长的标题，你觉得是不是呢</h3>
-                                    <span class="author"><i class="icon iconfont">&#xe60a;</i>太原理工大学计算机学院教师第一党支部</span>
-                                    <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪</p>
-                                    <div class="data">
-                                        <span class="review"><i class="icon iconfont">&#xe60e;</i> 1234</span>
-                                        <span class="like"><i class="icon iconfont">&#xe609;</i> 1234</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="outBox">
-                                    <div class="vedioImg">
-                                        <img src="img/wanted1.jpg"/>
-                                    </div>
-                                    <h3>这是一个很长很长的标题，你觉得是不是呢</h3>
-                                    <span class="author"><i class="icon iconfont">&#xe60a;</i>太原理工大学计算机学院教师第一党支部</span>
-                                    <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪</p>
-                                    <div class="data">
-                                        <span class="review"><i class="icon iconfont">&#xe60e;</i> 1234</span>
-                                        <span class="like"><i class="icon iconfont">&#xe609;</i> 1234</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="outBox">
-                                    <div class="vedioImg">
-                                        <img src="img/wanted1.jpg"/>
-                                    </div>
-                                    <h3>这是一个很长很长的标题，你觉得是不是呢</h3>
-                                    <span class="author"><i class="icon iconfont">&#xe60a;</i>太原理工大学计算机学院教师第一党支部</span>
-                                    <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪</p>
-                                    <div class="data">
-                                        <span class="review"><i class="icon iconfont">&#xe60e;</i> 1234</span>
-                                        <span class="like"><i class="icon iconfont">&#xe609;</i> 1234</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="outBox">
-                                    <div class="vedioImg">
-                                        <img src="img/wanted1.jpg"/>
-                                    </div>
-                                    <h3>这是一个很长很长的标题，你觉得是不是呢</h3>
-                                    <span class="author"><i class="icon iconfont">&#xe60a;</i>太原理工大学计算机学院教师第一党支部</span>
-                                    <p>这篇文章讲述了宋磊变成猪的故事，有一天，他在床下找到了一坨吃的，后来他就成了猪他就成了猪他就成了猪</p>
-                                    <div class="data">
-                                        <span class="review"><i class="icon iconfont">&#xe60e;</i> 1234</span>
-                                        <span class="like"><i class="icon iconfont">&#xe609;</i> 1234</span>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endforeach
                         </ul>
                     </li>
 
@@ -494,145 +375,47 @@
             <div class="recTeaStu">
                 <div class="showTitle"><img src="img/teacher.png"/></div>
                 <ul class="recTeaList">
+                    @foreach($teacher_list as $teacher)
                     <li>
                         <div class="imgBox">
-                            <img src="img/lang_yie_ar_kung_fu.jpg"/>
+                            <img src="{{ $teacher->img_hash }}"/>
                             <span><i></i></span>
                         </div>
                         <div class="data">
-                            <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
+                            <h3>{{ $teacher->summary }}</h3>
                             <p class="label">
                                 <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
+                                <span class="review"><i class="iconfont">&#xe60a;</i> {{ $teacher->comments->count() }}</span>
+                                <span class="click"><i class="iconfont">&#xe60e;</i>{{ $teacher->fancy->count() }}</span>
                             </p>
-                            <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
+                            <p class="department"><span class="iconfont">&#xe609;</span>{{ $teacher->branch->name }}</p>
                         </div>
                     </li>
-                    <li>
-                        <div class="imgBox">
-                            <img src="img/lang_yie_ar_kung_fu.jpg"/>
-                            <span><i></i></span>
-                        </div>
-                        <div class="data">
-                            <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
-                            <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>文章</span>
-                            </p>
-                            <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
-                            </p>
-                            <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="imgBox">
-                            <img src="img/lang_yie_ar_kung_fu.jpg"/>
-                            <span><i></i></span>
-                        </div>
-                        <div class="data">
-                            <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
-                            <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>文章</span>
-                            </p>
-                            <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
-                            </p>
-                            <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="imgBox">
-                            <img src="img/lang_yie_ar_kung_fu.jpg"/>
-                            <span><i></i></span>
-                        </div>
-                        <div class="data">
-                            <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
-                            <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>文章</span>
-                            </p>
-                            <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
-                            </p>
-                            <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
-                        </div>
-                    </li>
+                    @endforeach
                 </ul>
                 <div class="showTitle"><img src="img/student.png"/></div>
                 <ul class="recTeaList">
+                    @foreach($student_list as $student)
                     <li>
                         <div class="imgBox">
-                            <img src="img/lang_yie_ar_kung_fu.jpg"/>
+                            <img src="{{ $student->video_hash }}"/>
                             <span><i></i></span>
                         </div>
                         <div class="data">
-                            <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
+                            <h3>{{ $student->summary }}</h3>
                             <p class="label">
                                 <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
+                                <span class="review"><i class="iconfont">&#xe60a;</i> {{ $student->comments->count() }}</span>
+                                <span class="click"><i class="iconfont">&#xe60e;</i>{{ $student->fancy->count() }}</span>
                             </p>
-                            <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
+                            <p class="department"><span class="iconfont">&#xe609;</span>{{ $student->branch->name }}</p>
                         </div>
                     </li>
-                    <li>
-                        <div class="imgBox">
-                            <img src="img/lang_yie_ar_kung_fu.jpg"/>
-                            <span><i></i></span>
-                        </div>
-                        <div class="data">
-                            <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
-                            <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>文章</span>
-                            </p>
-                            <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
-                            </p>
-                            <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="imgBox">
-                            <img src="img/lang_yie_ar_kung_fu.jpg"/>
-                            <span><i></i></span>
-                        </div>
-                        <div class="data">
-                            <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
-                            <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>文章</span>
-                            </p>
-                            <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
-                            </p>
-                            <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="imgBox">
-                            <img src="img/lang_yie_ar_kung_fu.jpg"/>
-                            <span><i></i></span>
-                        </div>
-                        <div class="data">
-                            <h3>这是一个很长很长的标题啊啊啊啊啊</h3>
-                            <p class="label">
-                                <i class="iconfont">&#xe610;</i><span>文章</span>
-                            </p>
-                            <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
-                            </p>
-                            <p class="department"><span class="iconfont">&#xe609;</span>太原理工大学信息工程学院电子工程系2016级学生第一支部</p>
-                        </div>
-                    </li>
+                    @endforeach
                 </ul>
             </div>
             <div class="lookmore">
@@ -656,184 +439,268 @@
             var mapObj = {};
             var stateColorList = ['d7201d', 'd84f45', 'd99992', 'cccccc'];
 
-            // $.ajax({
-            // 	url: projectName+'/idea123Action.do?method=getIdea123MapData&reportName='+reportName,
-            // 	data: data,
-            // 	dataType: 'json',
-            // 	success: function(data){
+            $.ajax({
+                url: '/frontend/mapdata',
+                dataType: 'json',
+                success: function (datas) {
+                    console.log(datas);
+                    var data = {
+                        "jiangsu": {
+                            'id': datas[14].id,
+                            "value": datas[14].rate,
+                            "index": "1",
+                            "stateInitColor": datas[14].color
+                        },
+                        "henan": {
+                            'id': datas[9].id,
+                            "value": datas[9].rate,
+                            "index": "2",
+                            "stateInitColor": datas[9].color
+                        },
+                        "anhui": {
+                            'id': datas[0].id,
+                            "value": datas[0].rate,
+                            "index": "3",
+                            "stateInitColor": datas[0].color
+                        },
+                        "zhejiang": {
+                            'id': datas[30].id,
+                            "value": datas[30].rate,
+                            "index": "4",
+                            "stateInitColor": datas[30].color
+                        },
+                        "liaoning": {
+                            'id': datas[16].id,
+                            "value": datas[16].rate,
+                            "index": "5",
+                            "stateInitColor": datas[16].color
+                        },
+                        "beijing": {
+                            'id': datas[1].id,
+                            "value": datas[1].rate,
+                            "index": "6",
+                            "stateInitColor": datas[1].color
+                        },
+                        "hubei": {
+                            'id': datas[8].id,
+                            "value": datas[8].rate,
+                            "index": "7",
+                            "stateInitColor": datas[8].color
+                        },
+                        "jilin": {
+                            'id': datas[13].id,
+                            "value": datas[13].rate,
+                            "index": "8",
+                            "stateInitColor": datas[13].color
+                        },
+                        "shanghai": {
+                            'id': datas[23].id,
+                            "value": datas[23].rate,
+                            "index": "9",
+                            "stateInitColor": datas[23].color
+                        },
+                        "guangxi": {
+                            'id': datas[5].id,
+                            "value": datas[5].rate,
+                            "index": "10",
+                            "stateInitColor": datas[5].color
+                        },
+                        "sichuan": {
+                            'id': datas[24].id,
+                            "value": datas[24].rate,
+                            "index": "11",
+                            "stateInitColor": datas[24].color
+                        },
+                        "guizhou": {
+                            'id': datas[6].id,
+                            "value": datas[6].rate,
+                            "index": "12",
+                            "stateInitColor": datas[6].color
+                        },
+                        "hunan": {
+                            'id': datas[12].id,
+                            "value": datas[12].rate,
+                            "index": "13",
+                            "stateInitColor": datas[12].color
+                        },
+                        "shandong": {
+                            'id': datas[20].id,
+                            "value": datas[20].rate,
+                            "index": "14",
+                            "stateInitColor": datas[20].color
+                        },
+                        "guangdong": {
+                            'id': datas[4].id,
+                            "value": datas[4].rate,
+                            "index": "15",
+                            "stateInitColor": datas[4].color
+                        },
+                        "jiangxi": {
+                            'id': datas[15].id,
+                            "value": datas[15].rate,
+                            "index": "16",
+                            "stateInitColor": datas[15].color
+                        },
+                        "fujian": {
+                            'id': datas[2].id,
+                            "value": datas[2].rate,
+                            "index": "17",
+                            "stateInitColor": datas[2].color
+                        },
+                        "yunnan": {
+                            'id': datas[29].id,
+                            "value": datas[29].rate,
+                            "index": "18",
+                            "stateInitColor": datas[29].color
+                        },
+                        "hainan": {
+                            'id': datas[7].id,
+                            "value": datas[7].rate,
+                            "index": "19",
+                            "stateInitColor": datas[7].color
+                        },
+                        "shanxi": {
+                            'id': datas[21].id,
+                            "value": datas[21].rate,
+                            "index": "20",
+                            "stateInitColor": datas[21].color
+                        },
+                        "hebei": {
+                            'id': datas[8].id,
+                            "value": datas[8].rate,
+                            "index": "21",
+                            "stateInitColor": datas[8].color
+                        },
+                        "neimongol": {
+                            'id': datas[17].id,
+                            "value": datas[17].rate,
+                            "index": "22",
+                            "stateInitColor": datas[17].color
+                        },
+                        "tianjin": {
+                            'id': datas[26].id,
+                            "value": datas[26].rate,
+                            "index": "23",
+                            "stateInitColor": datas[26].color
+                        },
+                        "gansu": {
+                            'id': datas[3].id,
+                            "value": datas[3].rate,
+                            "index": "24",
+                            "stateInitColor": datas[3].color
+                        },
+                        "shaanxi": {
+                            'id': datas[22].id,
+                            "value": datas[22].rate,
+                            "index": "25",
+                            "stateInitColor": datas[22].color
+                        },
+                        "macau": {
+                            'id': datas[33].id,
+                            "value": datas[33].rate,
+                            "index": "26",
+                            "stateInitColor": datas[33].color
+                        },
+                        "hongkong": {
+                            'id': datas[32].id,
+                            "value": datas[32].rate,
+                            "index": "27",
+                            "stateInitColor": datas[32].color
+                        },
+                        "taiwan": {
+                            'id': datas[25].id,
+                            "value": datas[25].rate,
+                            "index": "28",
+                            "stateInitColor": datas[25].color
+                        },
+                        "qinghai": {
+                            'id': datas[19].id,
+                            "value": datas[19].rate,
+                            "index": "29",
+                            "stateInitColor": datas[19].color
+                        },
+                        "xizang": {
+                            'id': datas[27].id,
+                            "value": datas[27].rate,
+                            "index": "30",
+                            "stateInitColor": datas[27].color
+                        },
+                        "ningxia": {
+                            'id': datas[18].id,
+                            "value": datas[18].rate,
+                            "index": "31",
+                            "stateInitColor": datas[18].color
+                        },
+                        "xinjiang": {
+                            'id': datas[28].id,
+                            "value": datas[28].rate,
+                            "index": "32",
+                            "stateInitColor": datas[28].color
+                        },
+                        "heilongjiang": {
+                            'id': datas[10].id,
+                            "value": datas[10].rate,
+                            "index": "33",
+                            "stateInitColor": datas[10].color
+                        },
+                        "chongqing": {
+                            'id': datas[31].id,
+                            "value": datas[31].rate,
+                            "index": "34",
+                            "stateInitColor": datas[31].color
+                        }
+                    };
+                    var mapObj_1 = {};
 
-            var data = {
-                "jiangsu": {
-                    "value": "30.05%",
-                    "index": "1",
-                    "stateInitColor": "0"
-                },
-                "henan": {
-                    "value": "19.77%",
-                    "index": "2",
-                    "stateInitColor": "0"
-                },
-                "anhui": {
-                    "value": "10.85%",
-                    "index": "3",
-                    "stateInitColor": "0"
-                },
-                "zhejiang": {
-                    "value": "10.02%",
-                    "index": "4",
-                    "stateInitColor": "0"
-                },
-                "liaoning": {
-                    "value": "8.46%",
-                    "index": "5",
-                    "stateInitColor": "0"
-                },
-                "beijing": {
-                    "value": "4.04%",
-                    "index": "6",
-                    "stateInitColor": "1"
-                },
-                "hubei": {
-                    "value": "3.66%",
-                    "index": "7",
-                    "stateInitColor": "1"
-                },
-                "jilin": {
-                    "value": "2.56%",
-                    "index": "8",
-                    "stateInitColor": "1"
-                },
-                "shanghai": {
-                    "value": "2.47%",
-                    "index": "9",
-                    "stateInitColor": "1"
-                },
-                "guangxi": {
-                    "value": "2.3%",
-                    "index": "10",
-                    "stateInitColor": "1"
-                },
-                "sichuan": {
-                    "value": "1.48%",
-                    "index": "11",
-                    "stateInitColor": "2"
-                },
-                "guizhou": {
-                    "value": "0.99%",
-                    "index": "12",
-                    "stateInitColor": "2"
-                },
-                "hunan": {
-                    "value": "0.78%",
-                    "index": "13",
-                    "stateInitColor": "2"
-                },
-                "shandong": {
-                    "value": "0.7%",
-                    "index": "14",
-                    "stateInitColor": "2"
-                },
-                "guangdong": {
-                    "value": "0.44%",
-                    "index": "15",
-                    "stateInitColor": "2"
-                },
-                "jiangxi": {
-                    "value": "0.34%",
-                    "index": "16",
-                    "stateInitColor": "3"
-                },
-                "fujian": {
-                    "value": "0.27%",
-                    "index": "17",
-                    "stateInitColor": "3"
-                },
-                "yunnan": {
-                    "value": "0.23%",
-                    "index": "18",
-                    "stateInitColor": "3"
-                },
-                "hainan": {
-                    "value": "0.21%",
-                    "index": "19",
-                    "stateInitColor": "3"
-                },
-                "shanxi": {
-                    "value": "76.11%",
-                    "index": "20",
-                    "stateInitColor": "1"
-                },
-                "hebei": {
-                    "value": "0.11%",
-                    "index": "21",
-                    "stateInitColor": "4"
-                },
-                "neimongol": {
-                    "value": "0.04%",
-                    "index": "22",
-                    "stateInitColor": "4"
-                },
-                "tianjin": {
-                    "value": "0.04%",
-                    "index": "23",
-                    "stateInitColor": "4"
-                },
-                "gansu": {
-                    "value": "0.04%",
-                    "index": "24",
-                    "stateInitColor": "4"
-                },
-                "shaanxi": {
-                    "value": "0.02%",
-                    "index": "25",
-                    "stateInitColor": "0"
-                },
-                "macau": {
-                    "value": "0.0%",
-                    "index": "26",
-                    "stateInitColor": "1"
-                },
-                "hongkong": {
-                    "value": "0.0%",
-                    "index": "27",
-                    "stateInitColor": "3"
-                },
-                "taiwan": {
-                    "value": "0.0%",
-                    "index": "28",
-                    "stateInitColor": "4"
-                },
-                "qinghai": {
-                    "value": "0.0%",
-                    "index": "29",
-                    "stateInitColor": "5"
-                },
-                "xizang": {
-                    "value": "0.0%",
-                    "index": "30",
-                    "stateInitColor": "5"
-                },
-                "ningxia": {
-                    "value": "0.0%",
-                    "index": "31",
-                    "stateInitColor": "5"
-                },
-                "xinjiang": {
-                    "value": "0.0%",
-                    "index": "32",
-                    "stateInitColor": "5"
-                },
-                "heilongjiang": {
-                    "value": "0.0%",
-                    "index": "33",
-                    "stateInitColor": "5"
-                },
-                "chongqing": {
-                    "value": "0.0%",
-                    "index": "34",
-                    "stateInitColor": "5"
+                    $('#RegionMap').SVGMap({
+                        external: mapObj_1,
+                        mapName: 'china',
+                        mapWidth: 530,
+                        mapHeight: 400,
+                        stateData: data,
+                        // stateTipWidth: 118,
+                        // stateTipHeight: 47,
+                        // stateTipX: 2,
+                        // stateTipY: 0,
+                        stateTipHtml: function (mapData, obj) {
+                            var _value = mapData[obj.id].value;
+                            var _idx = mapData[obj.id].index;
+                            var active = '';
+                            _idx < 4 ? active = 'active' : active = '';
+                            var tipStr = '<div class="mapInfo"><i class="' + active + '">' + _idx + '</i><span>' + obj.name + '</span><b>' + _value + '</b></div>';
+                            return tipStr;
+                        },
+                        clickCallback: function (stateData, obj) {
+                            var h3 = document.getElementById("oclick");
+                            var progress = document.getElementById("progress");
+                            h3.innerHTML = obj.name + "<span>" + (stateData)[obj.id].value + "</span>";
+                            var newstr = (stateData)[obj.id].value.replace(/%/, "");
+                            progress.style.width = (stateData)[obj.id].value;
+                            $.ajax({
+                                url: '/frontend/province/' + (stateData)[obj.id].id,
+                                dataType: 'json',
+                                success: function (datas) {
+                                    var str = '';
+                                    for (var i = 0; i < datas.universities.length; i++) {
+                                        str += '<li>' +
+                                                '<div class="schoolLogo">' +
+                                                '<img src="img/check.png"/>' +
+                                                '</div>' +
+                                                '<div class="schoolInfo">' +
+                                                '<h3>' + datas.universities[i].name + '</h3>' +
+                                                '<p><span>' + datas.university_application_list[i] + '</span>成果</p>' +
+                                                '</div>' +
+                                                '</li>';
+                                    }
+                                    document.getElementById('inner').innerHTML = str;
+                                }
+                            });
+                        }
+                    });
+                    $('#MapColor').show();
                 }
-            };
+            });
+
 //                var i = 1;
 //                for(k in data) {
 //                    if(i <= 12) {
@@ -846,36 +713,7 @@
 //                    }
 //                }
 
-            var mapObj_1 = {};
 
-            $('#RegionMap').SVGMap({
-                external: mapObj_1,
-                mapName: 'china',
-                mapWidth: 530,
-                mapHeight: 400,
-                stateData: data,
-                // stateTipWidth: 118,
-                // stateTipHeight: 47,
-                // stateTipX: 2,
-                // stateTipY: 0,
-                stateTipHtml: function (mapData, obj) {
-                    var _value = mapData[obj.id].value;
-                    var _idx = mapData[obj.id].index;
-                    var active = '';
-                    _idx < 4 ? active = 'active' : active = '';
-                    var tipStr = '<div class="mapInfo"><i class="' + active + '">' + _idx + '</i><span>' + obj.name + '</span><b>' + _value + '</b></div>';
-                    return tipStr;
-                },
-                clickCallback: function (stateData, obj) {
-                    var h3 = document.getElementById("oclick");
-                    var progress = document.getElementById("progress");
-                    h3.innerHTML = obj.name + "<span>" + (stateData)[obj.id].value + "</span>";
-                    var newstr = (stateData)[obj.id].value.replace(/%/, "");
-                    progress.style.width = (stateData)[obj.id].value;
-
-                }
-            });
-            $('#MapColor').show();
             // 	}
             // });
         });

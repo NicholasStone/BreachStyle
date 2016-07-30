@@ -18,6 +18,11 @@ class Branch extends Model
         return $this->hasMany(User::class);
     }
 
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
+
     public function getApplicationAttribute()
     {
         return Application::where('branch_id', $this->id)->where('verification', '1')->get();

@@ -18,8 +18,8 @@ class University extends Model
         return $this->hasMany(Branch::class, 'university', 'name');
     }
 
-    public function application()
+    public function applications()
     {
-        return $this->hasManyThrough(Application::class, Branch::class, 'university');
+        return $this->hasManyThrough(Application::class,Branch::class, 'university', 'branch_id');
     }
 }
