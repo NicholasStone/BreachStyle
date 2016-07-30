@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\Branch;
 use App\Models\Province;
 use App\Models\University;
+use App\Components\MapData;
 use Illuminate\Support\Facades\App;
 
 /**
@@ -40,34 +41,7 @@ class FrontendController extends Controller
      */
     public function getMapData()
     {
-        $provinces = Province::all();
-        foreach ($provinces as $province) {
-            $province_through_university = $province->universities()->has('branches')->count();
-            $province_university = $province->universities()->count();
-            if ($province_university !== 0) {
-                $decimal = round($province_through_university / $province_university, 4) * 100;
-                $rate = $decimal . '%';
-            } else {
-                $decimal = '0';
-                $rate = $decimal . '%';
-            }
-            if ($decimal >= '80') {
-                $color = '0';
-            } elseif ($decimal >= '60' && $decimal < '80') {
-                $color = '1';
-            } elseif ($decimal >= '40' && $decimal < '60') {
-                $color = '2';
-            } elseif ($decimal >= '20' && $decimal < '40') {
-                $color = '3';
-            } elseif ($decimal < '20') {
-                $color = '5';
-            }
-            $datas[] = [
-                'id' => $province->id,
-                'rate' => $rate,
-                'color' => $color
-            ];
-        }
+        $datas = MapData::getMapData();
         return $datas;
     }
 
@@ -88,6 +62,31 @@ class FrontendController extends Controller
         return response()->json([
             'universities' => $universities,
             'university_application_list' => $university_application_list
+        ]);
+    }
+
+    public function getProvinceSummary($id)
+    {
+        $province = Province::find($id);
+        $count_student_branch = 0;
+        $count_teacher_branch = 0;
+        $count_application = 0;
+        $count_user = 0;
+        $count_university = Province::find($id)->universities->count();
+        foreach ($province->universities as $university) {
+            $count_student_branch += $university->branches()->where('type', '学生党支部')->count();
+            $count_teacher_branch += $university->branches()->where('type', '教师党支部')->count();
+            foreach ($university->branches as $branch) {
+                $count_application += $branch->applications()->where('verification', 1)->count();
+                $count_user += $branch->members->count();
+            }
+        }
+        return response()->json([
+            'count_user' => $count_user,
+            'count_application' => $count_application,
+            'count_student_branch' => $count_student_branch,
+            'count_teacher_branch' => $count_teacher_branch,
+            'count_university' => $count_university
         ]);
     }
 

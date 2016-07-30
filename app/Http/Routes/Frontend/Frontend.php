@@ -4,8 +4,11 @@
  * Frontend Controllers
  */
 Route::get('/', 'FrontendController@index')->name('frontend.index');
+
 Route::get('/frontend/mapdata','FrontendController@getMapData');
 Route::get('/frontend/province/{id}','FrontendController@getProvinceDetail');
+Route::get('/frontend/province/{id}/summary','FrontendController@getProvinceSummary');
+
 Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
 Route::post('active', 'ActiveController@indexUniversityActive')->name('frontend.active');
 Route::get('active/detail', 'ActiveController@activeDetail')->name('frontend.active.detail');
