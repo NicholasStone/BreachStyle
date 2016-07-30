@@ -52,6 +52,7 @@ class BranchController extends Controller
             'tel'               => 'required',
             'address'           => 'required|max:200',
             'summary'           => 'required|max:300',
+            'detail'            => 'required',
             'apply'             => 'required',
         ], [
             'avatar.required' => '请上传配图',
@@ -68,7 +69,7 @@ class BranchController extends Controller
         $all = $request->all();
         $all['avatar'] = $avatar;
         $all['apply_img'] = $apply_img;
-        $all['secretary'] = $user->name;
+        $all['secretary'] = $user->id;
         $all['university'] = $user->university;
         $all['type'] = $user->type == '学生' ? '学生党支部' : '教师党支部';
         $branch = Branch::create($all);
@@ -88,8 +89,11 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        $branch = Branch::with('secretary')->where('id', $id)->first();
-        return view('frontend.party.branch.index', $branch);
+        $branch = Branch::find($id);
+        $branch->secretary;
+        $application = $branch->application;
+        $application = $application->groupBy('type');
+        return view('frontend.party.branch.index', compact("branch", "application"));
     }
 
     /**

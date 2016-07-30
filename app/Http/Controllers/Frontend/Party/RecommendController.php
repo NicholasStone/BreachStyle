@@ -20,11 +20,11 @@ class RecommendController extends Controller
      */
     public function index($type)
     {
-        if ($type == 'student'){
+        if ($type == 'student') {
             $type = '学生党支部推荐展示';
-        }else if($type == 'instructor'){
+        } else if ($type == 'instructor') {
             $type = '教师党支部推荐展示';
-        }else{
+        } else {
             return redirect()->back();
         }
         $applications = Application::with('branch')->where('type', $type)->where('verification', 1)->paginate();
@@ -45,7 +45,7 @@ class RecommendController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  RecommendRequest  $request
+     * @param  RecommendRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(RecommendRequest $request)
@@ -55,7 +55,7 @@ class RecommendController extends Controller
         $img_hash = $this->saveImage($request->file('img'), "Application/Recommend");
         $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
         $application->name = $apply['name'];
-        $application->type = Auth::user()->branch_type == '学生党支部'?'学生党支部推荐展示':'教师党支部推荐展示';
+        $application->type = Auth::user()->branch_type == '学生党支部' ? '学生党支部推荐展示' : '教师党支部推荐展示';
         $application->detail = $apply['detail'];
         $application->summary = $apply['summary'];
         $application->branch_id = Auth::user()->branch_id;
@@ -65,24 +65,30 @@ class RecommendController extends Controller
         $application->save();
 
         alert()->success('提交成功，请等待审核');
+
         return redirect()->route('frontend.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        return view('frontend.party.recommend.detail', Application::with(['branch', 'comments'])->where('id', $id)->first());
+        $application = Application::find($id);
+        $comments = $application->comments;
+        $branch = $application->branch;
+        $university = $branch->university;
+
+        return view('frontend.party.recommend.detail', compact('comments', 'branch', 'application', 'university'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -93,8 +99,8 @@ class RecommendController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -105,7 +111,7 @@ class RecommendController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

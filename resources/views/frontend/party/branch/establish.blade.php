@@ -49,7 +49,7 @@
                     </div>
                     <div class="row">
                         <h4>党支部书记简介<span>*</span> : </h4>
-                        <textarea class="introduce" oninput="wordChange()" id="intro" name="secretary_summary">{{ $secretary_summary or '' }}</textarea>
+                        <textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary">{{ $secretary_summary or '' }}</textarea>
                         <p class="tips">还可以输入<span id="word">100</span>字</p>
                     </div>
                     <div class="row">
@@ -65,9 +65,14 @@
                         <input type="text" name="address" id="address" class="address" value="{{ $address or '' }}"/>
                     </div>
                     <div class="row">
+                        <h4>党支部摘要<span>*</span> : </h4>
+                        <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary">{{ $summary or '' }}</textarea>
+                        <p class="count">还可以输入<span id="word">100</span>字</p>
+                    </div>
+                    <div class="row">
                         <h4>党支部情况介绍<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="summary" name="summary">
+                            <textarea id="detail" name="detail">
                                 {{ $summary or '' }}
                             </textarea>
                         </div>
@@ -91,7 +96,7 @@
 
 @section("after-scripts-end")
     <script type="text/javascript">
-        var ue = UE.getEditor('summary', {
+        var ue = UE.getEditor('detail', {
             autoHeight: true,
             maximumWords: 300
         });
@@ -100,7 +105,17 @@
         });
     </script>
     <script>
-        function wordChange() {
+        function wordChange1() {
+            var intro = document.getElementById('intro');
+            var word = document.getElementById('word');
+            if (intro.value.length >= 100) {
+                alert("超出字符限制");
+                word.innerHTML = 0;
+            }
+            word.innerHTML = (100 - intro.value.length);
+        }
+
+        function wordChange2() {
             var intro = document.getElementById('intro');
             var word = document.getElementById('word');
             if (intro.value.length >= 100) {

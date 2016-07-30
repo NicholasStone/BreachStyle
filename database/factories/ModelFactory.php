@@ -55,3 +55,22 @@ $factory->define(\App\Models\Application::class, function (Faker\Generator $fake
         'funcy' => rand(100, 500)
     ];
 });
+
+$factory->define(\App\Models\Comment::class, function (Faker\Generator $faker) {
+    $user_ids = \App\Models\Access\User\User::lists('id')->toArray();
+    $application_ids = \App\Models\Application::lists('id')->toArray();
+    return [
+        'user_id' => $faker->randomElement($user_ids),
+        'application_id' => $faker->randomElement($application_ids),
+        'comment' => $faker->paragraph
+    ];
+});
+
+$factory->define(\App\Models\Fancy::class, function (Faker\Generator $faker) {
+    $user_ids = \App\Models\Access\User\User::lists('id')->toArray();
+    $application_ids = \App\Models\Application::lists('id')->toArray();
+    return [
+        'user_id' => $faker->randomElement($user_ids),
+        'application_id' => $faker->randomElement($application_ids),
+    ];
+});

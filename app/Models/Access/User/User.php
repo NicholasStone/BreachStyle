@@ -5,6 +5,7 @@ namespace App\Models\Access\User;
 use App\Models\Access\User\Traits\UserAccess;
 use App\Models\Application;
 use App\Models\Branch;
+use App\Models\Fancy;
 use App\Models\University;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -62,6 +63,11 @@ class User extends Authenticatable
     public function university()
     {
         return $this->belongsTo(University::class, 'university', 'name');
+    }
+
+    public function fancy()
+    {
+        return $this->hasMany(Fancy::class);
     }
 
     public function getBranchTypeAttribute()

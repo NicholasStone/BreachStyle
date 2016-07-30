@@ -29,8 +29,8 @@ class Application extends Model
         return $comment->count();
     }
 
-    public function getCommentsAttribute($value)
+    public function fancy()
     {
-        $value->user;
+        return $this->hasMany(Fancy::class);
     }
 }

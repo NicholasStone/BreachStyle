@@ -5,11 +5,9 @@ namespace App\Models;
 use App\Models\Access\User\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Comment extends Model
+class Fancy extends Model
 {
-    public $timestamps = false;
-
-    protected $fillable = ['user_id', 'application_id', 'comment', 'created_at'];
+    protected $fillable = ['user_id', 'application_id'];
 
     public function application()
     {

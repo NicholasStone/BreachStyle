@@ -10,9 +10,10 @@ Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
 Route::post('active', 'ActiveController@indexUniversityActive')->name('frontend.active');
 Route::get('active/detail', 'ActiveController@activeDetail')->name('frontend.active.detail');
 Route::post('active/province', 'ActiveController@provinceActive')->name('frontend.active.province');
+
 Route::group(['namespace' => 'Party'],function (){
     Route::get('branch/index', 'BranchController@index')->name('frontend.branch.index');
-    Route::get('branch/detail/{id}', 'BranchController@index')->name('frontend.branch.show');
+    Route::get('branch/detail/{id}', 'BranchController@show')->name('frontend.branch.show');
 
     Route::get('course/index', 'CourseController@index')->name('frontend.course.list');
     Route::get('course/detail/{id}', 'CourseController@show')->name('frontend.course.show');

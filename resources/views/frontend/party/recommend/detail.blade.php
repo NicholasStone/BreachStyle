@@ -1,5 +1,5 @@
-@extends("frontend.layouts.master")
+@extends("frontend.party.common.detail-layout")
 
-@section('content')
-
+@section('article')
+    {!! $application->detail !!}
 @endsection

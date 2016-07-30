@@ -335,8 +335,8 @@
                                     </div>
                                     <div class="bottom">
                                         <div class="right">
-                                            <span><i class="icon iconfont">&#xe60e;</i>12</span>
-                                            <span><i class="icon iconfont">&#xe609;</i>5678</span>
+                                            <span><i class="icon iconfont">&#xe60e;</i>{{ $work->comments->count() }}</span>
+                                            <span><i class="icon iconfont">&#xe609;</i>{{ $work->fancy->count() }}</span>
                                         </div>
                                         <div class="left">
                                             <span><i class="icon iconfont">&#xe60a;</i>{{ $work->branch->name }}</span>
@@ -361,8 +361,8 @@
                                                     class="icon iconfont">&#xe60a;</i>{{ $tiny->branch->name }}</span>
                                         <p>{{ $tiny->summary }}</p>
                                         <div class="data">
-                                            <span class="review"><i class="icon iconfont">&#xe60e;</i> 1234</span>
-                                            <span class="like"><i class="icon iconfont">&#xe609;</i> 1234</span>
+                                            <span class="review"><i class="icon iconfont">&#xe60e;</i> {{ $tiny->comments->count() }}</span>
+                                            <span class="like"><i class="icon iconfont">&#xe609;</i> {{ $tiny->fancy->count() }}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -387,8 +387,8 @@
                                 <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
+                                <span class="review"><i class="iconfont">&#xe60a;</i> {{ $teacher->comments->count() }}</span>
+                                <span class="click"><i class="iconfont">&#xe60e;</i>{{ $teacher->fancy->count() }}</span>
                             </p>
                             <p class="department"><span class="iconfont">&#xe609;</span>{{ $teacher->branch->name }}</p>
                         </div>
@@ -409,8 +409,8 @@
                                 <i class="iconfont">&#xe610;</i><span>文章</span>
                             </p>
                             <p class="datas">
-                                <span class="review"><i class="iconfont">&#xe60a;</i> 123</span>
-                                <span class="click"><i class="iconfont">&#xe60e;</i>123</span>
+                                <span class="review"><i class="iconfont">&#xe60a;</i> {{ $student->comments->count() }}</span>
+                                <span class="click"><i class="iconfont">&#xe60e;</i>{{ $student->fancy->count() }}</span>
                             </p>
                             <p class="department"><span class="iconfont">&#xe609;</span>{{ $student->branch->name }}</p>
                         </div>

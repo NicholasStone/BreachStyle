@@ -74,7 +74,11 @@ class CaseController extends Controller
      */
     public function show($id)
     {
-        return view('frontend.party.case.detail', Application::with(['branch', 'comments'])->where("id", $id)->first());
+        $application = Application::find($id);
+        $comments = $application->comments;
+        $branch = $application->branch;
+        $university = $branch->university;
+        return view('frontend.party.case.detail', compact("application", "comments", "branch", "university"));
     }
 
     /**
