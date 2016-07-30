@@ -16,14 +16,15 @@ class CaseController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param string $sort
      * @return \Illuminate\Http\Response
+     * @internal param Request $request
      */
-    public function index()
+    public function index($sort = 'created_at')
     {
         $type = "工作案例";
-        $page = Application::with(['branch'])->where("type", $type)->where('verification', 1)->paginate(16);
-        return view('frontend.party.common.list', compact("type", "page"))
+        $page = Application::with(['branch'])->where("type", $type)->where('verification', 1)->orderBy($sort, 'desc')->paginate(16);
+        return view('frontend.party.common.list', compact("type", "page" ,"sort"))
             ->withUser(access()->user());
     }
 

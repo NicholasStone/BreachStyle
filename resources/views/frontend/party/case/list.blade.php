@@ -10,7 +10,7 @@
                         </div>
                         <div class="right">
                             <div>
-                                <img src="{{ asset('img/children_game_concept01.jpg') }}"/>
+                                <img src="{{ asset($item->img_hash) }}"/>
                             </div>
                         </div>
                     </div>

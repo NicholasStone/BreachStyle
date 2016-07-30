@@ -22,9 +22,11 @@
                 </div>
                 <div class="achieveShow">
                     <p class="title"><span class="iconfont">&#xe615;</span>党支部已发布成果</p>
-                    <p>已发布微党课<span> {{ $application['微党课']->count() }}</span>个</p>
-                    <p>已发布工作案例<span> {{ $application['工作案例']->count() }}</span>个</p>
-                    <p>已发布{{ $branch->type.'推荐展示' }}<span> {{ $application[$branch->type.'推荐展示']->count() }}</span>个</p>
+                    <p>已发布微党课<span> {{ isset($application['微党课']) ? $application['微党课']->count() : 0 }}</span>个</p>
+                    <p>已发布工作案例<span> {{ isset($application['工作案例'])? $application['工作案例']->count() : 0}}</span>个</p>
+                    <p>已发布{{ $branch->type.'推荐展示' }}
+                        <span> {{ isset($application[$branch->type.'推荐展示'])? $application[$branch->type.'推荐展示']->count() : 0 }}</span>个
+                    </p>
                 </div>
             </div>
             <div class="leadCard">

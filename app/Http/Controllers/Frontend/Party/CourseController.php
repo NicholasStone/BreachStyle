@@ -19,15 +19,16 @@ class CourseController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param string $sort
      * @return \Illuminate\Http\Response
+     * @internal param Request $request
      */
-    public function index()
+    public function index($sort = 'created_at')
     {
         $type = "微党课";
-        $page = Application::with('branch')->where('type', $type)->where('verification', 1)->paginate();
+        $page = Application::with('branch')->where('type', $type)->where('verification', 1)->orderBy($sort, "desc")->paginate();
 
-        return view("frontend.party.common.list", compact('type', 'page'))
+        return view("frontend.party.common.list", compact('type', 'page', "sort"))
             ->withUser(access()->user());
     }
 

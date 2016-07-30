@@ -267,6 +267,6 @@ return [
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         'Alert'       => UxWeb\SweetAlert\SweetAlert::class,
-        'Searchy' => TomLingham\Searchy\Facades\Searchy::class
+        'Searchy'     => TomLingham\Searchy\Facades\Searchy::class,
     ],
 ];

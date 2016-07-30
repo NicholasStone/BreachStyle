@@ -32,7 +32,9 @@
                 @if($type == "学生党支部推荐展示" || $type == "教师党支部推荐展示")
                     @include('frontend.party.recommend.list')
                 @endif
-                @include('frontend.party.common.pages')
+                @unless(is_array($page))
+                    @include('frontend.party.common.pages')
+                @endunless
             </div>
         </div>
     </div>

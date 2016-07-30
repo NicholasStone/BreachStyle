@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
-use App\Models\Application;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use TomLingham\Searchy\Facades\Searchy;
 
 class SearchController extends Controller
 {
-    public function search(Request $request, $sort)
+    public function search(Request $request)
     {
-        $university = $request->get('search_university');
-        $type = $request->get('search_type');
-        $keywords = $type->get('keyWords');
+        $type = '';
+        $keywords = $request->get('keywords');
 
-        $page = Searchy::search('applications')->field('name', 'summary', 'detail')->query($keywords)->get();
-        dd($page);
+        $page = Searchy::applications('name', 'detail', 'summary', 'type')->query($keywords)->get();
 
-        return view("frontend.party.common.list");
+//        dd($page);
+        return view("frontend.party.search.list", compact("page", "type", "keywords"));
+    }
+
+    public function sort()
+    {
+
     }
 }

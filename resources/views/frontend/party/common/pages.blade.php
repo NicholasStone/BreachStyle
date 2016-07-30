@@ -8,10 +8,12 @@
                 <li class="prev">
                     <a href="{{ $page->previousPageUrl() }}">上一页</a>
                 </li>
-                @for($i = 1; $i <= $page->lastPage(); $i++)
+                @for($i = $page->currentPage() - 2; $i <= $page->currentPage() + 5; $i++)
+                    @if($i > 0)
                     <li class="pages @if($page->currentPage() == $i) active @endif">
                         <a href="{{ $page->url($i) }}">{{ $i }}</a>
                     </li>
+                    @endif
                 @endfor
                 <li class="next">
                     <a href="{{ $page->nextPageUrl() }}">下一页</a>

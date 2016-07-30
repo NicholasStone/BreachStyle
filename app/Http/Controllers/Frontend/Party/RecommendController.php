@@ -15,10 +15,12 @@ class RecommendController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param Request $request
+     * @param $type
+     * @param string $sort
      * @return \Illuminate\Http\Response
+     * @internal param Request $request
      */
-    public function index($type)
+    public function index($type ,$sort = 'created_at')
     {
         if ($type == 'student') {
             $type = '学生党支部推荐展示';
@@ -27,9 +29,9 @@ class RecommendController extends Controller
         } else {
             return redirect()->back();
         }
-        $page = Application::with('branch')->where('type', $type)->where('verification', 1)->paginate();
+        $page = Application::with('branch')->where('type', $type)->where('verification', 1)->orderBy($sort, 'desc')->paginate();
 
-        return view('frontend.party.common.list', compact('type', 'page'))->withUser(access()->user());
+        return view('frontend.party.common.list', compact('type', 'page', 'sort'))->withUser(access()->user());
     }
 
     /**
