@@ -22,9 +22,8 @@ class CaseController extends Controller
     public function index()
     {
         $type = "工作案例";
-        $applications = Application::with(['branch'])->where("type", $type)->where('verification', 1)->paginate(16);
-
-        return view('frontend.party.common.list', compact("type", "applications"))
+        $page = Application::with(['branch'])->where("type", $type)->where('verification', 1)->paginate(16);
+        return view('frontend.party.common.list', compact("type", "page"))
             ->withUser(access()->user());
     }
 

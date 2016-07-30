@@ -27,9 +27,9 @@ class RecommendController extends Controller
         } else {
             return redirect()->back();
         }
-        $applications = Application::with('branch')->where('type', $type)->where('verification', 1)->paginate();
+        $page = Application::with('branch')->where('type', $type)->where('verification', 1)->paginate();
 
-        return view('frontend.party.common.list', compact('type', 'applications'))->withUser(access()->user());
+        return view('frontend.party.common.list', compact('type', 'page'))->withUser(access()->user());
     }
 
     /**

@@ -60,11 +60,6 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
-    public function university()
-    {
-        return $this->belongsTo(University::class, 'university', 'name');
-    }
-
     public function fancy()
     {
         return $this->hasMany(Fancy::class);
@@ -73,5 +68,10 @@ class User extends Authenticatable
     public function getBranchTypeAttribute()
     {
         return $this->branch->type;
+    }
+
+    public function getUniversityAttribute($value)
+    {
+        return University::where('name', $value)->first();
     }
 }

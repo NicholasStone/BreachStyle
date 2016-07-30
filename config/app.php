@@ -205,6 +205,7 @@ return [
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
         Stevenyangecho\UEditor\UEditorServiceProvider::class,
+        TomLingham\Searchy\SearchyServiceProvider::class,
         /*
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */
@@ -266,5 +267,6 @@ return [
         'Html'        => Collective\Html\HtmlFacade::class,
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         'Alert'       => UxWeb\SweetAlert\SweetAlert::class,
+        'Searchy' => TomLingham\Searchy\Facades\Searchy::class
     ],
 ];

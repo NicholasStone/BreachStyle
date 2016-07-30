@@ -1,5 +1,5 @@
-@foreach($applications as $item)
     <ul class="recTeaList">
+        @foreach($page as $item)
         <li>
             <div class="imgBox">
                 <img src="{{ asset($item->img_hash) }}"/>
@@ -18,5 +18,5 @@
                 </p>
             </div>
         </li>
+        @endforeach
     </ul>
-@endforeach

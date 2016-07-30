@@ -1,6 +1,6 @@
-@foreach($applications as $item)
 <div class="caseList">
     <ul>
+        @foreach($page as $item)
         <li>
             <div class="outBox">
                 <div class="vedioImg">
@@ -15,6 +15,6 @@
                 </div>
             </div>
         </li>
+        @endforeach
     </ul>
 </div>
-@endforeach

@@ -21,7 +21,8 @@
         "uxweb/sweet-alert": "^1.1",
         "Predis/Predis": "^1.1",
         "orangehill/iseed": "^2.1",
-        "stevenyangecho/laravel-u-editor": "^1.3"
+        "stevenyangecho/laravel-u-editor": "^1.3",
+        "tom-lingham/searchy" : "2.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

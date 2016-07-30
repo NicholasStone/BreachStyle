@@ -21,7 +21,10 @@ class BranchController extends Controller
      */
     public function index()
     {
-        return view('frontend.party.branch.participate');
+        $university = Auth::user()->university;
+        $page = Branch::where('university', $university->name)->paginate(16);
+//        dd($page->toArray());
+        return view('frontend.party.branch.participate', compact("page"));
     }
 
     /**

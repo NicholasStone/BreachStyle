@@ -1,6 +1,6 @@
-@foreach($applications as $item)
     <div class="caseList">
         <ul>
+            @foreach($page as $item)
             <li class="type1">
                 <div class="outBox">
                     <div class="top">
@@ -21,6 +21,6 @@
                     </div>
                 </div>
             </li>
+            @endforeach
         </ul>
     </div>
-@endforeach
