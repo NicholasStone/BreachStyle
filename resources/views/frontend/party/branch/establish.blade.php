@@ -39,7 +39,7 @@
                     <div class="row">
                         <h4>所在学校<span>*</span> : </h4>
                         <input type="text" name="university" id="school" class="school" readonly
-                               value="{{ $user->university }}"/>
+                               value="{{ $user->university->name }}"/>
                     </div>
                     <div class="row">
                         <h4>党支部书记名称<span>*</span> : </h4>
@@ -50,7 +50,8 @@
                     <div class="row">
                         <h4>党支部书记简介<span>*</span> : </h4>
                         <textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary">{{ $secretary_summary or '' }}</textarea>
-                        <p class="tips">还可以输入<span id="word">100</span>字</p>
+                        <p class="count">还可以输入<span id="word">100</span>字</p>
+
                     </div>
                     <div class="row">
                         <h4>党员人数<span>*</span> : </h4>
@@ -67,7 +68,6 @@
                     <div class="row">
                         <h4>党支部摘要<span>*</span> : </h4>
                         <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary">{{ $summary or '' }}</textarea>
-                        <p class="count">还可以输入<span id="word">100</span>字</p>
                     </div>
                     <div class="row">
                         <h4>党支部情况介绍<span>*</span> :</h4>
@@ -98,7 +98,7 @@
     <script type="text/javascript">
         var ue = UE.getEditor('detail', {
             autoHeight: true,
-            maximumWords: 300
+            maximumWords: 3000
         });
         ue.ready(function () {
             ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
