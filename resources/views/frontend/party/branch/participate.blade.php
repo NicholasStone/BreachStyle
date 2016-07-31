@@ -10,14 +10,17 @@
         <div class="content">
             <div class="breadNav">
                 <a href="javascript:void(0);">全国</a>
-                @unless(Auth::guest())
+                @unless(empty($university))
                     <span> / </span>
-                    <a href="#">{{  $province or Auth::user()->province }}</a>
+                    <a href="javascript:void(0);">{{  $university->province->name }}</a>
                     <span> / </span>
-                    <a href="#">{{ $university or Auth::user()->university->name }}</a>
+                    <a href="javascript:void(0)">{{ $university->name }}</a>
                 @endunless
             </div>
             <div class="departeList">
+                @if($page->total() == 0)
+                    <div style="text-align: center; width: 100%; color: grey; margin-top: 50px"><h3>暂无数据</h3></div>
+                    @else
                 <ul>
                     @foreach($page as $item)
                         <li>
@@ -43,6 +46,7 @@
                         </li>
                     @endforeach
                 </ul>
+                    @endif
             </div>
             @include('frontend.party.common.pages')
         </div>

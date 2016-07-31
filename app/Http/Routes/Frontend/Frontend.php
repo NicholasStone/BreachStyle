@@ -5,17 +5,18 @@
  */
 Route::get('/', 'FrontendController@index')->name('frontend.index');
 
-Route::get('/frontend/mapdata','FrontendController@getMapData');
-Route::get('/frontend/province/{id}','FrontendController@getProvinceDetail');
-Route::get('/frontend/province/{id}/summary','FrontendController@getProvinceSummary');
+Route::get('/frontend/mapdata', 'FrontendController@getMapData');
+Route::get('/frontend/province/{id}', 'FrontendController@getProvinceDetail');
+Route::get('/frontend/province/{id}/summary', 'FrontendController@getProvinceSummary');
 
-Route::get('macros', 'FrontendController@macros')->name('frontend.macros');
 Route::post('active', 'ActiveController@indexUniversityActive')->name('frontend.active');
 Route::get('active/detail', 'ActiveController@activeDetail')->name('frontend.active.detail');
 Route::post('active/province', 'ActiveController@provinceActive')->name('frontend.active.province');
 
-Route::group(['namespace' => 'Party'],function (){
-    Route::get('branch/index/{sort?}', 'BranchController@index')->name('frontend.branch.index');
+Route::get('province/detail/{id?}', 'FrontendController@universityList')->name('frontend.university.list');
+
+Route::group(['namespace' => 'Party'], function () {
+    Route::get('branch/index/{id?}', 'BranchController@index')->name('frontend.branch.index');
     Route::get('branch/detail/{id}', 'BranchController@show')->name('frontend.branch.show');
 
     Route::get('course/index/{sort?}', 'CourseController@index')->name('frontend.course.list');
@@ -34,7 +35,7 @@ Route::group(['namespace' => 'Party'],function (){
  * These frontend controllers require the user to be logged in
  */
 Route::group(['middleware' => 'auth'], function () {
-    Route::group(['namespace' => 'User'], function() {
+    Route::group(['namespace' => 'User'], function () {
 //        Route::get('dashboard', 'DashboardController@index')->name('frontend.user.dashboard');
 //        Route::get('profile/edit', 'ProfileController@edit')->name('frontend.user.profile.edit');
         Route::get('profile', 'ProfileController@show')->name('frontend.user.profile.detail');

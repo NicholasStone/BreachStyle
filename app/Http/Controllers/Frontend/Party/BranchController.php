@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
+use App\Models\University;
 use Auth;
 use Validator;
 use App\Models\Branch;
@@ -19,16 +20,17 @@ class BranchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id = null)
     {
-        if (Auth::check()){
-            $university = Auth::user()->university;
-            $page = Branch::where('university', $university->name)->paginate(16);
-        }else{
+        if (empty($id)) {
             $page = Branch::paginate(16);
+            $university = null;
+        } else {
+            $university = University::findOrFail($id);
+            $page = Branch::where('university', $university->name)->paginate();
         }
-//        dd($page->toArray());
-        return view('frontend.party.branch.participate', compact("page"));
+
+        return view('frontend.party.branch.participate', compact("page", "university"));
     }
 
     /**
@@ -100,6 +102,7 @@ class BranchController extends Controller
         $branch->secretary;
         $application = $branch->application;
         $application = $application->groupBy('type');
+
         return view('frontend.party.branch.index', compact("branch", "application"));
     }
 
