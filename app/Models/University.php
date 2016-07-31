@@ -8,6 +8,8 @@ class University extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = ['name', 'province_id'];
+
     public function province()
     {
         return $this->belongsTo(Province::class);

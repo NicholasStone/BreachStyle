@@ -41,6 +41,9 @@
             <li class="{{ Active::pattern('admin/setting') }}">
                 {{ link_to_route('admin.setting.index', "首页设置") }}
             </li>
+            <li class="{{ Active::pattern('admin/university') }}">
+                {{ link_to_route('admin.university.index', "院校管理") }}
+            </li>
 
             @permission('manage-users')
             <li class="{{ Active::pattern('admin/access/*') }}">
