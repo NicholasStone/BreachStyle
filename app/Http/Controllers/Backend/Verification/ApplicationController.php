@@ -51,6 +51,7 @@ class ApplicationController extends VerificationController
     {
         $application = Application::find($id);
         $application->branch;
+//        dd($application->toArray());
         return view('backend.verification.application.detail', $application);
     }
 }

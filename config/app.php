@@ -206,6 +206,7 @@ return [
         Orangehill\Iseed\IseedServiceProvider::class,
         Stevenyangecho\UEditor\UEditorServiceProvider::class,
         TomLingham\Searchy\SearchyServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */
@@ -268,5 +269,6 @@ return [
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         'Alert'       => UxWeb\SweetAlert\SweetAlert::class,
         'Searchy'     => TomLingham\Searchy\Facades\Searchy::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 ];

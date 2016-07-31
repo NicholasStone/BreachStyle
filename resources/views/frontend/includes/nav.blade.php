@@ -29,8 +29,8 @@
                     </ul>
                 </li>
                 <li class="search">
-                    <form>
-                        <input type="text" name="search" id="search" placeholder="搜索关键字"/>
+                    <form action="{{ route('frontend.search') }}" method="get">
+                        <input type="text" name="keywords" id="search" placeholder="搜索关键字"/>
                         <input type="submit" name="sub" id="sub" value=""/>
                     </form>
                 </li>
@@ -71,7 +71,7 @@
                 <a href="{{ route('frontend.index') }}">首页</a>
             </li>
             <li class="nav">
-                <a href="#activeInfo">活动详情</a>
+                <a href="{{ route('frontend.index') }}#activeInfo">活动详情</a>
             </li>
             <li class="nav">
                 <a href="{{ route('frontend.branch.index') }}">参与党支部</a>

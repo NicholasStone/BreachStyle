@@ -48,70 +48,76 @@
             </div>
             <div class="pubList">
                 <div class="pub">
+                    @unless(empty($application['微党课']))
                     <p class="pubTitle"><span></span>已发布微党课</p>
                     <ul>
-                        @foreach($application['微党课'] as $item)
-                            <li>
-                                <div class="outBox">
-                                    <div class="vedioImg">
-                                        <img src="{{ asset($item->img_hash) }}"/>
-                                    </div>
-                                    <h3>{{ link_to(route('frontend.course.show', $item->id), $item->name) }}</h3>
-                                    <p>{!! $item->detail !!}</p>
-                                    <div class="data">
+                            @foreach($application['微党课'] as $item)
+                                <li>
+                                    <div class="outBox">
+                                        <div class="vedioImg">
+                                            <img src="{{ asset($item->img_hash) }}"/>
+                                        </div>
+                                        <h3>{{ link_to(route('frontend.course.show', $item->id), $item->name) }}</h3>
+                                        <p>{!! $item->detail !!}</p>
+                                        <div class="data">
                                         <span class="review"><i
                                                     class="icon iconfont">&#xe60e;</i> {{ $item->total_comment }}</span>
-                                        <span class="like"><i
-                                                    class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                            <span class="like"><i
+                                                        class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        @endforeach
+                                </li>
+                            @endforeach
                     </ul>
+                    @endunless
                 </div>
                 <div class="pub">
+                    @unless(empty($application['工作案例']))
                     <p class="pubTitle"><span></span>已发布工作案例</p>
                     <ul>
-                        @foreach($application['工作案例'] as $item)
-                            <li>
-                                <div class="outBox">
-                                    <div class="vedioImg">
-                                        <img src="{{ asset($item->img_hash) }}"/>
-                                    </div>
-                                    <h3>{{ link_to(route('frontend.case.show', $item->id), $item->name) }}</h3>
-                                    <p>{{ $item->summary }}</p>
-                                    <div class="data">
+                            @foreach($application['工作案例'] as $item)
+                                <li>
+                                    <div class="outBox">
+                                        <div class="vedioImg">
+                                            <img src="{{ asset($item->img_hash) }}"/>
+                                        </div>
+                                        <h3>{{ link_to(route('frontend.case.show', $item->id), $item->name) }}</h3>
+                                        <p>{{ $item->summary }}</p>
+                                        <div class="data">
                                         <span class="review"><i
                                                     class="icon iconfont">&#xe60e;</i> {{ $item->total_comment }}</span>
-                                        <span class="like"><i
-                                                    class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                            <span class="like"><i
+                                                        class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        @endforeach
+                                </li>
+                            @endforeach
                     </ul>
+                    @endunless
                 </div>
                 <div class="pub">
+                    @unless(empty($application[$branch->type.'推荐展示']))
                     <p class="pubTitle"><span></span>已发布{{ $item->type }}推荐展示</p>
                     <ul>
-                        @foreach($application[$branch->type.'推荐展示'] as $item)
-                            <li>
-                                <div class="outBox">
-                                    <div class="vedioImg">
-                                        <img src="{{ asset($item->img_hash) }}"/>
-                                    </div>
-                                    <h3>{{ link_to(route('frontend.recommend.show', $item->id), $item->name) }}</h3>
-                                    <p>{{ $item->summary }}</p>
-                                    <div class="data">
+                            @foreach($application[$branch->type.'推荐展示'] as $item)
+                                <li>
+                                    <div class="outBox">
+                                        <div class="vedioImg">
+                                            <img src="{{ asset($item->img_hash) }}"/>
+                                        </div>
+                                        <h3>{{ link_to(route('frontend.recommend.show', $item->id), $item->name) }}</h3>
+                                        <p>{{ $item->summary }}</p>
+                                        <div class="data">
                                         <span class="review"><i
                                                     class="icon iconfont">&#xe60e;</i> {{ $item->total_comment }}</span>
-                                        <span class="like"><i
-                                                    class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                            <span class="like"><i
+                                                        class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        @endforeach
+                                </li>
+                            @endforeach
                     </ul>
+                    @endunless
                 </div>
             </div>
         </div>

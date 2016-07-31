@@ -12,35 +12,13 @@
                 <div class="container">
                     <div id="full_feature" class="swipslider">
                         <ul class="sw-slides">
-                            <li class="sw-slide">
-                                <a href="#">
-                                    <img src="img/summer_beach.jpg" alt="Summer beach concept"
-                                         oncontextmenu="return false;">
-                                </a>
-                            </li>
-                            <li class="sw-slide">
-                                <a href="#">
-                                    <img src="img/lang_yie_ar_kung_fu.jpg" alt="Lang from Yie Ar Kung Fu"
-                                         oncontextmenu="return false;">
-                                </a>
-                            </li>
-                            <li class="sw-slide">
-                                <a href="#">
-                                    <img src="img/wanted1.jpg" alt="Example of a not sized slide"
-                                         oncontextmenu="return false;">
-                                </a>
-                            </li>
-                            <li class="sw-slide">
-                                <a href="#">
-                                    <img src="img/tiny_vacation.jpg" alt="Tiny Tina" oncontextmenu="return false;">
-                                </a>
-                            </li>
-                            <li class="sw-slide">
-                                <a href="">
-                                    <img src="img/borderlands_tiny_tina.jpg" alt="Tiny Tina from Borderlands 2"
-                                         oncontextmenu="return false;">
-                                </a>
-                            </li>
+                            @foreach($sliders as $slider)
+                                <li class="sw-slide">
+                                    <a href="{{ asset($slider->link) }}">
+                                        {!! $slider->path !!}
+                                    </a>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -408,12 +386,163 @@
     {!! Html::script('js/chinaMapConfig.js') !!}
     {!! Html::script('js/map.js') !!}
     <script type="text/javascript">
-        $(function(){var b={};var a=["d7201d","d84f45","d99992","cccccc"];$.ajax({url:"{{ asset('/frontend/mapdata') }}",dataType:"json",success:function(c){var d={jiangsu:{id:c[14].id,value:c[14].rate,index:"1",stateInitColor:c[14].color},henan:{id:c[9].id,value:c[9].rate,index:"2",stateInitColor:c[9].color},anhui:{id:c[0].id,value:c[0].rate,index:"3",stateInitColor:c[0].color},zhejiang:{id:c[30].id,value:c[30].rate,index:"4",stateInitColor:c[30].color},liaoning:{id:c[16].id,value:c[16].rate,index:"5",stateInitColor:c[16].color},beijing:{id:c[1].id,value:c[1].rate,index:"6",stateInitColor:c[1].color},hubei:{id:c[8].id,value:c[8].rate,index:"7",stateInitColor:c[8].color},jilin:{id:c[13].id,value:c[13].rate,index:"8",stateInitColor:c[13].color},shanghai:{id:c[23].id,value:c[23].rate,index:"9",stateInitColor:c[23].color},guangxi:{id:c[5].id,value:c[5].rate,index:"10",stateInitColor:c[5].color},sichuan:{id:c[24].id,value:c[24].rate,index:"11",stateInitColor:c[24].color},guizhou:{id:c[6].id,value:c[6].rate,index:"12",stateInitColor:c[6].color},hunan:{id:c[12].id,value:c[12].rate,index:"13",stateInitColor:c[12].color},shandong:{id:c[20].id,value:c[20].rate,index:"14",stateInitColor:c[20].color},guangdong:{id:c[4].id,value:c[4].rate,index:"15",stateInitColor:c[4].color},jiangxi:{id:c[15].id,value:c[15].rate,index:"16",stateInitColor:c[15].color},fujian:{id:c[2].id,value:c[2].rate,index:"17",stateInitColor:c[2].color},yunnan:{id:c[29].id,value:c[29].rate,index:"18",stateInitColor:c[29].color},hainan:{id:c[7].id,value:c[7].rate,index:"19",stateInitColor:c[7].color},shanxi:{id:c[21].id,value:c[21].rate,index:"20",stateInitColor:c[21].color},hebei:{id:c[8].id,value:c[8].rate,index:"21",stateInitColor:c[8].color},neimongol:{id:c[17].id,value:c[17].rate,index:"22",stateInitColor:c[17].color},tianjin:{id:c[26].id,value:c[26].rate,index:"23",stateInitColor:c[26].color},gansu:{id:c[3].id,value:c[3].rate,index:"24",stateInitColor:c[3].color},shaanxi:{id:c[22].id,value:c[22].rate,index:"25",stateInitColor:c[22].color},macau:{id:c[33].id,value:c[33].rate,index:"26",stateInitColor:c[33].color},hongkong:{id:c[32].id,value:c[32].rate,index:"27",stateInitColor:c[32].color},taiwan:{id:c[25].id,value:c[25].rate,index:"28",stateInitColor:c[25].color},qinghai:{id:c[19].id,value:c[19].rate,index:"29",stateInitColor:c[19].color},xizang:{id:c[27].id,value:c[27].rate,index:"30",stateInitColor:c[27].color},ningxia:{id:c[18].id,value:c[18].rate,index:"31",stateInitColor:c[18].color},xinjiang:{id:c[28].id,value:c[28].rate,index:"32",stateInitColor:c[28].color},heilongjiang:{id:c[10].id,value:c[10].rate,index:"33",stateInitColor:c[10].color},chongqing:{id:c[31].id,value:c[31].rate,index:"34",stateInitColor:c[31].color}};var e={};$("#RegionMap").SVGMap({external:e,mapName:"china",mapWidth:530,mapHeight:400,stateData:d,stateTipHtml:function(j,h){var g=j[h.id].value;var f=j[h.id].index;var k="";f<4?k="active":k="";var i='<div class="mapInfo"><i class="'+k+'">'+f+"</i><span>"+h.name+"</span><b>"+g+"</b></div>";return i},clickCallback:function(i,j){var g=document.getElementById("oclick");var h=document.getElementById("progress");g.innerHTML=j.name+"<span>"+(i)[j.id].value+"</span>";var f=(i)[j.id].value.replace(/%/,"");h.style.width=(i)[j.id].value;$.ajax({url:"/frontend/province/"+(i)[j.id].id,dataType:"json",success:function(k){console.log(k);$("#further").attr("href","{{ route('frontend.university.list') }}/"+(i)[j.id].id);var m="";for(var l=0;l<k.universities.length;l++){m+='<li><div class="schoolLogo"><img src="img/check.png"/></div><div class="schoolInfo"><h3>'+k.universities[l].name+"</h3><p><span>"+k.university_application_list[l]+"</span>成果</p></div></li>"}document.getElementById("inner").innerHTML=m}})}});$("#MapColor").show()}})});
+        $(function () {
+            var b = {};
+            var a = ["d7201d", "d84f45", "d99992", "cccccc"];
+            $.ajax({
+                url: "{{ asset('/frontend/mapdata') }}", dataType: "json", success: function (c) {
+                    var d = {
+                        jiangsu: {id: c[14].id, value: c[14].rate, index: "1", stateInitColor: c[14].color},
+                        henan: {id: c[9].id, value: c[9].rate, index: "2", stateInitColor: c[9].color},
+                        anhui: {id: c[0].id, value: c[0].rate, index: "3", stateInitColor: c[0].color},
+                        zhejiang: {id: c[30].id, value: c[30].rate, index: "4", stateInitColor: c[30].color},
+                        liaoning: {id: c[16].id, value: c[16].rate, index: "5", stateInitColor: c[16].color},
+                        beijing: {id: c[1].id, value: c[1].rate, index: "6", stateInitColor: c[1].color},
+                        hubei: {id: c[8].id, value: c[8].rate, index: "7", stateInitColor: c[8].color},
+                        jilin: {id: c[13].id, value: c[13].rate, index: "8", stateInitColor: c[13].color},
+                        shanghai: {id: c[23].id, value: c[23].rate, index: "9", stateInitColor: c[23].color},
+                        guangxi: {id: c[5].id, value: c[5].rate, index: "10", stateInitColor: c[5].color},
+                        sichuan: {id: c[24].id, value: c[24].rate, index: "11", stateInitColor: c[24].color},
+                        guizhou: {id: c[6].id, value: c[6].rate, index: "12", stateInitColor: c[6].color},
+                        hunan: {id: c[12].id, value: c[12].rate, index: "13", stateInitColor: c[12].color},
+                        shandong: {id: c[20].id, value: c[20].rate, index: "14", stateInitColor: c[20].color},
+                        guangdong: {id: c[4].id, value: c[4].rate, index: "15", stateInitColor: c[4].color},
+                        jiangxi: {id: c[15].id, value: c[15].rate, index: "16", stateInitColor: c[15].color},
+                        fujian: {id: c[2].id, value: c[2].rate, index: "17", stateInitColor: c[2].color},
+                        yunnan: {id: c[29].id, value: c[29].rate, index: "18", stateInitColor: c[29].color},
+                        hainan: {id: c[7].id, value: c[7].rate, index: "19", stateInitColor: c[7].color},
+                        shanxi: {id: c[21].id, value: c[21].rate, index: "20", stateInitColor: c[21].color},
+                        hebei: {id: c[8].id, value: c[8].rate, index: "21", stateInitColor: c[8].color},
+                        neimongol: {id: c[17].id, value: c[17].rate, index: "22", stateInitColor: c[17].color},
+                        tianjin: {id: c[26].id, value: c[26].rate, index: "23", stateInitColor: c[26].color},
+                        gansu: {id: c[3].id, value: c[3].rate, index: "24", stateInitColor: c[3].color},
+                        shaanxi: {id: c[22].id, value: c[22].rate, index: "25", stateInitColor: c[22].color},
+                        macau: {id: c[33].id, value: c[33].rate, index: "26", stateInitColor: c[33].color},
+                        hongkong: {id: c[32].id, value: c[32].rate, index: "27", stateInitColor: c[32].color},
+                        taiwan: {id: c[25].id, value: c[25].rate, index: "28", stateInitColor: c[25].color},
+                        qinghai: {id: c[19].id, value: c[19].rate, index: "29", stateInitColor: c[19].color},
+                        xizang: {id: c[27].id, value: c[27].rate, index: "30", stateInitColor: c[27].color},
+                        ningxia: {id: c[18].id, value: c[18].rate, index: "31", stateInitColor: c[18].color},
+                        xinjiang: {id: c[28].id, value: c[28].rate, index: "32", stateInitColor: c[28].color},
+                        heilongjiang: {id: c[10].id, value: c[10].rate, index: "33", stateInitColor: c[10].color},
+                        chongqing: {id: c[31].id, value: c[31].rate, index: "34", stateInitColor: c[31].color}
+                    };
+                    var e = {};
+                    $("#RegionMap").SVGMap({
+                        external: e,
+                        mapName: "china",
+                        mapWidth: 530,
+                        mapHeight: 400,
+                        stateData: d,
+                        stateTipHtml: function (j, h) {
+                            var g = j[h.id].value;
+                            var f = j[h.id].index;
+                            var k = "";
+                            f < 4 ? k = "active" : k = "";
+                            var i = '<div class="mapInfo"><i class="' + k + '">' + f + "</i><span>" + h.name + "</span><b>" + g + "</b></div>";
+                            return i
+                        },
+                        clickCallback: function (i, j) {
+                            var g = document.getElementById("oclick");
+                            var h = document.getElementById("progress");
+                            g.innerHTML = j.name + "<span>" + (i)[j.id].value + "</span>";
+                            var f = (i)[j.id].value.replace(/%/, "");
+                            h.style.width = (i)[j.id].value;
+                            $.ajax({
+                                url: "/frontend/province/" + (i)[j.id].id, dataType: "json", success: function (k) {
+                                    console.log(k);
+                                    $("#further").attr("href", "{{ route('frontend.university.list') }}/" + (i)[j.id].id);
+                                    var m = "";
+                                    for (var l = 0; l < k.universities.length; l++) {
+                                        m += '<li><div class="schoolLogo"><img src="img/check.png"/></div><div class="schoolInfo"><h3>' + k.universities[l].name + "</h3><p><span>" + k.university_application_list[l] + "</span>成果</p></div></li>"
+                                    }
+                                    document.getElementById("inner").innerHTML = m
+                                }
+                            })
+                        }
+                    });
+                    $("#MapColor").show()
+                }
+            })
+        });
     </script>
     <script type="text/javascript">
-        $(window).load(function () {$('#full_feature').swipeslider();});
+        $(window).load(function () {
+            $('#full_feature').swipeslider();
+        });
     </script>
     <script type="text/javascript">
-        var bgBtn=document.getElementById("bgDetail");var bgContent=document.getElementById("bg");var achBtn=document.getElementById("achDetail");var achContent=document.getElementById("ach");var moreBtn=document.getElementById("moreBtn");var more1=document.getElementById("more1");var more2=document.getElementById("more2");var more3=document.getElementById("more3");var moreDetail=document.getElementById("moreDetail");bgBtn.onclick=function(){bgContent.innerHTML="<span>活动背景 : </span>通过开展高校支部风采展示活动，不断挖掘、深入总结、广泛推广高校基层党支部在开展“两学一做”学习教育和纪念建党95周年“学党史、感党恩、跟党走”主题教育活动中的先锋模范、先进经验、典型案例，发挥典型引领和带动作用，推动“两学一做”学习教育向广大党员拓展、向经常性教育延伸，推动高校基层党支部整体功能提升。";bgContent.style.whiteSpace="normal";bgContent.style.overflow="visible";bgContent.style.textOverflow="clip";bgContent.parentNode.style.lineHeight="28px";bgBtn.style.display="none"};achBtn.onclick=function(){achContent.innerHTML="<span>活动荣誉 : </span>各类征集推选成果分为精品作品、优秀作品、入围作品三大类，按一定比例确定名额。结合各地各高校组织参与情况及成绩推选出若干先进集体。教育部将通过多种媒体形式将征集推选成果加以展示推广。";achContent.style.whiteSpace="normal";achContent.style.overflow="visible";achContent.style.textOverflow="clip";achContent.parentNode.style.lineHeight="28px";achBtn.style.display="none"};moreBtn.onclick=function(){more1.innerHTML="<span>1.支部工作案例 : </span>工作案例汇集“两微一端”、组织生活会及其他方式的创新工作方法、典型事例、特色主题活动等。各高校根据“两学一做”学习教育精神，要求各教师党支部、大学生党支部深入贯彻落实习近平总书记关于“两学一做”学习教育工作的重要指示，鼓励师生党员创新学习方式、探索实践形式，将有关工作案例、工作经验和先进典型通过网络等多种媒体予以展示。工作案例需包含主题与思路、实施方法与过程、主要成效及经验等，要求文字简洁、重点突出，字数3000字以内。";more2.innerHTML="<span>2.微党课 : </span>鼓励各校教师党支部、大学生党支部积极联系实际讲党课，利用微视频、动漫等多种体裁形式，创新党课宣讲模式。党课选题紧扣师生学习生活实践，围绕“两学一做”、纪念建党95周年和红军长征胜利80周年等主题，要求内容完整，主题突出，结构合理，表达流畅，富有时代气息，符合党性要求。微党课视频时长小于10分钟。";more3.innerHTML="<span>3.教师党支部、大学生党支部推荐展示 : </span>各高校根据各教师党支部、大学生党支部开展“两学一做”学习教育的优秀经验和实际成效，评选出在学校能够叫得响、立得住、师生群众公认的教师党支部、大学生党支部，并且把典型材料推荐到活动平台进行展示。平台定期推送“支部风采”展示材料。";more2.style.whiteSpace="normal";more2.style.overflow="visible";more2.style.textOverflow="clip";more2.parentNode.style.lineHeight="28px";more3.style.whiteSpace="normal";more3.style.overflow="visible";more3.style.textOverflow="clip";more3.parentNode.style.lineHeight="28px";moreBtn.parentNode.style.display="none";more1.style.whiteSpace="normal";more1.style.overflow="visible";more1.style.textOverflow="clip";more1.parentNode.style.lineHeight="28px";moreDetail.style.whiteSpace="normal";moreDetail.style.overflow="visible";moreDetail.style.textOverflow="clip";moreDetail.innerHTML="<span>活动内容 : </span>“支部风采”展示活动，包括高校教师党支部和大学生党支部支部的工作案例、微党课和推荐展示等方面。"};var myDate=new Date();var month=myDate.getMonth();var oDay=myDate.getDate();if((month>=9&&oDay>=20)&&(month>=11&&oDay<=15)){var pointA=document.getElementsByClassName("point one")[0];var lineA=document.getElementsByClassName("line two")[0];var pointB=document.getElementsByClassName("point three")[0];var lineB=document.getElementsByClassName("line three")[0];pointA.className="point one";lineA.className="line two";pointB.className="point three active";lineB.className="line three active"}else{if((month>=11&&oDay>15)&&(month>=11&&oDay<=30)){var pointC=document.getElementsByClassName("point two")[0];var lineC=document.getElementsByClassName("line three")[0];var pointD=document.getElementsByClassName("point four")[0];var lineD=document.getElementsByClassName("line four")[0];pointC.className="point three";lineC.className="line three";pointD.className="point four active";lineD.className="line four active"}};
+        var bgBtn = document.getElementById("bgDetail");
+        var bgContent = document.getElementById("bg");
+        var achBtn = document.getElementById("achDetail");
+        var achContent = document.getElementById("ach");
+        var moreBtn = document.getElementById("moreBtn");
+        var more1 = document.getElementById("more1");
+        var more2 = document.getElementById("more2");
+        var more3 = document.getElementById("more3");
+        var moreDetail = document.getElementById("moreDetail");
+        bgBtn.onclick = function () {
+            bgContent.innerHTML = "<span>活动背景 : </span>通过开展高校支部风采展示活动，不断挖掘、深入总结、广泛推广高校基层党支部在开展“两学一做”学习教育和纪念建党95周年“学党史、感党恩、跟党走”主题教育活动中的先锋模范、先进经验、典型案例，发挥典型引领和带动作用，推动“两学一做”学习教育向广大党员拓展、向经常性教育延伸，推动高校基层党支部整体功能提升。";
+            bgContent.style.whiteSpace = "normal";
+            bgContent.style.overflow = "visible";
+            bgContent.style.textOverflow = "clip";
+            bgContent.parentNode.style.lineHeight = "28px";
+            bgBtn.style.display = "none"
+        };
+        achBtn.onclick = function () {
+            achContent.innerHTML = "<span>活动荣誉 : </span>各类征集推选成果分为精品作品、优秀作品、入围作品三大类，按一定比例确定名额。结合各地各高校组织参与情况及成绩推选出若干先进集体。教育部将通过多种媒体形式将征集推选成果加以展示推广。";
+            achContent.style.whiteSpace = "normal";
+            achContent.style.overflow = "visible";
+            achContent.style.textOverflow = "clip";
+            achContent.parentNode.style.lineHeight = "28px";
+            achBtn.style.display = "none"
+        };
+        moreBtn.onclick = function () {
+            more1.innerHTML = "<span>1.支部工作案例 : </span>工作案例汇集“两微一端”、组织生活会及其他方式的创新工作方法、典型事例、特色主题活动等。各高校根据“两学一做”学习教育精神，要求各教师党支部、大学生党支部深入贯彻落实习近平总书记关于“两学一做”学习教育工作的重要指示，鼓励师生党员创新学习方式、探索实践形式，将有关工作案例、工作经验和先进典型通过网络等多种媒体予以展示。工作案例需包含主题与思路、实施方法与过程、主要成效及经验等，要求文字简洁、重点突出，字数3000字以内。";
+            more2.innerHTML = "<span>2.微党课 : </span>鼓励各校教师党支部、大学生党支部积极联系实际讲党课，利用微视频、动漫等多种体裁形式，创新党课宣讲模式。党课选题紧扣师生学习生活实践，围绕“两学一做”、纪念建党95周年和红军长征胜利80周年等主题，要求内容完整，主题突出，结构合理，表达流畅，富有时代气息，符合党性要求。微党课视频时长小于10分钟。";
+            more3.innerHTML = "<span>3.教师党支部、大学生党支部推荐展示 : </span>各高校根据各教师党支部、大学生党支部开展“两学一做”学习教育的优秀经验和实际成效，评选出在学校能够叫得响、立得住、师生群众公认的教师党支部、大学生党支部，并且把典型材料推荐到活动平台进行展示。平台定期推送“支部风采”展示材料。";
+            more2.style.whiteSpace = "normal";
+            more2.style.overflow = "visible";
+            more2.style.textOverflow = "clip";
+            more2.parentNode.style.lineHeight = "28px";
+            more3.style.whiteSpace = "normal";
+            more3.style.overflow = "visible";
+            more3.style.textOverflow = "clip";
+            more3.parentNode.style.lineHeight = "28px";
+            moreBtn.parentNode.style.display = "none";
+            more1.style.whiteSpace = "normal";
+            more1.style.overflow = "visible";
+            more1.style.textOverflow = "clip";
+            more1.parentNode.style.lineHeight = "28px";
+            moreDetail.style.whiteSpace = "normal";
+            moreDetail.style.overflow = "visible";
+            moreDetail.style.textOverflow = "clip";
+            moreDetail.innerHTML = "<span>活动内容 : </span>“支部风采”展示活动，包括高校教师党支部和大学生党支部支部的工作案例、微党课和推荐展示等方面。"
+        };
+        var myDate = new Date();
+        var month = myDate.getMonth();
+        var oDay = myDate.getDate();
+        if ((month >= 9 && oDay >= 20) && (month >= 11 && oDay <= 15)) {
+            var pointA = document.getElementsByClassName("point one")[0];
+            var lineA = document.getElementsByClassName("line two")[0];
+            var pointB = document.getElementsByClassName("point three")[0];
+            var lineB = document.getElementsByClassName("line three")[0];
+            pointA.className = "point one";
+            lineA.className = "line two";
+            pointB.className = "point three active";
+            lineB.className = "line three active"
+        } else {
+            if ((month >= 11 && oDay > 15) && (month >= 11 && oDay <= 30)) {
+                var pointC = document.getElementsByClassName("point two")[0];
+                var lineC = document.getElementsByClassName("line three")[0];
+                var pointD = document.getElementsByClassName("point four")[0];
+                var lineD = document.getElementsByClassName("line four")[0];
+                pointC.className = "point three";
+                lineC.className = "line three";
+                pointD.className = "point four active";
+                lineD.className = "line four active"
+            }
+        }
+        ;
     </script>
 @endsection

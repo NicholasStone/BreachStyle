@@ -11,7 +11,7 @@
     {!! Html::style('//cdn.bootcss.com/video.js/5.11.0/video-js.min.css') !!}
 @endsection
 
-@section('after-scripts-end-end')
+@section('after-scripts-end')
     {!! Html::script('//cdn.bootcss.com/video.js/5.11.0/video.min.js') !!}
 @endsection
 
@@ -29,7 +29,7 @@
                 <dt>{{ trans('strings.backend.verification.application.branch') }}</dt>
                 <dd>{{ $branch['name'] }}</dd>
                 <dt>{{ trans('strings.backend.verification.application.university') }}</dt>
-                <dd>{{ $branch['university'] }}</dd>
+                <dd>{{ $branch['university']['name'] }}</dd>
                 <dt>{{ trans('strings.backend.verification.application.tel') }}</dt>
                 <dd>{{ $branch['tel'] }}</dd>
                 @unless(empty($summary))
@@ -64,8 +64,4 @@
             @endunless
         </div><!-- /.box-body -->
     </div><!--box box-success-->
-@endsection
-
-@section("after-scripts-end")
-    {!! Html::script('//cdn.bootcss.com/zoom.js/0.0.1/zoom.min.js') !!}
 @endsection

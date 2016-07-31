@@ -56,5 +56,7 @@
             </div>
         </div>
     </div>
-    @include('frontend.party.common.comment')
+    @if(Auth::check())
+        @include('frontend.party.common.comment')
+    @endif
 @endsection

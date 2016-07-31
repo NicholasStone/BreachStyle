@@ -15,6 +15,10 @@ class BranchController extends VerificationController
 
     public function unhandled()
     {
+        dd(Branch::with('secretary')
+            ->where('verification', 0)
+            ->orderBy('created_at', 'asc')
+            ->get());
         return Datatables::of(
             Branch::with('secretary')
                 ->where('verification', 0)

@@ -12,16 +12,34 @@
 */
 
 $factory->define(App\Models\Access\User\User::class, function (Faker\Generator $faker) {
+    $university_names = \App\Models\University::lists('name')->toArray();
+    $province = \App\Models\Province::lists('name')->toArray();
+
     return [
-        'name'           => $faker->name,
-        'email'          => $faker->safeEmail,
-        'password'       => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
+        'name'              => $faker->name,
+        'user_id'           => rand(1000000, 9999999),
+        'id_number'         => str_random(18),
+        'type'              => rand(1, 2),
+        'university'        => $faker->randomElement($university_names),
+        'email'             => $faker->safeEmail,
+        'tel_work'          => $faker->phoneNumber,
+        'tel'               => $faker->phoneNumber,
+        'province'          => $faker->randomElement($province),
+        'branch_id'         => mt_rand(0, 3000),
+        'city'              => $faker->city,
+        'status'            => 1,
+        'remember_token'    => str_random(10),
+        'avatar'            => $faker->imageUrl(256, 256),
+        'confirmed'         => 1,
+        'confirmation_code' => str_random(255),
+        'created_at'        => $faker->dateTime('now', date_default_timezone_get()),
+        'updated_at'        => $faker->dateTime('now', date_default_timezone_get()),
     ];
 });
+
 $factory->define(\App\Models\Branch::class, function (Faker\Generator $faker) {
     $university_names = \App\Models\University::lists('name')->toArray();
-
+    $max_user_number = \App\Models\Access\User\User::count('id');
     return [
         'name'              => $faker->name,
         'avatar'            => $faker->imageUrl(256, 256),
@@ -32,8 +50,8 @@ $factory->define(\App\Models\Branch::class, function (Faker\Generator $faker) {
         'address'           => $faker->address,
         'summary'           => $faker->sentence,
         'total_membership'  => rand(1, 10000),
-        'secretary'         => $faker->name,
-        'secretary_summary' => rand(1, 10000),
+        'secretary'         => rand(1, $max_user_number),
+        'secretary_summary' => $faker->text(200),
         'apply_img'         => $faker->imageUrl(256, 256),
     ];
 });

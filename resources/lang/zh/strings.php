@@ -34,7 +34,7 @@ return [
                 'university' => '所在院校',
                 'summary'    => '成果简介',
                 'branch'     => '提交支部名称',
-                'img'        => '简介',
+                'img'        => '缩略图',
                 'apply'      => '申请表',
                 'video'      => '视频'
             ],

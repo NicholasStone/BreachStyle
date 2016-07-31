@@ -5,21 +5,25 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="{{ access()->user()->picture }}" class="img-circle" alt="User Image" />
+                <img src="{{ access()->user()->picture }}" class="img-circle" alt="User Image"/>
             </div><!--pull-left-->
             <div class="pull-left info">
                 <p>{{ access()->user()->name }}</p>
                 <!-- Status -->
-                <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('strings.backend.general.status.online') }}</a>
+                <a href="#"><i
+                            class="fa fa-circle text-success"></i> {{ trans('strings.backend.general.status.online') }}
+                </a>
             </div><!--pull-left-->
         </div><!--user-panel-->
 
         <!-- search form (Optional) -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
-                  <input type="text" name="q" class="form-control" placeholder="{{ trans('strings.backend.general.search_placeholder') }}" />
-                  <span class="input-group-btn">
-                    <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+                <input type="text" name="q" class="form-control"
+                       placeholder="{{ trans('strings.backend.general.search_placeholder') }}"/>
+                <span class="input-group-btn">
+                    <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i
+                                class="fa fa-search"></i></button>
                   </span>
             </div><!--input-group-->
         </form>
@@ -34,14 +38,14 @@
                 {{ link_to_route('admin.dashboard', trans('menus.backend.sidebar.dashboard')) }}
             </li>
 
-            {{--<li class="{{ Active::pattern('admin/settings') }}">--}}
-                {{--{{ link_to_route('admin.settings', trans('menus.backend.sidebar.sittings')) }}--}}
-            {{--</li>--}}
+            <li class="{{ Active::pattern('admin/setting') }}">
+                {{ link_to_route('admin.setting.index', "首页设置") }}
+            </li>
 
             @permission('manage-users')
-                <li class="{{ Active::pattern('admin/access/*') }}">
-                    {{ link_to_route('admin.access.user.index', trans('menus.backend.access.title')) }}
-                </li>
+            <li class="{{ Active::pattern('admin/access/*') }}">
+                {{ link_to_route('admin.access.user.index', trans('menus.backend.access.title')) }}
+            </li>
             @endauth
 
             <li class="{{ Active::pattern('admin/log-viewer*') }} treeview">
@@ -49,7 +53,8 @@
                     <span>{{ trans('menus.backend.log-viewer.main') }}</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
-                <ul class="treeview-menu {{ Active::pattern('admin/log-viewer*', 'menu-open') }}" style="display: none; {{ Active::pattern('admin/log-viewer*', 'display: block;') }}">
+                <ul class="treeview-menu {{ Active::pattern('admin/log-viewer*', 'menu-open') }}"
+                    style="display: none; {{ Active::pattern('admin/log-viewer*', 'display: block;') }}">
                     <li class="{{ Active::pattern('admin/log-viewer') }}">
                         {{ link_to('admin/log-viewer', trans('menus.backend.log-viewer.dashboard')) }}
                     </li>
@@ -63,7 +68,8 @@
                     <span>{{ trans('menus.backend.verification.main') }}</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
-                <ul class="treeview-menu {{ Active::pattern('admin/verification/*', 'menu-open') }}" style="display: none; {{ Active::pattern('admin/verification/*', 'display: block;') }}">
+                <ul class="treeview-menu {{ Active::pattern('admin/verification/*', 'menu-open') }}"
+                    style="display: none; {{ Active::pattern('admin/verification/*', 'display: block;') }}">
                     <li class="{{ Active::pattern('admin/verification/application') }}">
                         {{ link_to('admin/verify/application', trans('menus.backend.verification.application')) }}
                     </li>

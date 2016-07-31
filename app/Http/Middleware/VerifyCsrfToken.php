@@ -16,6 +16,8 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        //
+        'admin.setting.upload',
+        'admin.setting.crop',
+        'admin.setting.get',
     ];
 }
