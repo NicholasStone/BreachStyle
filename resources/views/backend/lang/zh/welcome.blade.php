@@ -1,6 +1,9 @@
-<p>This is the AdminLTE theme by <a href="https://almsaeedstudio.com/" target="_blank">https://almsaeedstudio.com/</a>. This is a stripped down version with only the necessary styles and scripts to get it running. Download the full version to start adding components to your dashboard.</p>
-<p>All the functionality is for show with the exception of the <strong>User Management</strong> to the left. This boilerplate comes with a fully functional access control library to manage users/roles/permissions.</p>
-<p>Keep in mind it is a work in progress and their may be bugs or other issues I have not come across. I will do my best to fix them as I receive them.</p>
-<p>Hope you enjoy all of the work I have put into this. Please visit the <a href="https://github.com/rappasoft/laravel-5-boilerplate" target="_blank">GitHub</a> page for more information and report any <a href="https://github.com/rappasoft/Laravel-5-Boilerplate/issues" target="_blank">issues here</a>.</p>
-<p><strong>This project is very demanding to keep up with given the rate at which the master Laravel branch changes, so any help is appreciated.</strong></p>
-<p>- Anthony Rappa</p>
+<h3>欢迎使用支部风采后台管理系统</h3>
+<p>使用前请注意以下几点</p>
+<ol>
+    <li>在首页设置中设置首页的轮播，最多6个</li>
+    <li>在院校管理中可添加或删除院校</li>
+    <li>在权限管理中可以授权用户是否可以提交成功或访问后台</li>
+    <li>在信息审核中可以审核申报的支部或成功，<span style="color: red;">注意：如果驳回申请将直接删除所提交的数据，该操作不可逆</span></li>
+</ol>
+<p>祝您使用愉快</p>

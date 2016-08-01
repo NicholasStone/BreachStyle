@@ -73,7 +73,7 @@
                         <h4>党支部情况介绍<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="detail" name="detail">
-                                {{ $summary or '' }}
+                                {{ $summary or '在此编辑插入图片时请插入图片链接' }}
                             </textarea>
                         </div>
                     </div>

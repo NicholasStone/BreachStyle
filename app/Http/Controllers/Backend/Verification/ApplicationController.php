@@ -16,11 +16,11 @@ class ApplicationController extends VerificationController
             ->withUser(access()->user());
     }
 
-    public function unhandled()
+    public function unhandled($v = 0)
     {
         return Datatables::of(Application::with('branch')
             ->select(['id', 'name', 'type', 'created_at'])
-            ->where('verification', 0)
+            ->where('verification', $v)
             ->orderBy('created_at', 'desc')
             ->get()
         )

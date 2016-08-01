@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
-use App\Models\University;
 use Auth;
 use Validator;
 use App\Models\Branch;
+use App\Models\University;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Common\FileStorage;
@@ -29,7 +29,7 @@ class BranchController extends Controller
             $university = University::findOrFail($id);
             $page = Branch::where('university', $university->name)->paginate();
         }
-
+//        dd(Auth::user()->toArray());
         return view('frontend.party.branch.participate', compact("page", "university"));
     }
 
@@ -51,6 +51,7 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'              => 'required',
             'avatar'            => 'required',
@@ -70,21 +71,20 @@ class BranchController extends Controller
         if ($validate->fails()) {
             alert()->error($validate->errors()->all());
 
-            return redirect()->back()->with($request->all());
+            return redirect()->back();
         }
-        $avatar = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
-        $apply_img = $this->saveImage($request->file('apply'), 'Applications/Branch');
         $user = Auth::user();
         $all = $request->all();
-        $all['avatar'] = $avatar;
-        $all['apply_img'] = $apply_img;
+        $all['avatar'] = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
+        $all['apply_img'] = $this->saveImage($request->file('apply'), 'Applications/Branch');
         $all['secretary'] = $user->id;
-        $all['university'] = $user->university;
+        $all['university'] = $user->university->name;
         $all['type'] = $user->type == '学生' ? '学生党支部' : '教师党支部';
         $branch = Branch::create($all);
         $user->branch_id = $branch ? $branch->id : '';
         $user->attachRole(2);
         $user->save();
+//        dd($branch);
         alert()->success('支部创建成功，您可以上传成果或浏览首页');
 
         return redirect()->route('frontend.index');

@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Branch extends Model
 {
     protected $fillable = ['name', 'secretary', 'secretary_summary', 'total_membership', 'summary', 'avatar', 'address', 'type', 'tel', 'university', 'apply_img'];
+
     public function secretary()
     {
-        return $this->belongsTo(User::class, 'secretary');
+        return $this->belongsTo(User::class, 'secretary', 'id');
     }
 
     public function members()

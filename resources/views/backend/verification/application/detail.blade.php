@@ -56,12 +56,12 @@
                 <dt>{{ trans('strings.backend.verification.application.apply') }}</dt>
                 <dd><img src="{{ asset($apply_hash) }}" alt="申请表" class="thumbnail" width="50%" height="50%"></dd>
             </dl>
-            @unless($verification)
                 <div>
+                    @unless($verification)
                     <a href="{{ route('admin.verify.application.grant', $id) }}" class="btn bg-olive">通过</a>
+                    @endunless
                     <a href="{{ route('admin.verify.application.deny', $id) }}" class="btn bg-maroon">驳回</a>
                 </div>
-            @endunless
         </div><!-- /.box-body -->
     </div><!--box box-success-->
 @endsection

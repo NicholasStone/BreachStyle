@@ -2,7 +2,7 @@
 
 @section('after-styles-end')
     {!! Html::style('css/frontend/participate.css') !!}
-@endsection
+@endsection 
 
 @section('content')
     <!-- participate -->

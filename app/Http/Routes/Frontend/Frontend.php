@@ -36,7 +36,7 @@ Route::group(['namespace' => 'Party'], function () {
  */
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['namespace' => 'User'], function () {
-//        Route::get('dashboard', 'DashboardController@index')->name('frontend.user.dashboard');
+        Route::get('dashboard', 'DashboardController@index')->name('frontend.user.dashboard');
 //        Route::get('profile/edit', 'ProfileController@edit')->name('frontend.user.profile.edit');
         Route::get('profile', 'ProfileController@show')->name('frontend.user.profile.detail');
         Route::post('profile/update', 'ProfileController@update')->name('frontend.user.profile.update');

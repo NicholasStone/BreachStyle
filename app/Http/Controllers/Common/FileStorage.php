@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Common;
 
 
 use Storage;
-use Illuminate\Http\UploadedFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait FileStorage
 {

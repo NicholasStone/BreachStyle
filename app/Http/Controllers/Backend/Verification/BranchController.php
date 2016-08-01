@@ -13,15 +13,10 @@ class BranchController extends VerificationController
             ->withUser(access()->user());
     }
 
-    public function unhandled()
+    public function unhandled($v = 0)
     {
-        dd(Branch::with('secretary')
-            ->where('verification', 0)
-            ->orderBy('created_at', 'asc')
-            ->get());
         return Datatables::of(
-            Branch::with('secretary')
-                ->where('verification', 0)
+            Branch::where('verification', $v)
                 ->orderBy('created_at', 'asc')
                 ->get())
             ->addColumn('operations', function ($branch) {
@@ -41,7 +36,7 @@ class BranchController extends VerificationController
 
     public function detail($id)
     {
-        $branch = Branch::with('secretary')->where('id', $id)->firstOrFail();
+        $branch = Branch::where('id', $id)->firstOrFail();
         $branch->sercetary;
 //        dd($branch->toArray());
         return view('backend.verification.branch.detail', $branch);

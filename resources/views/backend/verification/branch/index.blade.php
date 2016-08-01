@@ -20,9 +20,18 @@
                 {{trans("labels.backend.verification.branch.management")}}
             </h3>
 
-            {{--<div class="box-tools pull-right">--}}
-            {{--@include('backend.access.includes.partials.header-buttons')--}}
-            {{--</div><!--box-tools pull-right-->--}}
+            <div class="box-tools pull-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        选项 <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="javascript:void (0);" id="denied">未通过</a></li>
+                        <li><a href="javascript:void (0);" id="unhandled">已通过</a></li>
+                    </ul>
+                </div><!--btn group-->
+            </div>
         </div><!-- /.box-header -->
 
         <div class="box-body">
@@ -49,11 +58,12 @@
 
     <script>
         $(function() {
-            $('#branchs-table').DataTable({
+            var url = '{{ route("admin.verify.branch.get", 0) }}';
+            var table = $('#branchs-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ route("admin.verify.branch.get") }}',
+                    url: url,
                     type: 'post'
                 },
                 columns: [
@@ -65,6 +75,14 @@
                 ],
                 order: [[0, "asc"]],
                 searchDelay: 500
+            });
+            $("#unhandled").click(function () {
+                url = "{{ route("admin.verify.branch.get", ['v' => 1]) }}";
+                table.ajax.url(url).load();
+            });
+            $("#denied").click(function () {
+                url = "{{ route("admin.verify.branch.get", ['v' => 0]) }}";
+                table.ajax.url(url).load();
             });
         });
     </script>

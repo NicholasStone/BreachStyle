@@ -20,18 +20,29 @@
         </div><!-- /.box-header -->
         <div class="box-body">
             <dl class="dl-horizontal">
-                <dt>{{ trans('strings.backend.verification.branch.name') }}</dt><dd>{{ $name }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.type') }}</dt><dd>{{ $type }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.secretary') }}</dt><dd>{{ $secretary['name'] }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.tel') }}</dt><dd>{{ $tel }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.secretary-summary') }}</dt><dd>{{ $secretary_summary }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.address') }}</dt><dd>{{ $address }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.total-membership') }}</dt><dd>{{ $total_membership }}</dd>
-                <dt>{{ trans('strings.backend.verification.branch.summary') }}</dt><dd>{!! $summary !!}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.name') }}</dt>
+                <dd>{{ $name }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.type') }}</dt>
+                <dd>{{ $type }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.secretary') }}</dt>
+                <dd>{{ $secretary['name'] }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.tel') }}</dt>
+                <dd>{{ $tel }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.secretary-summary') }}</dt>
+                <dd>{{ $secretary_summary }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.address') }}</dt>
+                <dd>{{ $address }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.total-membership') }}</dt>
+                <dd>{{ $total_membership }}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.summary') }}</dt>
+                <dd>{!! $summary !!}</dd>
             </dl>
-            <img src="{{ asset($avatar) }}" alt="配图" class="thumbnail" style="position: absolute;top: 70px; right: 300px; width: 200px; height: 200px">
+            <img src="{{ asset($avatar) }}" alt="配图" class="thumbnail"
+                 style="position: absolute;top: 70px; right: 300px; width: 200px; height: 200px">
             <div>
-                <a href="{{ route('admin.verify.branch.grant', $id) }}" class="btn bg-olive">通过</a>
+                @if($verification != 1)
+                    <a href="{{ route('admin.verify.branch.grant', $id) }}" class="btn bg-olive">通过</a>
+                @endif
                 <a href="{{ route('admin.verify.branch.deny', $id) }}" class="btn bg-maroon">驳回</a>
             </div>
         </div><!-- /.box-body -->

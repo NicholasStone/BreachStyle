@@ -34,7 +34,7 @@
                         <h4>工作案例说明<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="detail" name="detail">
-                                {{ $detail or '' }}
+                                {{ $detail or '在此编辑插入图片时请插入图片链接' }}
                             </textarea>
                         </div>
                     </div>

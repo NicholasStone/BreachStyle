@@ -8,7 +8,7 @@ abstract class VerificationController extends Controller
 {
     public abstract function index();
 
-    public abstract function unhandled();
+    public abstract function unhandled($v = 0);
 
     public abstract function grant($id);
 
