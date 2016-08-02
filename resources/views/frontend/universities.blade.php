@@ -5,13 +5,13 @@
     <div class="schoolList">
         <div class="content">
             <div class="region">
-                <h3>{{ $universities[0]->province->name }}<span>{{ $count_university/$universities->count() }}%</span>
+                <h3>{{ $province->name }} <span> {{ round($count_universities_has_branch/$universities->count(), 4) * 100 }}%</span>
                 </h3>
                 <div class="progress">
-                    <span></span>
+                    <span style="width: {{ $count_universities_has_branch/$universities->count() * 100 }}%;"></span>
                 </div>
             </div>
-            <p class="data">已参与学校<span>{{ $count_university }}</span>个，</p>
+            <p class="data">已参与学校<span>{{ $count_universities_has_branch }}</span>个，共 <span>{{ $universities->count() }}</span>个。</p>
             <p class="data">已发布成果<span>{{ $count_application }}</span>个</p>
             <table cellspacing="0" cellpadding="0">
                 @for($i = 0; $i < $universities->count(); $i++)

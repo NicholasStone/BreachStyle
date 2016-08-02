@@ -9,7 +9,6 @@
 @section('page-header')
     <h1>
         {{trans("labels.backend.verification.application.management")}}
-        <small>{{ trans('labels.backend.access.users.active') }}</small>
     </h1>
 @endsection
 

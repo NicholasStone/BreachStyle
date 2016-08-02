@@ -40,9 +40,9 @@
                         <a href="http://uzone.univs.cn/signup.jsp" class="reg">注册</a>
                     </li>
                 @else
-                    <li class="login-out">
-                        <a href="{{ route('frontend.user.profile.detail') }}">个人中心</a>
-                        <a href="{{ route('auth.logout') }}">退出</a>
+                    <li class="login">
+                        <a href="{{ route('frontend.user.profile.detail') }}" class="reg">个人中心</a>
+                        <a href="{{ route('auth.logout') }}" class="reg">退出</a>
                     </li>
                 @endif
             </ul>

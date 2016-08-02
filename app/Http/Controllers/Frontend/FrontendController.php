@@ -104,8 +104,10 @@ class FrontendController extends Controller
             $count_user,
             $count_university
             ) = $this->Count($id);
-        $universities = Province::find($id)->universities;
-        return view('frontend.universities', compact("count_application", "count_student_branch", "count_teacher_branch", "count_university", "universities"));
+        $province = Province::find($id);
+        $universities = $province->universities;
+        $count_universities_has_branch = $province->universities()->has('branches')->count();
+        return view('frontend.universities', compact("count_application", "count_student_branch", "count_teacher_branch", "count_university", "universities", "count_universities_has_branch", "province"));
     }
 
     /**

@@ -24,7 +24,7 @@
                 @yield('article')
             </div>
             <div class="click" id="click">
-                @unless(access()->guest())
+                @unless(access()->guest() || !Auth::user()->user_id)
                     <a href="javascript:void(0);" id="fancy"><span class="icon iconfont">&#xe604;</span> 点赞</a>
                 @section('after-scripts-end')
                     <script type="text/javascript">
@@ -56,7 +56,7 @@
             </div>
         </div>
     </div>
-    @if(Auth::check())
+    @if(Auth::check() && Auth::user()->user_id)
         @include('frontend.party.common.comment')
     @endif
 @endsection

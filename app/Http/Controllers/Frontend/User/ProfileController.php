@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Frontend\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\User\UpdateProfileRequest;
-use App\Http\Requests\Request;
-use App\Models\Branch;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
@@ -42,27 +41,26 @@ class ProfileController extends Controller
             return redirect()->route('admin.dashboard');
         }
         $user->branch;
-        $university = $user->university;
-        $branches = Branch::where('university', $university)->get();
+        $branches = $user->university->branches;
         return view('frontend.user.detail')->with(compact("user", "branches"));
     }
 
     public function join(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'bind' => 'required|exists:branch,name',
+            'bind' => 'required|exists:branches,id',
         ], [
             'exists' => '您所选的党支部不存在!',
         ]);
 
         if ($validate->fails()) {
-            alert()->error($validate->errors()->all()->toArray());
+            alert()->error($validate->errors()->all());
 
             return redirect()->back();
         }
 
-        $user = access()->user();
-        $user->branch_name = $request->get('bind');
+        $user = Auth::user();
+        $user->branch_id = $request->get('bind');
         $user->save();
 
         alert()->success('加入成功!');

@@ -12,8 +12,8 @@ return [
     */
 
     '404' => [
-        'title' => 'Page Not Found',
-        'description' => 'Sorry, but the page you were trying to view does not exist.',
+        'title' => '404无法找到此页面',
+        'description' => '很抱歉，您所访问的页面无法找到。',
     ],
 
     '503' => [

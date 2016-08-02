@@ -3,8 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Auth;
 
-class Submit{
+class Submit
+{
     /**
      * Handle an incoming request.
      *
@@ -14,12 +16,13 @@ class Submit{
      */
     public function handle($request, Closure $next)
     {
-        if (access()->allow('submit')) {
-            return $next($request);
-        } else {
-            alert()->error('您不能进行此操作');
-
-            return redirect()->back();
+        if (Auth::user()->user_id) {
+            if (access()->allow('submit')) {
+                return $next($request);
+            }
         }
+        alert()->error('您不能上传成果');
+
+        return redirect()->route('frontend.index');
     }
 }

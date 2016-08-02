@@ -36,8 +36,12 @@ class SSOAuthController extends Controller
 
             return redirect()->route('sso.fill');
         } else {
-            Auth::login($user);
-            alert()->success('登录成功');
+            if (!$user->status) {
+                alert()->error("您的账户已被冻结，请联系管理员");
+            }else {
+                Auth::login($user);
+                alert()->success('登录成功');
+            }
 
             return redirect()->route('frontend.index');
         }
@@ -58,7 +62,8 @@ class SSOAuthController extends Controller
     {
         $universities = Province::with("universities")->where('name', '北京市')->first();
         $universities = $universities->universities;
-        return view('frontend.user.fill',compact('universities'));
+
+        return view('frontend.user.fill', compact('universities'));
     }
 
     public function complete(Request $request)

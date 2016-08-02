@@ -180,10 +180,10 @@
                     <img src="img/download.png"/>
                 </div>
                 <div class="downLoad">
-                    <a href="#">1.报名表下载<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="http://upload.univs.cn/2016/0708/1467957369550.docx">1.报名表下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
-                    <a href="#">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="http://www.univs.cn/ulive/hdgg/2016/0708/1139257.shtml">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
                     <a href="#">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
@@ -332,7 +332,7 @@
                             <div class="data">
                                 <h3>{{ $teacher->summary }}</h3>
                                 <p class="label">
-                                    <i class="iconfont">&#xe610;</i><span>文章</span>
+                                    <i class="iconfont">&#xe610;</i><span>推荐展示</span>
                                 </p>
                                 <p class="datas">
                                     <span class="review"><i
@@ -356,7 +356,7 @@
                             <div class="data">
                                 <h3>{{ $student->summary }}</h3>
                                 <p class="label">
-                                    <i class="iconfont">&#xe610;</i><span>文章</span>
+                                    <i class="iconfont">&#xe610;</i><span>推荐展示</span>
                                 </p>
                                 <p class="datas">
                                     <span class="review"><i
@@ -454,7 +454,7 @@
                                     $("#further").attr("href", "{{ route('frontend.university.list') }}/" + (i)[j.id].id);
                                     var m = "";
                                     for (var l = 0; l < k.universities.length; l++) {
-                                        m += '<li><div class="schoolLogo"><img src="img/check.png"/></div><div class="schoolInfo"><h3>' + k.universities[l].name + "</h3><p><span>" + k.university_application_list[l] + "</span>成果</p></div></li>"
+                                        m += '<li><div class="schoolLogo"><img src="http://www.iconpng.com/download/png/69119"/></div><div class="schoolInfo"><h3>' + k.universities[l].name + "</h3><p><span>" + k.university_application_list[l] + "</span>成果</p></div></li>"
                                     }
                                     document.getElementById("inner").innerHTML = m
                                 }

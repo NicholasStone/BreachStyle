@@ -56,11 +56,11 @@
     <div class="rank">
         <div class="content">
             <ul>
-                @foreach($datas as $data)
+                @foreach($datas as $k => $data)
                 <li>
-                    <h3>{{ $data['name'] }}<span>{{ $data['rate'] }}</span></h3>
+                    <a href="{{ route('frontend.university.list', $k + 1) }}"><h3>{{ $data['name'] }}<span>{{ $data['rate'] }}</span></h3></a>
                     <div class="progress">
-                        <span></span>
+                        <span style="width: {{ $data['rate'] }}"></span>
                     </div>
                 </li>
                 @endforeach
