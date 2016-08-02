@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
 //        Model::reguard();
         $this->call(ProvincesTableSeeder::class);
         $this->call(UniversitiesTableSeeder::class);
+        $this->call(SettingsTableSeeder::class);
     }
 }

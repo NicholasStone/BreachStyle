@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Model\Settings\Slider;
+use App\Models\Settings\Slider;
 use App\Models\Application;
 use App\Models\Branch;
 use App\Models\Province;

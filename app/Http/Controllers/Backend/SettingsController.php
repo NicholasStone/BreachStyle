@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Model\Settings\Slider;
+use App\Models\Settings\Setting;
+use App\Models\Settings\Slider;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use App\Http\Controllers\Controller;
@@ -22,7 +23,8 @@ class SettingsController extends Controller
     public function index()
     {
         $count = Slider::count();
-        return view('backend.settings', compact("count"));
+        $settings = Setting::all();
+        return view('backend.settings', compact("count", "settings"));
     }
 
     public function get()
