@@ -290,6 +290,42 @@
         </div><!-- /.box-header -->
 
         <div class="box-body">
+            <div class="row">
+                {{ Form::open(['route' => ['admin.setting.frontend.index'], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
+
+                {!! csrf_field() !!}
+                <div class="form-group">
+                    {{ Form::label('enroll', "报名表下载链接", ['class' => 'col-lg-2 control-label', 'placeholder' => "报名表下载链接"]) }}
+
+                    <div class="col-lg-9">
+                        {{ Form::text('enroll', null,['class' => 'form-control', 'placeholder' => '请在此输入文件下载链接地址,如果不改变请留空']) }}
+                    </div><!--col-lg-10-->
+                </div>
+                <div class="form-group">
+                    {{ Form::label('notice',"活动通知下载链接", ['class' => 'col-lg-2 control-label', 'placeholder' => "报名表下载链接"]) }}
+
+                    <div class="col-lg-9">
+                        {{ Form::text('notice', null,['class' => 'form-control', 'placeholder' => '请在此输入文件下载链接地址,如果不改变请留空']) }}
+                    </div><!--col-lg-10-->
+                </div>
+                <div class="form-group">
+                    <div class="from-group">
+                        {{ Form::label('verification', "党支部认证表", ['class' => 'col-lg-2 control-label', 'placeholder' => "报名表下载链接"]) }}
+
+                        {{ Form::file('verification', ['style' => 'display:none','placeholder' => '点击此处上传文件']) }}
+                        <div class="col-lg-9">
+                            <div class="input-group">
+                                <input type="text" id="cover" class="form-control">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button" id="cover-btn" onclick="$('#verification').click()">选择文件</button>
+                            </span>
+                            </div>
+                        </div><!--col-lg-10-->
+                    </div>
+                    <button class="btn btn-success">提交</button>
+                </div>
+                {{ Form::close() }}
+            </div>
             <div class="table-responsive">
                 <table id="table" class="table table-condensed table-hover">
                     <thead>
@@ -310,7 +346,7 @@
                         {!! csrf_field() !!}
                         <div class="form-group">
                             <label for="link">图片链接</label>
-                            <input type="text" name="link" id="link" placeholder="http://example.com/"
+                            <input type="text" name="link" id="link" placeholder="请输入类似于 http://example.com/ 的网址"
                                    class="form-control">
                         </div>
                         <button type="submit" class="btn btn-success">提交</button>
@@ -327,6 +363,9 @@
     {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
 
     <script>
+        $("#verification").change(function () {
+            $("#cover").val($(this).val())
+        });
         @if($count < 6)
         $(function () {
             var eyeCandy = $('#croppic');

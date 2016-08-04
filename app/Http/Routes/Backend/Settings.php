@@ -6,6 +6,8 @@ Route::post('settings/crop', 'SettingsController@crop')->name('admin.setting.cro
 Route::post('settings/get', 'SettingsController@get')->name('admin.setting.get');
 Route::get('settings/delete/{link}', 'SettingsController@delete')->name('admin.setting.delete');
 
+Route::post('settings/frontend', 'SettingsController@applies')->name('admin.setting.frontend.index');
+
 Route::get('university', 'UniversityController@index')->name('admin.university.index');
 Route::post('university/get', 'UniversityController@get')->name('admin.university.get');
 Route::post('university/create', 'UniversityController@store')->name('admin.university.store');

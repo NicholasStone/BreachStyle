@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Settings\Setting;
 use App\Models\Settings\Slider;
 use App\Models\Application;
 use App\Models\Branch;
@@ -23,6 +24,7 @@ class FrontendController extends Controller
     public function index()
     {
         $sliders = Slider::all();
+        $settings = Setting::all();
         $last_trends = Application::orderBy('created_at', 'desc')->where('verification', 1)->take(8)->get();
         $count_branches = Branch::all()->count();
         $count_universities = University::has('branches')->count();
@@ -33,7 +35,7 @@ class FrontendController extends Controller
         $student_list = Application::where('type', '学生党支部推荐展示')->where('verification', 1)->orderBy('created_at' ,'desc')->take(4)->get();
 
         return view('frontend.index', compact('last_trends', 'count_branches', 'count_universities', 'count_verify_through_application', 'datas',
-            'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders'));
+            'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders', 'settings'));
     }
 
     /**

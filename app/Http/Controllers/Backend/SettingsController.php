@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Common\FileStorage;
 use App\Models\Settings\Setting;
 use App\Models\Settings\Slider;
 use Illuminate\Http\Request;
@@ -11,6 +12,8 @@ use Yajra\Datatables\Facades\Datatables;
 
 class SettingsController extends Controller
 {
+    use FileStorage;
+
     protected $filePath = '';
 
     protected $storagePath = '';
@@ -27,10 +30,39 @@ class SettingsController extends Controller
         return view('backend.settings', compact("count", "settings"));
     }
 
+    public function applies(Request $request)
+    {
+        $this->validate($request, [
+            'enroll'       => 'url',
+            'notice'       => 'url',
+            'verification' => 'image'
+        ]);
+
+        if ($val = $request->get('enroll')) {
+            $enroll = Setting::find(1);
+            $enroll->value = $val;
+            $enroll->save();
+        }
+
+        if ($val = $request->get('notice')) {
+            $notice = Setting::find(2);
+            $notice->value = $request->get('applies');
+            $notice->save();
+        }
+        if ($val = $request->file('verification')) {
+            $verification = Setting::find(3);
+            $path = $this->saveImage($val, 'Frontend/Index');
+            $verification->value = $path;
+            $verification->save();
+        }
+
+        return redirect()->back()->withFlashSuccess("修改成功");
+    }
+
     public function get()
     {
         return Datatables::of(Slider::all())
-            ->addColumn('operations', function($slide){
+            ->addColumn('operations', function ($slide) {
                 return '<a href="' . route('admin.setting.delete', $slide->id) . '" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
             })
             ->make(true);

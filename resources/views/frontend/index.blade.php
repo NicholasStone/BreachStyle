@@ -180,13 +180,13 @@
                     <img src="img/download.png"/>
                 </div>
                 <div class="downLoad">
-                    <a href="http://upload.univs.cn/2016/0708/1467957369550.docx">1.报名表下载<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="{{ $settings[0]->value }}">1.报名表下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
-                    <a href="http://www.univs.cn/ulive/hdgg/2016/0708/1139257.shtml">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="{{ $settings[1]->value }}">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
-                    <a href="#">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="{{ $settings[2]->value }}">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="note">
                     <p>备注:</p>
