@@ -52,7 +52,7 @@
                 </section><!-- /.content -->
             </div><!-- /.content-wrapper -->
 
-            @include('backend.includes.footer')
+            {{--@include('backend.includes.footer')--}}
         </div><!-- ./wrapper -->
 
         <!-- JavaScripts -->

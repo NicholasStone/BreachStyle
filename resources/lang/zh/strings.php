@@ -67,7 +67,7 @@ return [
             'member_since'        => 'Member since',
             'minutes'             => ' 分钟',
             'search_placeholder'  => '搜索...',
-            'timeout'             => '由于您长时间处于为操作状态，处于安全原因已自动注销',
+            'timeout'             => '由于您长时间处于为操作状态，处于安全原因已自动注销。未活动时间已超过 ',
 
             'see_all' => [
                 'messages'      => '查看所有信息',
