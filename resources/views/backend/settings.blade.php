@@ -4,7 +4,7 @@
 
 @section('after-styles-end')
     {{ Html::style("css/backend/plugin/datatables/dataTables.bootstrap.min.css") }}
-
+    {{ Html::style("//cdn.bootcss.com/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css") }}
     <style>
         #croppic {
             width: 80%;
@@ -284,7 +284,7 @@
     <div class="box box-success">
         <div class="box-header with-border">
             <h3 class="box-title">
-                轮播管理
+                链接管理
             </h3>
 
         </div><!-- /.box-header -->
@@ -326,6 +326,17 @@
                 </div>
                 {{ Form::close() }}
             </div>
+
+        </div><!-- /.box-body -->
+    </div><!--box-->
+
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                轮播管理
+            </h3>
+        </div>
+        <div class="box-body">
             <div class="table-responsive">
                 <table id="table" class="table table-condensed table-hover">
                     <thead>
@@ -353,15 +364,49 @@
                     </form>
                 </div>
             @endif
-        </div><!-- /.box-body -->
-    </div><!--box-->
+        </div>
+    </div>
+
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <div class="box-title">
+                <h3>热度图管理</h3>
+            </div>
+        </div>
+        <div class="box-body">
+            {{ Form::open(['route' => ['admin.setting.map'], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
+            {!! csrf_field() !!}
+            <div class="form-group">
+                {{ Form::label('map',"热度图开关", ['class' => 'col-lg-2 control-label']) }}
+
+                <div class="col-lg-9">
+                    {{ Form::checkbox('map') }}
+                </div><!--col-lg-10-->
+            </div>
+            {{ Form::close() }}
+        </div>
+    </div>
 @stop
 
 @section('after-scripts-end')
     {{ Html::script("//cdn.bootcss.com/croppic/1.0.3/croppic.min.js") }}
     {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
     {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
-
+    {{ Html::script("//cdn.bootcss.com/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js") }}
+    <script>
+        $("#map").bootstrapSwitch({
+            state:{{ $map->value }},
+            onSwitchChange:function (event, state) {
+                $.get({
+                    url:"{{ route('admin.setting.map') }}",
+                    data:{
+                        state:state,
+                        _token:"{{ csrf_token() }}"
+                    }
+                })
+            }
+        });
+    </script>
     <script>
         $("#verification").change(function () {
             $("#cover").val($(this).val())

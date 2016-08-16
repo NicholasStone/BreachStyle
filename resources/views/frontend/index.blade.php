@@ -82,59 +82,61 @@
         </div>
     </div>
     <!-- Achievements -->
-    <!-- ChinaMap -->
-    <div class="ChinaMap">
-        <div class="content">
-            <div class="title">
-                <a href="{{ route('frontend.active.detail') }}">
-                    <img src="{{ asset('img/hot.png') }}"/>
-                </a>
-            </div>
-            <div class="items" id="Item9">
-                <a href="javascript:;" class="fold"></a>
-                <div class="itemCon">
-                    <div id="Region" style="position:relative; height:360px;">
-                        <div class="regionMap" id="RegionMap"></div>
-                        <div class="regionList" id="MapControl">
-                            <div class="regionTop">
-                                <div class="regionTopLeft">
-                                    <h3 id="oclick">点击地图查看省份</h3>
-                                    <div class="progress">
-                                        <span id="progress"></span>
+    @if($settings[3]->value)
+        <!-- ChinaMap -->
+        <div class="ChinaMap">
+            <div class="content">
+                <div class="title">
+                    <a href="{{ route('frontend.active.detail') }}">
+                        <img src="{{ asset('img/hot.png') }}"/>
+                    </a>
+                </div>
+                <div class="items" id="Item9">
+                    <a href="javascript:;" class="fold"></a>
+                    <div class="itemCon">
+                        <div id="Region" style="position:relative; height:360px;">
+                            <div class="regionMap" id="RegionMap"></div>
+                            <div class="regionList" id="MapControl">
+                                <div class="regionTop">
+                                    <div class="regionTopLeft">
+                                        <h3 id="oclick">点击地图查看省份</h3>
+                                        <div class="progress">
+                                            <span id="progress"></span>
+                                        </div>
+                                    </div>
+                                    <div class="regionTopRight">
+                                        <a href="javascript:void(0);" id="further"><i class="fa fa-university"
+                                                                                      aria-hidden="true"></i>
+                                            查看更多活跃高校》</a>
                                     </div>
                                 </div>
-                                <div class="regionTopRight">
-                                    <a href="javascript:void(0);" id="further"><i class="fa fa-university"
-                                                                                  aria-hidden="true"></i>
-                                        查看更多活跃高校》</a>
+                                <div class="regionBottom">
+                                    <div class="display">
+                                        <span class="triangle"></span>
+                                        <ul id="inner">
+                                            <li style="width: 93%">
+                                                <div style="text-align: center; margin-top: 50px; font-size: 24px">
+                                                    点击地图查看细节
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="regionBottom">
-                                <div class="display">
-                                    <span class="triangle"></span>
-                                    <ul id="inner">
-                                        <li style="width: 93%">
-                                            <div style="text-align: center; margin-top: 50px; font-size: 24px">
-                                                点击地图查看细节
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div id="MapColor">
+                                <p>%=参与高校数/当地高校数</p>
+                                <span class="stateInitColor1"><i></i>90%~100%</span>
+                                <span class="stateInitColor2"><i></i>60%~89%</span>
+                                <span class="stateInitColor3"><i></i>10%~59%</span>
+                                <span class="stateInitColor4"><i></i>0%~9%</span>
                             </div>
-                        </div>
-                        <div id="MapColor">
-                            <p>%=参与高校数/当地高校数</p>
-                            <span class="stateInitColor1"><i></i>90%~100%</span>
-                            <span class="stateInitColor2"><i></i>60%~89%</span>
-                            <span class="stateInitColor3"><i></i>10%~59%</span>
-                            <span class="stateInitColor4"><i></i>0%~9%</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- ChinaMap -->
+        <!-- ChinaMap -->
+    @endif
     <div class="clearfix"></div>
     <!-- activeInfo -->
     <div class="activeInfo" id="activeInfo">
@@ -383,89 +385,92 @@
 @section('after-scripts-end')
     {!! Html::script('js/swipeslider.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/raphael/2.2.1/raphael.min.js') !!}
-    {!! Html::script('js/chinaMapConfig.js') !!}
-    {!! Html::script('js/map.js') !!}
-    <script type="text/javascript">
-        $(function () {
-            var b = {};
-            var a = ["d7201d", "d84f45", "d99992", "cccccc"];
-            $.ajax({
-                url: "{{ asset('/frontend/mapdata') }}", dataType: "json", success: function (c) {
-                    var d = {
-                        jiangsu: {id: c[14].id, value: c[14].rate, index: "1", stateInitColor: c[14].color},
-                        henan: {id: c[9].id, value: c[9].rate, index: "2", stateInitColor: c[9].color},
-                        anhui: {id: c[0].id, value: c[0].rate, index: "3", stateInitColor: c[0].color},
-                        zhejiang: {id: c[30].id, value: c[30].rate, index: "4", stateInitColor: c[30].color},
-                        liaoning: {id: c[16].id, value: c[16].rate, index: "5", stateInitColor: c[16].color},
-                        beijing: {id: c[1].id, value: c[1].rate, index: "6", stateInitColor: c[1].color},
-                        hubei: {id: c[8].id, value: c[8].rate, index: "7", stateInitColor: c[8].color},
-                        jilin: {id: c[13].id, value: c[13].rate, index: "8", stateInitColor: c[13].color},
-                        shanghai: {id: c[23].id, value: c[23].rate, index: "9", stateInitColor: c[23].color},
-                        guangxi: {id: c[5].id, value: c[5].rate, index: "10", stateInitColor: c[5].color},
-                        sichuan: {id: c[24].id, value: c[24].rate, index: "11", stateInitColor: c[24].color},
-                        guizhou: {id: c[6].id, value: c[6].rate, index: "12", stateInitColor: c[6].color},
-                        hunan: {id: c[12].id, value: c[12].rate, index: "13", stateInitColor: c[12].color},
-                        shandong: {id: c[20].id, value: c[20].rate, index: "14", stateInitColor: c[20].color},
-                        guangdong: {id: c[4].id, value: c[4].rate, index: "15", stateInitColor: c[4].color},
-                        jiangxi: {id: c[15].id, value: c[15].rate, index: "16", stateInitColor: c[15].color},
-                        fujian: {id: c[2].id, value: c[2].rate, index: "17", stateInitColor: c[2].color},
-                        yunnan: {id: c[29].id, value: c[29].rate, index: "18", stateInitColor: c[29].color},
-                        hainan: {id: c[7].id, value: c[7].rate, index: "19", stateInitColor: c[7].color},
-                        shanxi: {id: c[21].id, value: c[21].rate, index: "20", stateInitColor: c[21].color},
-                        hebei: {id: c[8].id, value: c[8].rate, index: "21", stateInitColor: c[8].color},
-                        neimongol: {id: c[17].id, value: c[17].rate, index: "22", stateInitColor: c[17].color},
-                        tianjin: {id: c[26].id, value: c[26].rate, index: "23", stateInitColor: c[26].color},
-                        gansu: {id: c[3].id, value: c[3].rate, index: "24", stateInitColor: c[3].color},
-                        shaanxi: {id: c[22].id, value: c[22].rate, index: "25", stateInitColor: c[22].color},
-                        macau: {id: c[33].id, value: c[33].rate, index: "26", stateInitColor: c[33].color},
-                        hongkong: {id: c[32].id, value: c[32].rate, index: "27", stateInitColor: c[32].color},
-                        taiwan: {id: c[25].id, value: c[25].rate, index: "28", stateInitColor: c[25].color},
-                        qinghai: {id: c[19].id, value: c[19].rate, index: "29", stateInitColor: c[19].color},
-                        xizang: {id: c[27].id, value: c[27].rate, index: "30", stateInitColor: c[27].color},
-                        ningxia: {id: c[18].id, value: c[18].rate, index: "31", stateInitColor: c[18].color},
-                        xinjiang: {id: c[28].id, value: c[28].rate, index: "32", stateInitColor: c[28].color},
-                        heilongjiang: {id: c[10].id, value: c[10].rate, index: "33", stateInitColor: c[10].color},
-                        chongqing: {id: c[31].id, value: c[31].rate, index: "34", stateInitColor: c[31].color}
-                    };
-                    var e = {};
-                    $("#RegionMap").SVGMap({
-                        external: e,
-                        mapName: "china",
-                        mapWidth: 530,
-                        mapHeight: 400,
-                        stateData: d,
-                        stateTipHtml: function (j, h) {
-                            var g = j[h.id].value;
-                            var f = j[h.id].index;
-                            var k = "";
-                            f < 4 ? k = "active" : k = "";
-                            var i = '<div class="mapInfo"><i class="' + k + '">' + f + "</i><span>" + h.name + "</span><b>" + g + "</b></div>";
-                            return i
-                        },
-                        clickCallback: function (i, j) {
-                            var g = document.getElementById("oclick");
-                            var h = document.getElementById("progress");
-                            g.innerHTML = j.name + "<span>" + (i)[j.id].value + "</span>";
-                            var f = (i)[j.id].value.replace(/%/, "");
-                            h.style.width = (i)[j.id].value;
-                            $.ajax({
-                                url: "/frontend/province/" + (i)[j.id].id, dataType: "json", success: function (k) {
-                                    console.log(k);
-                                    $("#further").attr("href", "{{ route('frontend.university.list') }}/" + (i)[j.id].id);
-                                    var m = "";
-                                    for (var l = 0; l < k.universities.length; l++) {
-                                        m += '<li><div class="schoolLogo"><img src="http://www.iconpng.com/download/png/69119"/></div><div class="schoolInfo"><h3>' + k.universities[l].name + "</h3><p><span>" + k.university_application_list[l] + "</span>成果</p></div></li>"
+    @if($settings[3]->value)
+
+        {!! Html::script('js/chinaMapConfig.js') !!}
+        {!! Html::script('js/map.js') !!}
+        <script type="text/javascript">
+            $(function () {
+                var b = {};
+                var a = ["d7201d", "d84f45", "d99992", "cccccc"];
+                $.ajax({
+                    url: "{{ asset('/frontend/mapdata') }}", dataType: "json", success: function (c) {
+                        var d = {
+                            jiangsu: {id: c[14].id, value: c[14].rate, index: "1", stateInitColor: c[14].color},
+                            henan: {id: c[9].id, value: c[9].rate, index: "2", stateInitColor: c[9].color},
+                            anhui: {id: c[0].id, value: c[0].rate, index: "3", stateInitColor: c[0].color},
+                            zhejiang: {id: c[30].id, value: c[30].rate, index: "4", stateInitColor: c[30].color},
+                            liaoning: {id: c[16].id, value: c[16].rate, index: "5", stateInitColor: c[16].color},
+                            beijing: {id: c[1].id, value: c[1].rate, index: "6", stateInitColor: c[1].color},
+                            hubei: {id: c[8].id, value: c[8].rate, index: "7", stateInitColor: c[8].color},
+                            jilin: {id: c[13].id, value: c[13].rate, index: "8", stateInitColor: c[13].color},
+                            shanghai: {id: c[23].id, value: c[23].rate, index: "9", stateInitColor: c[23].color},
+                            guangxi: {id: c[5].id, value: c[5].rate, index: "10", stateInitColor: c[5].color},
+                            sichuan: {id: c[24].id, value: c[24].rate, index: "11", stateInitColor: c[24].color},
+                            guizhou: {id: c[6].id, value: c[6].rate, index: "12", stateInitColor: c[6].color},
+                            hunan: {id: c[12].id, value: c[12].rate, index: "13", stateInitColor: c[12].color},
+                            shandong: {id: c[20].id, value: c[20].rate, index: "14", stateInitColor: c[20].color},
+                            guangdong: {id: c[4].id, value: c[4].rate, index: "15", stateInitColor: c[4].color},
+                            jiangxi: {id: c[15].id, value: c[15].rate, index: "16", stateInitColor: c[15].color},
+                            fujian: {id: c[2].id, value: c[2].rate, index: "17", stateInitColor: c[2].color},
+                            yunnan: {id: c[29].id, value: c[29].rate, index: "18", stateInitColor: c[29].color},
+                            hainan: {id: c[7].id, value: c[7].rate, index: "19", stateInitColor: c[7].color},
+                            shanxi: {id: c[21].id, value: c[21].rate, index: "20", stateInitColor: c[21].color},
+                            hebei: {id: c[8].id, value: c[8].rate, index: "21", stateInitColor: c[8].color},
+                            neimongol: {id: c[17].id, value: c[17].rate, index: "22", stateInitColor: c[17].color},
+                            tianjin: {id: c[26].id, value: c[26].rate, index: "23", stateInitColor: c[26].color},
+                            gansu: {id: c[3].id, value: c[3].rate, index: "24", stateInitColor: c[3].color},
+                            shaanxi: {id: c[22].id, value: c[22].rate, index: "25", stateInitColor: c[22].color},
+                            macau: {id: c[33].id, value: c[33].rate, index: "26", stateInitColor: c[33].color},
+                            hongkong: {id: c[32].id, value: c[32].rate, index: "27", stateInitColor: c[32].color},
+                            taiwan: {id: c[25].id, value: c[25].rate, index: "28", stateInitColor: c[25].color},
+                            qinghai: {id: c[19].id, value: c[19].rate, index: "29", stateInitColor: c[19].color},
+                            xizang: {id: c[27].id, value: c[27].rate, index: "30", stateInitColor: c[27].color},
+                            ningxia: {id: c[18].id, value: c[18].rate, index: "31", stateInitColor: c[18].color},
+                            xinjiang: {id: c[28].id, value: c[28].rate, index: "32", stateInitColor: c[28].color},
+                            heilongjiang: {id: c[10].id, value: c[10].rate, index: "33", stateInitColor: c[10].color},
+                            chongqing: {id: c[31].id, value: c[31].rate, index: "34", stateInitColor: c[31].color}
+                        };
+                        var e = {};
+                        $("#RegionMap").SVGMap({
+                            external: e,
+                            mapName: "china",
+                            mapWidth: 530,
+                            mapHeight: 400,
+                            stateData: d,
+                            stateTipHtml: function (j, h) {
+                                var g = j[h.id].value;
+                                var f = j[h.id].index;
+                                var k = "";
+                                f < 4 ? k = "active" : k = "";
+                                var i = '<div class="mapInfo"><i class="' + k + '">' + f + "</i><span>" + h.name + "</span><b>" + g + "</b></div>";
+                                return i
+                            },
+                            clickCallback: function (i, j) {
+                                var g = document.getElementById("oclick");
+                                var h = document.getElementById("progress");
+                                g.innerHTML = j.name + "<span>" + (i)[j.id].value + "</span>";
+                                var f = (i)[j.id].value.replace(/%/, "");
+                                h.style.width = (i)[j.id].value;
+                                $.ajax({
+                                    url: "/frontend/province/" + (i)[j.id].id, dataType: "json", success: function (k) {
+                                        console.log(k);
+                                        $("#further").attr("href", "{{ route('frontend.university.list') }}/" + (i)[j.id].id);
+                                        var m = "";
+                                        for (var l = 0; l < k.universities.length; l++) {
+                                            m += '<li><div class="schoolLogo"><img src="http://www.iconpng.com/download/png/69119"/></div><div class="schoolInfo"><h3>' + k.universities[l].name + "</h3><p><span>" + k.university_application_list[l] + "</span>成果</p></div></li>"
+                                        }
+                                        document.getElementById("inner").innerHTML = m
                                     }
-                                    document.getElementById("inner").innerHTML = m
-                                }
-                            })
-                        }
-                    });
-                    $("#MapColor").show()
-                }
-            })
-        });
-    </script>
+                                })
+                            }
+                        });
+                        $("#MapColor").show()
+                    }
+                })
+            });
+        </script>
+    @endif
     <script type="text/javascript">
         $(window).load(function () {
             $('#full_feature').swipeslider();
@@ -543,6 +548,5 @@
                 lineD.className = "line four active"
             }
         }
-        ;
     </script>
 @endsection

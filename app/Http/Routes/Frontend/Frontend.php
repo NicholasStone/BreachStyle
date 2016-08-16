@@ -5,13 +5,15 @@
  */
 Route::get('/', 'FrontendController@index')->name('frontend.index');
 
-Route::get('/frontend/mapdata', 'FrontendController@getMapData');
-Route::get('/frontend/province/{id}', 'FrontendController@getProvinceDetail');
-Route::get('/frontend/province/{id}/summary', 'FrontendController@getProvinceSummary');
+Route::group(['middleware'=>'map'],function (){
+    Route::get('/frontend/mapdata', 'FrontendController@getMapData');
+    Route::get('/frontend/province/{id}', 'FrontendController@getProvinceDetail');
+    Route::get('/frontend/province/{id}/summary', 'FrontendController@getProvinceSummary');
 
-Route::post('active', 'ActiveController@indexUniversityActive')->name('frontend.active');
-Route::get('active/detail', 'ActiveController@activeDetail')->name('frontend.active.detail');
-Route::post('active/province', 'ActiveController@provinceActive')->name('frontend.active.province');
+    Route::post('active', 'ActiveController@indexUniversityActive')->name('frontend.active');
+    Route::get('active/detail', 'ActiveController@activeDetail')->name('frontend.active.detail');
+    Route::post('active/province', 'ActiveController@provinceActive')->name('frontend.active.province');
+});
 
 Route::get('province/detail/{id?}', 'FrontendController@universityList')->name('frontend.university.list');
 

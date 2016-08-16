@@ -26,6 +26,10 @@ class SettingsTableSeeder extends Seeder
                 'item' => 'verification',
                 'value' => null,
                 'comment' => '党支部认证表'
+            ],[
+                'item' => 'map',
+                'value' => 0,
+                'comment' => '热度排行'
             ]
         ]);
     }

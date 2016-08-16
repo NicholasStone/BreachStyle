@@ -26,8 +26,9 @@ class SettingsController extends Controller
     public function index()
     {
         $count = Slider::count();
-        $settings = Setting::all();
-        return view('backend.settings', compact("count", "settings"));
+        $map = Setting::find(4);
+
+        return view('backend.settings', compact("count", "map"));
     }
 
     public function applies(Request $request)
@@ -66,6 +67,13 @@ class SettingsController extends Controller
                 return '<a href="' . route('admin.setting.delete', $slide->id) . '" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
             })
             ->make(true);
+    }
+
+    public function map(Request $request)
+    {
+        $map = Setting::find(4);
+        $map->value = $request->get('state')== "true" ? 1 : 0;
+        $map->save();
     }
 
     public function delete($id)
