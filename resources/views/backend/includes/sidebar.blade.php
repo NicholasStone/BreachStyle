@@ -81,6 +81,10 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="{{ Active::pattern('admin/statistics') }}">
+                {{ link_to_route('admin.statistics.index', "数据统计") }}
+            </li>
         </ul><!-- /.sidebar-menu -->
     </section><!-- /.sidebar -->
 </aside>
