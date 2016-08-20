@@ -60,7 +60,7 @@
 
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ access()->user()->picture }}" class="user-image" alt="User Avatar"/>
+                        <img src="{{ asset('http://i1.cqnews.net/news/attachement/jpg/site82/20110413/002564c0c0c60f0f8c3c2a.jpg') }}" class="user-image" alt="User Avatar"/>
                         <span class="hidden-xs">{{ access()->user()->name }}</span>
                     </a>
 
