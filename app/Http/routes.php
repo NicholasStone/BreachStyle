@@ -38,7 +38,6 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
     require(__DIR__ . '/Routes/Backend/LogViewer.php');
     require(__DIR__ . '/Routes/Backend/Verification.php');
     require(__DIR__ . '/Routes/Backend/Settings.php');
-    require(__DIR__ . '/Routes/Backend/Statistics.php');
 });
 
 Route::group(['namespace' => 'Common', 'prefix'=>'common', 'middleware'=>'web'], function (){
