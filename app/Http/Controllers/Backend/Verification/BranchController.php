@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Verification;
 
+use App\Models\Application;
 use App\Models\Branch;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Datatables;
 
 class BranchController extends VerificationController
@@ -38,6 +41,7 @@ class BranchController extends VerificationController
     {
         $branch = Branch::where('id', $id)->firstOrFail();
         $branch->sercetary;
+
 //        dd($branch->toArray());
         return view('backend.verification.branch.detail', $branch);
     }
@@ -50,12 +54,49 @@ class BranchController extends VerificationController
             $application->delete();
         }
         $members = $branch->members;
-        $members->each(function ($member){
+        $members->each(function ($member) {
             $member->branch_id = null;
             $member->save();
         });
         $branch->delete();
 
         return redirect()->route('admin.verify.branch');
+    }
+
+    public function excel()
+    {
+        Excel::create("支部数据-截止于" . Carbon::now('Asia/Shanghai'), function ($excel) {
+            $excel->sheet("支部数据", function ($sheet) {
+                $sheet->with($this->getExcelData());
+            });
+        })->download('xlsx');
+    }
+
+    protected function getExcelData()
+    {
+        $branches = Branch::select([
+            'id', 'name', 'type', 'university', 'tel', 'verification', 'address', 'summary',
+            'total_membership', 'secretary_summary', 'secretary', 'created_at', 'updated_at',
+        ])->get();
+        $data = [];
+        foreach ($branches as $item) {
+            array_push($data, [
+                "#"       => $item->id,
+                "支部名称"    => $item->name,
+                "支部类型"    => $item->type,
+                "支部联系电话"  => $item->tel,
+                "支部通讯地址"  => $item->address,
+                "简介"      => $item->summary,
+                "总人数"     => $item->total_membership,
+                "支部书记"    => $item->secretary->name,
+                "支部书记简介"  => $item->secretary_summary,
+                "所在学校"    => $item->university->name,
+                '是否已通过审核' => $item->verification ? "是" : "否",
+                '提交于'     => $item->created_at,
+                '通过于'     => $item->verification ? $item->updated_at : "未审核",
+            ]);
+        }
+
+        return $data;
     }
 }

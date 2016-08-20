@@ -64,7 +64,7 @@ return [
             'are_you_sure'        => '您确定吗？',
             'boilerplate_link'    => 'Laravel 5 Boilerplate',
             'continue'            => '继续',
-            'member_since'        => 'Member since',
+            'member_since'        => '注册于',
             'minutes'             => ' 分钟',
             'search_placeholder'  => '搜索...',
             'timeout'             => '由于您长时间处于为操作状态，处于安全原因已自动注销。未活动时间已超过 ',

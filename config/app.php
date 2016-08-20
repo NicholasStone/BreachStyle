@@ -207,10 +207,10 @@ return [
         Stevenyangecho\UEditor\UEditorServiceProvider::class,
         TomLingham\Searchy\SearchyServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */
-        App\Providers\MacroServiceProvider::class,
     ],
 
     /*
@@ -269,6 +269,7 @@ return [
         'Socialite'   => Laravel\Socialite\Facades\Socialite::class,
         'Alert'       => UxWeb\SweetAlert\SweetAlert::class,
         'Searchy'     => TomLingham\Searchy\Facades\Searchy::class,
-        'Image' => Intervention\Image\Facades\Image::class,
+        'Image'       => Intervention\Image\Facades\Image::class,
+        'Excel'       => Maatwebsite\Excel\Facades\Excel::class,
     ],
 ];

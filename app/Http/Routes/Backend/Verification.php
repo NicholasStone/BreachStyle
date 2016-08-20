@@ -13,6 +13,7 @@ Route::group([
     Route::get('branch/grant/{id}', 'BranchController@grant')->name('admin.verify.branch.grant');
     Route::get('branch/deny/{id}', 'BranchController@deny')->name('admin.verify.branch.deny');
     Route::get('branch/detail/{id}', 'BranchController@detail')->name('admin.verify.branch.detail');
+    Route::get('branch/excel', 'BranchController@excel')->name('admin.verify.branch.excel');
     /**
      * 成果展示审核
      */
@@ -22,5 +23,6 @@ Route::group([
     Route::get('application/grant/{id}', 'ApplicationController@grant')->name('admin.verify.application.grant');
     Route::get('application/deny/{id}', 'ApplicationController@deny')->name('admin.verify.application.deny');
     Route::get('application/detail/{id}', 'ApplicationController@detail')->name('admin.verify.application.detail');
+    Route::get('application/excel', 'ApplicationController@excel')->name('admin.verify.application.excel');
 
 });

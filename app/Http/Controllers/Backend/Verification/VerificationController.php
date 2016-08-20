@@ -15,4 +15,6 @@ abstract class VerificationController extends Controller
     public abstract function deny($id);
 
     public abstract function detail($id);
+
+    public abstract function excel();
 }
