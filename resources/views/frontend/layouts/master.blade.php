@@ -24,6 +24,7 @@
 
     @yield('after-styles-end')
     {!! Html::script("//cdn.bootcss.com/html5shiv/r29/html5.min.js") !!}
+    @include('frontend.includes.google-analytics')
 </head>
 <body>
 @include('frontend.includes.nav')
