@@ -60,25 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <h4>上传报名表<span>*</span> : </h4>
-                        <input type="file" name="apply" id="entry" accept="image/*" class="casePreview"
-                               onchange="uploadEntry()"/>
-                        <label for="entry">
-                            <span>添加图片</span>
-                        </label>
-                        <p class="notes">
-                            下载活动报名表，填写完成并由高校党委主管部门盖章后，拍照或扫描成jpg格式，文件命名为"报名表.jpg"提交到活动官网。推荐成果需由学校审核后统一报送，每类成果限报两项。</p>
-                    </div>
-                    <div class="row">
-                        <h4>微党课预览图<span>*</span> : </h4>
-                        <input type="file" name="img" id="coursePreview" accept="image/*" class="casePreview"
-                               onchange="uploadPreview()"/>
-                        <label for="coursePreview">
-                            <span>添加图片</span>
-                        </label>
-                        <p class="notes">支持jpg/png格式，RGB模式,最多上传1张图片，不要在图片上放置无关的东西</p>
-                    </div>
+                    @include("frontend.party.common.imgUpload")
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
