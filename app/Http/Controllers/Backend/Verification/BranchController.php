@@ -51,7 +51,9 @@ class BranchController extends VerificationController
         $branch = Branch::findOrFail($id);
         $application = $branch->application;
         if ($application->count()) {
-            $application->delete();
+            $application->each(function ($item){
+                $item->delete();
+            });
         }
         $members = $branch->members;
         $members->each(function ($member) {

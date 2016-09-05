@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Frontend\Party;
-
+use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Common\FileStorage;
-use App\Http\Requests\Frontend\Party\RecommendRequest;
 use Illuminate\Support\Facades\Auth;
 
 class RecommendController extends Controller
@@ -20,7 +19,7 @@ class RecommendController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param Request $request
      */
-    public function index($type ,$sort = 'created_at')
+    public function index($type, $sort = 'created_at')
     {
         if ($type == 'student') {
             $type = '学生党支部推荐展示';
@@ -47,11 +46,24 @@ class RecommendController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  RecommendRequest $request
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RecommendRequest $request)
+    public function store(Request $request)
     {
+        $validate = Validator::make($request->all(), [
+            'name'    => 'required',
+            'summary' => 'required|max:300',
+            'apply'   => 'required',
+            'img'     => 'required',
+            'detail'  => 'required',
+        ]);
+//        dd($validate);
+        if ($validate->fails()) {
+            alert()->error("请完整填写所有字段！");
+
+            return redirect()->back();
+        }
         $application = new Application();
         $apply = $request->all();
         $img_hash = $this->saveImage($request->file('img'), "Application/Recommend");
@@ -64,6 +76,7 @@ class RecommendController extends Controller
         $application->branch_type = Auth::user()->branch_type;
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
+        $application->video_hash = \Session::has('video_path') ? \Session::get('video_path') : "";
         $application->save();
 
         alert()->success('提交成功，请等待审核');
@@ -85,6 +98,33 @@ class RecommendController extends Controller
         $university = $branch->university;
 
         return view('frontend.party.recommend.detail', compact('comments', 'branch', 'application', 'university'));
+    }
+
+    /**
+     * 上传视频文件
+     * @param Request $request
+     * @return mixed
+     */
+    public function upload(Request $request)
+    {
+        if (!$request->hasFile('file')) {
+            return response()->json([
+                'jsonrpc' => '2.0',
+                'error'   => [
+                    'code'    => 103,
+                    'message' => '无法接收上传文件',
+                ],
+                'id'      => 'id',
+            ]);
+        }
+        $path = $this->saveVideo($request->file('file'));
+        \Session::set('video_path', $path);
+
+        return response()->json([
+            'jsonrpc' => '2.0',
+            'result'  => null,
+            'id'      => 'id',
+        ]);
     }
 
     /**

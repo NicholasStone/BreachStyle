@@ -23,12 +23,12 @@ class CourseRequest extends Request
      */
     public function rules()
     {
-        return [
+        return  [
             'name'            => 'required|unique',
             'summary'         => 'required|max:200',
             'course_lecturer' => 'required|max:20',
-            'apply'           => 'required|mimes:jpeg,jpg',
-            'img'             => 'required|mimes:jpeg,gif,png',
+            'apply'           => 'required',
+            'img'             => 'required',
         ];
     }
 }

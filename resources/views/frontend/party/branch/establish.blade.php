@@ -79,8 +79,8 @@
                     </div>
                     <div class="row">
                         <h4>党支部认证表<span>*</span> : </h4>
-                        <input type="file" name="apply" id="departCertify" accept="image/*" class="casePreview" onchange="uploadCertify()"/>
-                        <label for="departCertify">
+                        <input type="file" name="apply" id="apply" accept="image/*" class="casePreview" onchange="loadImageFile1()"/>
+                        <label for="apply" id="apply-preview">
                             <span>添加图片</span>
                         </label>
                     </div>
@@ -125,10 +125,34 @@
             word.innerHTML = (100 - intro.value.length);
         }
 
-        function uploadCertify() {
-            var departCertify = document.getElementById("departCertify").files;
-            alert("已选择 " + departCertify[0].name);
-        }
+        var loadImageFile1 = (function() {
+            if (window.FileReader) {
+                var oPreviewImg = null,
+                        oFReader = new window.FileReader(),
+                        rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                oFReader.onload = function(oFREvent) {
+                    if (!oPreviewImg) {
+                        var newPreview = document.getElementById("apply-preview");
+                        newPreview.innerHTML = "";
+                        oPreviewImg = document.createElement('img');
+                        newPreview.appendChild(oPreviewImg);
+                        oPreviewImg.style.width = 200+"px";
+                    }
+                    oPreviewImg.src = oFREvent.target.result;
+                };
+                return function() {
+                    var aFiles = document.getElementById("apply").files;
+                    if (aFiles.length === 0) {
+                        return;
+                    }
+                    if (!rFilter.test(aFiles[0].type)) {
+                        alert("你必须选择一个图片!");
+                        return;
+                    }
+                    oFReader.readAsDataURL(aFiles[0]);
+                }
+            }
+        })();
 
         var imgSelect = document.getElementById("headImg");
         var loadImageFile = (function () {

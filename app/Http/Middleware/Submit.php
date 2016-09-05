@@ -17,7 +17,7 @@ class Submit
     public function handle($request, Closure $next)
     {
         if (Auth::user()->user_id) {
-            if (access()->allow('submit')) {
+            if (Auth::user()->branch != null && access()->allow('submit')) {
                 return $next($request);
             }
         }

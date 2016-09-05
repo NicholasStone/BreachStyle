@@ -58,9 +58,9 @@ class CourseController extends Controller
             'apply'           => 'required',
             'img'             => 'required',
         ]);
-
-        if ($validate->failed()) {
-            alert()->error($validate->errors()->all()->toArray());
+//        dd($validate);
+        if ($validate->fails()) {
+            alert()->error("请完整填写所有字段！");
 
             return redirect()->back();
         }
@@ -129,6 +129,7 @@ class CourseController extends Controller
         $comments = $application->comments;
         $branch = $application->branch;
         $university = $branch->university;
+
         return view('frontend.party.course.detail', compact('application', 'comments', 'branch', 'university'));
     }
 
