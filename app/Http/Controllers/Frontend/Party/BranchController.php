@@ -68,6 +68,7 @@ class BranchController extends Controller
             'avatar.required' => '请上传配图',
             'apply.required'  => '请上传支部认证表',
         ]);
+//        dd($request->toArray());
         if ($validate->fails()) {
             alert()->error($validate->errors()->all());
 

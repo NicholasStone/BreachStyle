@@ -36,6 +36,8 @@
                 <dd>{{ $total_membership }}</dd>
                 <dt>{{ trans('strings.backend.verification.branch.summary') }}</dt>
                 <dd>{!! $summary !!}</dd>
+                <dt>{{ trans('strings.backend.verification.branch.detail') }}</dt>
+                <dd>{!! $detail!!}</dd>
             </dl>
             <img src="{{ asset($avatar) }}" alt="配图" class="thumbnail"
                  style="position: absolute;top: 70px; right: 300px; width: 200px; height: 200px">
