@@ -36,6 +36,7 @@
                     </div>
                     <div class="row">
                         <h4>上传课程视频<span>*</span> :</h4>
+                        <p style="color: red">视频格式为MP4，且大小必须小于100M</p>
                         <div id="wrapper">
                             <div id="container">
                                 <div id="uploader">
@@ -97,7 +98,7 @@
 
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
-    {!! Html::script('js/upload.js') !!}
+    @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload')])
     <script type="text/javascript">
         var ue = UE.getEditor('summary', {
             autoHeight: true,

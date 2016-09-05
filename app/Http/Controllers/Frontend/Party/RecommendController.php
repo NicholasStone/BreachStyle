@@ -20,7 +20,7 @@ class RecommendController extends Controller
      * @return \Illuminate\Http\Response
      * @internal param Request $request
      */
-    public function index($type ,$sort = 'created_at')
+    public function index($type, $sort = 'created_at')
     {
         if ($type == 'student') {
             $type = '学生党支部推荐展示';
@@ -64,6 +64,7 @@ class RecommendController extends Controller
         $application->branch_type = Auth::user()->branch_type;
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
+        $application->video_hash = \Session::has('video_path') ? \Session::get('video_path') : "";
         $application->save();
 
         alert()->success('提交成功，请等待审核');
@@ -85,6 +86,33 @@ class RecommendController extends Controller
         $university = $branch->university;
 
         return view('frontend.party.recommend.detail', compact('comments', 'branch', 'application', 'university'));
+    }
+
+    /**
+     * 上传视频文件
+     * @param Request $request
+     * @return mixed
+     */
+    public function upload(Request $request)
+    {
+        if (!$request->hasFile('file')) {
+            return response()->json([
+                'jsonrpc' => '2.0',
+                'error'   => [
+                    'code'    => 103,
+                    'message' => '无法接收上传文件',
+                ],
+                'id'      => 'id',
+            ]);
+        }
+        $path = $this->saveVideo($request->file('file'));
+        \Session::set('video_path', $path);
+
+        return response()->json([
+            'jsonrpc' => '2.0',
+            'result'  => null,
+            'id'      => 'id',
+        ]);
     }
 
     /**

@@ -2,6 +2,8 @@
 
 @section("after-styles-end")
     {!! Html::style('css/frontend/create.css') !!}
+    {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
+    {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
     @include('UEditor::head')
 @endsection
 
@@ -47,6 +49,32 @@
                         <p class="notes">支持jpg/png格式，RGB模式,最多上传1张图片，不要在图片上放置无关的东西</p>
                     </div>
                     <div class="row">
+                        <h4>上传视频 :</h4>
+                        <p style="color: red">视频格式为MP4，且大小必须小于100M</p>
+                        <div id="wrapper">
+                            <div id="container">
+                                <div id="uploader">
+                                    <div class="queueList">
+                                        <div id="dndArea" class="placeholder">
+                                            <div id="filePicker"></div>
+                                        </div>
+                                    </div>
+                                    <div class="statusBar" style="display:none;">
+                                        <div class="progress">
+                                            <span class="text">0%</span>
+                                            <span class="percentage"></span>
+                                        </div>
+                                        <div class="info"></div>
+                                        <div class="btns">
+                                            <div id="filePicker2"></div>
+                                            <div class="uploadBtn">开始上传</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <h4>推荐展示说明<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="detail" name="detail">
@@ -64,6 +92,8 @@
 @endsection
 
 @section("after-scripts-end")
+    {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
+    @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.recommend.upload')])
     <script type="text/javascript">
         var ue = UE.getEditor('detail', {
             autoHeight: true,

@@ -18,7 +18,7 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
         Route::group(['prefix' => 'course'], function () {
             Route::get('submit', 'CourseController@create')->name('frontend.course.create');
             Route::post('submit', 'CourseController@store')->name('frontend.course.store');
-            Route::post('video/upload', 'CourseController@upload')->name('frontend.course.upload');
+            Route::post('course/video/upload', 'CourseController@upload')->name('frontend.course.upload');
         });
 
         Route::group(['prefix' => 'case'], function () {
@@ -29,6 +29,7 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
         Route::group(['prefix' => 'recommend'], function () {
             Route::get('submit', 'RecommendController@create')->name('frontend.recommend.create');
             Route::post('submit', 'RecommendController@store')->name('frontend.recommend.store');
+            Route::post('recommend/video/upload', 'RecommendController@upload')->name('frontend.recommend.upload');
         });
     });
 
