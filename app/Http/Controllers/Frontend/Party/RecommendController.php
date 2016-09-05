@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Frontend\Party;
-
+use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Common\FileStorage;
-use App\Http\Requests\Frontend\Party\RecommendRequest;
 use Illuminate\Support\Facades\Auth;
 
 class RecommendController extends Controller
@@ -47,11 +46,24 @@ class RecommendController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  RecommendRequest $request
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RecommendRequest $request)
+    public function store(Request $request)
     {
+        $validate = Validator::make($request->all(), [
+            'name'    => 'required',
+            'summary' => 'required|max:300',
+            'apply'   => 'required',
+            'img'     => 'required',
+            'detail'  => 'required',
+        ]);
+//        dd($validate);
+        if ($validate->fails()) {
+            alert()->error("请完整填写所有字段！");
+
+            return redirect()->back();
+        }
         $application = new Application();
         $apply = $request->all();
         $img_hash = $this->saveImage($request->file('img'), "Application/Recommend");

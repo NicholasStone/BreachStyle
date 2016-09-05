@@ -1,5 +1,12 @@
 <script type="text/javascript">
+    var uploadSuccess = false;
     (function ($) {
+        $("#submit").click(function (event) {
+            if (!uploadSuccess) {
+                sweetAlert('请先上传视频', '', 'error');
+                event.preventDefault();
+            }
+        });
         // 当domReady的时候开始初始化
         $(function () {
             var $wrap = $('#uploader'),
@@ -154,7 +161,7 @@
                 server: '{{ $server }}',
                 disableGlobalDnd: true,
                 fileNumLimit: 300,
-                fileSizeLimit: 100 * 1024 * 1024,    // 200 M
+                fileSizeLimit: 100 * 1024 * 1024    // 200 M
 //                fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
             });
 
@@ -405,6 +412,7 @@
                         stats = uploader.getStats();
                         if (stats.successNum) {
                             alert('上传成功');
+                            uploadSuccess = true;
                         } else {
                             // 没有成功的图片，重设
                             state = 'done';
