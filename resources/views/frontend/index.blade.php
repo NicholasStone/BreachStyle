@@ -190,6 +190,9 @@
                 <div class="downLoad">
                     <a href="{{ $settings[2]->value }}">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
                 </div>
+                <div class="downLoad">
+                    <a href="{{ Storage::url('static/参与流程.docx') }}">4.活动参与流程说明<span class="icon iconfont">&#xe611;</span></a>
+                </div>
                 <div class="note">
                     <p>备注:</p>
                     <p>1.必须由党支部书记上传</p>

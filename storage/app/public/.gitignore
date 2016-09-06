@@ -1,2 +1,4 @@
 *
 !.gitignore
+!static
+!static/参与流程.docx
