@@ -24,7 +24,7 @@ class CaseRequest extends Request
     public function rules()
     {
         return [
-            'name'    => 'required|max:20',
+            'name'    => 'required|unique:applications,name',
             'summary' => 'required|max:300',
             'detail'  => 'required',
             'apply'   => 'required',

@@ -13,6 +13,30 @@
 
 @section('after-scripts-end')
     {!! Html::script('//cdn.bootcss.com/video.js/5.11.0/video.min.js') !!}
+    {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
+    {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
+
+    <script>
+        $(function() {
+            var url = '{{ route("admin.verify.comment.get", $id) }}';
+            var table = $('#comments-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: url,
+                    type: 'post'
+                },
+                columns: [
+                    {data: 'user.name'},
+                    {data: 'comment'},
+                    {data: 'created_at'},
+                    {data: 'operations'}
+                ],
+                order: [[0, "asc"]],
+                searchDelay: 500
+            });
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -64,4 +88,28 @@
                 </div>
         </div><!-- /.box-body -->
     </div><!--box box-success-->
+
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title">
+                {{trans("labels.backend.verification.comment.management")}}
+            </h3>
+        </div><!-- /.box-header -->
+
+        <div class="box-body">
+            <div class="table-responsive">
+                <table id="comments-table" class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                        <th>评论人</th>
+                        <th>内容</th>
+                        <th>提交时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div><!--table-responsive-->
+            <br>
+        </div><!-- /.box-body -->
+    </div><!--box-->
 @endsection

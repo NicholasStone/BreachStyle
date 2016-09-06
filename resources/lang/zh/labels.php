@@ -77,17 +77,12 @@ return [
         'verification' => [
             'application' => [
                 'management' => '成果展示申请表审核',
-
-                'table' => [
-
-                ],
             ],
             'branch'      => [
                 'management' => '党支部信息审核',
-
-                'table' => [
-
-                ],
+            ],
+            'comment'      => [
+                'management' => '评论列表',
             ],
         ],
     ],
