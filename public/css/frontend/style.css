@@ -714,6 +714,7 @@ body {
 }
 .activeInfo .content .info .infoList ul li.activeContent p.tits{
     line-height: 32px;
+    text-indent: 2em;
 }
 .activeInfo .content .info .infoList ul li div{
     background: #F8E9C8;
