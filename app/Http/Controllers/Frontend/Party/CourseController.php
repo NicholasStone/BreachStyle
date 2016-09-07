@@ -52,7 +52,7 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'name'            => 'required|unique',
+            'name'            => 'required|unique:applications,name',
             'summary'         => 'required|max:200',
             'course_lecturer' => 'required|max:20',
             'apply'           => 'required',

@@ -247,7 +247,8 @@
                 <ul>
                     <li>
                         <p><span class="tit">活动背景 : </span></p>
-                        <p><span class="tits">1.严把内容质量。</span>支部工作案例、微党课是学习"两学一做"的重要载体，要求围绕阶段性主题，做到思想观点正确、内容积极健康。各级高校党委要对提交内容质量进行政治把关、认真推敲、仔细琢磨、精益求精、体现高水准高质量。</p>
+                        <p><span class="tits">1.严把内容质量。</span>支部工作案例、微党课是学习"两学一做"的重要载体，要求围绕阶段性主题，做到思想观点正确、内容积极健康。各级高校党委要对提交内容质量进行政治把关、认真推敲、仔细琢磨、精益求精、体现高水准高质量。
+                        </p>
                         <p><span class="tits">2.精心制作展播视频。</span>高校基层党支部要围绕"两学一做"这一主题，遴选支部书记讲党课，精心组织拍摄视频。展播视频必须符合网上传播规律，充分运用案例教学、互动、PPT和图片动漫等多种展示形式，增强吸引力感染力，主讲人授课和视频配音必须讲普通话，重点内容配字幕。微党课视频时长小于10分钟，片头14秒对学校进行掠影式介绍，推荐使用MP4格式文件。
                         </p>
                     </li>
@@ -278,12 +279,16 @@
                                         <div class="top">
                                             <div class="right">
                                                 <div>
-                                                    <img src="{{ $work->img_hash }}"/>
+                                                    <a href="{{ route('frontend.case.show', $work->id) }}">
+                                                        <img src="{{ $work->img_hash }}"/>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="left">
-                                                <h3>{{ $work->summary }}</h3>
-                                                <p>{{ $work->detail }}</p>
+                                                <h3>
+                                                    <a href="{{ route('frontend.case.show', $work->id) }}">{{ $work->name }}</a>
+                                                </h3>
+                                                <p>{{ $work->summary }}</p>
                                             </div>
                                         </div>
                                         <div class="bottom">
@@ -292,7 +297,7 @@
                                                 <span><i class="icon iconfont">&#xe609;</i>{{ $work->fancy }}</span>
                                             </div>
                                             <div class="left">
-                                                <span><i class="icon iconfont">&#xe60a;</i>{{ $work->branch->name }}</span>
+                                                <span><i class="icon iconfont">&#xe60a;</i><a href="{{ route('frontend.branch.show', $work->branch->id) }}">{{ $work->branch->name }}</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -307,11 +312,15 @@
                                 <li>
                                     <div class="outBox">
                                         <div class="vedioImg">
-                                            <img src="{{ $tiny->img_hash }}"/>
+                                            <a href="{{ route('frontend.course.show', $tiny->id) }}">
+                                                <img src="{{ $tiny->img_hash }}"/>
+                                            </a>
                                         </div>
-                                        <h3>{{ $tiny->name }}</h3>
+                                        <h3>
+                                            <a href="{{ route('frontend.course.show', $tiny->id) }}">{{ $tiny->name }}</a>
+                                        </h3>
                                         <span class="author"><i
-                                                    class="icon iconfont">&#xe60a;</i>{{ $tiny->branch->name }}</span>
+                                                    class="icon iconfont">&#xe60a;</i><a href="{{ route('frontend.branch.show', $tiny->branch->id) }}">{{ $tiny->branch->name }}</a></span>
                                         <p>{{ $tiny->summary }}</p>
                                         <div class="data">
                                             <span class="review"><i
@@ -332,20 +341,21 @@
                     @foreach($teacher_list as $teacher)
                         <li>
                             <div class="imgBox">
-                                <img src="{{ $teacher->img_hash }}"/>
-                                <span><i></i></span>
+                                <a href="{{ route('frontend.recommend.show', $work->id) }}">
+                                    <img src="{{ $teacher->img_hash }}"/>
+                                </a>
                             </div>
                             <div class="data">
-                                <h3>{{ $teacher->summary }}</h3>
+                                <h3><a href="{{ route('frontend.course.show', $work->id) }}">{{ $teacher->summary }}</a></h3>
                                 <p class="label">
                                     <i class="iconfont">&#xe610;</i><span>推荐展示</span>
                                 </p>
                                 <p class="datas">
                                     <span class="review"><i
-                                                class="iconfont">&#xe60a;</i> {{ $teacher->comments->count() }}</span>
+                                                class="iconfont">&#xe609;</i> {{ $teacher->comments->count() }}</span>
                                     <span class="click"><i class="iconfont">&#xe60e;</i>{{ $teacher->fancy }}</span>
                                 </p>
-                                <p class="department"><span class="iconfont">&#xe609;</span>{{ $teacher->branch->name }}
+                                <p class="department"><span class="iconfont">&#xe60a;</span><a href="{{ route('frontend.branch.show', $teacher->branch->id) }}">{{ $teacher->branch->name }}</a>
                                 </p>
                             </div>
                         </li>
@@ -356,21 +366,21 @@
                     @foreach($student_list as $student)
                         <li>
                             <div class="imgBox">
-                                <img src="{{ $student->video_hash }}"/>
-                                <span><i></i></span>
+                                <a href="{{ route('frontend.course.show', $work->id) }}">
+                                    <img src="{{ $student->img_hash }}"/>
+                                </a>
                             </div>
                             <div class="data">
-                                <h3>{{ $student->summary }}</h3>
+                                <h3><a href="{{ route('frontend.course.show', $work->id) }}">{{ $student->name }}</a></h3>
                                 <p class="label">
                                     <i class="iconfont">&#xe610;</i><span>推荐展示</span>
                                 </p>
                                 <p class="datas">
                                     <span class="review"><i
-                                                class="iconfont">&#xe60a;</i> {{ $student->comments->count() }}</span>
+                                                class="iconfont">&#xe609;</i> {{ $student->comments->count() }}</span>
                                     <span class="click"><i class="iconfont">&#xe60e;</i>{{ $student->fancy }}</span>
                                 </p>
-                                <p class="department"><span class="iconfont">&#xe609;</span>{{ $student->branch->name }}
-                                </p>
+                                <p class="department"><span class="iconfont">&#xe60a;</span><a href="{{ route('frontend.branch.show', $student->branch->id) }}">{{ $student->branch->name }}</a></p>
                             </div>
                         </li>
                     @endforeach
