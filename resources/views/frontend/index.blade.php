@@ -188,7 +188,7 @@
                     <a href="{{ $settings[1]->value }}">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
-                    <a href="{{ $settings[2]->value }}">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="{{ Storage::url('static/党支部报名表.docx') }}">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
                     <a href="{{ Storage::url('static/参与流程.docx') }}">4.活动参与流程说明<span
