@@ -14,7 +14,7 @@ class SearchController extends Controller
         $type = '';
         $keywords = $request->get('keywords');
 
-        $page = Searchy::applications('name', 'detail', 'summary', 'type')->query($keywords)->get();
+        $page = Searchy::applications('name', 'summary', 'type')->query($keywords)->get();
 
 //        dd($page);
         return view("frontend.party.search.list", compact("page", "type", "keywords"));

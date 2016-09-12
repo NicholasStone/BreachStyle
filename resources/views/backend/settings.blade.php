@@ -308,7 +308,7 @@
                         {{ Form::text('notice', null,['class' => 'form-control', 'placeholder' => '请在此输入文件下载链接地址,如果不改变请留空']) }}
                     </div><!--col-lg-10-->
                 </div>
-                {{--<div class="form-group">--}}
+                <div class="form-group">
                     {{--<div class="from-group">--}}
                         {{--{{ Form::label('verification', "党支部认证表", ['class' => 'col-lg-2 control-label', 'placeholder' => "报名表下载链接"]) }}--}}
 
@@ -322,8 +322,8 @@
                             {{--</div>--}}
                         {{--</div><!--col-lg-10-->--}}
                     {{--</div>--}}
-                    {{--<button class="btn btn-success">提交</button>--}}
-                {{--</div>--}}
+                    <button class="btn btn-success">提交</button>
+                </div>
                 {{ Form::close() }}
             </div>
 

@@ -33,7 +33,7 @@
                                                 @if($item->type == "学生党支部推荐展示" || $type == "教师党支部推荐展示")
                                                     <h3>{{ link_to(route('frontend.recommend.show', $item->id), $item->name, ['style' => 'color:black']) }}</h3>
                                                 @endif
-                                                <p>{!! $item->detail !!}</p>
+                                                <p style="overflow: hidden; text-overflow: ellipsis;">{!! $item->summary !!}</p>
                                             </div>
                                             <div class="right">
                                                 <div>

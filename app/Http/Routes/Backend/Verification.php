@@ -18,8 +18,8 @@ Route::group([
      * 成果展示审核
      */
     Route::get('application', 'ApplicationController@index')->name('admin.verify.application');
-    Route::post('application/get/{v}', 'ApplicationController@unhandled')->name('admin.verify.application.get');
-//    Route::any('application/get/{v}', 'ApplicationController@unhandled')->name('admin.verify.application.get');
+//    Route::post('application/get/{v}', 'ApplicationController@unhandled')->name('admin.verify.application.get');
+    Route::any('application/get/{v}', 'ApplicationController@unhandled')->name('admin.verify.application.get');
     Route::get('application/grant/{id}', 'ApplicationController@grant')->name('admin.verify.application.grant');
     Route::get('application/deny/{id}', 'ApplicationController@deny')->name('admin.verify.application.deny');
     Route::get('application/detail/{id}', 'ApplicationController@detail')->name('admin.verify.application.detail');

@@ -4,9 +4,9 @@
             <li class="type1">
                 <div class="outBox">
                     <div class="top">
-                        <div class="left">
+                        <div class="left" style="height: 9.5em">
                             <h3>{{ link_to(route('frontend.case.show', $item->id), $item->name, ['style' => 'color:black']) }}</h3>
-                            <p>{{ $item->summary }}</p>
+                            <p style="overflow: hidden; text-overflow: ellipsis;">{{ $item->summary }}</p>
                         </div>
                         <div class="right">
                             <div>

@@ -39,6 +39,7 @@
                     <tr>
                         <th>成果名称</th>
                         <th>成果类别</th>
+                        <th>上传支部</th>
                         <th>申报时间</th>
                         <th>操作</th>
                     </tr>
@@ -81,6 +82,7 @@
                 columns: [
                     {data: 'name'},
                     {data: 'type'},
+                    {data: 'branch.name'},
                     {data: 'created_at'},
                     {data: 'operations'}
                 ],
