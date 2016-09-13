@@ -16,7 +16,7 @@ class BranchController extends VerificationController
             ->withUser(access()->user());
     }
 
-    public function unhandled($v = 0)
+    public function gets($v = 0)
     {
         return Datatables::of(
             Branch::where('verification', $v)
@@ -63,6 +63,11 @@ class BranchController extends VerificationController
         $branch->delete();
 
         return redirect()->route('admin.verify.branch');
+    }
+
+    public function delete($id)
+    {
+        // TODO: Implement delete() method.
     }
 
     public function excel()

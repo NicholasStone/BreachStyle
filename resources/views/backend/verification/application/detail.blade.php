@@ -81,10 +81,12 @@
                 <dd><img src="{{ asset($apply_hash) }}" alt="申请表" class="thumbnail" width="50%" height="50%"></dd>
             </dl>
                 <div>
-                    @unless($verification)
-                    <a href="{{ route('admin.verify.application.grant', $id) }}" class="btn bg-olive">通过</a>
-                    @endunless
-                    <a href="{{ route('admin.verify.application.deny', $id) }}" class="btn bg-maroon">驳回</a>
+                    @if($verification < 1)
+                    <a href="{{ route('admin.verify.application.grant', $id) }}" class="btn bg-olive btn-flat">通过</a>
+                    @else
+                    <a href="{{ route('admin.verify.application.deny', $id) }}" class="btn bg-orange btn-flat">驳回</a>
+                    @endif
+                    <a href="{{ route('admin.verify.application.delete', $id) }}" class="btn bg-maroon btn-flat">删除</a>
                 </div>
         </div><!-- /.box-body -->
     </div><!--box box-success-->

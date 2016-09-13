@@ -18,7 +18,7 @@ class ApplicationController extends VerificationController
             ->withUser(access()->user());
     }
 
-    public function unhandled($v = 0)
+    public function gets($v = 0)
     {
         return Datatables::of(Application::with('branch')
             ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
@@ -30,6 +30,14 @@ class ApplicationController extends VerificationController
                 return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
             })
             ->make(true);
+    }
+
+    public function delete($id)
+    {
+        $apply = Application::findOrFail($id);
+        $apply->delete();
+
+        return redirect()->route('admin.verify.application')->withFlashSuccess("操作成功");
     }
 
     public function grant($id)
@@ -44,9 +52,10 @@ class ApplicationController extends VerificationController
     public function deny($id)
     {
         $apply = Application::findOrFail($id);
-        $apply->delete();
+        $apply->verification = -1;
+        $apply->save();
 
-        return redirect()->route('admin.verify.application')->withFlashSuccess("操作成功");
+        return redirect()->back()->withFlashSuccess("操作成功");
     }
 
     public function detail($id)

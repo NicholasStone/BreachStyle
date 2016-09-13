@@ -25,8 +25,9 @@
                     </button>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:void (0);" id="denied">未通过</a></li>
-                        <li><a href="javascript:void (0);" id="unhandled">已通过</a></li>
+                        <li><a href="javascript:void (0);" id="unhandled">未通过</a></li>
+                        <li><a href="javascript:void (0);" id="granted">已通过</a></li>
+                        <li><a href="javascript:void (0);" id="denied">已驳回</a></li>
                     </ul>
                 </div><!--btn group-->
             </div>
@@ -89,12 +90,16 @@
                 order: [[0, "asc"]],
                 searchDelay: 500
             });
-            $("#unhandled").click(function () {
+            $("#granted").click(function () {
                 url = "{{ route("admin.verify.application.get", ['v' => 1]) }}";
                 table.ajax.url(url).load();
             });
-            $("#denied").click(function () {
+            $("#unhandled").click(function () {
                 url = "{{ route("admin.verify.application.get", ['v' => 0]) }}";
+                table.ajax.url(url).load();
+            });
+            $("#denied").click(function () {
+                url = "{{ route("admin.verify.application.get", ['v' => -1]) }}";
                 table.ajax.url(url).load();
             });
         });
