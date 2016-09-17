@@ -22,20 +22,20 @@
                 </li>
             </ul>
             <div class="crtDepart">
-                <form action="{{ route('frontend.recommend.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('frontend.recommend.update' ,$id) }}" method="post" enctype="multipart/form-data">
                     {!! csrf_field() !!}
                     <div class="row">
                         <h4>推荐展示名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="courseName" placeholder="请输入课题名称" class="courseName"/>
+                        <input type="text" name="name" id="courseName" placeholder="请输入课题名称" class="courseName" value="{{ $name }}"/>
                     </div>
                     <div class="row">
                         <h4>推荐展示简介<span>*</span> : </h4>
-                        <textarea class="caseIntroduce" name="summary"></textarea>
+                        <textarea class="caseIntroduce" name="summary">{{ $summary }}</textarea>
                     </div>
-                    @include("frontend.party.common.imgUpload")
+                    @include("frontend.party.common.img-upload-edit")
                     <div class="row">
                         <h4>上传视频 :</h4>
-                        <p style="color: red">视频格式为MP4，且大小必须小于100M</p>
+                        <p style="color: red">视频格式为MP4，且大小必须小于100M，没有改动则无需上传</p>
                         <div id="wrapper">
                             <div id="container">
                                 <div id="uploader">
@@ -63,7 +63,7 @@
                         <h4>推荐展示说明<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="detail" name="detail">
-                                {{ $summary or '在此编辑插入图片时请插入图片链接' }}
+                                {{ $detail or '在此编辑插入图片时请插入图片链接' }}
                             </textarea>
                         </div>
                     </div>

@@ -341,12 +341,12 @@
                     @foreach($teacher_list as $teacher)
                         <li>
                             <div class="imgBox">
-                                <a href="{{ route('frontend.recommend.show', $work->id) }}">
+                                <a href="{{ route('frontend.recommend.show', $teacher->id) }}">
                                     <img src="{{ $teacher->img_hash }}"/>
                                 </a>
                             </div>
                             <div class="data">
-                                <h3><a href="{{ route('frontend.course.show', $work->id) }}">{{ $teacher->summary }}</a></h3>
+                                <h3><a href="{{ route('frontend.course.show', $teacher->id) }}">{{ $teacher->summary }}</a></h3>
                                 <p class="label">
                                     <i class="iconfont">&#xe610;</i><span>推荐展示</span>
                                 </p>

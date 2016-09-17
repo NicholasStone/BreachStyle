@@ -208,6 +208,7 @@ return [
         TomLingham\Searchy\SearchyServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Fenos\Notifynder\NotifynderServiceProvider::class,
         /*
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */
@@ -271,5 +272,6 @@ return [
         'Searchy'     => TomLingham\Searchy\Facades\Searchy::class,
         'Image'       => Intervention\Image\Facades\Image::class,
         'Excel'       => Maatwebsite\Excel\Facades\Excel::class,
+        'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,
     ],
 ];

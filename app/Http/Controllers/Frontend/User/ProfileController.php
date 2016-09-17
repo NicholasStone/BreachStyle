@@ -31,20 +31,24 @@ class ProfileController extends Controller
 
     /**
      * 用户信息
-     * @return $this
      */
     public function show()
     {
         $user = Auth::user();
-        if(!$user->user_id)
-        {
+        if(!$user->user_id) {
             return redirect()->route('admin.dashboard');
         }
         $user->branch;
         $branches = $user->university->branches;
-        return view('frontend.user.detail')->with(compact("user", "branches"));
+        $notifies = $user->getNotifications();
+        return view('frontend.user.detail')->with(compact("user", "branches","notifies"));
     }
 
+    /**
+     * 添加党支部
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function join(Request $request)
     {
         $validate = Validator::make($request->all(), [

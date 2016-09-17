@@ -25,7 +25,7 @@
                     </button>
 
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:void (0);" id="unhandled">未通过</a></li>
+                        <li><a href="javascript:void (0);" id="unhandled">待审核</a></li>
                         <li><a href="javascript:void (0);" id="granted">已通过</a></li>
                         <li><a href="javascript:void (0);" id="denied">已驳回</a></li>
                     </ul>

@@ -24,7 +24,8 @@ class CaseController extends Controller
     {
         $type = "工作案例";
         $page = Application::with(['branch'])->where("type", $type)->where('verification', 1)->orderBy($sort, 'desc')->paginate(16);
-        return view('frontend.party.common.list', compact("type", "page" ,"sort"))
+
+        return view('frontend.party.common.list', compact("type", "page", "sort"))
             ->withUser(access()->user());
     }
 
@@ -74,22 +75,24 @@ class CaseController extends Controller
      */
     public function show($id)
     {
-        $application = Application::find($id);
+        $application = Application::findOrFail($id);
         $comments = $application->comments;
         $branch = $application->branch;
         $university = $branch->university;
+
         return view('frontend.party.case.detail', compact("application", "comments", "branch", "university"));
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $application = Application::findOrFail($id);
+
+//        dd($application->toArray());
+
+        return view('frontend.party.case.edit', $application);
     }
 
     /**
@@ -101,7 +104,25 @@ class CaseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $application = Application::findOrFail($id);
+        $apply = $request->all();
+        if ($request->file('img')) {
+            $img_hash = $this->saveImage($request->file('img'), "Application/Case");
+            $application->img_hash = $img_hash;
+        }
+        if ($request->file('apply')) {
+            $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
+            $application->apply_hash = $apply_hash;
+        }
+        $application->name = $apply['name'];
+        $application->detail = $apply['detail'];
+        $application->summary = $apply['summary'];
+        $application->verification = 0;
+        $application->save();
+
+        alert()->success('提交成功，请等待审核通过');
+
+        return redirect()->route('frontend.index');
     }
 
     /**

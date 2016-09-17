@@ -2,6 +2,23 @@
 
 @section('after-styles-end')
     {!! Html::style(asset('css/frontend/personal.css')) !!}
+    <style>
+        .notify {
+            border-collapse: collapse;
+            border: solid 2px red;
+            width: 93%;
+            text-align: center;
+        }
+
+        .notify td,
+        .notify th {
+            border: solid 1px red;
+        }
+
+        .notify tr {
+            height: 30px;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -46,6 +63,36 @@
                     @endif
                 </div>
             </div>
+            @if($notifies->count())
+            <div class="idCard" style="margin-top: 30px; padding: 30px">
+                <table class="notify">
+                    <thead>
+                    <tr>
+                        <th width="5%">#</th>
+                        <th width="85%">消息</th>
+                        <th width="10%">标记为</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($notifies as $num => $notify)
+                        <tr>
+                            <td>{{ $num + 1 }}</td>
+                            <td>
+                                <a href="{{ $notify->url }}" @if(!$notify->read) style="font-weight: 800" @endif>{{ $notify->text }}</a>
+                            </td>
+                            <td>
+                                @if($notify->read)
+                                    <a href="{{ route('frontend.notify.unread', $notify->id) }}">未读</a>
+                                @else
+                                    <a href="{{ route('frontend.notify.read', $notify->id) }}">已读</a>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+            @endif
         </div>
     </div>
     <!-- personal -->

@@ -40,7 +40,13 @@ class SSOAuthController extends Controller
                 alert()->error("您的账户已被冻结，请联系管理员");
             }else {
                 Auth::login($user);
+
+                //get Notifies
+                $notifies = $user->countNotificationsNotRead();;
                 alert()->success('登录成功');
+                if ($notifies) {
+                    alert()->info('您有'.$notifies.'条未读信息，请到个人中心查看');
+                }
             }
 
             return redirect()->route('frontend.index');

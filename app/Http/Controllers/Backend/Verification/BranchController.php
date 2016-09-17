@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend\Verification;
 
+use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Branch;
 use Carbon\Carbon;
@@ -46,7 +47,7 @@ class BranchController extends VerificationController
         return view('backend.verification.branch.detail', $branch);
     }
 
-    public function deny($id)
+    public function deny(Request $request, $id)
     {
         $branch = Branch::findOrFail($id);
         $application = $branch->application;
@@ -65,7 +66,7 @@ class BranchController extends VerificationController
         return redirect()->route('admin.verify.branch');
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         // TODO: Implement delete() method.
     }

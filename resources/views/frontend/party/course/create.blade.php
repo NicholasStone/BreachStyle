@@ -80,7 +80,7 @@
 
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
-    @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload')])
+    @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload'), 'required' => true])
     <script type="text/javascript">
         var ue = UE.getEditor('summary', {
             autoHeight: true,

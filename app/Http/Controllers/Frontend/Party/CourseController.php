@@ -83,6 +83,7 @@ class CourseController extends Controller
         $application->img_hash = $img_hash;
         $application->apply_hash = $apply_hash;
         $application->video_hash = \Session::get('video_path');
+        \Session::set('video_path', null);
         $application->save();
 
         alert()->success('提交成功，请等待审核');
@@ -125,7 +126,7 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $application = Application::find($id);
+        $application = Application::findOrFail($id);
         $comments = $application->comments;
         $branch = $application->branch;
         $university = $branch->university;
@@ -141,7 +142,8 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $application = Application::findOrFail($id);
+        return view('frontend.party.course.edit', $application);
     }
 
     /**
@@ -153,7 +155,30 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $application = Application::findOrFail($id);
+
+        $apply = $request->all();
+        if ($request->file('img')) {
+            $img_hash = $this->saveImage($request->file('img'), "Application/Course");
+            $application->img_hash = $img_hash;
+        }
+        if ($request->file('apply')) {
+            $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
+            $application->apply_hash = $apply_hash;
+        }
+        if (\Session::has('video_path')) {
+            $application->video_hash = \Session::get('video_path');
+            \Session::set('video_path', null);
+        }
+        $application->name = $apply['name'];
+        $application->detail = $apply['summary'];
+        $application->course_lecturer = $apply['course_lecturer'];;
+        $application->verification = 0;
+        $application->save();
+
+        alert()->success('提交成功，请等待审核');
+
+        return redirect()->route('frontend.index');
     }
 
     /**

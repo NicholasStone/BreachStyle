@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Backend\Verification;
 
+use Illuminate\Http\Request;
+use App\Models\Access\User\User;
 use App\Models\Application;
 use App\Http\Controllers\Common\FileStorage;
 use Carbon\Carbon;
+use Fenos\Notifynder\Facades\Notifynder;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Facades\Datatables;
 
@@ -32,10 +35,21 @@ class ApplicationController extends VerificationController
             ->make(true);
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         $apply = Application::findOrFail($id);
         $apply->delete();
+
+
+        Notifynder::category('application.delete')
+            ->from(\Auth::user()->id)
+            ->to($apply->branch->secretary->id)
+            ->url("#")
+            ->extra([
+                'application_name' => $apply->name,
+                'reason' => $request->get('reason')
+            ])
+            ->send();
 
         return redirect()->route('admin.verify.application')->withFlashSuccess("操作成功");
     }
@@ -46,14 +60,61 @@ class ApplicationController extends VerificationController
         $apply->verification = 1;
         $apply->save();
 
+        $redirect = '';
+
+        switch ($apply->type) {
+            case "工作案例":
+                $redirect = route('frontend.case.show', $apply->id);
+                break;
+            case "微党课":
+                $redirect = route('frontend.course.show', $apply->id);
+                break;
+            case "教师党支部推荐展示":
+            case "学生党支部推荐展示":
+                $redirect = route('frontend.recommend.show', $apply->id);
+                break;
+        }
+
+        Notifynder::category('application.granted')
+            ->from(\Auth::user()->id)
+            ->to($apply->branch->secretary->id)
+            ->url($redirect)
+            ->extra(['application_name' => $apply->name])
+            ->send();
+
         return redirect()->back()->withFlashSuccess("操作成功");
     }
 
-    public function deny($id)
+    public function deny(Request $request, $id)
     {
         $apply = Application::findOrFail($id);
         $apply->verification = -1;
         $apply->save();
+
+        $redirect = '';
+
+        switch ($apply->type) {
+            case "工作案例":
+                $redirect = route('frontend.case.edit', $apply->id);
+                break;
+            case "微党课":
+                $redirect = route('frontend.course.edit', $apply->id);
+                break;
+            case "教师党支部推荐展示":
+            case "学生党支部推荐展示":
+                $redirect = route('frontend.recommend.edit', $apply->id);
+                break;
+        }
+
+        Notifynder::category('application.denied')
+            ->from(\Auth::user()->id)
+            ->to($apply->branch->secretary->id)
+            ->url($redirect)
+            ->extra([
+                'application_name' => $apply->name,
+                'reason' => $request->get('reason')
+            ])
+            ->send();
 
         return redirect()->back()->withFlashSuccess("操作成功");
     }
