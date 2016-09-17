@@ -2,6 +2,7 @@
 
 @section('after-styles-end')
     {!! Html::style(asset('css/frontend/caseList.css')) !!}
+    {!! Html::style(asset('css/frontend/search.css')) !!}
 @endsection
 
 @section('content')
@@ -20,28 +21,25 @@
                     <div class="caseList">
                         <ul>
                             @foreach($page as $item)
-                                <li class="type1">
-                                    <div class="outBox">
-                                        <div class="top">
-                                            <div class="left">
-                                                @if($item->type == "工作案例")
-                                                    <h3>{{ link_to(route('frontend.case.show', $item->id), $item->name, ['style' => 'color:black']) }}</h3>
-                                                @endif
-                                                @if($item->type == "微党课")
-                                                    <h3>{{ link_to(route('frontend.course.show', $item->id), $item->name, ['style' => 'color:black']) }}</h3>
-                                                @endif
-                                                @if($item->type == "学生党支部推荐展示" || $type == "教师党支部推荐展示")
-                                                    <h3>{{ link_to(route('frontend.recommend.show', $item->id), $item->name, ['style' => 'color:black']) }}</h3>
-                                                @endif
-                                                <p style="overflow: hidden; text-overflow: ellipsis;">{!! $item->summary !!}</p>
-                                            </div>
-                                            <div class="right">
-                                                <div>
-                                                    <img src="{{ asset($item->img_hash) }}"/>
-                                                </div>
+                                <li>
+                                    @if($item->type == "工作案例")
+                                        <a href="{{ route('frontend.case.show', $item->id) }}">
+                                    @elseif($item->type == "微党课")
+                                        <a href="{{ route('frontend.course.show', $item->id) }}">
+                                    @elseif($item->type == "学生党支部推荐展示" || $type == "教师党支部推荐展示")
+                                        <a href="{{ route('frontend.recommend.show', $item->id) }}">
+                                    @endif
+                                        <div class="searchLeft">
+                                            <h3>{{ $item->name }}</h3>
+                                            <span><i class="icon iconfont">&#xe60e;</i>{{ $item->fancy }}</span>
+                                            <span><i class="icon iconfont">&#xe609;</i>{{ $item->total_comment }}</span>
+                                        </div>
+                                        <div class="searchRight">
+                                            <div class="searchImgBox">
+                                                <img src="{{ asset($item->img_hash) }}"/>
                                             </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </li>
                             @endforeach
                         </ul>

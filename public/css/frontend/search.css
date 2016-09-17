@@ -1,0 +1,61 @@
+.caseList ul li{
+	padding-top: 13%;
+	border-bottom: 1px solid #eddfc0;
+}
+.caseList ul li a{
+	width: 90%;
+	height: 84%;
+	position: absolute;
+	top: 8%;
+	left: 5%;
+}
+.caseList ul li a .searchLeft{
+	width: 67%;
+	height: 100%;
+	float: left;
+}
+.caseList ul li a .searchLeft h3{
+	width: 90%;
+	height: 2.5em;
+	line-height: 1.25em;
+	font-size: 1.125em;
+	color: #111111;
+	margin-top: 12px;
+	display: -webkit-box;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+.caseList ul li a .searchLeft span{
+	width: 45%;
+	display: block;
+	color: #A7A7A7;
+	font-size: .875em;
+	margin-top: 8px;
+	float: left;
+}
+.caseList ul li a .searchLeft span i{
+	margin-right: 6px;
+}
+.caseList ul li a .searchLeft span.depart{
+	width: 90%;
+	margin-top: 12px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.caseList ul li a .searchRight{
+	width: 33%;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+	padding: 12px;
+	box-sizing: border-box;
+}
+.caseList ul li a .searchRight .searchImgBox img,.caseList ul li a .searchRight .searchImgBox{
+	width: 100%;
+	height: 100%;
+}

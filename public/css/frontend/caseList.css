@@ -59,6 +59,7 @@
 	text-overflow: ellipsis;
 	word-wrap: break-word;
 	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
 	margin-top: 20px;
 }
 .caseList ul li.type1 .outBox .top .right div{
@@ -101,10 +102,26 @@
 	width: 20%;
 }
 
-
 @media(max-width: 1200px) {
 	.achievementList .content{
 		width: 95%;
+	}
+	.caseList ul li.type1 .outBox .top .left h3,.caseList ul li.type1 .outBox .top .left p{
+		margin-top: 16px;
+	}
+}
+@media(max-width: 1024px){
+	.caseList ul li.type1 .outBox .top .left p{
+		margin-top: 12px;
+		font-size: .75em;
+	}
+	.caseList ul li.type1 .outBox .bottom span{
+		font-size: .75em;
+	}
+}
+@media (max-width: 980px) {
+	.caseList ul li{
+		padding-top: 17%;
 	}
 }
 @media(max-width: 886px) {
@@ -117,6 +134,9 @@
 	}
 	.achievementList .content .nav .NavList{
 		width: 100%;
+	}
+	.caseList ul li.type1 .outBox .top .left h3,.caseList ul li.type1 .outBox .top .left p{
+		margin-top: 24px;
 	}
 }
 @media(max-width: 720px) {
@@ -148,6 +168,11 @@
 		padding-top: 28%;
 	}
 }
+@media(max-width: 520px) {
+	.caseList ul li.type1 .outBox .top .left p{
+		-webkit-line-clamp: 3;
+	}
+}
 @media(max-width: 480px) {
 	.caseList ul li{
 		padding-top: 30%;
@@ -161,6 +186,9 @@
 @media(max-width: 400px) {
 	.caseList ul li{
 		padding-top: 34%;
+	}
+	.caseList ul li.type1 .outBox .top .left h3,.caseList ul li.type1 .outBox .top .left p{
+		margin-top: 16px;
 	}
 }
 @media(max-width: 360px) {
