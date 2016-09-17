@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProvincesTableSeeder::class);
         $this->call(UniversitiesTableSeeder::class);
         $this->call(SettingsTableSeeder::class);
-        $this->call('NotificationsTableSeeder');
         $this->call('NotificationCategoriesTableSeeder');
     }
 }
