@@ -204,7 +204,6 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
-//        Stevenyangecho\UEditor\UEditorServiceProvider::class,
         TomLingham\Searchy\SearchyServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,

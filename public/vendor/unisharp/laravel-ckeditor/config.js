@@ -33,6 +33,13 @@ CKEDITOR.editorConfig = function( config ) {
 	// Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
 
+	config.skin = 'bootstrapck';
+
+	config.extraPlugins = 'base64image';
+
+	config.extraPlugins = 'autogrow';
+	config.autoGrow_minHeight = 250;
+	config.autoGrow_maxHeight = 700;
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 };
