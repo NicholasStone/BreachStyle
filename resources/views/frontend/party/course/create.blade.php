@@ -4,7 +4,7 @@
     {!! Html::style(asset('css/frontend/create.css')) !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
     {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
-    @include('UEditor::head')
+    {{--@include('UEditor::head')--}}
 @endsection
 
 @section("content")
@@ -81,14 +81,18 @@
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload'), 'required' => true])
-    <script type="text/javascript">
-        var ue = UE.getEditor('summary', {
-            autoHeight: true,
-            maximumWords: 3000
-        });
-        ue.ready(function () {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-        });
+    {{--<script type="text/javascript">--}}
+        {{--var ue = UE.getEditor('summary', {--}}
+            {{--autoHeight: true,--}}
+            {{--maximumWords: 30000--}}
+        {{--});--}}
+        {{--ue.ready(function () {--}}
+            {{--ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');--}}
+        {{--});--}}
+    {{--</script>--}}
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'summary' );
     </script>
     <script>
         function uploadEntry(){

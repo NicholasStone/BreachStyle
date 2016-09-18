@@ -2,7 +2,7 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
-    @include('UEditor::head')
+    {{--@include('UEditor::head')--}}
 @endsection
 
 @section('content')
@@ -49,14 +49,17 @@
 @endsection
 
 @section("after-scripts-end")
-    <script type="text/javascript">
-        var ue = UE.getEditor('detail', {
-            autoHeight: true,
-            maximumWords: 3000
-        });
-        ue.ready(function () {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-        });
+    {{--<script type="text/javascript">--}}
+        {{--var ue = UE.getEditor('detail', {--}}
+            {{--autoHeight: true,--}}
+            {{--maximumWords: 30000--}}
+        {{--});--}}
+        {{--ue.ready(function () {--}}
+            {{--ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');--}}
+        {{--});--}}
+    {{--</script>--}}
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'detail' );
     </script>
-
 @endsection

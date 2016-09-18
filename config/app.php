@@ -204,11 +204,12 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
-        Stevenyangecho\UEditor\UEditorServiceProvider::class,
+//        Stevenyangecho\UEditor\UEditorServiceProvider::class,
         TomLingham\Searchy\SearchyServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Fenos\Notifynder\NotifynderServiceProvider::class,
+        Unisharp\Ckeditor\ServiceProvider::class,
         /*
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */
@@ -273,5 +274,6 @@ return [
         'Image'       => Intervention\Image\Facades\Image::class,
         'Excel'       => Maatwebsite\Excel\Facades\Excel::class,
         'Notifynder' => Fenos\Notifynder\Facades\Notifynder::class,
+
     ],
 ];

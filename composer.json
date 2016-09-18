@@ -29,7 +29,8 @@
     "tom-lingham/searchy": "2.*",
     "intervention/image": "^2.3",
     "maatwebsite/excel": "~2.1.0",
-    "fenos/notifynder": "^3.2"
+    "fenos/notifynder": "^3.2",
+    "unisharp/laravel-ckeditor": "^4.5"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
