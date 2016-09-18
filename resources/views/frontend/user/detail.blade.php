@@ -124,8 +124,8 @@
                     <p>请选择党支部 :</p>
                     <select name="bind">
                         <option selected="selected" style="width: 280px;">请选择党支部</option>
-                        @foreach($branches as $key => $item)
-                            <option value="{{ (int)$key + 1 }}">{{ $item->name }}</option>
+                        @foreach($branches as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }}</option>
                         @endforeach
                     </select>
                     <a href="{{ route('frontend.branch.establish') }}" class="createDepart">创建党支部</a>
