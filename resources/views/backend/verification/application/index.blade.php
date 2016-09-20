@@ -18,22 +18,40 @@
             <h3 class="box-title">
                 {{trans("labels.backend.verification.application.management")}}
             </h3>
-            <div class="box-tools pull-right">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        选项 <span class="caret"></span>
-                    </button>
+            {{--<div class="box-tools pull-right">--}}
+                {{--<div class="btn-group">--}}
+                    {{--<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">--}}
+                        {{--选项 <span class="caret"></span>--}}
+                    {{--</button>--}}
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:void (0);" id="unhandled">待审核</a></li>
-                        <li><a href="javascript:void (0);" id="granted">已通过</a></li>
-                        <li><a href="javascript:void (0);" id="denied">已驳回</a></li>
-                    </ul>
-                </div><!--btn group-->
-            </div>
+                    {{--<ul class="dropdown-menu" role="menu">--}}
+                        {{--<li><a href="javascript:void (0);" id="unhandled">待审核</a></li>--}}
+                        {{--<li><a href="javascript:void (0);" id="granted">已通过</a></li>--}}
+                        {{--<li><a href="javascript:void (0);" id="denied">已驳回</a></li>--}}
+                    {{--</ul>--}}
+                {{--</div><!--btn group-->--}}
+            {{--</div>--}}
         </div><!-- /.box-header -->
 
         <div class="box-body">
+            <div class="box-info bg-info" style="padding: 10px 20px;">
+                <form action="" class="form-inline" role="form">
+                    <div class="form-group">
+                        <label for="sr-only">成果名称</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="sr-only">成果类别</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="sr-only">上传支部</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-info">搜索</button>
+                </form>
+            </div>
+            <hr>
             <div class="table-responsive">
                 <table id="table" class="table table-condensed table-hover">
                     <thead>
@@ -76,6 +94,7 @@
             var table = $('#table').DataTable({
                 processing: true,
                 serverSide: true,
+                searching: false,
                 ajax: {
                     url: url,
                     type: 'post'
@@ -87,8 +106,8 @@
                     {data: 'created_at'},
                     {data: 'operations'}
                 ],
-                order: [[0, "asc"]],
-                searchDelay: 500
+                order: [[0, "asc"]]
+//                searchDelay: 500
             });
             $("#granted").click(function () {
                 url = "{{ route("admin.verify.application.get", ['v' => 1]) }}";
