@@ -29,6 +29,11 @@ class BranchController extends VerificationController
             ->make(true);
     }
 
+    public function restore($id)
+    {
+        // TODO: Implement restore() method.
+    }
+
     public function grant($id)
     {
         $branch = Branch::findOrFail($id);

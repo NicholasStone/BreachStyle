@@ -10,21 +10,29 @@ class CommentController extends Controller
 {
 
     /**
-     * @param int $v
+     * 获取所有评论
+     *
      * @return mixed
      */
-    public function unhandled($v)
+    public function get()
     {
-        return Datatables::of(
-            Comment::with('user')->where('application_id', $v)->get()
+        return Datatables::of(Comment::with([
+            'user'        => function ($query) {
+                return $query->select('id', 'name');
+            },
+            'application' => function ($query) {
+                return $query->select('id', 'name');
+            }])->get()
         )
             ->addColumn('operations', function ($comment) {
-                return '<a href="' . route('admin.verify.comment.deny', $comment->id) . '" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.delete') . '"></i></a> ';
+                return '<a href="' . route('admin.verify.comments.deny', $comment->id) . '" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.delete') . '"></i></a> ';
             })
             ->make(true);
     }
 
     /**
+     * 硬删除评论
+     *
      * @param $id
      */
     public function deny($id)
@@ -32,7 +40,7 @@ class CommentController extends Controller
         $apply = Comment::findOrFail($id);
         $apply->delete();
 
-        return redirect()->back()->withFlashSuccess("操作成功");
+        return redirect()->route('admin.verify.comments.index')->withFlashSuccess("操作成功");
     }
 
     /**
@@ -40,22 +48,6 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return view('backend.comments');
+        return view('backend.verification.comments');
     }
-    /**
-     * 由bootstrapTable的ajax调用，返回所有评论的json
-     */
-    public function get()
-    {
-        return Datatables::collection();
-    }
-    /**
-     * 删除指定评论
-     * @param Request $request
-     * @param $id
-     */
-    public function delete(Request $request, $id)
-    {
-    }
-
 }

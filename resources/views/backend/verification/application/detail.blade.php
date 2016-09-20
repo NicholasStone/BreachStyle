@@ -29,7 +29,7 @@
                 dialog.modal();
             });
         });
-        $(function() {
+        $(function () {
             var url = '{{ route("admin.verify.comment.get", $id) }}';
             var table = $('#comments-table').DataTable({
                 processing: true,
@@ -57,12 +57,16 @@
             <h3 class="box-title">{{ trans('strings.backend.verification.application.title') }}</h3>
             <p>
                 当前文章状态：
-                @if($verification == 0)
-                    <span class="label label-default">等待审核</span>
-                @elseif($verification == 1)
-                    <span class="label label-success">已通过</span>
-                @elseif($verification == -1)
-                    <span class="label label-danger">被驳回</span>
+                @if($deleted_at)
+                    <span class="label label-danger">已删除</span>
+                @else
+                    @if($verification == 0)
+                        <span class="label label-default">等待审核</span>
+                    @elseif($verification == 1)
+                        <span class="label label-success">已通过</span>
+                    @elseif($verification == -1)
+                        <span class="label label-warning">被驳回</span>
+                    @endif
                 @endif
             </p>
         </div><!-- /.box-header -->
@@ -106,45 +110,27 @@
                 <dt>{{ trans('strings.backend.verification.application.apply') }}</dt>
                 <dd><img src="{{ asset($apply_hash) }}" alt="申请表" class="thumbnail" width="50%" height="50%"></dd>
             </dl>
-                <div>
+            <div>
+                @if($deleted_at)
+                    <a href="{{ route('admin.verify.application.restore', $id) }}" class="btn btn-olive btn-flat">恢复</a>
+                @else
                     @if($verification < 1)
-                    <a href="{{ route('admin.verify.application.grant', $id) }}" class="btn bg-olive btn-flat">通过</a>
+                        <a href="{{ route('admin.verify.application.grant', $id) }}"
+                           class="btn bg-olive btn-flat">通过</a>
                     @endif
                     <button id="deny-btn" class="btn bg-orange btn-flat">驳回</button>
                     <button id="delete-btn" class="btn bg-maroon btn-flat">删除</button>
-                </div>
+                @endif
+            </div>
         </div><!-- /.box-body -->
     </div><!--box box-success-->
-
-    <div class="box box-success">
-        <div class="box-header with-border">
-            <h3 class="box-title">
-                {{trans("labels.backend.verification.comment.management")}}
-            </h3>
-        </div><!-- /.box-header -->
-
-        <div class="box-body">
-            <div class="table-responsive">
-                <table id="comments-table" class="table table-condensed table-hover">
-                    <thead>
-                    <tr>
-                        <th>评论人</th>
-                        <th>内容</th>
-                        <th>提交时间</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div><!--table-responsive-->
-            <br>
-        </div><!-- /.box-body -->
-    </div><!--box-->
 
     <div class="modal fade" tabindex="-1" role="dialog" id="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">您正在执行一项重要操作</h4>
                 </div>
                 <div class="modal-body">

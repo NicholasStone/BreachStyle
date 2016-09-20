@@ -50,7 +50,13 @@
                 {{ link_to_route('admin.access.user.index', trans('menus.backend.access.title')) }}
             </li>
             <li class="{{ Active::pattern('admin/comments/*') }}">
-                {{ link_to_route('admin.comments.index', trans('menus.backend.comments.title')) }}
+                {{ link_to_route('admin.verify.comments.index', trans('menus.backend.comments.title')) }}
+            </li>
+            <li class="{{ Active::pattern('admin/verification/*') }}">
+                {{ link_to('admin/verify/application', trans('menus.backend.verification.application')) }}
+            </li>
+            <li class="{{ Active::pattern('admin/verification/*') }}">
+                {{ link_to('admin/verify/branch', trans('menus.backend.verification.branch')) }}
             </li>
             @endauth
 
@@ -69,21 +75,21 @@
                     </li>
                 </ul>
             </li>
-            <li class="{{ Active::pattern('admin/verification/*') }} treeview">
-                <a href="#">
-                    <span>{{ trans('menus.backend.verification.main') }}</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu {{ Active::pattern('admin/verification/*', 'menu-open') }}"
-                    style="display: none; {{ Active::pattern('admin/verification/*', 'display: block;') }}">
-                    <li class="{{ Active::pattern('admin/verification/application') }}">
-                        {{ link_to('admin/verify/application', trans('menus.backend.verification.application')) }}
-                    </li>
-                    <li class="{{ Active::pattern('admin/verification/branch') }}">
-                        {{ link_to('admin/verify/branch', trans('menus.backend.verification.branch')) }}
-                    </li>
-                </ul>
-            </li>
+            {{--<li class="{{ Active::pattern('admin/verification/*') }} treeview">--}}
+                {{--<a href="#">--}}
+                    {{--<span>{{ trans('menus.backend.verification.main') }}</span>--}}
+                    {{--<i class="fa fa-angle-left pull-right"></i>--}}
+                {{--</a>--}}
+                {{--<ul class="treeview-menu {{ Active::pattern('admin/verification/*', 'menu-open') }}"--}}
+                    {{--style="display: none; {{ Active::pattern('admin/verification/*', 'display: block;') }}">--}}
+                    {{--<li class="{{ Active::pattern('admin/verification/application') }}">--}}
+                        {{--{{ link_to('admin/verify/application', trans('menus.backend.verification.application')) }}--}}
+                    {{--</li>--}}
+                    {{--<li class="{{ Active::pattern('admin/verification/branch') }}">--}}
+                        {{--{{ link_to('admin/verify/branch', trans('menus.backend.verification.branch')) }}--}}
+                    {{--</li>--}}
+                {{--</ul>--}}
+            {{--</li>--}}
 
             {{--<li class="{{ Active::pattern('admin/statistics') }}">--}}
                 {{--{{ link_to_route('admin.statistics.index', "数据统计") }}--}}

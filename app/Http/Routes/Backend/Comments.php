@@ -6,7 +6,8 @@ Route::group([
     Route::group([
         'middleware' => 'access.routeNeedsPermission:manage-users',
     ],function (){
-        Route::get('comments/index', 'CommentController@index')->name('admin.comments.index');
-        Route::get('comments/get', 'CommentController@get')->name('admin.comments.get');
+        Route::get('comments', 'CommentController@index')->name('admin.verify.comments.index');
+        Route::get('comments/get', 'CommentController@get')->name('admin.verify.comments.get');
+        Route::get('comments/deny/{id}', 'CommentController@deny')->name('admin.verify.comments.deny');
     });
 });

@@ -23,7 +23,7 @@ class BranchController extends Controller
     public function index($id = null)
     {
         if (empty($id)) {
-            $page = Branch::paginate(16);
+            $page = Branch::where('verification',1)->paginate(16);
             $university = null;
         } else {
             $university = University::findOrFail($id);
