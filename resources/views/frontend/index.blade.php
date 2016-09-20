@@ -35,13 +35,10 @@
                                     <p>
                                         @if($trend->type == "微党课")
                                             <a href="{{ route('frontend.course.show', $trend->id) }}">{{ $trend->name }}</a>
-                                            <span>{{ $trend->created_at->format('m-h') }}</span>
                                         @elseif($trend->type == "工作案例")
                                             <a href="{{ route('frontend.case.show', $trend->id) }}">{{ $trend->name }}</a>
-                                            <span>{{ $trend->created_at->format('m-h') }}</span>
                                         @elseif($trend->type == "教师党支部推荐展示" || $trend->type == "学生党支部推荐展示")
                                             <a href="{{ route('frontend.recommend.show', $trend->id) }}">{{ $trend->name }}</a>
-                                            <span>{{ $trend->created_at->format('m-h') }}</span>
                                         @endif
                                     </p>
                                 </li>
@@ -58,21 +55,27 @@
         <div class="content">
             <ul>
                 <li class="zhibu">
-                    <div class="logo"></div>
+                    <a href="{{ route('frontend.branch.index') }}">
+                        <div class="logo"></div>
+                    </a>
                     <div class="data">
                         <h2><span>{{ $count_branches }}</span>个</h2>
                         <p>参与党支部</p>
                     </div>
                 </li>
                 <li class="dangyuan">
-                    <div class="logo"></div>
+                    <a href="{{ route('frontend.active.detail') }}">
+                        <div class="logo"></div>
+                    </a>
                     <div class="data">
                         <h2><span>{{ $count_universities }}</span>个</h2>
                         <p>参与高校</p>
                     </div>
                 </li>
-                <li class="achievement">
-                    <div class="logo"></div>
+                <li class="achievement" onclick="">
+                    <a href="{{ route('frontend.case.list') }}">
+                        <div class="logo"></div>
+                    </a>
                     <div class="data">
                         <h2><span>{{ $count_verify_through_application }}</span>个</h2>
                         <p>推选成果</p>
@@ -188,7 +191,8 @@
                     <a href="{{ $settings[1]->value }}">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
-                    <a href="{{ Storage::url('static/党支部报名表.docx') }}">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="{{ Storage::url('static/党支部报名表.docx') }}">3.党支部认证表<span
+                                class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
                     <a href="{{ Storage::url('static/参与流程.docx') }}">4.活动参与流程说明<span
@@ -297,7 +301,8 @@
                                                 <span><i class="icon iconfont">&#xe609;</i>{{ $work->fancy }}</span>
                                             </div>
                                             <div class="left">
-                                                <span><i class="icon iconfont">&#xe60a;</i><a href="{{ route('frontend.branch.show', $work->branch->id) }}">{{ $work->branch->name }}</a></span>
+                                                <span><i class="icon iconfont">&#xe60a;</i><a
+                                                            href="{{ route('frontend.branch.show', $work->branch->id) }}">{{ $work->branch->name }}</a></span>
                                             </div>
                                         </div>
                                     </div>
@@ -320,7 +325,8 @@
                                             <a href="{{ route('frontend.course.show', $tiny->id) }}">{{ $tiny->name }}</a>
                                         </h3>
                                         <span class="author"><i
-                                                    class="icon iconfont">&#xe60a;</i><a href="{{ route('frontend.branch.show', $tiny->branch->id) }}">{{ $tiny->branch->name }}</a></span>
+                                                    class="icon iconfont">&#xe60a;</i><a
+                                                    href="{{ route('frontend.branch.show', $tiny->branch->id) }}">{{ $tiny->branch->name }}</a></span>
                                         <p>{{ $tiny->summary }}</p>
                                         <div class="data">
                                             <span class="review"><i
@@ -346,7 +352,9 @@
                                 </a>
                             </div>
                             <div class="data">
-                                <h3><a href="{{ route('frontend.course.show', $teacher->id) }}">{{ $teacher->summary }}</a></h3>
+                                <h3>
+                                    <a href="{{ route('frontend.course.show', $teacher->id) }}">{{ $teacher->summary }}</a>
+                                </h3>
                                 <p class="label">
                                     <i class="iconfont">&#xe610;</i><span>推荐展示</span>
                                 </p>
@@ -355,7 +363,8 @@
                                                 class="iconfont">&#xe609;</i> {{ $teacher->comments->count() }}</span>
                                     <span class="click"><i class="iconfont">&#xe60e;</i>{{ $teacher->fancy }}</span>
                                 </p>
-                                <p class="department"><span class="iconfont">&#xe60a;</span><a href="{{ route('frontend.branch.show', $teacher->branch->id) }}">{{ $teacher->branch->name }}</a>
+                                <p class="department"><span class="iconfont">&#xe60a;</span><a
+                                            href="{{ route('frontend.branch.show', $teacher->branch->id) }}">{{ $teacher->branch->name }}</a>
                                 </p>
                             </div>
                         </li>
@@ -371,7 +380,8 @@
                                 </a>
                             </div>
                             <div class="data">
-                                <h3><a href="{{ route('frontend.course.show', $work->id) }}">{{ $student->name }}</a></h3>
+                                <h3><a href="{{ route('frontend.course.show', $work->id) }}">{{ $student->name }}</a>
+                                </h3>
                                 <p class="label">
                                     <i class="iconfont">&#xe610;</i><span>推荐展示</span>
                                 </p>
@@ -380,7 +390,9 @@
                                                 class="iconfont">&#xe609;</i> {{ $student->comments->count() }}</span>
                                     <span class="click"><i class="iconfont">&#xe60e;</i>{{ $student->fancy }}</span>
                                 </p>
-                                <p class="department"><span class="iconfont">&#xe60a;</span><a href="{{ route('frontend.branch.show', $student->branch->id) }}">{{ $student->branch->name }}</a></p>
+                                <p class="department"><span class="iconfont">&#xe60a;</span><a
+                                            href="{{ route('frontend.branch.show', $student->branch->id) }}">{{ $student->branch->name }}</a>
+                                </p>
                             </div>
                         </li>
                     @endforeach
@@ -486,6 +498,9 @@
         </script>
     @endif
     <script type="text/javascript">
+        var redirect = function (url) {
+            window.href = url;
+        }
         $(window).load(function () {
             $('#full_feature').swipeslider();
         });
@@ -517,9 +532,9 @@
             achBtn.style.display = "none"
         };
         moreBtn.onclick = function () {
-            more1.innerHTML = "<span>1.支部工作案例 : </span>工作案例汇集“两微一端”、组织生活会及其他方式的创新工作方法、典型事例、特色主题活动等。各高校根据“两学一做”学习教育精神，要求各教师党支部、大学生党支部深入贯彻落实习近平总书记关于“两学一做”学习教育工作的重要指示，鼓励师生党员创新学习方式、探索实践形式，将有关<b>工作案例</b>、<b>工作经验</b>和<b>先进典型</b>通过网络等多种媒体予以展示。工作案例需包含主题与思路、实施方法与过程、主要成效及经验等，要求文字简洁、重点突出，字数3000字以内。";
-            more2.innerHTML = "<span>2.微党课 : </span>鼓励各校教师党支部、大学生党支部积极联系实际讲党课，利用<b>微视频</b>、<b>动漫</b>等多种体裁形式，创新党课宣讲模式。党课选题紧扣师生学习生活实践，围绕“两学一做”、纪念建党95周年和红军长征胜利80周年等主题，要求内容完整，主题突出，结构合理，表达流畅，富有时代气息，符合党性要求。微党课视频时长<b>小于10分钟</b>。";
-            more3.innerHTML = "<span>3.教师党支部、大学生党支部推荐展示 : </span>各高校根据各教师党支部、大学生党支部开展“两学一做”学习教育的<b>优秀经验</b>和<b>实际成效</b>，评选出在学校能够叫得响、立得住、师生群众公认的教师党支部、大学生党支部，并且把典型材料推荐到活动平台进行展示。平台定期推送“支部风采”展示材料。<span style='color: red; font-size: 17px'> 提交的材料为图文或者是视频</span>";
+            more1.innerHTML = "<span>1.支部工作案例 : </span>工作案例汇集“两微一端”、组织生活会及其他方式的创新工作方法、典型事例、特色主题活动等。各高校根据“两学一做”学习教育精神，要求各教师党支部、大学生党支部深入贯彻落实习近平总书记关于“两学一做”学习教育工作的重要指示，鼓励师生党员创新学习方式、探索实践形式，将有关<b>工作案例</b>、<b>工作经验</b>和<b>先进典型</b>通过网络等多种媒体予以展示。工作案例需包含主题与思路、实施方法与过程、主要成效及经验等，要求文字简洁、重点突出，字数3000字以内 <span style='color:red; font-weight: bolder; font-size: 1.4em;'>提交的材料为图文</span>。";
+            more2.innerHTML = "<span>2.微党课 : </span>鼓励各校教师党支部、大学生党支部积极联系实际讲党课，利用<b>微视频</b>、<b>动漫</b>等多种体裁形式，创新党课宣讲模式。党课选题紧扣师生学习生活实践，围绕“两学一做”、纪念建党95周年和红军长征胜利80周年等主题，要求内容完整，主题突出，结构合理，表达流畅，富有时代气息，符合党性要求。微党课视频时长<b>小于10分钟</b>。 <span style='font-weight: bolder;color: red;font-size: 1.4em;'>提交的材料为视频</span>";
+            more3.innerHTML = "<span>3.教师党支部、大学生党支部推荐展示 : </span>各高校根据各教师党支部、大学生党支部开展“两学一做”学习教育的<b>优秀经验</b>和<b>实际成效</b>，评选出在学校能够叫得响、立得住、师生群众公认的教师党支部、大学生党支部，并且把典型材料推荐到活动平台进行展示。平台定期推送“支部风采”展示材料。<span style='color: red; font-weight: bolder; font-size: 1.4em;'> 提交的材料为图文或者是视频</span>";
             more2.style.whiteSpace = "normal";
             more2.style.overflow = "visible";
             more2.style.textOverflow = "clip";

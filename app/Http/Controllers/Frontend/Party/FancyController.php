@@ -21,15 +21,4 @@ class FancyController extends Controller
 
         return response()->json(['total' => $application->fancy]);
     }
-
-    public function unfancy($id)
-    {
-        $fancy = Fancy::where('user_id', Auth::user()->id)->where('application_id', $id)->first();
-        $fancy->delete();
-        $application = Application::find($id);
-        $application->fancy--;
-        $application->save();
-
-        return response()->json(['success' => true]);
-    }
 }
