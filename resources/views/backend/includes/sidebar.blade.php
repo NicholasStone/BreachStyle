@@ -49,9 +49,6 @@
             <li class="{{ Active::pattern('admin/access/*') }}">
                 {{ link_to_route('admin.access.user.index', trans('menus.backend.access.title')) }}
             </li>
-            <li class="{{ Active::pattern('admin/comments/*') }}">
-                {{ link_to_route('admin.comments.index', trans('menus.backend.comments.title')) }}
-            </li>
             @endauth
 
             <li class="{{ Active::pattern('admin/log-viewer*') }} treeview">

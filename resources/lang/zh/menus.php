@@ -36,11 +36,6 @@ return [
             ],
         ],
 
-        'comments' => [
-          'title' => '评论管理',
-            ''
-        ],
-
         'log-viewer' => [
             'main'      => '查看日志',
             'dashboard' => '仪表盘',

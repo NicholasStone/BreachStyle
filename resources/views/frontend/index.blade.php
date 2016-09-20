@@ -82,7 +82,7 @@
         </div>
     </div>
     <!-- Achievements -->
-    @if(isset($settings[3]) && $settings[3]->value)
+    @if($settings[3]->value)
         <!-- ChinaMap -->
         <div class="ChinaMap">
             <div class="content">
@@ -182,11 +182,10 @@
                     <img src="img/download.png"/>
                 </div>
                 <div class="downLoad">
-                    {{-- 这里需要改 --}}
-                    <a href="{{ isset($settings[0]) ? $settings[0]->value : '' }}">1.报名表下载<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="{{ $settings[0]->value }}">1.报名表下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
-                    <a href="{{ isset($settings[1]) ? $settings[1]->value : '' }}">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
+                    <a href="{{ $settings[1]->value }}">2.活动通知下载<span class="icon iconfont">&#xe611;</span></a>
                 </div>
                 <div class="downLoad">
                     <a href="{{ Storage::url('static/党支部报名表.docx') }}">3.党支部认证表<span class="icon iconfont">&#xe611;</span></a>
@@ -400,7 +399,7 @@
 @section('after-scripts-end')
     {!! Html::script('js/swipeslider.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/raphael/2.2.1/raphael.min.js') !!}
-    @if(isset($settings[3]) && $settings[3]->value)
+    @if($settings[3]->value)
 
         {!! Html::script('js/chinaMapConfig.js') !!}
         {!! Html::script('js/map.js') !!}
