@@ -35,7 +35,7 @@
 
         <div class="box-body">
             <div class="box-info bg-info" style="padding: 10px 20px;">
-                <form action="" class="form-inline" role="form">
+                <div class="form-inline">
                     <div class="form-group">
                         <label for="sr-only">成果名称</label>
                         <input type="text" class="form-control">
@@ -49,7 +49,7 @@
                         <input type="text" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-info">搜索</button>
-                </form>
+                </div>
             </div>
             <hr>
             <div class="table-responsive">

@@ -60,6 +60,10 @@ return [
             'welcome' => '欢迎',
         ],
 
+        'comments' => [
+            'title' => '评论管理'
+        ],
+
         'general' => [
             'all_rights_reserved' => '版权所有',
             'are_you_sure'        => '您确定吗？',

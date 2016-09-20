@@ -35,4 +35,27 @@ class CommentController extends Controller
         return redirect()->back()->withFlashSuccess("操作成功");
     }
 
+    /**
+     * 返回视图
+     */
+    public function index()
+    {
+        return view('backend.comments');
+    }
+    /**
+     * 由bootstrapTable的ajax调用，返回所有评论的json
+     */
+    public function get()
+    {
+        return Datatables::collection();
+    }
+    /**
+     * 删除指定评论
+     * @param Request $request
+     * @param $id
+     */
+    public function delete(Request $request, $id)
+    {
+    }
+
 }
