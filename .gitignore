@@ -25,3 +25,5 @@ npm-debug.log
 public/build/css/font/
 public/upload/
 public/vendor/bin/
+app/Http/Routes/Backend/Comments.php
+resources/views/backend/comments.blade.php

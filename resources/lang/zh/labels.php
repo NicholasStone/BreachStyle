@@ -74,6 +74,18 @@ return [
             ],
         ],
 
+        'comments' => [
+            'label' => '评论管理',
+            'table' => [
+                'id' => 'ID',
+                'user_name' => '评论人',
+                'application_name' => '评论文章',
+                'content' => '评论内容',
+                'time' => '评论时间',
+                'delete' => '删除'
+            ]
+        ],
+
         'verification' => [
             'application' => [
                 'management' => '成果展示申请表审核',

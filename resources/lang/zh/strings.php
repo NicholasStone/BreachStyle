@@ -59,6 +59,10 @@ return [
             'title'   => '管理员面板',
             'welcome' => '欢迎',
         ],
+        
+        'comments' => [
+            'title' => '评论管理'
+        ],
 
         'general' => [
             'all_rights_reserved' => '版权所有',

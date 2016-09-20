@@ -1,5 +1,5 @@
 <?php
-//Auth::loginUsingId(1);
+Auth::loginUsingId(1);
 Route::group(['middleware' => 'web'], function () {
     /**
      * Switch between the included languages
@@ -36,6 +36,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'ad
      */
     require(__DIR__ . '/Routes/Backend/Dashboard.php');
     require(__DIR__ . '/Routes/Backend/Access.php');
+    require(__DIR__ . '/Routes/Backend/Comments.php');
     require(__DIR__ . '/Routes/Backend/LogViewer.php');
     require(__DIR__ . '/Routes/Backend/Verification.php');
     require(__DIR__ . '/Routes/Backend/Settings.php');
