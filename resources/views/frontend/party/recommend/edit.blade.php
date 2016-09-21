@@ -4,7 +4,7 @@
     {!! Html::style('css/frontend/create.css') !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
     {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
-    @include('UEditor::head')
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section("content")
@@ -79,29 +79,7 @@
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.recommend.upload'), 'required'=>false])
-    <script type="text/javascript">
-        var ue = UE.getEditor('detail', {
-            autoHeight: true,
-            maximumWords: 3000
-        });
-        ue.ready(function () {
-            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}');
-        });
-    </script>
     <script>
-        function uploadEntry() {
-            var entry = document.getElementById("entry").files;
-            alert("已选择 " + entry[0].name);
-        }
-        function uploadPreview() {
-            var casePreview = document.getElementById("showPreview").files;
-            alert("已选择 " + casePreview[0].name);
-        }
-        $(function () {
-            $('#edit').editable({
-                inlineMode: false,
-                alwaysBlank: true
-            })
-        });
+        CKEDITOR.replace( 'detail' );
     </script>
 @endsection

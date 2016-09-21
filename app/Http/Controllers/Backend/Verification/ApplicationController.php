@@ -48,7 +48,7 @@ class ApplicationController extends VerificationController
         if ($v != 2) {
             return Datatables::of(Application::with('branch')
                 ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
-                ->where('verification', '!=', $v)
+//                ->where('verification', '!=', $v)
                 ->orderBy('created_at', 'desc')
                 ->get()
             )

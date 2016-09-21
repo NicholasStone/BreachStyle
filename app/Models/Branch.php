@@ -10,7 +10,7 @@ class Branch extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'secretary_summary', 'total_membership', 'summary', 'avatar', 'address', 'type', 'tel', 'university', 'apply_img', 'detail'];
+    protected $fillable = ['name', 'secretary_summary', 'total_membership', 'summary', 'avatar', 'address', 'type', 'tel', 'university', 'apply_img', 'detail', 'deleted_at'];
 
     public function secretary()
     {

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Branch;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Datatables;
 
@@ -48,7 +49,10 @@ class BranchController extends VerificationController
         if (!$branch) {
             abort(404);
         }
-
+        $applications = Application::onlyTrashed()->where('branch_id', $branch->id)->get();
+        $applications->each(function ($item){
+            $item->restore();
+        });
         Notifynder::category('branch.restore')
             ->from(\Auth::user()->id)
             ->to($branch->secretary->id)
@@ -81,7 +85,7 @@ class BranchController extends VerificationController
 
     public function detail($id)
     {
-        $branch = Branch::where('id', $id)->firstOrFail();
+        $branch = Branch::find($id);
         if (!$branch){
             $branch = Branch::onlyTrashed()->where('id', $id)->first();
             $branch || abort(404);
@@ -112,6 +116,10 @@ class BranchController extends VerificationController
     public function delete(Request $request, $id)
     {
         $branch = Branch::findOrFail($id);
+        $applications = $branch->applications;
+        $applications->each(function ($item){
+            $item->delete();
+        });
 
         Notifynder::category('branch.delete')
             ->from(\Auth::user()->id)

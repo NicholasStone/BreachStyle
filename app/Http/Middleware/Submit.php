@@ -29,7 +29,7 @@ class Submit
             }
         }
 
-        alert()->error('后台管理员不能提交信息');
+        alert()->error('您不能提交信息');
         return redirect()->route('frontend.user.profile.detail');
     }
 }

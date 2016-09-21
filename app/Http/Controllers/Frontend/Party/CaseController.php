@@ -75,11 +75,14 @@ class CaseController extends Controller
      */
     public function show($id)
     {
-        $application = Application::findOrFail($id);
-        $comments = $application->comments;
-        $branch = $application->branch;
-        $university = $branch->university;
-
+        $application = Application::find($id);
+        if ($application instanceof Application) {
+            $comments = $application->comments;
+            $branch = $application->branch;
+            $university = $branch->university;
+        }else{
+            abort(404);
+        }
         return view('frontend.party.case.detail', compact("application", "comments", "branch", "university"));
     }
 
