@@ -4,10 +4,13 @@ namespace App\Models;
 
 use App\Models\Access\User\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Branch extends Model
 {
-    protected $fillable = ['name', 'secretary', 'secretary_summary', 'total_membership', 'summary', 'avatar', 'address', 'type', 'tel', 'university', 'apply_img', 'detail'];
+    use SoftDeletes;
+
+    protected $fillable = ['name', 'secretary_summary', 'total_membership', 'summary', 'avatar', 'address', 'type', 'tel', 'university', 'apply_img', 'detail'];
 
     public function secretary()
     {

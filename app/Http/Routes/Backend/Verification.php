@@ -13,6 +13,8 @@ Route::group([
     Route::get('branch/search', 'BranchController@search')->name('admin.verify.branch.search');
     Route::get('branch/grant/{id}', 'BranchController@grant')->name('admin.verify.branch.grant');
     Route::get('branch/deny/{id}', 'BranchController@deny')->name('admin.verify.branch.deny');
+    Route::get('branch/delete/{id}', 'BranchController@delete')->name('admin.verify.branch.delete');
+    Route::get('branch/restore/{id}', 'BranchController@restore')->name('admin.verify.branch.restore');
     Route::get('branch/detail/{id}', 'BranchController@detail')->name('admin.verify.branch.detail');
     Route::get('branch/excel', 'BranchController@excel')->name('admin.verify.branch.excel');
     /**

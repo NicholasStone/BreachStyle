@@ -143,6 +143,12 @@ class CourseController extends Controller
     public function edit($id)
     {
         $application = Application::findOrFail($id);
+
+
+        if($application->verification != -1){
+            alert()->error("您现在不能修改成功信息");
+            return redirect()->back();
+        }
         return view('frontend.party.course.edit', $application);
     }
 

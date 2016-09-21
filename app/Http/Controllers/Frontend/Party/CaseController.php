@@ -90,8 +90,10 @@ class CaseController extends Controller
     {
         $application = Application::findOrFail($id);
 
-//        dd($application->toArray());
-
+        if($application->verification != -1){
+            alert()->error("您现在不能修改成功信息");
+            return redirect()->back();
+        }
         return view('frontend.party.case.edit', $application);
     }
 
