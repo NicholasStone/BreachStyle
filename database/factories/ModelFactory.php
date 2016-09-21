@@ -64,7 +64,7 @@ $factory->define(\App\Models\Application::class, function (Faker\Generator $fake
         'type'            => rand(1, 4),
         'summary'         => $faker->sentence,
         'detail'          => $faker->paragraph,
-        'verification'    => rand(0, 1),
+        'verification'    => rand(-1, 2),
         'branch_id'       => $faker->randomElement($branch_ids),
         'branch_type'     => rand(1, 2),
         'img_hash'        => $faker->imageUrl(256, 256),

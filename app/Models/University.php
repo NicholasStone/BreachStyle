@@ -20,8 +20,11 @@ class University extends Model
         return $this->hasMany(Branch::class, 'university', 'name');
     }
 
+    /**
+     * 学校-支部-应用   远程多对一
+     */
     public function applications()
     {
-        return $this->hasManyThrough(Application::class,Branch::class, 'university', 'branch_id');
+        return $this->hasManyThrough(Application::class,Branch::class, 'university', 'branch_id', 'name');
     }
 }

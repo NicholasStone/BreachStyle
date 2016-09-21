@@ -19,21 +19,46 @@
                 {{trans("labels.backend.verification.branch.management")}}
             </h3>
 
-            <div class="box-tools pull-right">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        选项 <span class="caret"></span>
-                    </button>
+            {{--<div class="box-tools pull-right">--}}
+                {{--<div class="btn-group">--}}
+                    {{--<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">--}}
+                        {{--选项 <span class="caret"></span>--}}
+                    {{--</button>--}}
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="javascript:void (0);" id="denied">未通过</a></li>
-                        <li><a href="javascript:void (0);" id="unhandled">已通过</a></li>
-                    </ul>
-                </div><!--btn group-->
-            </div>
+                    {{--<ul class="dropdown-menu" role="menu">--}}
+                        {{--<li><a href="javascript:void (0);" id="denied">未通过</a></li>--}}
+                        {{--<li><a href="javascript:void (0);" id="unhandled">已通过</a></li>--}}
+                    {{--</ul>--}}
+                {{--</div><!--btn group-->--}}
+            {{--</div>--}}
         </div><!-- /.box-header -->
 
         <div class="box-body">
+            <div class="box-info bg-info" style="padding: 10px 20px;">
+                <div class="form-inline row">
+                    <div class="form-group">
+                        <label for="sr-only">支部名称</label>
+                        <input type="text" name="branch_name" id="branch_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="sr-only">支部类型</label>
+                        <select name="branch_type" id="branch_type" class="form-control">
+                            <option value="0">全部</option>
+                            <option value="学生党支部">学生党支部</option>
+                            <option value="教师党支部">教师党支部</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sr-only">审核状态</label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="0">未通过</option>
+                            <option value="1">已通过</option>
+                        </select>
+                    </div>
+                    <button id="search" class="btn btn-info">搜索</button>
+                </div>
+                </div>
+            <hr>
             <div class="table-responsive">
                 <table id="branchs-table" class="table table-condensed table-hover">
                     <thead>
@@ -66,7 +91,7 @@
                 serverSide: true,
                 ajax: {
                     url: url,
-                    type: 'post'
+                    type: 'get'
                 },
                 columns: [
                     {data: 'name'},
@@ -78,14 +103,20 @@
                 order: [[0, "asc"]],
                 searchDelay: 500
             });
-            $("#unhandled").click(function () {
-                url = "{{ route("admin.verify.branch.get", ['v' => 1]) }}";
+            $("#search").click(function () {
+                url = "{{ route("admin.verify.branch.search") }}"+"?branch_name="+$("#branch_name").val()+
+                        "&branch_type="+$("#branch_type").val()+"&status="+$("#status").val();
                 table.ajax.url(url).load();
             });
-            $("#denied").click(function () {
-                url = "{{ route("admin.verify.branch.get", ['v' => 0]) }}";
-                table.ajax.url(url).load();
-            });
+
+            {{--$("#unhandled").click(function () {--}}
+                {{--url = "{{ route("admin.verify.branch.get", ['v' => 1]) }}";--}}
+                {{--table.ajax.url(url).load();--}}
+            {{--});--}}
+            {{--$("#denied").click(function () {--}}
+                {{--url = "{{ route("admin.verify.branch.get", ['v' => 0]) }}";--}}
+                {{--table.ajax.url(url).load();--}}
+            {{--});--}}
         });
     </script>
 @stop

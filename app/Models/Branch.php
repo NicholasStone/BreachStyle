@@ -14,6 +14,11 @@ class Branch extends Model
         return $this->belongsTo(User::class, 'secretary', 'id');
     }
 
+    public function university()
+    {
+        return $this->belongsTo(University::class,'university');
+    }
+
     public function members()
     {
         return $this->hasMany(User::class);
@@ -37,5 +42,29 @@ class Branch extends Model
     public function getSecretaryAttribute($value)
     {
         return User::find($value);
+    }
+
+    public function scopeIsHasName($query, $name)
+    {
+        if ($name){
+            return $query->where('name', 'like','%'.$name.'%');
+        }
+        return $query;
+    }
+
+    public function scopeIsHasType($query, $type)
+    {
+        if ($type){
+            return $query->where('type', $type);
+        }
+        return $query;
+    }
+
+    public function scopeIsVerify($query, $status)
+    {
+        if ($status == 0 || $status == 1){
+            return $query->where('verification', $status);
+        }
+        return $query;
     }
 }

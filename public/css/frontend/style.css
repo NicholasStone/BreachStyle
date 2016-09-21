@@ -321,8 +321,23 @@ body {
     color: #b3151e;
     text-indent: .875em;
 }
+.searchBox .mask .content ul li.Search select{
+    width: 15%;
+    height: 42px;
+    padding-left: 12px;
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    padding-right: 28px;
+    float: left;
+    outline: none;
+    background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center #ececec;
+}
+.searchBox .mask .content ul li.Search select::-ms-expand {
+    display: none;
+}
 .searchBox .mask .content ul li.Search input{
-    width: 85%;
+    width: 70%;
     height: 42px;
     border: none;
     outline: none;

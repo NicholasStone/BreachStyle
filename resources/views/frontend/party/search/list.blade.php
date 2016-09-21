@@ -22,15 +22,13 @@
                         <ul>
                             @foreach($page as $item)
                                 <li>
-                                    @if($item->type == "工作案例")
-                                        <a href="{{ route('frontend.case.show', $item->id) }}">
-                                    @elseif($item->type == "微党课")
-                                        <a href="{{ route('frontend.course.show', $item->id) }}">
-                                    @elseif($item->type == "学生党支部推荐展示" || $type == "教师党支部推荐展示")
-                                        <a href="{{ route('frontend.recommend.show', $item->id) }}">
-                                    @endif
+                                    <a href=" @if($item->type == "工作案例") {{ route('frontend.case.show', $item->id) }} @endif
+                                                @if($item->type == "微党课") {{ route('frontend.course.show', $item->id) }}@endif
+                                                @if($item->type == "学生党支部推荐展示") {{ route('frontend.recommend.show', $item->id) }}@endif">
+
                                         <div class="searchLeft">
                                             <h3>{{ $item->name }}</h3>
+                                            <p>{{ $item->summary }}</p>
                                             <span><i class="icon iconfont">&#xe60e;</i>{{ $item->fancy }}</span>
                                             <span><i class="icon iconfont">&#xe609;</i>{{ $item->total_comment }}</span>
                                         </div>

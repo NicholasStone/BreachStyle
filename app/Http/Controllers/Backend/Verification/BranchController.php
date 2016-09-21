@@ -11,6 +11,18 @@ use Yajra\Datatables\Datatables;
 
 class BranchController extends VerificationController
 {
+
+    protected $branch;
+
+    /**
+     * BranchController constructor.
+     * @param $branch
+     */
+    public function __construct(Branch $branch)
+    {
+        $this->branch = $branch;
+    }
+
     public function index()
     {
         return view("backend.verification.branch.index")
@@ -20,8 +32,7 @@ class BranchController extends VerificationController
     public function gets($v = 0)
     {
         return Datatables::of(
-            Branch::where('verification', $v)
-                ->orderBy('created_at', 'asc')
+            Branch::orderBy('created_at', 'asc')
                 ->get())
             ->addColumn('operations', function ($branch) {
                 return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
@@ -106,5 +117,17 @@ class BranchController extends VerificationController
         }
 
         return $data;
+    }
+
+    public function search(Request $request)
+    {
+        return Datatables::of(
+            $this->branch->isHasName($request->get('branch_name'))->isHasType($request->get('branch_type'))
+                ->isVerify($request->get('status'))->orderBy('created_at', 'asc')->get()
+            )
+            ->addColumn('operations', function ($branch) {
+            return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
+            })
+            ->make(true);
     }
 }

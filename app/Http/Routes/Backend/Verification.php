@@ -8,7 +8,9 @@ Route::group([
      * 创建党支部资料审核
      */
     Route::get('branch', 'BranchController@index')->name('admin.verify.branch');
-    Route::post('branch/get/{v}', 'BranchController@gets')->name('admin.verify.branch.get');
+    Route::get('branch/get/{v}', 'BranchController@gets')->name('admin.verify.branch.get');
+//    branch 分类检索
+    Route::get('branch/search', 'BranchController@search')->name('admin.verify.branch.search');
 //    Route::any('branch/get/{v}', 'BranchController@unhandled')->name('admin.verify.branch.get');
     Route::get('branch/grant/{id}', 'BranchController@grant')->name('admin.verify.branch.grant');
     Route::get('branch/deny/{id}', 'BranchController@deny')->name('admin.verify.branch.deny');
@@ -20,6 +22,13 @@ Route::group([
     Route::get('application', 'ApplicationController@index')->name('admin.verify.application');
 //    Route::post('application/get/{v}', 'ApplicationController@unhandled')->name('admin.verify.application.get');
     Route::any('application/get/{v}', 'ApplicationController@gets')->name('admin.verify.application.get');
+
+//    审核页面搜索路由
+    Route::get(
+        'application/search',
+        'ApplicationController@search')
+        ->name('admin.verify.application.search');
+
     Route::get('application/grant/{id}', 'ApplicationController@grant')->name('admin.verify.application.grant');
     Route::get('application/deny/{id}', 'ApplicationController@deny')->name('admin.verify.application.deny');
     Route::get('application/delete/{id}', 'ApplicationController@delete')->name('admin.verify.application.delete');

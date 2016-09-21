@@ -19,36 +19,45 @@
                 {{trans("labels.backend.verification.application.management")}}
             </h3>
             {{--<div class="box-tools pull-right">--}}
-                {{--<div class="btn-group">--}}
-                    {{--<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">--}}
-                        {{--选项 <span class="caret"></span>--}}
-                    {{--</button>--}}
+            {{--<div class="btn-group">--}}
+            {{--<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">--}}
+            {{--选项 <span class="caret"></span>--}}
+            {{--</button>--}}
 
-                    {{--<ul class="dropdown-menu" role="menu">--}}
-                        {{--<li><a href="javascript:void (0);" id="unhandled">待审核</a></li>--}}
-                        {{--<li><a href="javascript:void (0);" id="granted">已通过</a></li>--}}
-                        {{--<li><a href="javascript:void (0);" id="denied">已驳回</a></li>--}}
-                    {{--</ul>--}}
-                {{--</div><!--btn group-->--}}
+            {{--<ul class="dropdown-menu" role="menu">--}}
+            {{--<li><a href="javascript:void (0);" id="unhandled">待审核</a></li>--}}
+            {{--<li><a href="javascript:void (0);" id="granted">已通过</a></li>--}}
+            {{--<li><a href="javascript:void (0);" id="denied">已驳回</a></li>--}}
+            {{--</ul>--}}
+            {{--</div><!--btn group-->--}}
             {{--</div>--}}
         </div><!-- /.box-header -->
 
         <div class="box-body">
             <div class="box-info bg-info" style="padding: 10px 20px;">
-                <div class="form-inline">
+                <div class="form-inline row">
                     <div class="form-group">
                         <label for="sr-only">成果名称</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="application_name" id="application_name" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="sr-only">成果类别</label>
-                        <input type="text" class="form-control">
+                        <label for="sr-only">学校</label>
+                        <input type="text" name="university_name" id="university_name" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="sr-only">上传支部</label>
-                        <input type="text" class="form-control">
+                        <input type="text" name="branch_name" id="branch_name" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-info">搜索</button>
+                    <div class="form-group">
+                        <label for="sr-only">审核状态</label>
+                        <select class="form-control" id="status" name="status">
+                            <option value="-1">驳回</option>
+                            <option value="0">待审核</option>
+                            <option value="1">通过</option>
+                            <option value="2">已删除</option>
+                        </select>
+                    </div>
+                    <button id="search" class="btn btn-info">搜索</button>
                 </div>
             </div>
             <hr>
@@ -58,6 +67,7 @@
                     <tr>
                         <th>成果名称</th>
                         <th>成果类别</th>
+                        <th>学校</th>
                         <th>上传支部</th>
                         <th>申报时间</th>
                         <th>操作</th>
@@ -66,7 +76,8 @@
                 </table>
             </div><!--table-responsive-->
             <br>
-            <a target="_blank" href="{{ route("admin.verify.application.excel") }}" class="btn btn-default btn-flat" id="excel">全部导出为Excel</a>
+            <a target="_blank" href="{{ route("admin.verify.application.excel") }}" class="btn btn-default btn-flat"
+               id="excel">全部导出为Excel</a>
             <p style="color: red">因为数据量大，加载时间可能略长，请耐心等候，谢谢。</p>
         </div><!-- /.box-body -->
     </div><!--box-->
@@ -88,20 +99,23 @@
     {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
     {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
 
+
     <script>
         $(function () {
             var url = "{{ route("admin.verify.application.get", ['v' => 0]) }}";
             var table = $('#table').DataTable({
+                locale: 'zh-CN',
                 processing: true,
                 serverSide: true,
-                searching: false,
+                searching: true,
                 ajax: {
                     url: url,
-                    type: 'post'
+                    type: 'get'
                 },
                 columns: [
                     {data: 'name'},
                     {data: 'type'},
+                    {data: 'branch.university.name'},
                     {data: 'branch.name'},
                     {data: 'created_at'},
                     {data: 'operations'}
@@ -109,18 +123,27 @@
                 order: [[0, "asc"]]
 //                searchDelay: 500
             });
-            $("#granted").click(function () {
-                url = "{{ route("admin.verify.application.get", ['v' => 1]) }}";
+
+            $("#search").click(function () {
+                url = "{{ route('admin.verify.application.search') }}"+"?application_name=" + $("#application_name").val()
+                        + "&branch_name=" + $("#branch_name").val() + "&university_name=" + $("#university_name").val() +
+                        "&status=" + $("#status").val();
+
                 table.ajax.url(url).load();
             });
-            $("#unhandled").click(function () {
-                url = "{{ route("admin.verify.application.get", ['v' => 0]) }}";
-                table.ajax.url(url).load();
-            });
-            $("#denied").click(function () {
-                url = "{{ route("admin.verify.application.get", ['v' => -1]) }}";
-                table.ajax.url(url).load();
-            });
+
+            {{--$("#granted").click(function () {--}}
+            {{--url = "{{ route("admin.verify.application.get", ['v' => 1]) }}";--}}
+            {{--table.ajax.url(url).load();--}}
+            {{--});--}}
+            {{--$("#unhandled").click(function () {--}}
+            {{--url = "{{ route("admin.verify.application.get", ['v' => 0]) }}";--}}
+            {{--table.ajax.url(url).load();--}}
+            {{--});--}}
+            {{--$("#denied").click(function () {--}}
+            {{--url = "{{ route("admin.verify.application.get", ['v' => -1]) }}";--}}
+            {{--table.ajax.url(url).load();--}}
+            {{--});--}}
         });
     </script>
 @stop

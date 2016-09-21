@@ -8,12 +8,23 @@ use App\Models\Application;
 use App\Http\Controllers\Common\FileStorage;
 use Carbon\Carbon;
 use Fenos\Notifynder\Facades\Notifynder;
+use Illuminate\Support\Facades\App;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Facades\Datatables;
 
 class ApplicationController extends VerificationController
 {
     use FileStorage;
+
+    protected $application;
+
+    /**
+     * ApplicationController constructor.
+     */
+    public function __construct(Application $application)
+    {
+        $this->application = $application;
+    }
 
     public function index()
     {
@@ -24,8 +35,7 @@ class ApplicationController extends VerificationController
     public function gets($v = 0)
     {
         return Datatables::of(Application::with('branch')
-            ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
-            ->where('verification', $v)
+            ->select([ 'id', 'name', 'type', 'created_at', 'branch_id' ])
             ->orderBy('created_at', 'desc')
             ->get()
         )
@@ -79,7 +89,7 @@ class ApplicationController extends VerificationController
             ->from(\Auth::user()->id)
             ->to($apply->branch->secretary->id)
             ->url($redirect)
-            ->extra(['application_name' => $apply->name])
+            ->extra([ 'application_name' => $apply->name ])
             ->send();
 
         return redirect()->back()->withFlashSuccess("操作成功");
@@ -88,7 +98,7 @@ class ApplicationController extends VerificationController
     public function deny(Request $request, $id)
     {
         $apply = Application::findOrFail($id);
-        $apply->verification = -1;
+        $apply->verification = - 1;
         $apply->save();
 
         $redirect = '';
@@ -147,23 +157,51 @@ class ApplicationController extends VerificationController
             "id", "name", "type", "verification", "branch_type", "created_at", "branch_id", "updated_at", "detail", "summary",
         ])->get();
 
-        $data = [];
+        $data = [ ];
         foreach ($application as $key => $item) {
             array_push($data, [
-                '#'       => $item->id,
-                '提交作品题目'  => $item->name,
-                '提交作品类型'  => $item->type,
-                '支部名称'    => $item->branch->name,
-                '支部类型'    => $item->branch->type,
-                '所属学校'    => $item->branch->university->name,
-                '简介'      => $item->summary,
-                '详情'      => $item->detail,
+                '#' => $item->id,
+                '提交作品题目' => $item->name,
+                '提交作品类型' => $item->type,
+                '支部名称' => $item->branch->name,
+                '支部类型' => $item->branch->type,
+                '所属学校' => $item->branch->university->name,
+                '简介' => $item->summary,
+                '详情' => $item->detail,
                 '是否已通过审核' => $item->verification ? "是" : "否",
-                '提交于'     => $item->created_at,
-                '通过于'     => $item->verification ? $item->updated_at : "未审核",
+                '提交于' => $item->created_at,
+                '通过于' => $item->verification ? $item->updated_at : "未审核",
             ]);
         }
 
         return $data;
     }
+
+    /**
+     * 用于管理员检索申请表
+     * @param Request $request
+     * @return
+     * @internal param $application_name
+     * @internal param $university_name
+     * @internal param $branch_name
+     * @internal param int $v
+     */
+    public function search(Request $request)
+    {
+        return Datatables::of($this->application->whereName($request->get('application_name'))->select([ 'id', 'name', 'type', 'created_at', 'branch_id' ])->where('verification', $request->get('status'))
+            ->whereHas('branch', function ($query) use ($request) {
+                if ($request->get('branch_name')) {
+                    $query->where('name', 'like', '%' . $request->get('branch_name') . '%');
+                }
+                if ($request->get('university_name')) {
+                    $query->where('university', 'like', '%' . $request->get('university_name') . '%');
+                }
+            })->with('branch')->orderBy('created_at', 'desc')->get()
+        )
+            ->addColumn('operations', function ($apply) {
+                return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
+            })
+            ->make(true);
+    }
+
 }

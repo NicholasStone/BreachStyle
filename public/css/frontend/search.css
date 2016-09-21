@@ -29,6 +29,17 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 }
+.caseList ul li a .searchLeft p{
+	display: -webkit-box;
+	overflow: hidden;
+	white-space: normal !important;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	height: 42px;
+	line-height: 21px;
+}
 .caseList ul li a .searchLeft span{
 	width: 45%;
 	display: block;

@@ -33,4 +33,13 @@ class Application extends Model
     {
         return $this->hasMany(Fancy::class);
     }
+
+    public function scopeWhereName($query, $application_name)
+    {
+        if ($application_name){
+            return $query->where('name', 'like', '%' . $application_name . '%');
+        }
+        return $query;
+    }
+
 }
