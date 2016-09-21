@@ -29,25 +29,6 @@
                 dialog.modal();
             });
         });
-        $(function () {
-            var url = '{{ route("admin.verify.comment.get", $id) }}';
-            var table = $('#comments-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: url,
-                    type: 'post'
-                },
-                columns: [
-                    {data: 'user.name'},
-                    {data: 'comment'},
-                    {data: 'created_at'},
-                    {data: 'operations'}
-                ],
-                order: [[0, "asc"]],
-                searchDelay: 500
-            });
-        });
     </script>
 @endsection
 
@@ -118,7 +99,9 @@
                         <a href="{{ route('admin.verify.application.grant', $id) }}"
                            class="btn bg-olive btn-flat">通过</a>
                     @endif
-                    <button id="deny-btn" class="btn bg-orange btn-flat">驳回</button>
+                    @if($verification != -1)
+                        <button id="deny-btn" class="btn bg-orange btn-flat">驳回</button>
+                    @endif
                     <button id="delete-btn" class="btn bg-maroon btn-flat">删除</button>
                 @endif
             </div>

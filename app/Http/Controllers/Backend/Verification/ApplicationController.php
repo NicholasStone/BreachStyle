@@ -61,8 +61,8 @@ class ApplicationController extends VerificationController
 
     public function restore($id)
     {
-        $apply = Application::find($id);
-        if ($apply->trashed()) {
+        $apply = Application::onlyTrashed()->where('id', $id)->first();
+        if ($apply) {
             $apply->restore();
             $apply->verification = 0;
             $apply->save();

@@ -3,10 +3,11 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
     Route::get('fancy/{id}', 'FancyController@fancy')->name('frontend.fancy');
 
     Route::group(['prefix' => 'branch'], function () {
-//        Route::get('bind', 'BranchController@show')->name('frontend.branch.bind');
-        Route::post('bind', 'BranchController@update')->name('frontend.branch.update');
+//        Route::post('bind', 'BranchController@update')->name('frontend.branch.update');
         Route::get('establish', 'BranchController@create')->name('frontend.branch.establish');
         Route::post('create', 'BranchController@store')->name('frontend.branch.create');
+        Route::get('edit/{id}', 'BranchController@edit')->name('frontend.branch.edit');
+        Route::post('edit/{id}', 'BranchController@update')->name('frontend.branch.update');
         Route::get('get', 'BranchController@get')->name('frontend.branch.get');
     });
 

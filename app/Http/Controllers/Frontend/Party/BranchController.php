@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
+use Alpha\B;
 use Auth;
 use Validator;
 use App\Models\Branch;
@@ -81,15 +82,16 @@ class BranchController extends Controller
         $all['avatar'] = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
         $all['apply_img'] = $this->saveImage($request->file('apply'), 'Applications/Branch');
 //        $secretary
-        $all['secretary'] = $user->id;
         $all['university'] = $user->university->name;
         $all['type'] = $user->type == '学生' ? '学生党支部' : '教师党支部';
         $branch = Branch::create($all);
+        $branch->secretary = $user->id;
+        $branch->save();
         $user->branch_id = $branch ? $branch->id : '';
-        $user->attachRole(2);
+//        $user->attachRole(2);
         $user->save();
 //        dd($branch);
-        alert()->success('支部创建成功，您可以上传成果或浏览首页');
+        alert()->success('支部创建成功，请耐心等待审核通过');
 
         return redirect()->route('frontend.index');
     }
@@ -118,7 +120,14 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-        //
+        $branch = Branch::findOrFail($id);
+        if ($branch->verification != -1) {
+            alert()->error("您现在不能修改支部信息");
+
+            return redirect()->back();
+        } else {
+            return view('frontend.party.branch.edit', Branch::find($id));
+        }
     }
 
     /**
@@ -130,7 +139,44 @@ class BranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'name'              => 'required',
+//            'avatar'            => 'required',
+//            'university'        => 'required|exists:universities,name',
+//            'secretary'         => 'required|exists:users,name',
+            'secretary_summary' => 'required|max:100',
+            'total_membership'  => 'required',
+            'tel'               => 'required',
+            'address'           => 'required|max:200',
+            'summary'           => 'required|max:300',
+            'detail'            => 'required',
+//            'apply'             => 'required',
+        ]);
+
+        if ($validate->fails()) {
+            alert()->error($validate->errors()->all());
+
+            return redirect()->back();
+        }
+
+        $branch = Branch::findOrFail($id);
+        $all = $request->all();
+
+        if ($request->file('avatar')) {
+            $img_hash = $this->saveImage($request->file('avatar'), "Branch/avatar");
+            $all['avatar'] = $img_hash;
+        }
+        if ($request->file('apply_img')) {
+            $apply_hash = $this->saveImage($request->file('apply_img'), "Applications/Branch");
+            $all['apply_img'] = $apply_hash;
+        }
+        $branch->verification = 0;
+        $branch->update($all);
+        $branch->save();
+
+        alert()->success('提交成功，请等待审核通过');
+
+        return redirect()->route('frontend.index');
     }
 
     /**

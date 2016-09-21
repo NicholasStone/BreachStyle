@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Backend\Verification;
 
+use Alpha\B;
+use Fenos\Notifynder\Facades\Notifynder;
 use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Branch;
@@ -31,21 +33,48 @@ class BranchController extends VerificationController
 
     public function restore($id)
     {
-        // TODO: Implement restore() method.
+        $branch = Branch::onlyTrashed()->where('id', $id)->first();
+        if (!$branch) {
+            abort(404);
+        }
+
+        Notifynder::category('branch.restore')
+            ->from(\Auth::user()->id)
+            ->to($branch->secretary->id)
+            ->url(route('frontend.branch.show', $branch->id))
+            ->send();
+
+        $branch->verification = 0;
+        $branch->restore();
+
+        return redirect()->back()->withFlashSuccess("恢复成功");
     }
 
     public function grant($id)
     {
         $branch = Branch::findOrFail($id);
         $branch->verification = 1;
+        $secretary = $branch->secretary;
+        $secretary->attachRole(2);
+        $secretary->save();
         $branch->save();
 
-        return redirect()->route('admin.verify.branch');
+        Notifynder::category('branch.granted')
+            ->from(\Auth::user()->id)
+            ->to($branch->secretary->id)
+            ->url(route('frontend.branch.show', $branch->id))
+            ->send();
+
+        return redirect()->back()->withFlashSuccess('操作成功');
     }
 
     public function detail($id)
     {
         $branch = Branch::where('id', $id)->firstOrFail();
+        if (!$branch){
+            $branch = Branch::onlyTrashed()->where('id', $id)->first();
+            $branch || abort(404);
+        }
         $branch->sercetary;
 
 //        dd($branch->toArray());
@@ -55,25 +84,37 @@ class BranchController extends VerificationController
     public function deny(Request $request, $id)
     {
         $branch = Branch::findOrFail($id);
-        $application = $branch->application;
-        if ($application->count()) {
-            $application->each(function ($item){
-                $item->delete();
-            });
-        }
-        $members = $branch->members;
-        $members->each(function ($member) {
-            $member->branch_id = null;
-            $member->save();
-        });
-        $branch->delete();
 
-        return redirect()->route('admin.verify.branch');
+        $branch->verification = -1;
+        $branch->save();
+
+        Notifynder::category('branch.denied')
+            ->from(\Auth::user()->id)
+            ->to($branch->secretary->id)
+            ->url(route('frontend.branch.edit', $branch->id))
+            ->extra(['reason' => $request->get('reason')])
+            ->send();
+
+        return redirect()->back()->withFlashSuccess("操作成功");
     }
 
     public function delete(Request $request, $id)
     {
-        // TODO: Implement delete() method.
+        $branch = Branch::findOrFail($id);
+
+        Notifynder::category('branch.delete')
+            ->from(\Auth::user()->id)
+            ->to($branch->secretary->id)
+            ->url("javascript:void(0)")
+            ->extra(['reason' => $request->get('reason')])
+            ->send();
+
+        $secretary = $branch->secretary;
+        $secretary->branch_id = 0;
+        $secretary->save();
+
+        $branch->delete();
+        return redirect()->back();
     }
 
     public function excel()

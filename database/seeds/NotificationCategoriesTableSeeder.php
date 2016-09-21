@@ -47,6 +47,30 @@ class NotificationCategoriesTableSeeder extends Seeder
                 'name' => 'comment.denied',
                 'text' => '您的评论“{extra.comment}”已被管理员删除',
             ),
+            5 => 
+            array (
+                'id' => 6,
+                'name' => 'branch.granted',
+                'text' => '您提交的支部申请已审核通过',
+            ),
+            6 => 
+            array (
+                'id' => 7,
+                'name' => 'branch.denied',
+                'text' => '您提交的支部申请已被管理员驳回，理由是 {extra.reason}',
+            ),
+            7 => 
+            array (
+                'id' => 8,
+                'name' => 'branch.delete',
+                'text' => '您的支部已被管理员删除，理由是 {extra.reason}',
+            ),
+            8 => 
+            array (
+                'id' => 9,
+                'name' => 'branch.restore',
+                'text' => '您的支部已被管理员恢复',
+            ),
         ));
         
         
