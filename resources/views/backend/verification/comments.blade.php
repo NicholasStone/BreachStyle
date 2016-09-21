@@ -1,5 +1,9 @@
 @extends('backend.layouts.master')
 
+@section('after-styles-end')
+    {{ Html::style("css/backend/plugin/datatables/dataTables.bootstrap.min.css") }}
+@stop
+
 @section('page-header')
     <h1>
         {{ app_name() }}
@@ -46,19 +50,17 @@
 //                searching:false,
                 data: {status: 1, trashed: 0},
                 ajax: {
-                    {{--url: '{{ route("admin.comments.get") }}',--}}
+                    url: '{{ route("admin.verify.comments.get") }}',
                     type: 'get',
                     data: {status: 1, trashed: false}
                 },
                 columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'email', name: 'email'},
-                    {data: 'confirmed', name: 'confirmed'},
-                    {data: 'roles', name: 'roles'},
-                    {data: 'created_at', name: 'created_at'},
-                    {data: 'updated_at', name: 'updated_at'},
-                    {data: 'actions', name: 'actions'}
+                    {data: 'id'},
+                    {data: 'user.name'},
+                    {data: 'application.name'},
+                    {data: 'comment'},
+                    {data: 'created_at'},
+                    {data: 'operations'}
                 ],
                 order: [[0, "asc"]],
                 searchDelay: 500

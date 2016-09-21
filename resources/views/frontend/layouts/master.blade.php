@@ -24,6 +24,8 @@
 
     @yield('after-styles-end')
     {!! Html::script("//cdn.bootcss.com/html5shiv/r29/html5.min.js") !!}
+    {!! Html::script("//cdn.bootcss.com/jquery/2.1.1/jquery.min.js") !!}
+    {!! Html::script("//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js") !!}
     @include('frontend.includes.google-analytics')
 </head>
 <body>
@@ -31,8 +33,6 @@
 @yield('content')
 @include('frontend.includes.footer')
 @yield('before-scripts-end')
-{!! Html::script("//cdn.bootcss.com/jquery/2.1.1/jquery.min.js") !!}
-{!! Html::script("//cdn.bootcss.com/sweetalert/1.1.3/sweetalert.min.js") !!}
 @include("sweet::alert")
 @yield('after-scripts-end')
 </body>

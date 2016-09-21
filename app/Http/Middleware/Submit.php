@@ -23,6 +23,6 @@ class Submit
         }
         alert()->error('您不能上传成果');
 
-        return redirect()->route('frontend.index');
+        return redirect()->route('frontend.user.profile.detail');
     }
 }

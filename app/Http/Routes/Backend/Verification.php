@@ -11,7 +11,6 @@ Route::group([
     Route::get('branch/get/{v}', 'BranchController@gets')->name('admin.verify.branch.get');
 //    branch 分类检索
     Route::get('branch/search', 'BranchController@search')->name('admin.verify.branch.search');
-//    Route::any('branch/get/{v}', 'BranchController@unhandled')->name('admin.verify.branch.get');
     Route::get('branch/grant/{id}', 'BranchController@grant')->name('admin.verify.branch.grant');
     Route::get('branch/deny/{id}', 'BranchController@deny')->name('admin.verify.branch.deny');
     Route::get('branch/detail/{id}', 'BranchController@detail')->name('admin.verify.branch.detail');
@@ -32,12 +31,7 @@ Route::group([
     Route::get('application/grant/{id}', 'ApplicationController@grant')->name('admin.verify.application.grant');
     Route::get('application/deny/{id}', 'ApplicationController@deny')->name('admin.verify.application.deny');
     Route::get('application/delete/{id}', 'ApplicationController@delete')->name('admin.verify.application.delete');
+    Route::get('application/restore/{id}', 'ApplicationController@restore')->name('admin.verify.application.restore');
     Route::get('application/detail/{id}', 'ApplicationController@detail')->name('admin.verify.application.detail');
     Route::get('application/excel', 'ApplicationController@excel')->name('admin.verify.application.excel');
-
-    /**
-     * 评论管理
-     */
-    Route::any('comment/get/{v}', 'CommentController@unhandled')->name('admin.verify.comment.get');
-    Route::get('comment/deny/{id}', 'CommentController@deny')->name('admin.verify.comment.deny');
 });

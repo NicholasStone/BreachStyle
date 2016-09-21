@@ -4,10 +4,15 @@ namespace App\Models;
 
 use App\Models\Access\User\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class Application extends Model
 {
+    use SoftDeletes;
+
+    protected $date = ['deleted_at'];
+
     protected $fillable = [
         'name', 'type', 'detail', 'summary', 'img_hash', 'branch_name',
         'apply_hash', 'video_hash', 'source_lecturer', 'creator',

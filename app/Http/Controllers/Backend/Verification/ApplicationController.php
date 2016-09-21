@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Backend\Verification;
 
 use Illuminate\Http\Request;
-use App\Models\Access\User\User;
 use App\Models\Application;
 use App\Http\Controllers\Common\FileStorage;
 use Carbon\Carbon;
@@ -26,23 +25,82 @@ class ApplicationController extends VerificationController
         $this->application = $application;
     }
 
+    /**
+     * 显示审核列表
+     *
+     * @return mixed
+     */
     public function index()
     {
         return view('backend.verification.application.index')
             ->withUser(access()->user());
     }
 
+
+    /**
+     * 获取列表数据
+     *
+     * @param int $v 所需状态 1
+     * @return mixed
+     */
     public function gets($v = 0)
     {
-        return Datatables::of(Application::with('branch')
-            ->select([ 'id', 'name', 'type', 'created_at', 'branch_id' ])
-            ->orderBy('created_at', 'desc')
-            ->get()
-        )
-            ->addColumn('operations', function ($apply) {
-                return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
-            })
-            ->make(true);
+        if ($v != 2) {
+            return Datatables::of(Application::with('branch')
+                ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
+                ->where('verification', '!=', $v)
+                ->orderBy('created_at', 'desc')
+                ->get()
+            )
+                ->addColumn('operations', function ($apply) {
+                    return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
+                })
+                ->make(true);
+        } else {
+            return Datatables::of(Application::with('branch')
+                ->onlyTrashed()
+                ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
+                ->orderBy('created_at', 'desc')
+                ->get()
+            )
+                ->addColumn('operations', function ($apply) {
+                    return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
+                })
+                ->make(true);
+        }
+    }
+
+    public function restore($id)
+    {
+        $apply = Application::find($id);
+        if ($apply->trashed()) {
+            $apply->restore();
+            $apply->verification = 0;
+            $apply->save();
+            switch ($apply->type) {
+                case "工作案例":
+                    $redirect = route('frontend.case.show', $apply->id);
+                    break;
+                case "微党课":
+                    $redirect = route('frontend.course.show', $apply->id);
+                    break;
+                case "教师党支部推荐展示":
+                case "学生党支部推荐展示":
+                    $redirect = route('frontend.recommend.show', $apply->id);
+                    break;
+            }
+
+            Notifynder::category('application.restore')
+                ->from(\Auth::user()->id)
+                ->to($apply->branch->secretary->id)
+                ->url($redirect)
+                ->extra(['application_name' => $apply->name])
+                ->send();
+
+            return redirect()->back()->withFlashSuccess("恢复成功");
+        } else {
+            return redirect()->back()->withErrors("无效操作");
+        }
     }
 
     public function delete(Request $request, $id)
@@ -57,7 +115,7 @@ class ApplicationController extends VerificationController
             ->url("#")
             ->extra([
                 'application_name' => $apply->name,
-                'reason' => $request->get('reason')
+                'reason'           => $request->get('reason'),
             ])
             ->send();
 
@@ -66,7 +124,7 @@ class ApplicationController extends VerificationController
 
     public function grant($id)
     {
-        $apply = Application::find($id);
+        $apply = Application::findOrFail($id);
         $apply->verification = 1;
         $apply->save();
 
@@ -122,7 +180,7 @@ class ApplicationController extends VerificationController
             ->url($redirect)
             ->extra([
                 'application_name' => $apply->name,
-                'reason' => $request->get('reason')
+                'reason'           => $request->get('reason'),
             ])
             ->send();
 
@@ -132,6 +190,10 @@ class ApplicationController extends VerificationController
     public function detail($id)
     {
         $application = Application::find($id);
+        if (!$application){
+            $application = Application::onlyTrashed()->where('id', $id)->first();
+            $application || abort(404);
+        }
         $application->branch;
 
 //        dd($application->toArray());

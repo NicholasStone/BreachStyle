@@ -23,37 +23,7 @@
             <div class="article">
                 @yield('article')
             </div>
-            <div class="click" id="click">
-                @unless(access()->guest() || !Auth::user()->user_id)
-                    <a href="javascript:void(0);" id="fancy"><span class="icon iconfont">&#xe604;</span> 点赞</a>
-                @section('after-scripts-end')
-                    <script type="text/javascript">
-                        $(function () {
-                            $("#fancy").click(function () {
-                                $.ajax({
-                                    url: "{{ route('frontend.fancy', $application->id) }}",
-                                    data: {
-                                        _token: "{{ csrf_token() }}"
-                                    },
-                                    method: "get",
-                                    success: function () {
-                                        var fancy = $('#fancy-total');
-                                        fancy.text(parseInt(fancy.text()) + 1);
-                                    },
-                                    error: function () {
-                                        alert('您已赞过');
-                                    }
-                                })
-                            });
-                        })
-                    </script>
-                @endsection
-                @endunless
-                <p>
-                    <d id="fancy-total">{{ $application->fancy }}</d>
-                    次赞
-                </p>
-            </div>
+                @include('frontend.includes.fancy')
         </div>
     </div>
     @if(Auth::check() && Auth::user()->user_id)

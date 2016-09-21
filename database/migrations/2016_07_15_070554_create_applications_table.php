@@ -29,6 +29,7 @@ class CreateApplicationsTable extends Migration
             $table->unsignedInteger('total_comment')->default(0);
             $table->timestamps();
         });
+
     }
 
     /**

@@ -4,6 +4,7 @@
     {!! Html::style('css/frontend/create.css') !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
     {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section("content")
@@ -21,17 +22,16 @@
                 </li>
             </ul>
             <div class="crtDepart">
-                <form action="{{ route('frontend.recommend.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('frontend.recommend.store') }}" method="post" enctype="multipart/form-data" id="application-form">
                     {!! csrf_field() !!}
                     <div class="row">
                         <h4>推荐展示名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="courseName" placeholder="请输入课题名称" class="courseName"/>
+                        <input type="text" name="name" id="courseName" placeholder="请输入课题名称" class="courseName" required title="请填写推荐展示标题" value="{{ old('name') }}"/>
                     </div>
                     <div class="row">
                         <h4>推荐展示简介<span>*</span> : </h4>
-                        <textarea class="caseIntroduce" name="summary"></textarea>
+                        <textarea class="caseIntroduce" name="summary" required title="请填写简介">{{ old('summary') }}</textarea>
                     </div>
-                    @include("frontend.party.common.imgUpload")
                     <div class="row">
                         <h4>上传视频 :</h4>
                         <p style="color: red">视频格式为MP4，且大小必须小于100M</p>
@@ -61,14 +61,13 @@
                     <div class="row">
                         <h4>推荐展示说明<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="detail" name="detail">
-                                {{ $summary or '在此编辑插入图片时请插入图片链接' }}
+                            <textarea id="editor" name="detail" required title="请填写说明">
+                                {{ old('detail') ? old('detail') : '在此插入图片时请插入图片链接'}}
                             </textarea>
                         </div>
                     </div>
-                    <div class="submitBtn">
-                        <input type="submit" name="submit" id="submit" value="确认提交"/>
-                    </div>
+                    @include("frontend.party.common.imgUpload")
+                    @include("frontend.party.common.validate")
                 </form>
             </div>
         </div>
@@ -78,24 +77,7 @@
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.recommend.upload'), 'required'=>false])
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'detail' );
-    </script>
-    <script>
-        function uploadEntry() {
-            var entry = document.getElementById("entry").files;
-            alert("已选择 " + entry[0].name);
-        }
-        function uploadPreview() {
-            var casePreview = document.getElementById("showPreview").files;
-            alert("已选择 " + casePreview[0].name);
-        }
-        $(function () {
-            $('#edit').editable({
-                inlineMode: false,
-                alwaysBlank: true
-            })
-        });
     </script>
 @endsection

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFanciesTable extends Migration
+class AlterApplicationsDeletedAt extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,8 @@ class CreateFanciesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fancies', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id');
-            $table->unsignedInteger('application_id');
-            $table->timestamps();
+        Schema::table('applications', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +24,8 @@ class CreateFanciesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('fancies');
+        Schema::table('applications', function (Blueprint $table) {
+            //
+        });
     }
 }
