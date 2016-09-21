@@ -39,7 +39,7 @@ body {
 }
 .floatLogin{
     width: 490px;
-    height: 335px;
+    height: 365px;
     display: block;
     background: #ffffff;
     position: fixed;
@@ -50,6 +50,11 @@ body {
     -ms-transform: translate(-50%,-50%);
     -o-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+}
+.floatLogin{
+    color: #000000;
+    font-size: 0.875em;
+    text-align: center;
 }
 /* topbar */
 .topbar {

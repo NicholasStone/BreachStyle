@@ -23,12 +23,13 @@ class BranchController extends Controller
     public function index($id = null)
     {
         if (empty($id)) {
-            $page = Branch::where('verification',1)->paginate(16);
+            $page = Branch::where('verification', 1)->paginate(16);
             $university = null;
         } else {
             $university = University::findOrFail($id);
             $page = Branch::where('university', $university->name)->paginate();
         }
+
 //        dd(Auth::user()->toArray());
         return view('frontend.party.branch.participate', compact("page", "university"));
     }
@@ -59,16 +60,17 @@ class BranchController extends Controller
             'secretary'         => 'required|exists:users,name',
             'secretary_summary' => 'required|max:100',
             'total_membership'  => 'required',
-            'tel'               => 'required',
+            'tel'               => 'required|unique:branches,tel',
             'address'           => 'required|max:200',
             'summary'           => 'required|max:300',
             'detail'            => 'required',
             'apply'             => 'required',
         ], [
-            'avatar.required' => '请上传配图',
-            'apply.required'  => '请上传支部认证表',
+            'tel.unique'        => '此工作号码已存在',
+            'secretary.exists'  => '此用户不存在',
+            'university.exists' => '此学校不存在',
         ]);
-//        dd($request->toArray());
+
         if ($validate->fails()) {
             alert()->error($validate->errors()->all());
 
@@ -78,6 +80,7 @@ class BranchController extends Controller
         $all = $request->all();
         $all['avatar'] = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
         $all['apply_img'] = $this->saveImage($request->file('apply'), 'Applications/Branch');
+//        $secretary
         $all['secretary'] = $user->id;
         $all['university'] = $user->university->name;
         $all['type'] = $user->type == '学生' ? '学生党支部' : '教师党支部';

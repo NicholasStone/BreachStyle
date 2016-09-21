@@ -9,7 +9,7 @@ Route::group([
      */
     Route::get('branch', 'BranchController@index')->name('admin.verify.branch');
 //    Route::post('branch/get/{v}', 'BranchController@gets')->name('admin.verify.branch.get');
-    Route::any('branch/get/{v}', 'BranchController@unhandled')->name('admin.verify.branch.get');
+    Route::any('branch/get/{v}', 'BranchController@gets')->name('admin.verify.branch.get');
     Route::get('branch/grant/{id}', 'BranchController@grant')->name('admin.verify.branch.grant');
     Route::get('branch/deny/{id}', 'BranchController@deny')->name('admin.verify.branch.deny');
     Route::get('branch/detail/{id}', 'BranchController@detail')->name('admin.verify.branch.detail');

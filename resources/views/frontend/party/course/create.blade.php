@@ -4,6 +4,7 @@
     {!! Html::style(asset('css/frontend/create.css')) !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
     {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section("content")
@@ -16,21 +17,24 @@
                 <li class="active">
                     <a href="{{ route("frontend.course.create") }}"><span></span>发布微党课</a>
                 </li>
-                <li >
+                <li>
                     <a href="{{ route("frontend.recommend.create") }}"><span></span>发布推荐展示</a>
                 </li>
             </ul>
 
             <div class="crtDepart">
-                <form method="post" action="{{ route('frontend.course.store') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('frontend.course.store') }}" enctype="multipart/form-data"
+                      id="application-form">
                     {!! csrf_field() !!}
                     <div class="row">
                         <h4>微党课名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="courseName" placeholder="请输入微党课名称" class="courseName"/>
+                        <input type="text" name="name" id="courseName" placeholder="请输入微党课名称" class="courseName"
+                               required title="请填写微党课名称" value="{{ old('name') }}"/>
                     </div>
                     <div class="row">
                         <h4>微党课讲师<span>*</span> : </h4>
-                        <input type="text" name="course_lecturer" id="courseTeacher" class="courseTeacher"/>
+                        <input type="text" name="course_lecturer" id="courseTeacher" class="courseTeacher" required
+                               title="请填写微党课讲师" value="{{ old('course_lecturer') }}"/>
                         <span class="note">(默认为视频上传者)</span>
                     </div>
                     <div class="row">
@@ -59,18 +63,16 @@
                             </div>
                         </div>
                     </div>
-                    @include("frontend.party.common.imgUpload")
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="summary" name="summary">
-                                {{ $summary or '在此编辑插入图片时请插入图片链接' }}
+                            <textarea id="editor" name="summary" required title="请填写微党课简介">
+                                {{ old('detail') ? old('detail') : '在此插入图片时请插入图片链接'}}
                             </textarea>
                         </div>
                     </div>
-                    <div class="submitBtn">
-                        <input type="submit" name="submit" id="submit" value="确认提交"/>
-                    </div>
+                    @include("frontend.party.common.imgUpload")
+                    @include("frontend.party.common.validate")
                 </form>
             </div>
         </div>
@@ -80,18 +82,8 @@
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload'), 'required' => true])
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'summary' );
     </script>
-    <script>
-        function uploadEntry(){
-            var entry = document.getElementById("entry").files;
-            alert("已选择 " + entry[0].name);
-        }
-        function uploadPreview(){
-            var coursePreview = document.getElementById("coursePreview").files;
-            alert("已选择 " + coursePreview[0].name);
-        }
-    </script>
+
 @endsection

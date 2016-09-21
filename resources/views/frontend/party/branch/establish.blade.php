@@ -10,10 +10,10 @@
     <div class="create">
         <div class="content">
             <div class="crtDepart">
-                <form action="{{ route('frontend.branch.create') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('frontend.branch.create') }}" method="post" enctype="multipart/form-data" id="application-form">
                     {!! csrf_field() !!}
                     <div class="uploadImg">
-                        <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()"/>
+                        <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()" value="{{ old('avatar') }}"/>
                         <label for="headImg">
                             <div class="imgBox" id="imgBox">
 
@@ -23,7 +23,7 @@
                     </div>
                     <div class="row">
                         <h4>党支部名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName" value="{{ $name or '' }}"/>
+                        <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName" required value="{{ old('name') }}"/>
                     </div>
                     <div class="row">
                         <h4>党支部类型:</h4>
@@ -39,53 +39,53 @@
                     <div class="row">
                         <h4>所在学校<span>*</span> : </h4>
                         <input type="text" name="university" id="school" class="school" readonly
-                               value="{{ $user->university->name }}"/>
+                               value="{{ $user->university->name }}" required/>
                     </div>
                     <div class="row">
                         <h4>党支部书记名称<span>*</span> : </h4>
                         <input type="text" name="secretary" id="leader" class="leader" readonly
-                               value="{{ $user->name }}"/>
+                               value="{{ $user->name }}" required/>
                         <span class="note">默认创建党支部者为党支部书记</span>
                     </div>
                     <div class="row">
                         <h4>党支部书记简介<span>*</span> : </h4>
-                        <textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary">{{ $secretary_summary or '' }}</textarea>
+                        <textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary" required>{{ old('secretary_summary') }}</textarea>
                         <p class="count">还可以输入<span id="word">100</span>字</p>
 
                     </div>
                     <div class="row">
                         <h4>党员人数<span>*</span> : </h4>
-                        <input type="text" name="total_membership" id="people" class="people" value="{{ $total_membership or '' }}"/>
+                        <input type="text" name="total_membership" id="people" class="people" value="{{ old('total_membership') }}" required/>
                     </div>
                     <div class="row">
                         <h4>手机号<span>*</span> : </h4>
-                        <input type="text" name="tel" id="mobilePhone" class="mobile" value="{{ $tel or '' }}"/>
+                        <input type="text" name="tel" id="mobilePhone" class="mobile" value="{{ old('tel') }}" required/>
                     </div>
                     <div class="row">
                         <h4>通讯地址<span>*</span> : </h4>
-                        <input type="text" name="address" id="address" class="address" value="{{ $address or '' }}"/>
+                        <input type="text" name="address" id="address" class="address" value="{{ old('address') }}" required/>
                     </div>
                     <div class="row">
                         <h4>党支部摘要<span>*</span> : </h4>
-                        <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary">{{ $summary or '' }}</textarea>
+                        <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary" required>{{ old('summary') }}</textarea>
                     </div>
                     <div class="row">
                         <h4>党支部情况介绍<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="detail" name="detail">
-                                {{ $summary or '在此编辑插入图片时请插入图片链接' }}
+                            <textarea id="editor" name="detail" required>
+                                {{ old('detail') ? old('detail') : '在此插入图片时请插入图片链接'}}
                             </textarea>
                         </div>
                     </div>
                     <div class="row">
                         <h4>党支部认证表<span>*</span> : </h4>
-                        <input type="file" name="apply" id="apply" accept="image/*" class="casePreview" onchange="loadImageFile1()"/>
+                        <input type="file" name="apply" id="apply" accept="image/*" class="casePreview" onchange="loadImageFile1()" value="{{ old('apply') }}"/>
                         <label for="apply" id="apply-preview">
                             <span>添加图片</span>
                         </label>
                     </div>
                     <div class="submitBtn">
-                        <input type="submit" name="submit" id="submit" placeholder="确认创建"/>
+                        <input type="submit" name="submit" id="submit" value="确认创建"/>
                     </div>
                 </form>
             </div>
@@ -98,8 +98,21 @@
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace( 'detail' );
-    </script>
-    <script>
+        $("#application-form").submit(function (e) {
+            var apply = $("#apply");
+            var avatar = $('#headImg');
+            var str = CKEDITOR.instances.editor.getData();
+            str = str.replace("<br />", "");
+            str = str.replace("<br>", "");
+            str = str.replace('/(^/s*)|(/s*$)/g', "");
+            if (!(apply.val() && avatar.val() && str)) {
+                e.preventDefault();
+                var alertMsg = apply.val() == "" ? '请上传认证表' : '';
+                alertMsg += avatar.val() == "" ? '\n请上传支部配图' : "";
+                alertMsg += str == "" ? '\n请填写说明或简介' : '';
+                sweetAlert('请上传图片', alertMsg, 'error');
+            }
+        })
         function wordChange1() {
             var intro = document.getElementById('intro');
             var word = document.getElementById('word');

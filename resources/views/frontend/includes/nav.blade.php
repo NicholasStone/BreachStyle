@@ -96,9 +96,7 @@
         window.onload = function () {
             document.domain = "univs.cn";
         }
-        var loginBtn = document.getElementById('login');
-        var floatLogin = document.createElement('div');
-        var box = document.getElementsByTagName("body")[0];
+
         function loginSuccess() {
             $.ajax({
                 method: 'get',
@@ -113,18 +111,26 @@
                 }
             });
         }
+        var loginBtn = document.getElementById('login');
+        var floatLogin = document.createElement('div');
         function closeLoginFrame() {
             floatLogin.remove();
         }
         loginBtn.addEventListener('click', function () {
+            var box = document.getElementsByTagName("body")[0];
             floatLogin.className = "floatLogin";
             box.appendChild(floatLogin);
-            var iFrame = document.createElement("iframe");
-            iFrame.src = "http://uzone.univs.cn/sso.action";
-            floatLogin.appendChild(iFrame);
-            iFrame.style.width = "490px";
-            iFrame.style.height = "337px";
-            iFrame.style.border = "none";
+            if(floatLogin.innerHTML == "") {
+                var iFrame = document.createElement("iframe");
+                iFrame.src = "http://uzone.univs.cn/sso.action";
+                floatLogin.appendChild(iFrame);
+                iFrame.style.width = "490px";
+                iFrame.style.height = "337px";
+                iFrame.style.border = "none";
+                var msg = document.createElement("p");
+                floatLogin.appendChild(msg);
+                msg.innerHTML = "点击登陆后请稍等片刻！";
+            }
         });
     </script>
 @endif

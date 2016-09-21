@@ -35,6 +35,18 @@ class NotificationCategoriesTableSeeder extends Seeder
                 'name' => 'application.delete',
                 'text' => '您提交的文章《{extra.application_name}》已被管理员删除，原因是{extra.reason}',
             ),
+            3 => 
+            array (
+                'id' => 4,
+                'name' => 'application.restore',
+                'text' => '您提交的文章《{extra.application_name}》已被管理员恢复。',
+            ),
+            4 => 
+            array (
+                'id' => 5,
+                'name' => 'comment.denied',
+                'text' => '您的评论“{extra.comment}”已被管理员删除',
+            ),
         ));
         
         

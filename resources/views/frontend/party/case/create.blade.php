@@ -2,6 +2,7 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
+    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section('content')
@@ -14,33 +15,34 @@
                 <li>
                     <a href="{{ route("frontend.course.create") }}"><span></span>发布微党课</a>
                 </li>
-                <li >
+                <li>
                     <a href="{{ route("frontend.recommend.create") }}"><span></span>发布推荐展示</a>
                 </li>
             </ul>
             <div class="crtDepart">
-                <form enctype="multipart/form-data" action="{{ route('frontend.case.store') }}" method="post">
+                <form enctype="multipart/form-data" action="{{ route('frontend.case.store') }}" method="post"
+                      id="application-form">
                     {!! csrf_field() !!}
                     <div class="row">
                         <h4>工作案例名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="caseName" placeholder="请输入案例名称" class="caseName" value="{{ $name or '' }}"/>
+                        <input type="text" name="name" id="caseName" placeholder="请输入案例名称" class="caseName"
+                               value="{{ old('name') or '' }}" required title="请填写案例名称"/>
                     </div>
                     <div class="row">
                         <h4>工作案例简介<span>*</span> : </h4>
-                        <textarea class="caseIntroduce" name="summary">{{ $summary or '' }}</textarea>
+                        <textarea class="caseIntroduce" name="summary" required
+                                  title="请填写案例简介">{{ old('summary') or '' }}</textarea>
                     </div>
                     <div class="row">
                         <h4>工作案例说明<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="detail" name="detail">
-                                {{ $detail or '在此编辑插入图片时请插入图片链接' }}
+                            <textarea id="editor" name="detail" required title="请填写案例说明">
+                                {{ old('summary') ? old('detail') : '在此插入图片时请插入图片链接'}}
                             </textarea>
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
-                    <div class="submitBtn">
-                        <input type="submit" name="submit" id="submit" value="确认提交" />
-                    </div>
+                    @include("frontend.party.common.validate")
                 </form>
             </div>
         </div>
@@ -48,8 +50,7 @@
 @endsection
 
 @section("after-scripts-end")
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'detail' );
+        CKEDITOR.replace('detail');
     </script>
 @endsection
