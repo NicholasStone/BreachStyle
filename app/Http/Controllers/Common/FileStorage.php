@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Common;
 
 
+use Intervention\Image\ImageManager;
 use Storage;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -11,10 +12,14 @@ trait FileStorage
     private function save(UploadedFile $file, $path)
     {
         $hash = md5_file($file->getRealPath());
-        $file_name = $path . '/' . $hash . "." .$file->getClientOriginalExtension();
-        Storage::put($file_name, file_get_contents($file->getRealPath()));
+        $file_name = $hash . "." . $file->getClientOriginalExtension();
 
-        return Storage::url($file_name);
+        $manager = new ImageManager();
+        $manager->make($file)->save(public_path($path) . '/' . $file_name);
+
+        return env('APP_URL') . $path . '/' . $file_name;
+//        Storage::put($file_name, file_get_contents($file->getRealPath()));
+//        return Storage::url($file_name);
     }
 
     protected function saveImage(UploadedFile $file, $path)
@@ -24,11 +29,16 @@ trait FileStorage
 
     protected function saveVideo(UploadedFile $file)
     {
-        return $this->save($file, 'uploadVideos');
+        $hash = md5_file($file->getRealPath());
+        $file_name = $hash . "." . $file->getClientOriginalExtension();
+        if ($file->isValid()) {
+            $file->move(public_path('uploadVideos'), $file_name);
+            return env('APP_URL'). 'uploadVideos/' . $file_name;
+        }
     }
 
     protected function saveFile(UploadedFile $file)
     {
-        return $this->save($file, 'uploadFiles');
+        return $this->save($file, 'uploadFiles/');
     }
 }

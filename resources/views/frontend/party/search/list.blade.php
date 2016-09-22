@@ -22,9 +22,9 @@
                         <ul>
                             @foreach($page as $item)
                                 <li>
-                                    <a href=" @if($item->type == "工作案例") {{ route('frontend.case.show', $item->id) }} @endif
-                                                @if($item->type == "微党课") {{ route('frontend.course.show', $item->id) }}@endif
-                                                @if($item->type == "学生党支部推荐展示") {{ route('frontend.recommend.show', $item->id) }}@endif">
+                                    <a href=" @if($item->type == "工作案例") {{ route('frontend.case.show', $item->id) }}
+                                    @elseif($item->type == "微党课") {{ route('frontend.course.show', $item->id) }}
+                                    @elseif($item->type == "学生党支部推荐展示" || "教师党支部推荐展示") {{ route('frontend.recommend.show', $item->id) }} @endif">
 
                                         <div class="searchLeft">
                                             <h3>{{ $item->name }}</h3>

@@ -329,7 +329,7 @@ body {
 .searchBox .mask .content ul li.Search select{
     width: 15%;
     height: 42px;
-    padding-left: 12px;
+    padding-left: 35px;
     appearance:none;
     -moz-appearance:none;
     -webkit-appearance:none;

@@ -76,7 +76,8 @@ class CourseController extends Controller
         $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
         $application->name = $apply['name'];
         $application->type = '微党课';
-        $application->detail = $apply['summary'];
+        $application->summary = $apply['summary'];
+        $application->detail = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
         $application->branch_id = Auth::user()->branch_id;
         $application->branch_type = Auth::user()->branch_type;
         $application->course_lecturer = $apply['course_lecturer'];
@@ -115,6 +116,7 @@ class CourseController extends Controller
             'jsonrpc' => '2.0',
             'result'  => null,
             'id'      => 'id',
+            'path'    => $path
         ]);
     }
 
@@ -177,7 +179,8 @@ class CourseController extends Controller
             \Session::set('video_path', null);
         }
         $application->name = $apply['name'];
-        $application->detail = $apply['summary'];
+        $application->summary = $apply['summary'];
+        $application->detail = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
         $application->course_lecturer = $apply['course_lecturer'];;
         $application->verification = 0;
         $application->save();

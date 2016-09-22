@@ -8,11 +8,11 @@
 @endsection
 
 @section('after-styles-end')
-    {!! Html::style('//cdn.bootcss.com/video.js/5.11.0/video-js.min.css') !!}
+    {{--{!! Html::style('//cdn.bootcss.com/video.js/5.11.0/video-js.min.css') !!}--}}
+    <link href="http://vjs.zencdn.net/5.11.6/video-js.css" rel="stylesheet">
 @endsection
 
 @section('after-scripts-end')
-    {!! Html::script('//cdn.bootcss.com/video.js/5.11.0/video.min.js') !!}
     {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
     {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
 
@@ -74,18 +74,19 @@
                 <dt>{{ trans('strings.backend.verification.application.detail') }}</dt>
                 <dd>{!! $detail !!}</dd>
                 <dt>{{ trans('strings.backend.verification.application.img') }}</dt>
-                <dd><img src="{{ asset($img_hash) }}" alt="缩略图" class="thumbnail" width="50%" height="50%"></dd>
+                <dd><img src="{{ $img_hash }}" alt="缩略图" class="thumbnail" width="50%" height="50%"></dd>
                 @if($video_hash)
                     <dt>{{ trans('strings.backend.verification.application.video') }}</dt>
                     <dd>
                         <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
-                               poster="{{ asset($img_hash) }}" data-setup="{}">
-                            <source src="{{ asset($video_hash) }}" type='video/mp4'>
+                               poster="{{ $img_hash }}" data-setup="{}">
+                            <source src="{{ $video_hash }}" type='video/mp4'>
                             <p class="vjs-no-js">
                                 请开启您浏览器的JavaScript功能，或者请使用<a href="http://videojs.com/html5-video-support/"
                                                              target="_blank">支持HTML5</a>的浏览器
                             </p>
                         </video>
+                        <script src="http://vjs.zencdn.net/5.11.6/video.js"></script>
                     </dd>
                 @endif
                 <dt>{{ trans('strings.backend.verification.application.apply') }}</dt>

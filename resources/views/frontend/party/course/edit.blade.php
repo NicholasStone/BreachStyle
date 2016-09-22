@@ -65,7 +65,7 @@
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="summary" name="summary">
-                                {{ $detail or '在此编辑插入图片时请插入图片链接' }}
+                                {{ $summary or '在此编辑插入图片时请插入图片链接' }}
                             </textarea>
                         </div>
                     </div>
