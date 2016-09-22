@@ -53,6 +53,7 @@ class BranchController extends VerificationController
         $applications->each(function ($item){
             $item->restore();
         });
+        
         Notifynder::category('branch.restore')
             ->from(\Auth::user()->id)
             ->to($branch->secretary->id)
