@@ -80,7 +80,7 @@ class BranchController extends Controller
         $user = Auth::user();
         $all = $request->all();
         $all['avatar'] = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
-        $all['apply_img'] = $this->saveImage($request->file('apply'), 'Applications/Branch');
+        $all['apply_img'] = $this->saveImage($request->file('apply'), 'Branch/Applies');
 //        $secretary
         $all['university'] = $user->university->name;
         $all['type'] = $user->type == '学生' ? '学生党支部' : '教师党支部';
@@ -167,7 +167,7 @@ class BranchController extends Controller
             $all['avatar'] = $img_hash;
         }
         if ($request->file('apply_img')) {
-            $apply_hash = $this->saveImage($request->file('apply_img'), "Applications/Branch");
+            $apply_hash = $this->saveImage($request->file('apply_img'), "Branch/Applies");
             $all['apply_img'] = $apply_hash;
         }
         $branch->verification = 0;

@@ -15,8 +15,10 @@ trait FileStorage
         $file_name = $hash . "." . $file->getClientOriginalExtension();
 
         $manager = new ImageManager();
+        if (!is_dir(public_path($path) . '/')) {
+            $this->makeDir(public_path($path) . '/');
+        }
         $manager->make($file)->save(public_path($path) . '/' . $file_name);
-
         return env('APP_URL') . $path . '/' . $file_name;
 //        Storage::put($file_name, file_get_contents($file->getRealPath()));
 //        return Storage::url($file_name);
@@ -40,5 +42,16 @@ trait FileStorage
     protected function saveFile(UploadedFile $file)
     {
         return $this->save($file, 'uploadFiles/');
+    }
+
+    protected function makeDir($path)
+    {
+        $pathTree = explode('/',$path);
+        array_pop($pathTree); //删除最后一个
+        $path = '';
+        foreach ($pathTree as $item){
+            $path .= $item.'/';
+            is_dir($path) || mkdir($path);
+        }
     }
 }

@@ -129,7 +129,7 @@
                 iFrame.style.border = "none";
                 var msg = document.createElement("p");
                 floatLogin.appendChild(msg);
-                msg.innerHTML = "点击登陆后请稍等片刻！";
+                msg.innerHTML = "加载较慢，请稍等片刻！";
             }
         });
     </script>
