@@ -26,9 +26,9 @@
                                     @elseif($item->type == "微党课") {{ route('frontend.course.show', $item->id) }}
                                     @elseif($item->type == "学生党支部推荐展示" || "教师党支部推荐展示") {{ route('frontend.recommend.show', $item->id) }} @endif">
 
-                                        <div class="searchLeft">
+                                        <div class="searchLeft" >
                                             <h3>{{ $item->name }}</h3>
-                                            <p>{{ $item->summary }}</p>
+                                            <div>{!! $item->summary !!}</div>
                                             <span><i class="icon iconfont">&#xe60e;</i>{{ $item->fancy }}</span>
                                             <span><i class="icon iconfont">&#xe609;</i>{{ $item->total_comment }}</span>
                                         </div>
