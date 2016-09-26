@@ -6,6 +6,7 @@ Route::post('settings/crop', 'SettingsController@crop')->name('admin.setting.cro
 Route::post('settings/get', 'SettingsController@get')->name('admin.setting.get');
 Route::get('settings/delete/{link}', 'SettingsController@delete')->name('admin.setting.delete');
 Route::get('settings/map', 'SettingsController@map')->name('admin.setting.map');
+Route::get('settings/exhibition', 'SettingsController@exhibition')->name('admin.setting.exhibition');
 
 Route::post('settings/frontend', 'SettingsController@applies')->name('admin.setting.frontend.index');
 

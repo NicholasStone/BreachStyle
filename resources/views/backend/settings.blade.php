@@ -322,7 +322,9 @@
                             {{--</div>--}}
                         {{--</div><!--col-lg-10-->--}}
                     {{--</div>--}}
-                    <button class="btn btn-success">提交</button>
+                    <div class="col-lg-9 col-lg-offset-1">
+                        <button class="btn btn-success">提交</button>
+                    </div>
                 </div>
                 {{ Form::close() }}
             </div>
@@ -378,9 +380,14 @@
             {!! csrf_field() !!}
             <div class="form-group">
                 {{ Form::label('map',"热度图开关", ['class' => 'col-lg-2 control-label']) }}
-
                 <div class="col-lg-9">
                     {{ Form::checkbox('map') }}
+                </div><!--col-lg-10-->
+            </div>
+            <div class="form-group">
+                {{ Form::label('exhibition',"首页成果展示", ['class' => 'col-lg-2 control-label']) }}
+                <div class="col-lg-9">
+                    {{ Form::checkbox('exhibition') }}
                 </div><!--col-lg-10-->
             </div>
             {{ Form::close() }}
@@ -396,11 +403,21 @@
     <script>
         $("#map").bootstrapSwitch({
             state:{{ $map->value }},
-            onSwitchChange:function (event, state) {
+            onSwitchChange:function () {
                 $.get({
                     url:"{{ route('admin.setting.map') }}",
                     data:{
-                        state:state,
+                        _token:"{{ csrf_token() }}"
+                    }
+                })
+            }
+        });
+        $("#exhibition").bootstrapSwitch({
+            state:{{ $exhibition->value }},
+            onSwitchChange:function () {
+                $.get({
+                    url:"{{ route('admin.setting.exhibition') }}",
+                    data:{
                         _token:"{{ csrf_token() }}"
                     }
                 })

@@ -27,8 +27,9 @@ class SettingsController extends Controller
     {
         $count = Slider::count();
         $map = Setting::find(4);
+        $exhibition = Setting::find(3);
 
-        return view('backend.settings', compact("count", "map"));
+        return view('backend.settings', compact("count", "map", "exhibition"));
     }
 
     public function applies(Request $request)
@@ -69,11 +70,18 @@ class SettingsController extends Controller
             ->make(true);
     }
 
-    public function map(Request $request)
+    public function map()
     {
         $map = Setting::find(4);
-        $map->value = $request->get('state')== "true" ? 1 : 0;
+        $map->value = !$map->value;
         $map->save();
+    }
+
+    public function exhibition()
+    {
+        $exhibition = Setting::find(3);
+        $exhibition->value = !$exhibition->value;
+        $exhibition->save();
     }
 
     public function delete($id)

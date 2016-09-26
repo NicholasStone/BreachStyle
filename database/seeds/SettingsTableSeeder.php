@@ -23,9 +23,9 @@ class SettingsTableSeeder extends Seeder
                 'value' => 'http://www.univs.cn/ulive/hdgg/2016/0708/1139257.shtml',
                 'comment' => '活动通知下载'
             ],[
-                'item' => 'verification',
-                'value' => null,
-                'comment' => '党支部认证表'
+                'item' => 'exhibition',
+                'value' => 0,
+                'comment' => '首页展示'
             ],[
                 'item' => 'map',
                 'value' => 0,

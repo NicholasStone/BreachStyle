@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+    @if($settings[2]->value)
     <div class="sliderNews">
         <div class="content">
             <div class="slider">
@@ -85,6 +86,7 @@
         </div>
     </div>
     <!-- Achievements -->
+    @endif
     @if($settings[3]->value)
         <!-- ChinaMap -->
         <div class="ChinaMap">
@@ -268,6 +270,7 @@
 
     <div class="clearfix"></div>
 
+    @if($settings[2]->value)
     <!-- show -->
     <div class="show">
         <div class="content">
@@ -404,7 +407,7 @@
         </div>
     </div>
     <!-- show -->
-    <!-- show -->
+    @endif
     <div class="clearfix"></div>
 @endsection
 
