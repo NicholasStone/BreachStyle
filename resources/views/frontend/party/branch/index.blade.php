@@ -31,9 +31,9 @@
             </div>
             <div class="leadCard">
                 <div class="imgHead">
-                    <img src="{{ $branch->secretary->avatar }}"/>
+                    <img src="{{ $branch['relations']['secretary']->avatar }}"/>
                 </div>
-                <h3>党支部书记:<span>{{ $branch->secretary->name }}</span></h3>
+                <h3>党支部书记:<span>{{ $branch['relations']['secretary']->name }}</span></h3>
                 <p>{{ $branch->secretary_summary }}</p>
             </div>
         </div>

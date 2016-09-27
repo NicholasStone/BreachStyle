@@ -96,11 +96,6 @@ class RecommendController extends Controller
      */
     public function show($id)
     {
-//        $application = Application::with(['branch.university.province'])->where("id", $id)->firstOrFail();
-//        $comments    = $application->comments;
-//        $branch      = $application->branch;
-//        $university  = $branch->university;
-
         return view('frontend.party.recommend.detail', $this->getShowData($id));
     }
 
@@ -112,16 +107,6 @@ class RecommendController extends Controller
      */
     public function edit($id)
     {
-//        $application = Application::findOrFail($id);
-//
-//        if ($application->verification != -1) {
-//            alert()->error("您现在不能修改成功信息");
-//
-//            return redirect()->back();
-//        }
-//
-//        return view('frontend.party.recommend.edit', $application);
-
         return $this->editOrFail('frontend.party.recommend.edit', $id);
     }
 
@@ -136,22 +121,7 @@ class RecommendController extends Controller
     {
         $application = Application::findOrFail($id);
         $apply       = $request->all();
-//        if ($request->file('img')) {
-//            $img_hash              = $this->saveImage($request->file('img'), "Application/Course");
-//            $application->img_hash = $img_hash;
-//        }
-//        if ($request->file('apply')) {
-//            $apply_hash              = $this->saveImage($request->file('apply'), "Application/Apply");
-//            $application->apply_hash = $apply_hash;
-//        }
         $application = $this->updateApplication($request, $application);
-
-//        if (\Session::has('video_path')) {
-//            $application->video_hash = \Session::get('video_path');
-//            \Session::set('video_path', null);
-//        }
-//        $application->name         = $apply['name'];
-//        $application->summary      = $apply['summary'];
         $application->detail       = $apply['detail'];
         $application->verification = 0;
         $application->save();

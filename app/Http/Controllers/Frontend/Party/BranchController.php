@@ -25,14 +25,12 @@ class BranchController extends Controller
     {
         if (empty($id)) {
             $page = Branch::where('verification', 1)->withProvince()->paginate(16);
-//            $page = Branch::where('verification', 1)->withProvince()->first();
             $university = null;
         } else {
             $university = University::findOrFail($id);
-            $page = Branch::where('university', $university->name)->paginate();
+            $page = Branch::where('university', $university->name)->withProvince()->paginate();
         }
 
-//        dd($page['relations']['university']->province->name);
         return view('frontend.party.branch.participate', compact("page", "university"));
 
     }
@@ -55,7 +53,6 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'              => 'required',
             'avatar'            => 'required',
@@ -83,16 +80,13 @@ class BranchController extends Controller
         $all = $request->all();
         $all['avatar'] = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
         $all['apply_img'] = $this->saveImage($request->file('apply'), 'Branch/Applies');
-//        $secretary
-        $all['university'] = $user->university->name;
+        $all['university'] = $user->university;
         $all['type'] = $user->type == '学生' ? '学生党支部' : '教师党支部';
         $branch = Branch::create($all);
         $branch->secretary = $user->id;
         $branch->save();
         $user->branch_id = $branch ? $branch->id : '';
-//        $user->attachRole(2);
         $user->save();
-//        dd($branch);
         alert()->success('支部创建成功，请耐心等待审核通过');
 
         return redirect()->route('frontend.index');
@@ -106,11 +100,8 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-//        $branch = Branch::find($id);
-        $branch = Branch::with('applications')->where('id', $id)->first();
-//        dd($branch->toArray());
+        $branch = Branch::with(['applications', 'secretary'])->where('id', $id)->first();
         $application = $branch->applications;
-//        $application = $application->groupBy('type');
 
         return view('frontend.party.branch.index', compact("branch", "application"));
     }
@@ -144,9 +135,6 @@ class BranchController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'name'              => 'required',
-//            'avatar'            => 'required',
-//            'university'        => 'required|exists:universities,name',
-//            'secretary'         => 'required|exists:users,name',
             'secretary_summary' => 'required|max:100',
             'total_membership'  => 'required',
             'tel'               => 'required',

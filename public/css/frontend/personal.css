@@ -308,6 +308,12 @@
 	width: 55%;
 	float: left;
 }
+.bindinfo .content .infoList .infoListRight input{
+	width: 65%;
+}
+.bindinfo .content .infoList .infoListRight input[type=radio]{
+	width: 30%;
+}
 .bindinfo .content .infoList p{
 	width: 100%;
 	line-height: 48px;

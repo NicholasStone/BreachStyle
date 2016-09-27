@@ -35,23 +35,7 @@ class BranchController extends VerificationController
 
     public function restore($id)
     {
-        $branch = Branch::onlyTrashed()->where('id', $id)->first();
-        if (!$branch) {
-            abort(404);
-        }
-        $applications = Application::onlyTrashed()->where('branch_id', $branch->id)->get();
-        $branch->secretary->attachBranch($branch->id);
-        $applications->each(function ($item) {
-            $item->restore();
-        });
-
-        Notifynder::category('branch.restore')
-            ->from(\Auth::user()->id)
-            ->to($branch->secretary->id)
-            ->url(route('frontend.branch.show', $branch->id))
-            ->send();
-
-        $branch->verification = 0;
+        $branch = Branch::onlyTrashed()->where('id', $id)->firstOrFail();
         $branch->restore();
 
         return redirect()->back()->withFlashSuccess("恢复成功");
@@ -59,72 +43,34 @@ class BranchController extends VerificationController
 
     public function grant($id)
     {
-        $branch               = Branch::findOrFail($id);
-        $branch->verification = 1;
-        $secretary            = $branch->secretary;
-        $secretary->attachRole(2);
-        $secretary->save();
-        $branch->save();
-
-        Notifynder::category('branch.granted')
-            ->from(\Auth::user()->id)
-            ->to($branch->secretary->id)
-            ->url(route('frontend.branch.show', $branch->id))
-            ->send();
+        $branch = Branch::findOrFail($id);
+        $branch->grant();
 
         return redirect()->back()->withFlashSuccess('操作成功');
     }
 
     public function detail($id)
     {
-        $branch = Branch::find($id);
-        if (!$branch) {
-            $branch = Branch::onlyTrashed()->where('id', $id)->first();
-            $branch || abort(404);
-        }
-        $branch->sercetary;
-
-//        dd($branch->toArray());
-        return view('backend.verification.branch.detail', $branch);
+        return view('backend.verification.branch.detail', $this->branch
+            ->withTrashed()
+            ->where('id', $id)
+            ->withSecretaryName()
+            ->firstOrFail()
+        );
     }
 
     public function deny(Request $request, $id)
     {
         $branch = Branch::findOrFail($id);
-
-        $branch->verification = -1;
-        $branch->save();
-
-        Notifynder::category('branch.denied')
-            ->from(\Auth::user()->id)
-            ->to($branch->secretary->id)
-            ->url(route('frontend.branch.edit', $branch->id))
-            ->extra(['reason' => $request->get('reason')])
-            ->send();
+        $branch->deny($request->get('reason'));
 
         return redirect()->back()->withFlashSuccess("操作成功");
     }
 
     public function delete(Request $request, $id)
     {
-        $branch       = Branch::findOrFail($id);
-        $applications = $branch->applications;
-        $applications->each(function ($item) {
-            $item->delete();
-        });
-
-        Notifynder::category('branch.delete')
-            ->from(\Auth::user()->id)
-            ->to($branch->secretary->id)
-            ->url("javascript:void(0)")
-            ->extra(['reason' => $request->get('reason')])
-            ->send();
-
-        $secretary            = $branch->secretary;
-        $secretary->branch_id = 0;
-        $secretary->save();
-
-        $branch->delete();
+        $branch = Branch::findOrFail($id);
+        $branch->softDelete($request->get('reason'));
 
         return redirect()->back();
     }
@@ -180,4 +126,6 @@ class BranchController extends VerificationController
             })
             ->make(true);
     }
+
+
 }

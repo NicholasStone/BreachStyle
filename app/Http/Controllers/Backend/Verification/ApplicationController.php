@@ -38,117 +38,33 @@ class ApplicationController extends VerificationController
 
     public function restore($id)
     {
-        $apply = Application::onlyTrashed()->where('id', $id)->first();
-        if ($apply) {
-            $apply->restore();
-            $apply->verification = 0;
-            $apply->save();
-            switch ($apply->type) {
-                case "工作案例":
-                    $redirect = route('frontend.case.show', $apply->id);
-                    break;
-                case "微党课":
-                    $redirect = route('frontend.course.show', $apply->id);
-                    break;
-                case "教师党支部推荐展示":
-                case "学生党支部推荐展示":
-                    $redirect = route('frontend.recommend.show', $apply->id);
-                    break;
-            }
+        $apply = Application::onlyTrashed()->where('id', $id)->firstOrFail();
+        $apply->restore();
 
-            Notifynder::category('application.restore')
-                ->from(\Auth::user()->id)
-                ->to($apply->branch->secretary->id)
-                ->url($redirect)
-                ->extra(['application_name' => $apply->name])
-                ->send();
+        return redirect()->back()->withFlashSuccess("恢复成功");
 
-            return redirect()->back()->withFlashSuccess("恢复成功");
-        } else {
-            return redirect()->back()->withErrors("无效操作");
-        }
     }
 
     public function delete(Request $request, $id)
     {
         $apply = Application::findOrFail($id);
-        $apply->delete();
-
-
-        Notifynder::category('application.delete')
-            ->from(\Auth::user()->id)
-            ->to($apply->branch->secretary->id)
-            ->url("#")
-            ->extra([
-                'application_name' => $apply->name,
-                'reason'           => $request->get('reason'),
-            ])
-            ->send();
+        $apply->softDelete($request->get('reason'));
 
         return redirect()->route('admin.verify.application')->withFlashSuccess("操作成功");
     }
 
     public function grant($id)
     {
-        $apply               = Application::findOrFail($id);
-        $apply->verification = 1;
-        $apply->save();
-
-        $redirect = '';
-
-        switch ($apply->type) {
-            case "工作案例":
-                $redirect = route('frontend.case.show', $apply->id);
-                break;
-            case "微党课":
-                $redirect = route('frontend.course.show', $apply->id);
-                break;
-            case "教师党支部推荐展示":
-            case "学生党支部推荐展示":
-                $redirect = route('frontend.recommend.show', $apply->id);
-                break;
-        }
-
-        Notifynder::category('application.granted')
-            ->from(\Auth::user()->id)
-            ->to($apply->branch->secretary->id)
-            ->url($redirect)
-            ->extra(['application_name' => $apply->name])
-            ->send();
+        $apply = Application::findOrFail($id);
+        $apply->grant();
 
         return redirect()->back()->withFlashSuccess("操作成功");
     }
 
     public function deny(Request $request, $id)
     {
-        $apply               = Application::findOrFail($id);
-        $apply->verification = -1;
-        $apply->save();
-
-        $redirect = '';
-
-        switch ($apply->type) {
-            case "工作案例":
-                $redirect = route('frontend.case.edit', $apply->id);
-                break;
-            case "微党课":
-                $redirect = route('frontend.course.edit', $apply->id);
-                break;
-            case "教师党支部推荐展示":
-            case "学生党支部推荐展示":
-                $redirect = route('frontend.recommend.edit', $apply->id);
-                break;
-        }
-
-        Notifynder::category('application.denied')
-            ->from(\Auth::user()->id)
-            ->to($apply->branch->secretary->id)
-            ->url($redirect)
-            ->extra([
-                'application_name' => $apply->name,
-                'reason'           => $request->get('reason'),
-            ])
-            ->send();
+        $apply = Application::findOrFail($id);
+        $apply->deny($request->get('reason'));
 
         return redirect()->back()->withFlashSuccess("操作成功");
     }
@@ -216,21 +132,6 @@ class ApplicationController extends VerificationController
      */
     public function search(Request $request)
     {
-        dd($this->application
-            ->withStatus($request->get('status'))
-            ->whereName($request->get('application_name'))
-            ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
-            ->whereHas('branch', function ($query) use ($request) {
-                if ($request->get('branch_name')) {
-                    $query->where('name', 'like', '%' . $request->get('branch_name') . '%');
-                }
-                if ($request->get('university_name')) {
-                    $query->where('university', 'like', '%' . $request->get('university_name') . '%');
-                }
-            })
-            ->with('branch')
-            ->orderBy('created_at', 'desc')
-            ->get()->toArray());
         return Datatables::of(
             $this->application
                 ->withStatus($request->get('status'))

@@ -73,6 +73,9 @@ class User extends Authenticatable
 
     public function attachBranch($branch)
     {
+        if ($this->branch_id) {
+            return;
+        }
         $id = '';
         if (is_object($branch)) {
             $id = $branch->id;
@@ -83,6 +86,12 @@ class User extends Authenticatable
         }
 
         $this->branch_id = $id;
+        $this->save();
+    }
+
+    public function detachBranch()
+    {
+        $this->branch_id = 0;
         $this->save();
     }
 

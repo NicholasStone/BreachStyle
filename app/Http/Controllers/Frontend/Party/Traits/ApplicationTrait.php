@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Frontend\Party\Traits;
 
 use App\Models\Application;
+use Illuminate\Http\Request;
 
 trait ApplicationTrait
 {
@@ -12,7 +13,9 @@ trait ApplicationTrait
 
     protected function getShowData($id)
     {
-        $application = Application::with(['branch.university.province'])->where("id", $id)->firstOrFail();
+        $application = Application::with(['branch.university.province', 'comments'=>function($query){
+            $query->with('user');
+        }])->withStatus()->where("id", $id)->firstOrFail();
         $comments    = $application->comments;
         $branch      = $application->branch;
         $university  = $branch->university;
@@ -58,7 +61,7 @@ trait ApplicationTrait
      * @param Request $request
      * @return mixed
      */
-    public function uploadFile(Request $request)
+    public function upload(Request $request)
     {
         if (!$request->hasFile('file')) {
             return response()->json([

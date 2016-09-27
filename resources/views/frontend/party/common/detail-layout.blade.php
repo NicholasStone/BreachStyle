@@ -23,7 +23,7 @@
             <div class="article">
                 @yield('article')
             </div>
-                @include('frontend.includes.fancy')
+            @include('frontend.includes.fancy')
         </div>
     </div>
     @if(Auth::check() && Auth::user()->user_id)

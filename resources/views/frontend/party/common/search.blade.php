@@ -11,7 +11,7 @@
                             <option value="2">支部</option>
                             <option value="3">学校</option>
                         </select>
-                        <input type="text" name="keywords" id="searchContent" placeholder="请输入关键词.." required/>
+                        <input type="text" name="keywords" id="searchContent" placeholder="请输入关键词.." value="{{ old('keywords') }}" required/>
                         <button type="submit"><i class="fa fa-search"></i></button>
                     </li>
                 </ul>

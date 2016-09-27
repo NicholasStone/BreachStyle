@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Models\Access\User\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Fenos\Notifynder\Facades\Notifynder;
 
 class Branch extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes {
+        restore as SoftDeletesRestore;
+    }
 
     protected $fillable = ['name', 'secretary_summary', 'total_membership', 'summary', 'avatar', 'address', 'type', 'tel', 'university', 'apply_img', 'detail', 'deleted_at'];
 
@@ -41,10 +44,17 @@ class Branch extends Model
     {
         return $query->with('university.province');
     }
+//
+//    public function getSecretaryAttribute($value)
+//    {
+//        return User::select(['name'])->where("id", $value)->first();
+//    }
 
-    public function getSecretaryAttribute($value)
+    public function scopeWithSecretaryName($query)
     {
-        return User::find($value);
+        return $query->with(['secretary' => function ($query) {
+            $query->select(['name', 'id']);
+        }]);
     }
 
     public function scopeIsHasName($query, $name)
@@ -72,5 +82,76 @@ class Branch extends Model
         } else {
             return $query->where('verification', $status);
         }
+    }
+
+    public function grant()
+    {
+        $this->verification = 1;
+        $this->save();
+        $secretary = User::find($this->secretary);
+        $secretary->attachRole(2);
+
+        $this->sendNotify('branch.granted', route('frontend.branch.show', $this->id));
+    }
+
+    public function deny($reason)
+    {
+        $this->applications->each(function ($item) {
+            $item->deny("因支部信息被驳回");
+        });
+        $this->verification = -1;
+        $this->save();
+
+        $this->sendNotify('branch.denied', route('frontend.branch.edit', $this->id), $reason);
+    }
+
+    public function softDelete($reason)
+    {
+        $applications = $this->applications;
+        $applications->each(function ($item) {
+            $item->softDelete("因支部信息被删除");
+        });
+
+        $secretary = User::find($this->secretary);
+        $secretary->detachBranch();
+
+        $this->runSoftDelete();
+        $this->sendNotify('branch.delete', "javascript:void(0)", $reason);
+
+    }
+
+    /**
+     * @internal param 数据ID $branch
+     */
+    public function restore()
+    {
+        $applications = Application::onlyTrashed()->where('branch_id', $this->id)->get();
+        $secretary    = User::find($this->secretary);
+        $secretary->attachBranch($this->id);
+        $applications->each(function ($item) {
+            $item->restore();
+        });
+
+        $this->verification = 0;
+        $this->SoftDeletesRestore();
+
+        $this->sendNotify('branch.restore', route('frontend.branch.show', $this->id));
+    }
+
+    /**
+     * @param $category
+     * @param $reason
+     * @param string $redirect
+     */
+    protected function sendNotify($category, $redirect, $reason = null)
+    {
+        Notifynder::category($category)
+            ->from(\Auth::id())
+            ->to($this->secretary)
+            ->url($redirect)
+            ->extra([
+                'reason' => $reason,
+            ])
+            ->send();
     }
 }
