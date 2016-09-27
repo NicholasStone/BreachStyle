@@ -45,30 +45,18 @@ class ApplicationController extends VerificationController
      */
     public function gets($v = 0)
     {
-        if ($v != 2) {
-            return Datatables::of(Application::with('branch')
-                ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
+        return Datatables::of(Application::with(['branch', 'branch.university'])
+            ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
 //                ->where('verification', '!=', $v)
-                ->orderBy('created_at', 'desc')
-                ->get()
-            )
-                ->addColumn('operations', function ($apply) {
-                    return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
-                })
-                ->make(true);
-        } else {
-            return Datatables::of(Application::with('branch')
-                ->onlyTrashed()
-                ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
-                ->orderBy('created_at', 'desc')
-                ->get()
-            )
-                ->addColumn('operations', function ($apply) {
-                    return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
-                })
-                ->make(true);
-        }
+            ->orderBy('created_at', 'desc')
+            ->get()
+        )
+            ->addColumn('operations', function ($apply) {
+                return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
+            })
+            ->make(true);
     }
+
 
     public function restore($id)
     {
@@ -124,7 +112,7 @@ class ApplicationController extends VerificationController
 
     public function grant($id)
     {
-        $apply = Application::findOrFail($id);
+        $apply               = Application::findOrFail($id);
         $apply->verification = 1;
         $apply->save();
 
@@ -147,7 +135,7 @@ class ApplicationController extends VerificationController
             ->from(\Auth::user()->id)
             ->to($apply->branch->secretary->id)
             ->url($redirect)
-            ->extra([ 'application_name' => $apply->name ])
+            ->extra(['application_name' => $apply->name])
             ->send();
 
         return redirect()->back()->withFlashSuccess("操作成功");
@@ -155,8 +143,8 @@ class ApplicationController extends VerificationController
 
     public function deny(Request $request, $id)
     {
-        $apply = Application::findOrFail($id);
-        $apply->verification = - 1;
+        $apply               = Application::findOrFail($id);
+        $apply->verification = -1;
         $apply->save();
 
         $redirect = '';
@@ -190,7 +178,7 @@ class ApplicationController extends VerificationController
     public function detail($id)
     {
         $application = Application::find($id);
-        if (!$application){
+        if (!$application) {
             $application = Application::onlyTrashed()->where('id', $id)->first();
             $application || abort(404);
         }
@@ -219,20 +207,20 @@ class ApplicationController extends VerificationController
             "id", "name", "type", "verification", "branch_type", "created_at", "branch_id", "updated_at", "detail", "summary",
         ])->get();
 
-        $data = [ ];
+        $data = [];
         foreach ($application as $key => $item) {
             array_push($data, [
-                '#' => $item->id,
-                '提交作品题目' => $item->name,
-                '提交作品类型' => $item->type,
-                '支部名称' => $item->branch->name,
-                '支部类型' => $item->branch->type,
-                '所属学校' => $item->branch->university->name,
-                '简介' => $item->summary,
-                '详情' => $item->detail,
+                '#'       => $item->id,
+                '提交作品题目'  => $item->name,
+                '提交作品类型'  => $item->type,
+                '支部名称'    => $item->branch->name,
+                '支部类型'    => $item->branch->type,
+                '所属学校'    => $item->branch->university->name,
+                '简介'      => $item->summary,
+                '详情'      => $item->detail,
                 '是否已通过审核' => $item->verification ? "是" : "否",
-                '提交于' => $item->created_at,
-                '通过于' => $item->verification ? $item->updated_at : "未审核",
+                '提交于'     => $item->created_at,
+                '通过于'     => $item->verification ? $item->updated_at : "未审核",
             ]);
         }
 
@@ -250,7 +238,10 @@ class ApplicationController extends VerificationController
      */
     public function search(Request $request)
     {
-        return Datatables::of($this->application->whereName($request->get('application_name'))->select([ 'id', 'name', 'type', 'created_at', 'branch_id' ])->where('verification', $request->get('status'))
+        return Datatables::of($this->application
+            ->whereName($request->get('application_name'))
+            ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
+            ->where('verification', $request->get('status'))
             ->whereHas('branch', function ($query) use ($request) {
                 if ($request->get('branch_name')) {
                     $query->where('name', 'like', '%' . $request->get('branch_name') . '%');
@@ -258,7 +249,11 @@ class ApplicationController extends VerificationController
                 if ($request->get('university_name')) {
                     $query->where('university', 'like', '%' . $request->get('university_name') . '%');
                 }
-            })->with('branch')->orderBy('created_at', 'desc')->get()
+            })
+            ->isTrashed($request->get('status'))
+            ->with('branch')
+            ->orderBy('created_at', 'desc')
+            ->get()
         )
             ->addColumn('operations', function ($apply) {
                 return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';

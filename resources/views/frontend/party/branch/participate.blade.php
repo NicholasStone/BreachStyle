@@ -33,9 +33,10 @@
                                         <a class="title" href="{{ route('frontend.branch.show', $item->id) }}"><span
                                                     class="iconfont">&#xe60c;</span>{{ $item->name }}</a>
                                         <a><i class="fa fa-map-marker"
-                                              aria-hidden="true"></i>{{ $item->university->province->name }}</a>
+                                              aria-hidden="true"></i>{{ $item['relations']['university']->province->name }}</a>
+                                              {{--aria-hidden="true"></i>{{ dd($item->toArray()) }}</a>--}}
                                         <a><i class="fa fa-university"
-                                              aria-hidden="true"></i>{{ $item->university->name }}</a>
+                                              aria-hidden="true"></i>{{ $item->university }}</a>
                                         <a><i class="fa fa-tags" aria-hidden="true"></i>{{ $item->type }}</a>
                                     </div>
                                 </div>

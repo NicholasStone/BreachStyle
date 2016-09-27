@@ -11,10 +11,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
 use Validator;
+use App\Http\Controllers\Frontend\Party\Traits\ApplicationTrait;
 
 class CourseController extends Controller
 {
-    use FileStorage;
+    use FileStorage, ApplicationTrait;
 
     /**
      * Display a listing of the resource.
@@ -26,7 +27,7 @@ class CourseController extends Controller
     public function index($sort = 'created_at')
     {
         $type = "微党课";
-        $page = Application::with('branch')->where('type', $type)->where('verification', 1)->orderBy($sort, "desc")->paginate();
+        $page = $this->getIndexPage($type, $sort);
 
         return view("frontend.party.common.list", compact('type', 'page', "sort"))
             ->withUser(access()->user());
@@ -70,54 +71,26 @@ class CourseController extends Controller
             return redirect()->back();
         }
 
-        $application = new Application();
-        $apply = $request->all();
-        $img_hash = $this->saveImage($request->file('img'), "Application/Course");
-        $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
-        $application->name = $apply['name'];
-        $application->type = '微党课';
-        $application->summary = $apply['summary'];
-        $application->detail = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
-        $application->branch_id = Auth::user()->branch_id;
-        $application->branch_type = Auth::user()->branch_type;
+        $application                  = new Application();
+        $apply                        = $request->all();
+        $img_hash                     = $this->saveImage($request->file('img'), "Application/Course");
+        $apply_hash                   = $this->saveImage($request->file('apply'), "Application/Apply");
+        $application->name            = $apply['name'];
+        $application->type            = '微党课';
+        $application->summary         = $apply['summary'];
+        $application->detail          = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
+        $application->branch_id       = Auth::user()->branch_id;
+        $application->branch_type     = Auth::user()->branch_type;
         $application->course_lecturer = $apply['course_lecturer'];
-        $application->img_hash = $img_hash;
-        $application->apply_hash = $apply_hash;
-        $application->video_hash = \Session::get('video_path');
+        $application->img_hash        = $img_hash;
+        $application->apply_hash      = $apply_hash;
+        $application->video_hash      = \Session::get('video_path');
         \Session::set('video_path', null);
         $application->save();
 
         alert()->success('提交成功，请等待审核');
 
         return redirect()->route('frontend.index');
-    }
-
-    /**
-     * 上传视频文件
-     * @param Request $request
-     * @return mixed
-     */
-    public function upload(Request $request)
-    {
-        if (!$request->hasFile('file')) {
-            return response()->json([
-                'jsonrpc' => '2.0',
-                'error'   => [
-                    'code'    => 103,
-                    'message' => '无法接收上传文件',
-                ],
-                'id'      => 'id',
-            ]);
-        }
-        $path = $this->saveVideo($request->file('file'));
-        \Session::set('video_path', $path);
-
-        return response()->json([
-            'jsonrpc' => '2.0',
-            'result'  => null,
-            'id'      => 'id',
-            'path'    => $path
-        ]);
     }
 
     /**
@@ -128,12 +101,12 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        $application = Application::findOrFail($id);
-        $comments = $application->comments;
-        $branch = $application->branch;
-        $university = $branch->university;
+//        $application = Application::findOrFail($id);
+//        $comments = $application->comments;
+//        $branch = $application->branch;
+//        $university = $branch->university;
 
-        return view('frontend.party.course.detail', compact('application', 'comments', 'branch', 'university'));
+        return view('frontend.party.course.detail', $this->getShowData($id));
     }
 
     /**
@@ -144,14 +117,16 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        $application = Application::findOrFail($id);
-
-
-        if($application->verification != -1){
-            alert()->error("您现在不能修改成功信息");
-            return redirect()->back();
-        }
-        return view('frontend.party.course.edit', $application);
+//        $application = Application::findOrFail($id);
+//
+//        if ($application->canEdit()) {
+//            alert()->error("您现在不能修改提交信息");
+//
+//            return redirect()->back();
+//        }
+//
+//        return view('frontend.party.course.edit', $application);
+        return $this->editOrFail('frontend.party.course.edit', $id);
     }
 
     /**
@@ -166,21 +141,24 @@ class CourseController extends Controller
         $application = Application::findOrFail($id);
 
         $apply = $request->all();
-        if ($request->file('img')) {
-            $img_hash = $this->saveImage($request->file('img'), "Application/Course");
-            $application->img_hash = $img_hash;
-        }
-        if ($request->file('apply')) {
-            $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
-            $application->apply_hash = $apply_hash;
-        }
-        if (\Session::has('video_path')) {
-            $application->video_hash = \Session::get('video_path');
-            \Session::set('video_path', null);
-        }
-        $application->name = $apply['name'];
-        $application->summary = $apply['summary'];
-        $application->detail = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
+//        if ($request->file('img')) {
+//            $img_hash              = $this->saveImage($request->file('img'), "Application/Course");
+//            $application->img_hash = $img_hash;
+//        }
+//        if ($request->file('apply')) {
+//            $apply_hash              = $this->saveImage($request->file('apply'), "Application/Apply");
+//            $application->apply_hash = $apply_hash;
+//        }
+
+        $application = $this->updateApplication($request, $application);
+
+//        if (\Session::has('video_path')) {
+//            $application->video_hash = \Session::get('video_path');
+//            \Session::set('video_path', null);
+//        }
+//        $application->name            = $apply['name'];
+//        $application->summary         = $apply['summary'];
+        $application->detail          = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
         $application->course_lecturer = $apply['course_lecturer'];;
         $application->verification = 0;
         $application->save();

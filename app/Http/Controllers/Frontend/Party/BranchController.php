@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
-use Alpha\B;
 use Auth;
 use Validator;
 use App\Models\Branch;
@@ -19,20 +18,23 @@ class BranchController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param null $id
      * @return \Illuminate\Http\Response
      */
     public function index($id = null)
     {
         if (empty($id)) {
-            $page = Branch::where('verification', 1)->paginate(16);
+            $page = Branch::where('verification', 1)->withProvince()->paginate(16);
+//            $page = Branch::where('verification', 1)->withProvince()->first();
             $university = null;
         } else {
             $university = University::findOrFail($id);
             $page = Branch::where('university', $university->name)->paginate();
         }
 
-//        dd(Auth::user()->toArray());
+//        dd($page['relations']['university']->province->name);
         return view('frontend.party.branch.participate', compact("page", "university"));
+
     }
 
     /**
@@ -104,10 +106,11 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        $branch = Branch::find($id);
-        $branch->secretary;
-        $application = $branch->application;
-        $application = $application->groupBy('type');
+//        $branch = Branch::find($id);
+        $branch = Branch::with('applications')->where('id', $id)->first();
+//        dd($branch->toArray());
+        $application = $branch->applications;
+//        $application = $application->groupBy('type');
 
         return view('frontend.party.branch.index', compact("branch", "application"));
     }

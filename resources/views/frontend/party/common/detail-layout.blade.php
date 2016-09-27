@@ -9,8 +9,8 @@
         <div class="content">
             <div class="title">
                 <h3>{{ $application->name }}</h3>
-                <p>来源 : <a href="#">{{ $university->province->name }}</a><span>/</span><a
-                            href="#">{{ $university->name }}</a><span>/</span><a
+                <p>来源 : <a href="#">{{ $branch['relations']['university']->province->name }}</a><span>/</span><a
+                            href="#">{{ $university }}</a><span>/</span><a
                             href="{{ route('frontend.branch.show', $branch->id) }}">{{ $branch->name }}</a>
                 </p>
                 <div class="data">

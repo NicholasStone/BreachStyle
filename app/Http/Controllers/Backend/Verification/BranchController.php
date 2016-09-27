@@ -50,10 +50,10 @@ class BranchController extends VerificationController
             abort(404);
         }
         $applications = Application::onlyTrashed()->where('branch_id', $branch->id)->get();
-        $applications->each(function ($item){
+        $applications->each(function ($item) {
             $item->restore();
         });
-        
+
         Notifynder::category('branch.restore')
             ->from(\Auth::user()->id)
             ->to($branch->secretary->id)
@@ -68,9 +68,9 @@ class BranchController extends VerificationController
 
     public function grant($id)
     {
-        $branch = Branch::findOrFail($id);
+        $branch               = Branch::findOrFail($id);
         $branch->verification = 1;
-        $secretary = $branch->secretary;
+        $secretary            = $branch->secretary;
         $secretary->attachRole(2);
         $secretary->save();
         $branch->save();
@@ -87,7 +87,7 @@ class BranchController extends VerificationController
     public function detail($id)
     {
         $branch = Branch::find($id);
-        if (!$branch){
+        if (!$branch) {
             $branch = Branch::onlyTrashed()->where('id', $id)->first();
             $branch || abort(404);
         }
@@ -116,9 +116,9 @@ class BranchController extends VerificationController
 
     public function delete(Request $request, $id)
     {
-        $branch = Branch::findOrFail($id);
+        $branch       = Branch::findOrFail($id);
         $applications = $branch->applications;
-        $applications->each(function ($item){
+        $applications->each(function ($item) {
             $item->delete();
         });
 
@@ -129,11 +129,12 @@ class BranchController extends VerificationController
             ->extra(['reason' => $request->get('reason')])
             ->send();
 
-        $secretary = $branch->secretary;
+        $secretary            = $branch->secretary;
         $secretary->branch_id = 0;
         $secretary->save();
 
         $branch->delete();
+
         return redirect()->back();
     }
 
@@ -152,7 +153,7 @@ class BranchController extends VerificationController
             'id', 'name', 'type', 'university', 'tel', 'verification', 'address', 'summary',
             'total_membership', 'secretary_summary', 'secretary', 'created_at', 'updated_at',
         ])->get();
-        $data = [];
+        $data     = [];
         foreach ($branches as $item) {
             array_push($data, [
                 "#"       => $item->id,
@@ -176,12 +177,13 @@ class BranchController extends VerificationController
 
     public function search(Request $request)
     {
+//        dd($request->all()->toArray());
         return Datatables::of(
             $this->branch->isHasName($request->get('branch_name'))->isHasType($request->get('branch_type'))
-                ->isVerify($request->get('status'))->orderBy('created_at', 'asc')->get()
-            )
+                ->isVerify($request->get('status'))->isTrashed($request->get('status'))->orderBy('created_at', 'asc')->get()
+        )
             ->addColumn('operations', function ($branch) {
-            return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
+                return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
             })
             ->make(true);
     }

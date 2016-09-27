@@ -22,7 +22,7 @@
                             <div class="comment_ctt">
                                 <span class="username">{{ $item->user->name }}</span>
                                 <span class="time">{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</span>
-                                <span class="floor"> {{ (int)$key + 1}}F </span>
+                                <span class="floor"> {{ intval($key) + 1 }}F </span>
                                 <p>{{ $item->comment }}</p>
                             </div>
                         </li>

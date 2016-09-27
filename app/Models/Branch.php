@@ -19,7 +19,7 @@ class Branch extends Model
 
     public function university()
     {
-        return $this->belongsTo(University::class,'university');
+        return $this->belongsTo(University::class, 'university', 'name');
     }
 
     public function members()
@@ -32,14 +32,19 @@ class Branch extends Model
         return $this->hasMany(Application::class);
     }
 
-    public function getApplicationAttribute()
-    {
-        return Application::where('branch_id', $this->id)->where('verification', '1')->get();
-    }
-
+//    public function getApplicationAttribute()
+//    {
+//        return Application::where('branch_id', $this->id)->where('verification', '1')->get();
+//    }
+//
     public function getUniversityAttribute($value)
     {
-        return University::with('province')->where('name', $value)->first();
+        return University::where('name', $value)->first();
+    }
+
+    public function scopeWithProvince($query)
+    {
+        return $query->with('university.province');
     }
 
     public function getSecretaryAttribute($value)
@@ -49,25 +54,37 @@ class Branch extends Model
 
     public function scopeIsHasName($query, $name)
     {
-        if ($name){
-            return $query->where('name', 'like','%'.$name.'%');
+        if ($name) {
+            return $query->where('name', 'like', '%' . $name . '%');
         }
+
         return $query;
     }
 
     public function scopeIsHasType($query, $type)
     {
-        if ($type){
+        if ($type) {
             return $query->where('type', $type);
         }
+
         return $query;
     }
 
     public function scopeIsVerify($query, $status)
     {
-        if ($status == 0 || $status == 1){
+        if ($status == 0 || $status == 1) {
             return $query->where('verification', $status);
         }
+
         return $query;
+    }
+
+    public function scopeIsTrashed($query, $status)
+    {
+        if ($status == 2){
+            return $query->withTrashed();
+        }else{
+            return $query;
+        }
     }
 }

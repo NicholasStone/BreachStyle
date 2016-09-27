@@ -70,8 +70,8 @@ class User extends Authenticatable
         return $this->branch->type;
     }
 
-    public function getUniversityAttribute($value)
-    {
-        return University::where('name', $value)->first();
-    }
+//    public function getUniversityAttribute($value)
+//    {
+//        return University::where('name', $value)->first();
+//    }
 }

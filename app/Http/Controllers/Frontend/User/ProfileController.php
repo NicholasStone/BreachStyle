@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\User\UpdateProfileRequest;
+use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -39,7 +40,7 @@ class ProfileController extends Controller
             return redirect()->route('admin.dashboard');
         }
         $user->branch;
-        $branches = $user->university->branches;
+        $branches = Branch::where('university', $user->university)->get();
         $notifies = $user->getNotifications();
         return view('frontend.user.detail')->with(compact("user", "branches","notifies"));
     }

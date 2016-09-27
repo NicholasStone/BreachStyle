@@ -47,4 +47,18 @@ class Application extends Model
         return $query;
     }
 
+    public function canEdit()
+    {
+        return $this->verification == -1;
+    }
+
+    public function scopeIsTrashed($query, $status)
+    {
+        if ($status == 2){
+            return $query->withTrashed();
+        }else{
+            return $query;
+        }
+    }
+
 }

@@ -70,4 +70,12 @@ abstract class VerificationController extends Controller
      * @return mixed Excel文件
      */
     public abstract function excel();
+
+    /**
+     * 搜索功能
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public abstract function search(Request $request);
 }

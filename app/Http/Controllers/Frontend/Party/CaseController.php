@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Common\FileStorage;
 use App\Http\Requests\Frontend\Party\CaseRequest;
+use App\Http\Controllers\Frontend\Party\Traits\ApplicationTrait;
 
 class CaseController extends Controller
 {
-    use FileStorage;
+    use FileStorage, ApplicationTrait;
 
     /**
      * Display a listing of the resource.
@@ -23,7 +24,7 @@ class CaseController extends Controller
     public function index($sort = 'created_at')
     {
         $type = "工作案例";
-        $page = Application::with(['branch'])->where("type", $type)->where('verification', 1)->orderBy($sort, 'desc')->paginate(16);
+        $page = $this->getIndexPage($type, $sort);
 
         return view('frontend.party.common.list', compact("type", "page", "sort"))
             ->withUser(access()->user());
@@ -48,18 +49,18 @@ class CaseController extends Controller
      */
     public function store(CaseRequest $request)
     {
-        $application = new Application();
-        $apply = $request->all();
-        $img_hash = $this->saveImage($request->file('img'), "Application/Case");
-        $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
-        $application->name = $apply['name'];
-        $application->type = '工作案例';
-        $application->detail = $apply['detail'];
-        $application->summary = $apply['summary'];
-        $application->branch_id = Auth::user()->branch_id;
+        $application              = new Application();
+        $apply                    = $request->all();
+        $img_hash                 = $this->saveImage($request->file('img'), "Application/Case");
+        $apply_hash               = $this->saveImage($request->file('apply'), "Application/Apply");
+        $application->name        = $apply['name'];
+        $application->type        = '工作案例';
+        $application->detail      = $apply['detail'];
+        $application->summary     = $apply['summary'];
+        $application->branch_id   = Auth::user()->branch_id;
         $application->branch_type = Auth::user()->branch_type;
-        $application->img_hash = $img_hash;
-        $application->apply_hash = $apply_hash;
+        $application->img_hash    = $img_hash;
+        $application->apply_hash  = $apply_hash;
         $application->save();
 
         alert()->success('提交成功，请等待审核通过');
@@ -75,15 +76,12 @@ class CaseController extends Controller
      */
     public function show($id)
     {
-        $application = Application::find($id);
-        if ($application instanceof Application) {
-            $comments = $application->comments;
-            $branch = $application->branch;
-            $university = $branch->university;
-        }else{
-            abort(404);
-        }
-        return view('frontend.party.case.detail', compact("application", "comments", "branch", "university"));
+//        $application = Application::with(['branch.university.province'])->where("id", $id)->firstOrFail();
+//        $comments    = $application->comments;
+//        $branch      = $application->branch;
+//        $university  = $branch->university;
+
+        return view('frontend.party.case.detail', $this->getShowData($id));
     }
 
     /**
@@ -91,13 +89,17 @@ class CaseController extends Controller
      */
     public function edit($id)
     {
-        $application = Application::findOrFail($id);
+//        $application = Application::findOrFail($id);
+//
+//        if ($application->verification != -1) {
+//            alert()->error("您现在不能修改成功信息");
+//
+//            return redirect()->back();
+//        }
+//
+//        return view('frontend.party.case.edit', $application);
 
-        if($application->verification != -1){
-            alert()->error("您现在不能修改成功信息");
-            return redirect()->back();
-        }
-        return view('frontend.party.case.edit', $application);
+        return $this->editOrFail('frontend.party.case.edit', $id);
     }
 
     /**
@@ -110,18 +112,19 @@ class CaseController extends Controller
     public function update(Request $request, $id)
     {
         $application = Application::findOrFail($id);
-        $apply = $request->all();
-        if ($request->file('img')) {
-            $img_hash = $this->saveImage($request->file('img'), "Application/Case");
-            $application->img_hash = $img_hash;
-        }
-        if ($request->file('apply')) {
-            $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
-            $application->apply_hash = $apply_hash;
-        }
-        $application->name = $apply['name'];
-        $application->detail = $apply['detail'];
-        $application->summary = $apply['summary'];
+        $apply       = $request->all();
+//        if ($request->file('img')) {
+//            $img_hash              = $this->saveImage($request->file('img'), "Application/Case");
+//            $application->img_hash = $img_hash;
+//        }
+//        if ($request->file('apply')) {
+//            $apply_hash              = $this->saveImage($request->file('apply'), "Application/Apply");
+//            $application->apply_hash = $apply_hash;
+//        }
+        $application = $this->updateApplication($request, $application);
+//        $application->name         = $apply['name'];
+//        $application->summary      = $apply['summary'];
+        $application->detail       = $apply['detail'];
         $application->verification = 0;
         $application->save();
 
