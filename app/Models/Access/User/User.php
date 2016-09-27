@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Access\User\Traits\Attribute\UserAttribute;
 use App\Models\Access\User\Traits\Relationship\UserRelationship;
 use Fenos\Notifynder\Notifable;
+
 /**
  * Class User
  * @package App\Models\Access\User
@@ -40,7 +41,7 @@ class User extends Authenticatable
         'type',
         'province',
         'city',
-        'avatar'
+        'avatar',
     ];
 
     /**
@@ -68,6 +69,21 @@ class User extends Authenticatable
     public function getBranchTypeAttribute()
     {
         return $this->branch->type;
+    }
+
+    public function attachBranch($branch)
+    {
+        $id = '';
+        if (is_object($branch)) {
+            $id = $branch->id;
+        }
+
+        if (is_int($branch)) {
+            $id = $branch;
+        }
+
+        $this->branch_id = $id;
+        $this->save();
     }
 
 //    public function getUniversityAttribute($value)

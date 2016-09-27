@@ -8,11 +8,12 @@
 @endsection
 
 @section('after-styles-end')
-    {{--{!! Html::style('//cdn.bootcss.com/video.js/5.11.0/video-js.min.css') !!}--}}
-    <link href="http://vjs.zencdn.net/5.11.6/video-js.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/video.js/5.13.0/alt/video-js-cdn.min.css" rel="stylesheet">
 @endsection
 
 @section('after-scripts-end')
+    <script src="//cdn.bootcss.com/video.js/5.13.0/video.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/5.13.0/ie8/videojs-ie8.min.js"></script>
     {{ Html::script("js/backend/plugin/datatables/jquery.dataTables.min.js") }}
     {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
 
@@ -60,10 +61,10 @@
                 <dt>{{ trans('strings.backend.verification.application.branch') }}</dt>
                 <dd>{{ $branch['name'] }}</dd>
                 <dt>{{ trans('strings.backend.verification.application.university') }}</dt>
-                <dd>{{ $branch['university']['name'] }}</dd>
+                <dd>{{ $branch['university'] }}</dd>
                 <dt>{{ trans('strings.backend.verification.application.tel') }}</dt>
                 <dd>{{ $branch['tel'] }}</dd>
-                @unless(empty($summary))
+                @unless($type = "微党课")
                     <dt>{{ trans('strings.backend.verification.application.summary') }}</dt>
                     <dd>{{ $summary }}</dd>
                 @endunless
@@ -94,7 +95,7 @@
             </dl>
             <div>
                 @if($deleted_at)
-                    <a href="{{ route('admin.verify.application.restore', $id) }}" class="btn btn-olive btn-flat">恢复</a>
+                    <a href="{{ route('admin.verify.application.restore', $id) }}" class="btn bg-olive btn-flat">恢复</a>
                 @else
                     @if($verification < 1)
                         <a href="{{ route('admin.verify.application.grant', $id) }}"

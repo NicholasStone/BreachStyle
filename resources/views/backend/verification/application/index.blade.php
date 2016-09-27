@@ -52,7 +52,7 @@
                         <label for="sr-only">审核状态</label>
                         <select class="form-control" id="status" name="status">
                             <option value="-1">驳回</option>
-                            <option value="0">待审核</option>
+                            <option value="0" selected>待审核</option>
                             <option value="1">通过</option>
                             <option value="2">已删除</option>
                         </select>
@@ -102,7 +102,7 @@
 
     <script>
         $(function () {
-            var url = "{{ route("admin.verify.application.get", ['v' => 0]) }}";
+            var url = "{{ route('admin.verify.application.search') }}" + "?status=" + $("#status").val();
             var table = $('#table').DataTable({
                 locale: 'zh-CN',
                 processing: true,
@@ -115,7 +115,7 @@
                 columns: [
                     {data: 'name'},
                     {data: 'type'},
-                    {data: 'branch.university.name'},
+                    {data: 'branch.university'},
                     {data: 'branch.name'},
                     {data: 'created_at'},
                     {data: 'operations'}
@@ -125,7 +125,7 @@
             });
 
             $("#search").click(function () {
-                url = "{{ route('admin.verify.application.search') }}"+"?application_name=" + $("#application_name").val()
+                url = "{{ route('admin.verify.application.search') }}" + "?application_name=" + $("#application_name").val()
                         + "&branch_name=" + $("#branch_name").val() + "&university_name=" + $("#university_name").val() +
                         "&status=" + $("#status").val();
 

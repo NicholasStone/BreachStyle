@@ -36,28 +36,6 @@ class ApplicationController extends VerificationController
             ->withUser(access()->user());
     }
 
-
-    /**
-     * 获取列表数据
-     *
-     * @param int $v 所需状态 1
-     * @return mixed
-     */
-    public function gets($v = 0)
-    {
-        return Datatables::of(Application::with(['branch', 'branch.university'])
-            ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
-//                ->where('verification', '!=', $v)
-            ->orderBy('created_at', 'desc')
-            ->get()
-        )
-            ->addColumn('operations', function ($apply) {
-                return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
-            })
-            ->make(true);
-    }
-
-
     public function restore($id)
     {
         $apply = Application::onlyTrashed()->where('id', $id)->first();
@@ -238,10 +216,10 @@ class ApplicationController extends VerificationController
      */
     public function search(Request $request)
     {
-        return Datatables::of($this->application
+        dd($this->application
+            ->withStatus($request->get('status'))
             ->whereName($request->get('application_name'))
             ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
-            ->where('verification', $request->get('status'))
             ->whereHas('branch', function ($query) use ($request) {
                 if ($request->get('branch_name')) {
                     $query->where('name', 'like', '%' . $request->get('branch_name') . '%');
@@ -250,10 +228,25 @@ class ApplicationController extends VerificationController
                     $query->where('university', 'like', '%' . $request->get('university_name') . '%');
                 }
             })
-            ->isTrashed($request->get('status'))
             ->with('branch')
             ->orderBy('created_at', 'desc')
-            ->get()
+            ->get()->toArray());
+        return Datatables::of(
+            $this->application
+                ->withStatus($request->get('status'))
+                ->whereName($request->get('application_name'))
+                ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
+                ->whereHas('branch', function ($query) use ($request) {
+                    if ($request->get('branch_name')) {
+                        $query->where('name', 'like', '%' . $request->get('branch_name') . '%');
+                    }
+                    if ($request->get('university_name')) {
+                        $query->where('university', 'like', '%' . $request->get('university_name') . '%');
+                    }
+                })
+                ->with('branch')
+                ->orderBy('created_at', 'desc')
+                ->get()
         )
             ->addColumn('operations', function ($apply) {
                 return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';

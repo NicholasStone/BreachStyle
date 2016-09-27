@@ -36,11 +36,6 @@ class Branch extends Model
 //    {
 //        return Application::where('branch_id', $this->id)->where('verification', '1')->get();
 //    }
-//
-    public function getUniversityAttribute($value)
-    {
-        return University::where('name', $value)->first();
-    }
 
     public function scopeWithProvince($query)
     {
@@ -70,21 +65,12 @@ class Branch extends Model
         return $query;
     }
 
-    public function scopeIsVerify($query, $status)
+    public function scopeWithStatus($query, $status)
     {
-        if ($status == 0 || $status == 1) {
+        if ($status == 2) {
+            return $query->onlyTrashed();
+        } else {
             return $query->where('verification', $status);
-        }
-
-        return $query;
-    }
-
-    public function scopeIsTrashed($query, $status)
-    {
-        if ($status == 2){
-            return $query->withTrashed();
-        }else{
-            return $query;
         }
     }
 }

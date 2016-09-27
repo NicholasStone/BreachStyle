@@ -46,7 +46,7 @@
                     <dt>{{ trans('strings.backend.verification.branch.secretary-summary') }}</dt>
                     <dd>{{ $secretary_summary }}</dd>
                     <dt>所属学校</dt>
-                    <dd>{{ $university['name'] }}</dd>
+                    <dd>{{ $university }}</dd>
                     <dt>{{ trans('strings.backend.verification.branch.address') }}</dt>
                     <dd>{{ $address }}</dd>
                     <dt>{{ trans('strings.backend.verification.branch.total-membership') }}</dt>
@@ -61,11 +61,10 @@
             </div>
             <div>
                 @if($deleted_at)
-                    <a href="{{ route('admin.verify.branch.restore', $id) }}" class="btn btn-olive btn-flat">恢复</a>
+                    <a href="{{ route('admin.verify.branch.restore', $id) }}" class="btn bg-olive btn-flat">恢复</a>
                 @else
                     @if($verification < 1)
-                        <a href="{{ route('admin.verify.branch.grant', $id) }}"
-                           class="btn bg-olive btn-flat">通过</a>
+                        <a href="{{ route('admin.verify.branch.grant', $id) }}" class="btn bg-olive btn-flat">通过</a>
                     @endif
                     @if($verification != -1)
                         <button id="deny-btn" class="btn bg-orange btn-flat">驳回</button>

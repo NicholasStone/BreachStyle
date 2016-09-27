@@ -9,13 +9,15 @@ use phpDocumentor\Reflection\Types\Boolean;
 
 class Application extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes {
+        restore as softDeletesRestore;
+    }
 
     protected $date = ['deleted_at'];
 
     protected $fillable = [
         'name', 'type', 'detail', 'summary', 'img_hash', 'branch_name',
-        'apply_hash', 'video_hash', 'source_lecturer', 'creator', 'deleted_at'
+        'apply_hash', 'video_hash', 'source_lecturer', 'creator', 'deleted_at',
     ];
 
     public function branch()
@@ -31,6 +33,7 @@ class Application extends Model
     public function getTotalCommentAttribute()
     {
         $comment = $this->comments();
+
         return $comment->count();
     }
 
@@ -41,24 +44,32 @@ class Application extends Model
 
     public function scopeWhereName($query, $application_name)
     {
-        if ($application_name){
+        if ($application_name) {
             return $query->where('name', 'like', '%' . $application_name . '%');
         }
+
         return $query;
+    }
+
+    public function scopeWithStatus($query, $status)
+    {
+        if ($status == 2) {
+            return $query->onlyTrashed();
+        } else {
+            return $query->where('verification', $status);
+        }
+    }
+
+    public function restore()
+    {
+        $this->softDeletesRestore();
+        $this->verification = 0;
+        $this->save();
     }
 
     public function canEdit()
     {
         return $this->verification == -1;
-    }
-
-    public function scopeIsTrashed($query, $status)
-    {
-        if ($status == 2){
-            return $query->withTrashed();
-        }else{
-            return $query;
-        }
     }
 
 }

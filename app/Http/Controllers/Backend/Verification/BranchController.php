@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Verification;
 
 use Alpha\B;
+use App\Models\Access\User\User;
 use Fenos\Notifynder\Facades\Notifynder;
 use Illuminate\Http\Request;
 use App\Models\Application;
@@ -32,17 +33,6 @@ class BranchController extends VerificationController
             ->withUser(access()->user());
     }
 
-    public function gets($v = 0)
-    {
-        return Datatables::of(
-            Branch::orderBy('created_at', 'asc')
-                ->get())
-            ->addColumn('operations', function ($branch) {
-                return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
-            })
-            ->make(true);
-    }
-
     public function restore($id)
     {
         $branch = Branch::onlyTrashed()->where('id', $id)->first();
@@ -50,6 +40,7 @@ class BranchController extends VerificationController
             abort(404);
         }
         $applications = Application::onlyTrashed()->where('branch_id', $branch->id)->get();
+        $branch->secretary->attachBranch($branch->id);
         $applications->each(function ($item) {
             $item->restore();
         });
@@ -177,10 +168,12 @@ class BranchController extends VerificationController
 
     public function search(Request $request)
     {
-//        dd($request->all()->toArray());
         return Datatables::of(
-            $this->branch->isHasName($request->get('branch_name'))->isHasType($request->get('branch_type'))
-                ->isVerify($request->get('status'))->isTrashed($request->get('status'))->orderBy('created_at', 'asc')->get()
+            $this->branch
+                ->withStatus($request->get('status'))
+                ->isHasName($request->get('branch_name'))
+                ->isHasType($request->get('branch_type'))
+                ->orderBy('created_at', 'asc')->get()
         )
             ->addColumn('operations', function ($branch) {
                 return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';

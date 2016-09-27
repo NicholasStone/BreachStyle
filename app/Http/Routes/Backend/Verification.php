@@ -8,7 +8,6 @@ Route::group([
      * 创建党支部资料审核
      */
     Route::get('branch', 'BranchController@index')->name('admin.verify.branch');
-    Route::get('branch/get/{v}', 'BranchController@gets')->name('admin.verify.branch.get');
 //    branch 分类检索
     Route::get('branch/search', 'BranchController@search')->name('admin.verify.branch.search');
     Route::get('branch/grant/{id}', 'BranchController@grant')->name('admin.verify.branch.grant');
@@ -21,8 +20,6 @@ Route::group([
      * 成果展示审核
      */
     Route::get('application', 'ApplicationController@index')->name('admin.verify.application');
-//    Route::post('application/get/{v}', 'ApplicationController@unhandled')->name('admin.verify.application.get');
-    Route::any('application/get/{v}', 'ApplicationController@gets')->name('admin.verify.application.get');
 
 //    审核页面搜索路由
     Route::get(

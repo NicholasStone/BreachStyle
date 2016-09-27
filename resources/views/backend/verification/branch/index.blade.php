@@ -18,19 +18,6 @@
             <h3 class="box-title">
                 {{trans("labels.backend.verification.branch.management")}}
             </h3>
-
-            {{--<div class="box-tools pull-right">--}}
-                {{--<div class="btn-group">--}}
-                    {{--<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">--}}
-                        {{--选项 <span class="caret"></span>--}}
-                    {{--</button>--}}
-
-                    {{--<ul class="dropdown-menu" role="menu">--}}
-                        {{--<li><a href="javascript:void (0);" id="denied">未通过</a></li>--}}
-                        {{--<li><a href="javascript:void (0);" id="unhandled">已通过</a></li>--}}
-                    {{--</ul>--}}
-                {{--</div><!--btn group-->--}}
-            {{--</div>--}}
         </div><!-- /.box-header -->
 
         <div class="box-body">
@@ -51,8 +38,10 @@
                     <div class="form-group">
                         <label for="sr-only">审核状态</label>
                         <select class="form-control" id="status" name="status">
-                            <option value="0">未通过</option>
+                            <option value="0" selected>未审核</option>
                             <option value="1">已通过</option>
+                            <option value="-1">已驳回</option>
+                            <option value="2">已删除</option>
                         </select>
                     </div>
                     <button id="search" class="btn btn-info">搜索</button>
@@ -85,7 +74,7 @@
 
     <script>
         $(function() {
-            var url = '{{ route("admin.verify.branch.get", 0) }}';
+            var url = "{{ route('admin.verify.branch.search') }}" + "?status=" + $("#status").val();
             var table = $('#branchs-table').DataTable({
                 processing: true,
                 serverSide: true,

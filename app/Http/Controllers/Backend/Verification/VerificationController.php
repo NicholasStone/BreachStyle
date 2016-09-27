@@ -15,14 +15,6 @@ abstract class VerificationController extends Controller
     public abstract function index();
 
     /**
-     * 获取列表数据
-     *
-     * @param int $v 1为通过 0为未审核 -1为驳回 2为已删除
-     * @return mixed 适用于前台的Json数据
-     */
-    public abstract function gets($v = 0);
-
-    /**
      * 通过审核
      *
      * @param $id 数据ID
