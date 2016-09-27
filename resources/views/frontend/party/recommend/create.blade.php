@@ -24,6 +24,7 @@
             <div class="crtDepart">
                 <form action="{{ route('frontend.recommend.store') }}" method="post" enctype="multipart/form-data" id="application-form">
                     {!! csrf_field() !!}
+                    <input type="text" name="video_token" id="video-token" readonly hidden value="{{ $video_token }}">
                     <div class="row">
                         <h4>推荐展示名称<span>*</span> : </h4>
                         <input type="text" name="name" id="courseName" placeholder="请输入课题名称" class="courseName" required title="请填写推荐展示标题" value="{{ old('name') }}"/>

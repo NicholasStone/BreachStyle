@@ -43,7 +43,9 @@ class RecommendController extends Controller
      */
     public function create()
     {
-        return view('frontend.party.recommend.create')->withUser(access()->user());
+        $video_token = $this->generateVideoToken();
+
+        return view('frontend.party.recommend.create', compact("video_token"))->withUser(access()->user());
     }
 
     /**
@@ -61,7 +63,6 @@ class RecommendController extends Controller
             'img'     => 'required',
             'detail'  => 'required',
         ]);
-//        dd($validate);
         if ($validate->fails()) {
             alert()->error("请完整填写所有字段！");
 
@@ -79,8 +80,12 @@ class RecommendController extends Controller
         $application->branch_type = Auth::user()->branch_type;
         $application->img_hash    = $img_hash;
         $application->apply_hash  = $apply_hash;
-        $application->video_hash  = \Session::has('video_path') ? \Session::get('video_path') : "";
-        \Session::set('video_path', null);
+        if (\Session::has('video_path') && \Session::get('video_token') == $request->get('video_token')) {
+            dd(1111);
+            $application->video_hash = \Session::get('video_path');
+            \Session::set('video_path', null);
+            \Session::set('video_token', null);
+        }
         $application->save();
 
         alert()->success('提交成功，请等待审核');
@@ -103,7 +108,7 @@ class RecommendController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function edit($id)
     {
@@ -119,9 +124,9 @@ class RecommendController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $application = Application::findOrFail($id);
-        $apply       = $request->all();
-        $application = $this->updateApplication($request, $application);
+        $application               = Application::findOrFail($id);
+        $apply                     = $request->all();
+        $application               = $this->updateApplication($request, $application);
         $application->detail       = $apply['detail'];
         $application->verification = 0;
         $application->save();

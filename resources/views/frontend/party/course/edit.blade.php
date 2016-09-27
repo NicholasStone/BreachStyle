@@ -25,6 +25,7 @@
             <div class="crtDepart">
                 <form method="post" action="{{ route('frontend.course.update', $id) }}" enctype="multipart/form-data">
                     {!! csrf_field() !!}
+                    <input type="text" name="video_token" id="video-token" readonly hidden value="{{ $video_token }}">
                     <div class="row">
                         <h4>微党课名称<span>*</span> : </h4>
                         <input type="text" name="name" id="courseName" placeholder="请输入微党课名称" class="courseName" value="{{ $name }}"/>

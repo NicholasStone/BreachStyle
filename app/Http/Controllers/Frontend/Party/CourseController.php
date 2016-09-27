@@ -37,7 +37,9 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view("frontend.party.course.create")
+        $video_token = $this->generateVideoToken();
+
+        return view("frontend.party.course.create", compact("video_token"))
             ->withUser(access()->user());
     }
 
@@ -55,8 +57,8 @@ class CourseController extends Controller
             'course_lecturer' => 'required|max:20',
             'apply'           => 'required',
             'img'             => 'required',
+            'video_token'     => 'required',
         ]);
-//        dd($validate);
         if ($validate->fails()) {
             alert()->error("请完整填写所有字段！");
 
@@ -68,7 +70,13 @@ class CourseController extends Controller
             return redirect()->back();
         }
 
+        if (\Session::get('video_token') != $request->get('video_token')) {
+            alert()->error('请勿非法提交');
+
+            return redirect()->route('frontend.index');
+        }
         $application                  = new Application();
+        $application->video_hash      = \Session::get('video_path');
         $apply                        = $request->all();
         $img_hash                     = $this->saveImage($request->file('img'), "Application/Course");
         $apply_hash                   = $this->saveImage($request->file('apply'), "Application/Apply");
@@ -81,9 +89,9 @@ class CourseController extends Controller
         $application->course_lecturer = $apply['course_lecturer'];
         $application->img_hash        = $img_hash;
         $application->apply_hash      = $apply_hash;
-        $application->video_hash      = \Session::get('video_path');
-        \Session::set('video_path', null);
         $application->save();
+        \Session::set('video_path', null);
+        \Session::set('video_token', null);
 
         alert()->success('提交成功，请等待审核');
 
@@ -105,7 +113,7 @@ class CourseController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function edit($id)
     {
@@ -121,9 +129,9 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $application = Application::findOrFail($id);
-        $apply = $request->all();
-        $application = $this->updateApplication($request, $application);
+        $application                  = Application::findOrFail($id);
+        $apply                        = $request->all();
+        $application                  = $this->updateApplication($request, $application);
         $application->detail          = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
         $application->course_lecturer = $apply['course_lecturer'];;
         $application->verification = 0;

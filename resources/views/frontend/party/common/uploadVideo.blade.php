@@ -153,7 +153,8 @@
                 label: '选择视频'
             },
             formData: {
-                _token: $("meta[name=_token]").attr('content')
+                _token: $("meta[name=_token]").attr('content'),
+                video_token:$("#video-token").val()
             },
             dnd: '#dndArea',
             paste: '#uploader',

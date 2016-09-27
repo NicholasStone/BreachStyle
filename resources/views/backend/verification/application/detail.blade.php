@@ -79,7 +79,7 @@
                 @if($video_hash)
                     <dt>{{ trans('strings.backend.verification.application.video') }}</dt>
                     <dd>
-                        <video id="my-video" class="video-js" controls preload="auto" width="640" height="264"
+                        <video id="my-video" class="video-js" controls preload="auto" width="800"
                                poster="{{ $img_hash }}" data-setup="{}">
                             <source src="{{ $video_hash }}" type='video/mp4'>
                             <p class="vjs-no-js">
