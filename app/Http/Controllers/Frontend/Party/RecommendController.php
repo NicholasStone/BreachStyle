@@ -127,6 +127,9 @@ class RecommendController extends Controller
         $application               = Application::findOrFail($id);
         $apply                     = $request->all();
         $application               = $this->updateApplication($request, $application);
+        if ($request->get('delete_video') == 'on') {
+            $application->video_hash = null;
+        }
         $application->detail       = $apply['detail'];
         $application->verification = 0;
         $application->save();

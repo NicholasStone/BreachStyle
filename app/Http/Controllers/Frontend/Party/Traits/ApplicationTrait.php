@@ -82,9 +82,6 @@ trait ApplicationTrait
             \Session::set('video_path', null);
             \Session::set('video_token', null);
         }
-        if ($request->get('delete_video') == 'on') {
-            $application->video_hash = null;
-        }
         $application->name    = $request->get('name');
         $application->summary = $request->get('summary');
 
