@@ -56,7 +56,7 @@
 <!-- banner -->
 <div class="banner">
     <div class="bannerBox">
-        <img src="{{ asset('img/banner.jpg') }}" alt="支部风采">
+        <img src="{{ asset('/build/img/banner.jpg') }}" alt="支部风采">
     </div>
 </div>
 <!-- banner -->
