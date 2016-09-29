@@ -41,7 +41,7 @@
                     </li>
                 @else
                     <li class="login">
-                        <a href="{{ route('frontend.user.profile.detail') }}" class="reg">个人中心</a>
+                        <a href="{{ route('frontend.user.profile.detail') }}" class="reg">欢迎 {{ Auth::user()->name }}</a>
                         <a href="{{ route('auth.logout') }}" class="reg">退出</a>
                     </li>
                 @endif

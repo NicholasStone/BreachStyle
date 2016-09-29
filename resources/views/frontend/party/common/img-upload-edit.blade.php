@@ -14,7 +14,6 @@
 <script type="text/javascript">
     var preview = function (inp, img) {
         var objUrl = getObjectURL(inp.files[0]);
-        console.log("objUrl = " + objUrl);
         if (objUrl) {
             img.attr("src", objUrl);
         }
