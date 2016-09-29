@@ -22,18 +22,18 @@
                             <div class="school-right">
                                 <div class="school-right-top">
                                     <div></div>
-                                    <span>{{ $item->name }}</span>
+                                    <span style="font-size: 12px">{{ $item->name }}</span>
                                 </div>
                                 <div class="school-right-bottom">
-                                    <div class="weizhi">
+                                    <div class="weizhi" style="display: inline">
                                         <div><i class="fa fa-map-marker" aria-hidden="true"></i></div>
                                         <span>{{ $page[0]['relations']['university']->province->name }}</span>
                                     </div>
-                                    <div class="xuexiao">
+                                    <div class="xuexiao" style="display: inline">
                                         <div><i class="fa fa-university" aria-hidden="true"></i></div>
                                         <span>{{ $item->university }}</span>
                                     </div>
-                                    <div class="kindzhibu">
+                                    <div class="kindzhibu" style="display: inline">
                                         <div><i class="fa fa-tags" aria-hidden="true"></i></div>
                                         <span>{{ $item->type }}</span>
                                     </div>
