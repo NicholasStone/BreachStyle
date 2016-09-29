@@ -6,7 +6,7 @@
 
 
 @section('article')
-    <video id="my-video" class="video-js" controls preload="auto" style="width: 100%; height: 640px"
+    <video id="my-video" class="video-js" controls preload="auto" style="width: 99%;"
            poster="{{ asset($application->img_hash) }}" data-setup="{}">
         <source src="{{ asset($application->video_hash) }}" type='video/mp4'>
         <p class="vjs-no-js">

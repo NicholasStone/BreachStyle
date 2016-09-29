@@ -41,6 +41,7 @@
 	color: #bbbbbb;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	word-break: break-all;
 	height: 56px;
 }
 .list-top-right{

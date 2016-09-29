@@ -76,7 +76,7 @@
 <!-- banner -->
 <div class="banner">
     <div class="bannerBox">
-        <img src="{{ asset('img/bannernew.jpg') }}"/>
+        <img src="{{ asset('build/img/banner.jpg') }}"/>
     </div>
 </div>
 <!-- banner -->

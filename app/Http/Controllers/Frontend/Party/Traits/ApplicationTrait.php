@@ -90,9 +90,9 @@ trait ApplicationTrait
 
     protected function getIndexData_m($type)
     {
-        $applications = Application::select(['name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
-            ->where("type",$type)
-            ->where("verification", 1)
+        $applications = Application::select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
+        ->where('type', $type)
+            ->withStatus()
             ->with(['branch' => function ($query) {
                 $query->select(['id', 'name']);
             }, 'comments'    => function ($query) {

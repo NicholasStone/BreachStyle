@@ -1,3 +1,6 @@
+@section('before-styles-end')
+    @include('frontend.mobile.fit', ['route' => route('frontend.m.course') ])
+@endsection
 <div class="caseList">
     <ul>
         @foreach($page as $item)

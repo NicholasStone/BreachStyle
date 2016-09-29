@@ -1,5 +1,7 @@
 @extends('frontend.layouts.master')
-
+@section('before-styles-end')
+    @include('frontend.mobile.fit', ['route' => route('frontend.m.branch.index') ])
+@endsection
 @section('after-styles-end')
     {!! Html::style('css/frontend/participate.css') !!}
 @endsection 
@@ -41,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="introduce">
-                                    <p>{{ $item->summary }}</p>
+                                    <p style="overflow: hidden">{{ $item->summary }}</p>
                                 </div>
                             </div>
                         </li>

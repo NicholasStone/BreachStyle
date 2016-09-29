@@ -38,8 +38,17 @@ class RecommendController extends Controller
 
     public function index_m()
     {
+        $applications = Application::select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
+            ->where('type', "学生党支部推荐展示")
+            ->orWhere('type', "教师党支部推荐展示")
+            ->withStatus()
+            ->with(['branch' => function ($query) {
+                $query->select(['id', 'name']);
+            }, 'comments'    => function ($query) {
+                $query->select(['id']);
+            }])->orderBy('updated_at', 'desc')->get();
 
-        return view("frontend.mobile.list", $this->getIndexData_m("%支部推荐展示"));
+        return view("frontend.mobile.list", compact("applications"));
     }
 
     /**
@@ -74,18 +83,18 @@ class RecommendController extends Controller
 
             return redirect()->back();
         }
-        $application = new Application();
-        $apply = $request->all();
-        $img_hash = $this->saveImage($request->file('img'), "Application/Recommend");
-        $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
-        $application->name = $apply['name'];
-        $application->type = Auth::user()->branch_type == '学生党支部' ? '学生党支部推荐展示' : '教师党支部推荐展示';
-        $application->detail = $apply['detail'];
-        $application->summary = $apply['summary'];
-        $application->branch_id = Auth::user()->branch_id;
+        $application              = new Application();
+        $apply                    = $request->all();
+        $img_hash                 = $this->saveImage($request->file('img'), "Application/Recommend");
+        $apply_hash               = $this->saveImage($request->file('apply'), "Application/Apply");
+        $application->name        = $apply['name'];
+        $application->type        = Auth::user()->branch_type == '学生党支部' ? '学生党支部推荐展示' : '教师党支部推荐展示';
+        $application->detail      = $apply['detail'];
+        $application->summary     = $apply['summary'];
+        $application->branch_id   = Auth::user()->branch_id;
         $application->branch_type = Auth::user()->branch_type;
-        $application->img_hash = $img_hash;
-        $application->apply_hash = $apply_hash;
+        $application->img_hash    = $img_hash;
+        $application->apply_hash  = $apply_hash;
         if (\Session::has('video_path') && \Session::get('video_token') == $request->get('video_token')) {
             dd(1111);
             $application->video_hash = \Session::get('video_path');
@@ -131,12 +140,12 @@ class RecommendController extends Controller
     public function update(Request $request, $id)
     {
         $application = Application::findOrFail($id);
-        $apply = $request->all();
+        $apply       = $request->all();
         $application = $this->updateApplication($request, $application);
         if ($request->get('delete_video') == 'on') {
             $application->video_hash = null;
         }
-        $application->detail = $apply['detail'];
+        $application->detail       = $apply['detail'];
         $application->verification = 0;
         $application->save();
 
