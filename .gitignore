@@ -6,6 +6,7 @@ composer.lock
 _ide_helper.php
 .phpstorm.meta.php
 *.list
+public/storage/
 public/img/
 public/uploadImages/*
 public/uploadVideos/*
