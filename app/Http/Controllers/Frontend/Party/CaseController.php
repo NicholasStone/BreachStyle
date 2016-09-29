@@ -30,6 +30,11 @@ class CaseController extends Controller
             ->withUser(access()->user());
     }
 
+    public function index_m()
+    {
+        return view("frontend.mobile.list", $this->getIndexData_m("工作案例"));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

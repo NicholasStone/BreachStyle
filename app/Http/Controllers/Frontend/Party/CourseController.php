@@ -30,6 +30,12 @@ class CourseController extends Controller
             ->withUser(access()->user());
     }
 
+    public function index_m()
+    {
+        return view("frontend.mobile.list", $this->getIndexData_m("微党课"));
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

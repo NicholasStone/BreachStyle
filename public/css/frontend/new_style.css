@@ -1,0 +1,163 @@
+.topbar .content .welcome{
+	margin-left: 10px;
+}
+.topbar .content .home .homeList li.login{
+	margin-right: 10px;
+}
+.topbar .content .home .homeList li.login .loginBtn{
+	border-radius: 10px;
+}
+.index-list{
+	margin: 10px;
+	height: 120px;
+	background: #FFFFFF;
+	padding: 10px;
+}
+.index-main-ul:before,.index-main-ul:after,.index-list:after,.index-list:before{
+	display: none;
+}
+.index-list>a{
+	overflow: hidden;
+	display: inline-block;
+}
+.index-list-top{
+	overflow: hidden;
+	margin-top: 5px;
+}
+.list-top-left{
+	float: left;
+	width: 65%;
+}
+.list-top-left>h5{
+	font-size: 14px;
+	margin-top: 0;
+	color: #000000;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.list-top-left>p{
+	font-size: 12px;
+	line-height: 14px;
+	color: #bbbbbb;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 56px;
+}
+.list-top-right{
+	float: right;
+	width: 30%;
+	height: 75px;
+}
+.list-top-right>img{
+	width: 100%;
+	height: 100%;
+}
+.index-list-bottom{
+	margin-top: 10px;
+	color: #BBBBBB;
+}
+.list-bottom-left{
+	float: left;
+	height: 20px;
+}
+.list-bottom-right{
+	float: right;
+}
+.list-bottom-left>div{
+	float: left;
+}
+.list-bottom-left>span{
+	font-size: 13px;
+	line-height: 20px;
+}
+.index-zan,.index-message{
+	float: right;
+	font-size: 13px;
+	width: 65px;
+}
+.index-user{
+	height: 15px;
+	margin-top: 2.5px;
+}
+/*join*/
+.join-title{
+	margin: 10px 15px;
+	color: #dc7044;
+}
+.join-main-ul{
+	margin: 0 10px;
+}
+.join-list{
+	background: #fef4e2;
+	overflow: hidden;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px #cbbda3;
+	margin-bottom: 10px;
+}
+.join-list-top{
+	margin: 10px 5px 10px 15px;
+	overflow: hidden;
+}
+.school-left{
+	width: 25%;
+	height: 70px;
+	float: left;
+}
+.school-right{
+	width: 75%;
+	float: right;
+	overflow: hidden;
+}
+.school-left>img{
+	width: 100%;
+	height: 100%;
+}
+.school-right-top,.school-right-bottom{
+	height: 20px;
+	width: 100%;
+}
+.school-right-top{
+	margin-left: 5px;
+	color: #671c1e;
+}
+.school-right-bottom{
+	margin-top: 5px;
+}
+.school-right-top>div{
+	float: left;
+	line-height: 20px;
+	font-size: 18px;
+	margin-top: 1px;
+}
+.weizhi,.xuexiao{
+	float: left;
+	margin-left: 3px;
+	color: #a6a8a6;
+}
+.xuexiao{
+	margin-left: 10px;
+}
+.kindzhibu{
+	clear: both;
+	margin-left: 5px;
+	color: #a6a8a6;
+	margin-top: 2px;
+}
+.weizhi>div,.xuexiao>div,.kindzhibu>div{
+	float: left;
+	font-size: 18px;
+}
+.weizhi>span,.xuexiao>span,.kindzhibu>span{
+	font-size: 12px;
+}
+.join-list-mid{	
+	margin: 10px 15px 10px 15px;
+	color: #6c6c6f;
+}
+.join-list-mid>p{
+	width: 100%;
+	height: 80px;
+	font-size: 14px;
+	overflow: hidden;
+}
+

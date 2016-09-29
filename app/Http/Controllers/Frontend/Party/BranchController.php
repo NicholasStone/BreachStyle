@@ -23,16 +23,17 @@ class BranchController extends Controller
      */
     public function index($id = null)
     {
-        if (empty($id)) {
-            $page = Branch::where('verification', 1)->withProvince()->paginate(16);
-            $university = null;
-        } else {
-            $university = University::findOrFail($id);
-            $page = Branch::where('university', $university->name)->withProvince()->paginate();
-        }
+        list($page, $university) = $this->getIndexData($id);
 
         return view('frontend.party.branch.participate', compact("page", "university"));
 
+    }
+
+    public function index_m($id = null)
+    {
+        list($page, $university) = $this->getIndexData($id);
+
+        return view('frontend.mobile.branch-index', compact("page", "university"));
     }
 
     /**
@@ -100,10 +101,16 @@ class BranchController extends Controller
      */
     public function show($id)
     {
-        $branch = Branch::with(['applications', 'secretary'])->where('id', $id)->first();
-        $application = $branch->applications;
+        list($branch, $application) = $this->getShowData($id);
 
         return view('frontend.party.branch.index', compact("branch", "application"));
+    }
+
+    public function show_m($id)
+    {
+        list($branch, $application) = $this->getShowData($id);
+
+        return view('frontend.mobile.branch-detail', compact("branch", "application"));
     }
 
     /**
@@ -179,5 +186,36 @@ class BranchController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    protected function getIndexData($id)
+    {
+        if (empty($id)) {
+            $page = Branch::where('verification', 1)->withProvince()->paginate(16);
+            $university = null;
+
+            return [$page, $university];
+        } else {
+            $university = University::findOrFail($id);
+            $page = Branch::where('university', $university->name)->withProvince()->paginate();
+
+            return [$page, $university];
+        }
+    }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    protected function getShowData($id)
+    {
+        $branch = Branch::with(['applications', 'secretary'])->where('id', $id)->first();
+        $application = $branch->applications;
+
+        return [$branch, $application];
     }
 }

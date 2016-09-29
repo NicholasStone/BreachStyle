@@ -18,6 +18,7 @@ Route::group(['middleware' => 'web'], function () {
         require(__DIR__ . '/Routes/Frontend/Party.php');
         require(__DIR__ . '/Routes/Frontend/SSOAuth.php');
         require(__DIR__ . '/Routes/Frontend/Notify.php');
+        require(__DIR__ . '/Routes/Frontend/Mobile.php');
     });
 });
 

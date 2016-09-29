@@ -74,7 +74,7 @@ class SSOAuthController extends Controller
 
     public function complete(Request $request)
     {
-        dd($request->all());
+//        dd($request->all());
         if (Session::has('id')) {
             return redirect()->back();
         }
