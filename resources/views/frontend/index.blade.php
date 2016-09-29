@@ -1,5 +1,31 @@
 @extends('frontend.layouts.master')
 
+@section('before-styles-end')
+    <script>
+        document.onreadystatechange = subSomething;
+
+        function subSomething() {
+            if(document.readyState == "interactive") {
+                browserRedirect();
+            }
+        }
+        function browserRedirect() {
+            var sUserAgent = navigator.userAgent.toLowerCase();
+            var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+            var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+            var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+            var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+            var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+            var bIsAndroid = sUserAgent.match(/android/i) == "android";
+            var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+            var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+            if(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+                window.location.href="{{ route('frontend.m.index') }}";
+            }
+        }
+    </script>
+@endsection
+
 @section('after-styles-end')
     {!! Html::style(asset('css/frontend/map.css'))!!}
     {!! Html::style(asset('css/frontend/swipeslider.css'))!!}
@@ -7,85 +33,85 @@
 
 @section('content')
     @if($settings[2]->value)
-    <div class="sliderNews">
-        <div class="content">
-            <div class="slider">
-                <div class="container">
-                    <div id="full_feature" class="swipslider">
-                        <ul class="sw-slides">
-                            @foreach($sliders as $slider)
-                                <li class="sw-slide">
-                                    <a href="{{ asset($slider->link) }}">
-                                        {!! $slider->path !!}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
+        <div class="sliderNews">
+            <div class="content">
+                <div class="slider">
+                    <div class="container">
+                        <div id="full_feature" class="swipslider">
+                            <ul class="sw-slides">
+                                @foreach($sliders as $slider)
+                                    <li class="sw-slide">
+                                        <a href="{{ asset($slider->link) }}">
+                                            {!! $slider->path !!}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="news">
-                <div class="container">
-                    <div class="title">
-                        <h3>最新动态</h3>
-                    </div>
-                    <div class="newList">
-                        <ol>
-                            @foreach($last_trends as $trend)
-                                <li>
-                                    <p>
-                                        @if($trend->type == "微党课")
-                                            <a href="{{ route('frontend.course.show', $trend->id) }}">{{ $trend->name }}</a>
-                                        @elseif($trend->type == "工作案例")
-                                            <a href="{{ route('frontend.case.show', $trend->id) }}">{{ $trend->name }}</a>
-                                        @elseif($trend->type == "教师党支部推荐展示" || $trend->type == "学生党支部推荐展示")
-                                            <a href="{{ route('frontend.recommend.show', $trend->id) }}">{{ $trend->name }}</a>
-                                        @endif
-                                    </p>
-                                </li>
-                            @endforeach
-                        </ol>
+                <div class="news">
+                    <div class="container">
+                        <div class="title">
+                            <h3>最新动态</h3>
+                        </div>
+                        <div class="newList">
+                            <ol>
+                                @foreach($last_trends as $trend)
+                                    <li>
+                                        <p>
+                                            @if($trend->type == "微党课")
+                                                <a href="{{ route('frontend.course.show', $trend->id) }}">{{ $trend->name }}</a>
+                                            @elseif($trend->type == "工作案例")
+                                                <a href="{{ route('frontend.case.show', $trend->id) }}">{{ $trend->name }}</a>
+                                            @elseif($trend->type == "教师党支部推荐展示" || $trend->type == "学生党支部推荐展示")
+                                                <a href="{{ route('frontend.recommend.show', $trend->id) }}">{{ $trend->name }}</a>
+                                            @endif
+                                        </p>
+                                    </li>
+                                @endforeach
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="clearfix"></div>
-    <!-- Achievements -->
-    <div class="achievements">
-        <div class="content">
-            <ul>
-                <li class="zhibu">
-                    <a href="{{ route('frontend.branch.index') }}">
-                        <div class="logo"></div>
-                    </a>
-                    <div class="data">
-                        <h2><span>{{ $count_branches }}</span>个</h2>
-                        <p>参与党支部</p>
-                    </div>
-                </li>
-                <li class="dangyuan">
-                    <a href="{{ route('frontend.active.detail') }}">
-                        <div class="logo"></div>
-                    </a>
-                    <div class="data">
-                        <h2><span>{{ $count_universities }}</span>个</h2>
-                        <p>参与高校</p>
-                    </div>
-                </li>
-                <li class="achievement" onclick="">
-                    <a href="{{ route('frontend.case.list') }}">
-                        <div class="logo"></div>
-                    </a>
-                    <div class="data">
-                        <h2><span>{{ $count_verify_through_application }}</span>个</h2>
-                        <p>推选成果</p>
-                    </div>
-                </li>
-            </ul>
+        <div class="clearfix"></div>
+        <!-- Achievements -->
+        <div class="achievements">
+            <div class="content">
+                <ul>
+                    <li class="zhibu">
+                        <a href="{{ route('frontend.branch.index') }}">
+                            <div class="logo"></div>
+                        </a>
+                        <div class="data">
+                            <h2><span>{{ $count_branches }}</span>个</h2>
+                            <p>参与党支部</p>
+                        </div>
+                    </li>
+                    <li class="dangyuan">
+                        <a href="{{ route('frontend.active.detail') }}">
+                            <div class="logo"></div>
+                        </a>
+                        <div class="data">
+                            <h2><span>{{ $count_universities }}</span>个</h2>
+                            <p>参与高校</p>
+                        </div>
+                    </li>
+                    <li class="achievement" onclick="">
+                        <a href="{{ route('frontend.case.list') }}">
+                            <div class="logo"></div>
+                        </a>
+                        <div class="data">
+                            <h2><span>{{ $count_verify_through_application }}</span>个</h2>
+                            <p>推选成果</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <!-- Achievements -->
+        <!-- Achievements -->
     @endif
     @if($settings[3]->value)
         <!-- ChinaMap -->
@@ -271,142 +297,144 @@
     <div class="clearfix"></div>
 
     @if($settings[2]->value)
-    <!-- show -->
-    <div class="show">
-        <div class="content">
-            <div class="title"><img src="img/achivement.png"/></div>
-            <div class="showList">
-                <ul class="showListBox">
-                    <li class="case">
-                        <div class="showTitle"><img src="img/case.png"/></div>
-                        <ul>
-                            @foreach($work_list as $work)
-                                <li class="type1">
-                                    <div class="outBox">
-                                        <div class="top">
-                                            <div class="right">
-                                                <div>
-                                                    <a href="{{ route('frontend.case.show', $work->id) }}">
-                                                        <img src="{{ $work->img_hash }}"/>
-                                                    </a>
+        <!-- show -->
+        <div class="show">
+            <div class="content">
+                <div class="title"><img src="img/achivement.png"/></div>
+                <div class="showList">
+                    <ul class="showListBox">
+                        <li class="case">
+                            <div class="showTitle"><img src="img/case.png"/></div>
+                            <ul>
+                                @foreach($work_list as $work)
+                                    <li class="type1">
+                                        <div class="outBox">
+                                            <div class="top">
+                                                <div class="right">
+                                                    <div>
+                                                        <a href="{{ route('frontend.case.show', $work->id) }}">
+                                                            <img src="{{ $work->img_hash }}"/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="left">
+                                                    <h3>
+                                                        <a href="{{ route('frontend.case.show', $work->id) }}">{{ $work->name }}</a>
+                                                    </h3>
+                                                    <p>{{ $work->summary }}</p>
                                                 </div>
                                             </div>
-                                            <div class="left">
-                                                <h3>
-                                                    <a href="{{ route('frontend.case.show', $work->id) }}">{{ $work->name }}</a>
-                                                </h3>
-                                                <p>{{ $work->summary }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="bottom">
-                                            <div class="right">
-                                                <span><i class="icon iconfont">&#xe60e;</i>{{ $work->comments->count() }}</span>
-                                                <span><i class="icon iconfont">&#xe609;</i>{{ $work->fancy }}</span>
-                                            </div>
-                                            <div class="left">
+                                            <div class="bottom">
+                                                <div class="right">
+                                                    <span><i class="icon iconfont">&#xe60e;</i>{{ $work->comments->count() }}</span>
+                                                    <span><i class="icon iconfont">&#xe609;</i>{{ $work->fancy }}</span>
+                                                </div>
+                                                <div class="left">
                                                 <span><i class="icon iconfont">&#xe60a;</i><a
                                                             href="{{ route('frontend.branch.show', $work->branch->id) }}">{{ $work->branch->name }}</a></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                    <li class="vedio">
-                        <div class="showTitle"><img src="img/vedio.png"/></div>
-                        <ul>
-                            @foreach($tiny_list as $tiny)
-                                <li>
-                                    <div class="outBox">
-                                        <div class="vedioImg">
-                                            <a href="{{ route('frontend.course.show', $tiny->id) }}">
-                                                <img src="{{ $tiny->img_hash }}"/>
-                                            </a>
-                                        </div>
-                                        <h3>
-                                            <a href="{{ route('frontend.course.show', $tiny->id) }}">{{ $tiny->name }}</a>
-                                        </h3>
-                                        <span class="author"><i
-                                                    class="icon iconfont">&#xe60a;</i><a
-                                                    href="{{ route('frontend.branch.show', $tiny->branch->id) }}">{{ $tiny->branch->name }}</a></span>
-                                        <p>{{ $tiny->summary }}</p>
-                                        <div class="data">
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li class="vedio">
+                            <div class="showTitle"><img src="img/vedio.png"/></div>
+                            <ul>
+                                @foreach($tiny_list as $tiny)
+                                    <li>
+                                        <div class="outBox">
+                                            <div class="vedioImg">
+                                                <a href="{{ route('frontend.course.show', $tiny->id) }}">
+                                                    <img src="{{ $tiny->img_hash }}"/>
+                                                </a>
+                                            </div>
+                                            <h3>
+                                                <a href="{{ route('frontend.course.show', $tiny->id) }}">{{ $tiny->name }}</a>
+                                            </h3>
+                                            <span class="author"><i
+                                                        class="icon iconfont">&#xe60a;</i><a
+                                                        href="{{ route('frontend.branch.show', $tiny->branch->id) }}">{{ $tiny->branch->name }}</a></span>
+                                            <p>{{ $tiny->summary }}</p>
+                                            <div class="data">
                                             <span class="review"><i
                                                         class="icon iconfont">&#xe60e;</i> {{ $tiny->comments->count() }}</span>
-                                            <span class="like"><i class="icon iconfont">&#xe609;</i> {{ $tiny->fancy }}</span>
+                                                <span class="like"><i
+                                                            class="icon iconfont">&#xe609;</i> {{ $tiny->fancy }}</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </li>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
 
-                </ul>
-            </div>
-            <div class="recTeaStu">
-                <div class="showTitle"><img src="img/teacher.png"/></div>
-                <ul class="recTeaList">
-                    @foreach($teacher_list as $teacher)
-                        <li>
-                            <div class="imgBox">
-                                <a href="{{ route('frontend.recommend.show', $teacher->id) }}">
-                                    <img src="{{ $teacher->img_hash }}"/>
-                                </a>
-                            </div>
-                            <div class="data">
-                                <h3>
-                                    <a href="{{ route('frontend.course.show', $teacher->id) }}">{{ $teacher->summary }}</a>
-                                </h3>
-                                <p class="label">
-                                    <i class="iconfont">&#xe610;</i><span>推荐展示</span>
-                                </p>
-                                <p class="datas">
+                    </ul>
+                </div>
+                <div class="recTeaStu">
+                    <div class="showTitle"><img src="img/teacher.png"/></div>
+                    <ul class="recTeaList">
+                        @foreach($teacher_list as $teacher)
+                            <li>
+                                <div class="imgBox">
+                                    <a href="{{ route('frontend.recommend.show', $teacher->id) }}">
+                                        <img src="{{ $teacher->img_hash }}"/>
+                                    </a>
+                                </div>
+                                <div class="data">
+                                    <h3>
+                                        <a href="{{ route('frontend.course.show', $teacher->id) }}">{{ $teacher->summary }}</a>
+                                    </h3>
+                                    <p class="label">
+                                        <i class="iconfont">&#xe610;</i><span>推荐展示</span>
+                                    </p>
+                                    <p class="datas">
                                     <span class="review"><i
                                                 class="iconfont">&#xe609;</i> {{ $teacher->comments->count() }}</span>
-                                    <span class="click"><i class="iconfont">&#xe60e;</i>{{ $teacher->fancy }}</span>
-                                </p>
-                                <p class="department"><span class="iconfont">&#xe60a;</span><a
-                                            href="{{ route('frontend.branch.show', $teacher->branch->id) }}">{{ $teacher->branch->name }}</a>
-                                </p>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
-                <div class="showTitle"><img src="img/student.png"/></div>
-                <ul class="recTeaList">
-                    @foreach($student_list as $student)
-                        <li>
-                            <div class="imgBox">
-                                <a href="{{ route('frontend.course.show', $student->id) }}">
-                                    <img src="{{ $student->img_hash }}"/>
-                                </a>
-                            </div>
-                            <div class="data">
-                                <h3><a href="{{ route('frontend.course.show', $student->id) }}">{{ $student->name }}</a>
-                                </h3>
-                                <p class="label">
-                                    <i class="iconfont">&#xe610;</i><span>推荐展示</span>
-                                </p>
-                                <p class="datas">
+                                        <span class="click"><i class="iconfont">&#xe60e;</i>{{ $teacher->fancy }}</span>
+                                    </p>
+                                    <p class="department"><span class="iconfont">&#xe60a;</span><a
+                                                href="{{ route('frontend.branch.show', $teacher->branch->id) }}">{{ $teacher->branch->name }}</a>
+                                    </p>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div class="showTitle"><img src="img/student.png"/></div>
+                    <ul class="recTeaList">
+                        @foreach($student_list as $student)
+                            <li>
+                                <div class="imgBox">
+                                    <a href="{{ route('frontend.course.show', $student->id) }}">
+                                        <img src="{{ $student->img_hash }}"/>
+                                    </a>
+                                </div>
+                                <div class="data">
+                                    <h3>
+                                        <a href="{{ route('frontend.course.show', $student->id) }}">{{ $student->name }}</a>
+                                    </h3>
+                                    <p class="label">
+                                        <i class="iconfont">&#xe610;</i><span>推荐展示</span>
+                                    </p>
+                                    <p class="datas">
                                     <span class="review"><i
                                                 class="iconfont">&#xe609;</i> {{ $student->comments->count() }}</span>
-                                    <span class="click"><i class="iconfont">&#xe60e;</i>{{ $student->fancy }}</span>
-                                </p>
-                                <p class="department"><span class="iconfont">&#xe60a;</span><a
-                                            href="{{ route('frontend.branch.show', $student->branch->id) }}">{{ $student->branch->name }}</a>
-                                </p>
-                            </div>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="lookmore">
-                <a href="{{ route('frontend.case.list') }}">查看更多</a>
+                                        <span class="click"><i class="iconfont">&#xe60e;</i>{{ $student->fancy }}</span>
+                                    </p>
+                                    <p class="department"><span class="iconfont">&#xe60a;</span><a
+                                                href="{{ route('frontend.branch.show', $student->branch->id) }}">{{ $student->branch->name }}</a>
+                                    </p>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="lookmore">
+                    <a href="{{ route('frontend.case.list') }}">查看更多</a>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- show -->
+        <!-- show -->
     @endif
     <div class="clearfix"></div>
 @endsection
@@ -419,27 +447,7 @@
         {!! Html::script('js/chinaMapConfig.js') !!}
         {!! Html::script('js/map.js') !!}
         <script type="text/javascript">
-            document.onreadystatechange = subSomething;
 
-            function subSomething() {
-                if(document.readyState == "interactive") {
-                    browserRedirect();
-                }
-            }
-            function browserRedirect() {
-                var sUserAgent = navigator.userAgent.toLowerCase();
-                var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
-                var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
-                var bIsMidp = sUserAgent.match(/midp/i) == "midp";
-                var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
-                var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
-                var bIsAndroid = sUserAgent.match(/android/i) == "android";
-                var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
-                var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
-                if(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
-                    window.location.href="";
-                }
-            }
 
             $(function () {
                 var b = {};
