@@ -85,7 +85,7 @@
             }
             swal({
                 title: "注意",
-                text: "除姓名及工作电话外无法更改",
+                text: "提交信息后，除姓名及工作电话外，其他信息无法更改",
                 type: "info",
                 showCancelButton: true,
                 cancelButtonText: "取消",

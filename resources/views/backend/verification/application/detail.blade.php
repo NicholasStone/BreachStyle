@@ -106,6 +106,7 @@
                     @endif
                     <button id="delete-btn" class="btn bg-maroon btn-flat">删除</button>
                 @endif
+                <button type="button" onclick="history.back()" class="btn bg-navy btn-flat pull-right">返回</button>
             </div>
         </div><!-- /.box-body -->
     </div><!--box box-success-->

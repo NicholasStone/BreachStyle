@@ -18,6 +18,8 @@ Route::group(['middleware'=>'map'],function (){
 Route::get('province/detail/{id?}', 'FrontendController@universityList')->name('frontend.university.list');
 
 Route::group(['namespace' => 'Party'], function () {
+    Route::get('fancy/{id}', 'FancyController@fancy')->name('frontend.fancy');
+
     Route::get('branch/index/{id?}', 'BranchController@index')->name('frontend.branch.index');
     Route::get('branch/detail/{id}', 'BranchController@show')->name('frontend.branch.show');
 

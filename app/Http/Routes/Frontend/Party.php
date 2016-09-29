@@ -1,6 +1,5 @@
 <?php
 Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
-    Route::get('fancy/{id}', 'FancyController@fancy')->name('frontend.fancy');
 
     Route::group(['prefix' => 'branch'], function () {
 //        Route::post('bind', 'BranchController@update')->name('frontend.branch.update');

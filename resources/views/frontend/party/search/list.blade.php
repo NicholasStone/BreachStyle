@@ -17,7 +17,7 @@
         <div class="content">
             @include('frontend.party.common.navlist')
             <div class="mainList">
-                @if(count($page) != 0)
+                @if($page != "" && count($page))
                     <div class="caseList">
                         <ul>
                             @foreach($page as $item)
@@ -26,7 +26,7 @@
                                     @elseif($item->type == "微党课") {{ route('frontend.course.show', $item->id) }}
                                     @elseif($item->type == "学生党支部推荐展示" || "教师党支部推荐展示") {{ route('frontend.recommend.show', $item->id) }} @endif">
 
-                                        <div class="searchLeft" >
+                                        <div class="searchLeft">
                                             <h3>{{ $item->name }}</h3>
                                             <div>{!! $item->summary !!}</div>
                                             <span><i class="icon iconfont">&#xe60e;</i>{{ $item->fancy }}</span>
@@ -43,7 +43,9 @@
                         </ul>
                     </div>
                 @else
-                    <div style="text-align: center;margin-top: 50px;margin-bottom: 100px; color: grey"><h2>暂无数据</h2></div>
+                    <div style="text-align: center;margin-top: 50px;margin-bottom: 100px; color: grey">
+                        <h2>暂无数据</h2>
+                    </div>
                 @endif
             </div>
         </div>

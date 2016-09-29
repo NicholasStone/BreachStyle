@@ -38,6 +38,11 @@ class FrontendController extends Controller
             'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders', 'settings'));
     }
 
+    public function index_m()
+    {
+//   d     $application = Application::with('branch')->
+    }
+
     /**
      * @return array
      */

@@ -378,12 +378,12 @@
                     @foreach($student_list as $student)
                         <li>
                             <div class="imgBox">
-                                <a href="{{ route('frontend.course.show', $work->id) }}">
+                                <a href="{{ route('frontend.course.show', $student->id) }}">
                                     <img src="{{ $student->img_hash }}"/>
                                 </a>
                             </div>
                             <div class="data">
-                                <h3><a href="{{ route('frontend.course.show', $work->id) }}">{{ $student->name }}</a>
+                                <h3><a href="{{ route('frontend.course.show', $student->id) }}">{{ $student->name }}</a>
                                 </h3>
                                 <p class="label">
                                     <i class="iconfont">&#xe610;</i><span>推荐展示</span>
