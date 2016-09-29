@@ -32,8 +32,8 @@
                             <span><a href="{{ route('frontend.m.branch.show', $item->branch->id) }}">{{ $item->branch->name }}</a></span>
                         </div>
                         <div class="list-bottom-right">
-                            <div class="index-zan"><i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->fancy }}</div>
-                            <div class="index-message"><i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->comments->count() }}</div>
+                            <div class="index-zan"><i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->fancy }}</div>
+                            <div class="index-message"><i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->comments->count() }}</div>
                         </div>
                     </div>
             </li>
