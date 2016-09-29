@@ -1,0 +1,173 @@
+*{
+	behavior: url(ie-css3.htc);
+}
+.banner .bannerBox img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.swipslider .sw-slide a img{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.mainNav .content ul li{
+	width: 16%;
+}
+.sliderNews .content .news .container .title{
+	padding: 0;
+}
+.sliderNews .content .news .container .newList{
+	width: 100%;
+	height: 320px;
+	overflow: hidden;
+	padding-left: 12px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.sliderNews .content .news .container .newList ol{
+	list-style-type: none;
+}
+.sliderNews .content .news .container .newList ol li{
+	height: 35px;
+	line-height: 35px;
+}
+.sliderNews .content .news .container .newList ol li p a{
+	width: 225px;
+}
+.recTeaStu li .data{
+	height: 0;
+	top: 54%;
+}
+/*.recTeaStu .recTeaList li .data p.datas{
+	width: 50%;
+}*/
+.recTeaStu .recTeaList li .data p.datas,.recTeaStu .recTeaList li .data p.label{
+	padding: 0;
+	height: 24px;
+}
+.recTeaStu .recTeaList li .data p.label i{
+	margin-left: 12px;
+}
+.recTeaStu li .data p.datas span{
+	float: left;
+}
+.recTeaStu li .data p.datas span.click{
+	float: right;
+	margin-right: 12px;
+}
+.recTeaStu li .data p.department{
+	position: relative;
+	bottom: -20px;
+	width: 90%;
+}
+.show .content .showList .showListBox li.case ul li.type1 .outBox .bottom .right span{
+	width: 49%;
+}
+.activeInfo{
+	margin-top: 100px;
+}
+.caseList ul li.type1 .outBox .bottom{
+	position: relative;
+	bottom: -20px;
+}
+
+/*wenhuigai*/
+
+.participate .content .departeList ul li .outbox .introduce{
+	position: absolute;
+	top: 50%;
+	left: 0;
+}
+.sliderNews .content .slider{
+	padding-top: 0;
+	height: 360px;
+	
+}
+.regionBottom .display ul li .schoolLogo{
+	padding-top: 0;
+	height: 54px;
+}
+.show .content .showList .showListBox li.case ul li.type1 .outBox .top .right div{
+	padding-top: 0;
+	height: 88px;
+}
+.show .content .showList .showListBox li.vedio ul li .outBox .vedioImg{
+	padding-top: 0;
+	height: 128px;
+}
+.recTeaStu li{
+	padding-top: 0;
+	height: 319px;
+}
+.caseList ul li.type1 .outBox .top .right div{
+	padding-top: 0;
+	height: 86px;
+}
+.comment .content .commentList ul li .userPic{
+	padding-top: 0;
+	height: 56.4px;
+}
+.mainList .caseList ul li .outBox .vedioImg{
+	padding-top: 0;
+	height: 146px;
+}
+.departInfo .content .showCard .ImgShow{
+	padding-top: 0;
+	height: 219px;
+}
+.departInfo .content .showCard .wordShow{
+	width: 70%;
+}
+.departInfo .content .pubList ul li .outBox .vedioImg{
+	padding-top: 0;
+	height: 141px;
+}
+.participate .content .departeList ul li .outbox .data .headimg{
+	padding-top: 0;
+	height: 68.39px;
+}
+.participate .content .departeList ul li{
+	height: 100px;
+}
+.participate .content .departeList ul li .outbox .data{
+	height: 40%;
+}
+/*.participate .content .departeList ul li{
+	padding-top: 0;
+	height: 245px;
+}*/
+.participate .content .departeList ul li{
+	height: 275px !important;
+	padding-top: 0 !important; 
+}
+.participate .content .departeList ul li .outbox{
+	height: 65%;
+}
+.idCard .idCardList li.headImg .headImgBox{
+	padding-top: 0;
+	height:180px;
+}
+.caseList ul li a .searchRight{
+	height: 107px;
+	float: right;
+}
+.recTeaList li{
+	padding-top: 0;
+	height:444px;
+}
+.mainList .caseList ul li{
+	height: 0;
+	padding-top: 25%;
+}
+.bindinfo .content .infoList .infoListLeft .uploadImg .imgBox{
+    width: 100%;
+    height: 100%;
+    background: #eddfcO;}

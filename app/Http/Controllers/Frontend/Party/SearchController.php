@@ -6,7 +6,6 @@ use App\Models\Application;
 use App\Models\Branch;
 use App\Models\University;
 use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
