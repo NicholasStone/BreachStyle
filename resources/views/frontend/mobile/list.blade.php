@@ -16,7 +16,7 @@
                         <div class="list-top-left">
                             <h5>{{ $item->name }}</h5>
                             @unless($item->type == "微党课")
-                                <p class="summary">
+                                <p class="summary" style="height: 15px">
                                     {{ $item->summary }}
                                 </p>
                             @endunless

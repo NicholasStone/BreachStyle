@@ -1,5 +1,7 @@
 @extends('frontend.layouts.master')
-
+@section('before-styles-end')
+    @include('frontend.mobile.fit', ['route' => route('frontend.m.branch.show', $branch->id) ])
+@endsection
 @section('after-styles-end')
     {!! Html::style(asset('css/frontend/depart.css'))!!}
     {!! Html::style(asset('css/frontend/video.css')) !!}
@@ -49,8 +51,8 @@
             <div class="pubList">
                 <div class="pub">
                     @unless(empty($application['微党课']))
-                    <p class="pubTitle"><span></span>已发布微党课</p>
-                    <ul>
+                        <p class="pubTitle"><span></span>已发布微党课</p>
+                        <ul>
                             @foreach($application['微党课'] as $item)
                                 <li>
                                     <div class="outBox">
@@ -68,13 +70,13 @@
                                     </div>
                                 </li>
                             @endforeach
-                    </ul>
+                        </ul>
                     @endunless
                 </div>
                 <div class="pub">
                     @unless(empty($application['工作案例']))
-                    <p class="pubTitle"><span></span>已发布工作案例</p>
-                    <ul>
+                        <p class="pubTitle"><span></span>已发布工作案例</p>
+                        <ul>
                             @foreach($application['工作案例'] as $item)
                                 <li>
                                     <div class="outBox">
@@ -92,13 +94,13 @@
                                     </div>
                                 </li>
                             @endforeach
-                    </ul>
+                        </ul>
                     @endunless
                 </div>
                 <div class="pub">
                     @unless(empty($application[$branch->type.'推荐展示']))
-                    <p class="pubTitle"><span></span>已发布{{ $item->type }}推荐展示</p>
-                    <ul>
+                        <p class="pubTitle"><span></span>已发布{{ $item->type }}推荐展示</p>
+                        <ul>
                             @foreach($application[$branch->type.'推荐展示'] as $item)
                                 <li>
                                     <div class="outBox">
@@ -116,7 +118,7 @@
                                     </div>
                                 </li>
                             @endforeach
-                    </ul>
+                        </ul>
                     @endunless
                 </div>
             </div>

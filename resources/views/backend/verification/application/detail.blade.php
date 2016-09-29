@@ -64,7 +64,7 @@
                 <dd>{{ $branch['university'] }}</dd>
                 <dt>{{ trans('strings.backend.verification.application.tel') }}</dt>
                 <dd>{{ $branch['tel'] }}</dd>
-                @unless($type = "微党课")
+                @unless($type == "微党课")
                     <dt>{{ trans('strings.backend.verification.application.summary') }}</dt>
                     <dd>{{ $summary }}</dd>
                 @endunless

@@ -24,7 +24,9 @@ class BranchController extends Controller
     public function index($id = null)
     {
         list($page, $university) = $this->getIndexData($id);
-
+        $page = $page->each(function($item){
+            $item->summary = mb_strimwidth($item->summary, 0,30);
+        });
         return view('frontend.party.branch.participate', compact("page", "university"));
 
     }

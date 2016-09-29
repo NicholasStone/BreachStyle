@@ -48,6 +48,10 @@ class RecommendController extends Controller
                 $query->select(['id']);
             }])->orderBy('updated_at', 'desc')->get();
 
+        $applications = $applications->each(function ($item){
+            $item->summary = mb_strimwidth($item->summary, 0, 30);
+        });
+
         return view("frontend.mobile.list", compact("applications"));
     }
 
