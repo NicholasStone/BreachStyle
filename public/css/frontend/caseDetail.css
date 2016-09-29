@@ -13,8 +13,8 @@
 	padding: .75em 1.25em .25em;
 	color: #020202;
 	font-weight: 500;
-	white-space: nowrap;
-	overflow: hidden;
+	/*white-space: nowrap;*/
+	/*overflow: hidden;*/
 	text-overflow: ellipsis;
 }
 .caseDetail .content .title p{
