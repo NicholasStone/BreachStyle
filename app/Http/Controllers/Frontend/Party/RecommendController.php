@@ -93,6 +93,7 @@ class RecommendController extends Controller
         $application->summary     = $apply['summary'];
         $application->branch_id   = Auth::user()->branch_id;
         $application->branch_type = Auth::user()->branch_type;
+        $application->university  = Auth::user()->university;
         $application->img_hash    = $img_hash;
         $application->apply_hash  = $apply_hash;
         if (\Session::has('video_path') && \Session::get('video_token') == $request->get('video_token')) {

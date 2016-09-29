@@ -28,12 +28,9 @@ class SearchController extends Controller
                 $page = $branch->applications()->where('verification', 1)->orderBy('fancy')->get();
             }
         } elseif ($typeNum == 3) {
-            $university = University::where('name', 'like', '%' . $keywords . '%')->first();
-            if ($university) {
-                $page = $university->applications()->where('applications.verification', 1)->orderBy('fancy')->get();
-            }
+            $page = Application::where('university', 'like', "%".$keywords."%")->withStatus()->get();
         }
-//        dd(count($page));
+
         return view("frontend.party.search.list", compact("page", "type", "keywords"));
     }
 }

@@ -58,7 +58,7 @@
                             </select><span>*</span></p>
                         <p><label for="tel_work">办公电话</label><input class="input" type="tel" name="tel_work"
                                                                     id="tel_work"
-                                                                    required/><span>*</span></p>
+                                                                    required/><span>*</span>可填写自己常用的手机号</p>
                         <p><label for="tel">绑定手机</label><input class="input" type="tel" name="tel" id="tel"
                                                                required/><span>*</span>
                         </p>

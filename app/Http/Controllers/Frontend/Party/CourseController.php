@@ -92,6 +92,7 @@ class CourseController extends Controller
         $application->detail          = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
         $application->branch_id       = Auth::user()->branch_id;
         $application->branch_type     = Auth::user()->branch_type;
+        $application->university      = Auth::user()->university;
         $application->course_lecturer = $apply['course_lecturer'];
         $application->img_hash        = $img_hash;
         $application->apply_hash      = $apply_hash;
