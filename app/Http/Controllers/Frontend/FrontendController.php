@@ -41,7 +41,8 @@ class FrontendController extends Controller
     public function index_m()
     {
         $applications = Application::
-        select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
+//        select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
+        select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash'])
             ->where("verification", 1)
             ->with(['branch' => function ($query) {
                 $query->select(['id', 'name']);

@@ -40,9 +40,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="join-list-mid">
-                            <p>{{ $item->summary }}</p>
-                        </div>
+                        {{--<div class="join-list-mid">--}}
+                            {{--<p>{{ $item->summary }}</p>--}}
+                        {{--</div>--}}
                     </a>
                 </li>
             @endforeach

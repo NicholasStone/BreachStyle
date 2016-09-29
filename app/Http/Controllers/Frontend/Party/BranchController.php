@@ -24,9 +24,9 @@ class BranchController extends Controller
     public function index($id = null)
     {
         list($page, $university) = $this->getIndexData($id);
-        $page = $page->each(function($item){
-            $item->summary = mb_strimwidth($item->summary, 0,30);
-        });
+//        $page = $page->each(function($item){
+//            $item->summary = mb_strimwidth($item->summary, 0,30);
+//        });
         return view('frontend.party.branch.participate', compact("page", "university"));
 
     }
@@ -197,13 +197,13 @@ class BranchController extends Controller
     protected function getIndexData($id)
     {
         if (empty($id)) {
-            $page = Branch::where('verification', 1)->withProvince()->paginate(16);
+            $page = Branch::select(['id', 'name', 'university', 'avatar', 'summary'])->where('verification', 1)->withProvince()->paginate(16);
             $university = null;
 
             return [$page, $university];
         } else {
             $university = University::findOrFail($id);
-            $page = Branch::where('university', $university->name)->withProvince()->paginate();
+            $page = Branch::select(['id', 'name', 'branch_id', 'avatar', 'summary'])->where('university', $university->name)->withProvince()->paginate();
 
             return [$page, $university];
         }

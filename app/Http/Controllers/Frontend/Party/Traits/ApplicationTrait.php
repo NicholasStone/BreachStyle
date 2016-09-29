@@ -91,7 +91,8 @@ trait ApplicationTrait
     protected function getIndexData_m($type)
     {
         $applications = Application::
-        select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
+//        select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
+        select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash'])
             ->where('type', $type)
             ->withStatus()
             ->with(['branch' => function ($query) {
