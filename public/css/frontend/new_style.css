@@ -135,6 +135,7 @@
 	float: left;
 	margin-left: 3px;
 	color: #a6a8a6;
+	margin-right: 5px;
 }
 .xuexiao{
 	margin-left: 10px;
@@ -147,7 +148,7 @@
 }
 .weizhi>div,.xuexiao>div,.kindzhibu>div{
 	float: left;
-	font-size: 10px;
+	font-size: 15px;
 }
 .weizhi>span,.xuexiao>span,.kindzhibu>span{
 	font-size: 12px;
