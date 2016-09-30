@@ -77,10 +77,10 @@
                                 </div>
                                 <div class="icon_all">
                                 <span style="color:#aeaead;">
-                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->total_comment }}
+                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->total_comment }}
                                 </span>
-                                    <span style="color:#aeaead;">
-                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->fancy }}
+                                <span style="color:#aeaead;">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->fancy }}
                                 </span>
                                 </div>
                             </div>
@@ -114,10 +114,10 @@
                                 </div>
                                 <div class="icon_all">
                                 <span style="color:#aeaead;">
-                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->total_comment }}
+                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->total_comment }}
                                 </span>
-                                    <span style="color:#aeaead;">
-                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->fancy }}
+                                <span style="color:#aeaead;">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->fancy }}
                                 </span>
                                 </div>
                             </div>
@@ -149,10 +149,10 @@
                                 </div>
                                 <div class="icon_all">
                                 <span style="color:#aeaead;">
-                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->total_comment }}
+                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->total_comment }}
                                 </span>
-                                    <span style="color:#aeaead;">
-                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->fancy }}
+                                <span style="color:#aeaead;">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->fancy }}
                                 </span>
                                 </div>
                             </div>
