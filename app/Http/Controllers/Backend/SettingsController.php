@@ -25,21 +25,32 @@ class SettingsController extends Controller
         $this->storagePath = public_path() . $this->uploadDir;
     }
 
+    /**
+     * 设置首页
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $count      = Slider::count();
         $map        = Setting::find(4);
         $exhibition = Setting::find(3);
+        $slider     = Setting::find(5);
 
-        return view('backend.settings', compact("count", "map", "exhibition"));
+        return view('backend.settings', compact("count", "map", "exhibition", "slider"));
     }
 
+    /**
+     * 首页报名表及活动通知下载链接
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function applies(Request $request)
     {
         $this->validate($request, [
-            'enroll'       => 'url',
-            'notice'       => 'url',
-            'verification' => 'image',
+            'enroll' => 'url',
+            'notice' => 'url',
         ]);
 
         if ($val = $request->get('enroll')) {
@@ -52,12 +63,6 @@ class SettingsController extends Controller
             $notice        = Setting::find(2);
             $notice->value = $request->get('applies');
             $notice->save();
-        }
-        if ($val = $request->file('verification')) {
-            $verification        = Setting::find(3);
-            $path                = $this->saveImage($val, 'Frontend/Index');
-            $verification->value = $path;
-            $verification->save();
         }
 
         return redirect()->back()->withFlashSuccess("修改成功");
@@ -72,20 +77,36 @@ class SettingsController extends Controller
             ->make(true);
     }
 
+    /**
+     * 热度图控制器
+     */
     public function map()
     {
-        $map        = Setting::find(4);
-        $map->value = !$map->value;
-        $map->save();
+        $this->Control(4);
     }
 
+    /**
+     * 首页展示控制器
+     */
     public function exhibition()
     {
-        $exhibition        = Setting::find(3);
-        $exhibition->value = !$exhibition->value;
-        $exhibition->save();
+        $this->Control(3);
     }
 
+    /**
+     * 移动端焦点图控制器
+     */
+    public function slider()
+    {
+        $this->Control(5);
+    }
+
+    /**
+     * 删除焦点图
+     *
+     * @param $id
+     * @return mixed
+     */
     public function delete($id)
     {
         Slider::find($id)->delete();
@@ -93,6 +114,12 @@ class SettingsController extends Controller
         return redirect()->back()->withFlashSuccess("删除成功");
     }
 
+    /**
+     * 上传焦点图
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function upload(Request $request)
     {
         $this->validate($request, [
@@ -123,6 +150,12 @@ class SettingsController extends Controller
         ], 200);
     }
 
+    /**
+     * 保存焦点图
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -139,6 +172,12 @@ class SettingsController extends Controller
         return redirect()->back()->withFlashSuccess('保存成功');
     }
 
+    /**
+     * 裁剪焦点图
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function crop(Request $request)
     {
         $form_data = $request->all();
@@ -180,5 +219,16 @@ class SettingsController extends Controller
             'status' => 'success',
             'url'    => $this->uploadDir . 'cropped-' . $filename,
         ], 200);
+    }
+
+    /**
+     * 各种控制器的方法
+     * @param $id
+     */
+    protected function Control($id)
+    {
+        $item        = Setting::find($id);
+        $item->value = !$item->value;
+        $item->save();
     }
 }

@@ -41,7 +41,6 @@ class FrontendController extends Controller
     public function index_m()
     {
         $applications = Application::
-//        select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
         select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash'])
             ->where("verification", 1)
             ->with(['branch' => function ($query) {
@@ -50,7 +49,8 @@ class FrontendController extends Controller
                 $query->select(['id']);
             }])->orderBy('updated_at', 'desc')->get();
         $sliders = Slider::all();
-        return view("frontend.mobile.list", compact("applications", "sliders"));
+        $sliders_switch = Setting::find(5);
+        return view("frontend.mobile.list", compact("applications", "sliders", "sliders_switch"));
     }
 
     /**

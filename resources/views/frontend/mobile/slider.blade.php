@@ -65,6 +65,7 @@
 <script>
     $(function () {
         $("#slider").unslider({
+            autoplay:true,
             fluid:true,
             nav:false,
             infinite: true,

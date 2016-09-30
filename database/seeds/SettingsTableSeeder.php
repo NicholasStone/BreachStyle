@@ -30,6 +30,10 @@ class SettingsTableSeeder extends Seeder
                 'item' => 'map',
                 'value' => 0,
                 'comment' => '热度排行'
+            ],[
+                'item' => 'slider',
+                'value' => 0,
+                'comment' => '移动端热点图'
             ]
         ]);
     }

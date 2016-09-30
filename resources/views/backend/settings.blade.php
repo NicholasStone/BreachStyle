@@ -310,17 +310,17 @@
                 </div>
                 <div class="form-group">
                     {{--<div class="from-group">--}}
-                        {{--{{ Form::label('verification', "党支部认证表", ['class' => 'col-lg-2 control-label', 'placeholder' => "报名表下载链接"]) }}--}}
+                    {{--{{ Form::label('verification', "党支部认证表", ['class' => 'col-lg-2 control-label', 'placeholder' => "报名表下载链接"]) }}--}}
 
-                        {{--{{ Form::file('verification', ['style' => 'display:none','placeholder' => '点击此处上传文件']) }}--}}
-                        {{--<div class="col-lg-9">--}}
-                            {{--<div class="input-group">--}}
-                                {{--<input type="text" id="cover" class="form-control">--}}
-                                {{--<span class="input-group-btn">--}}
-                                {{--<button class="btn btn-default" type="button" id="cover-btn" onclick="$('#verification').click()">选择文件</button>--}}
-                            {{--</span>--}}
-                            {{--</div>--}}
-                        {{--</div><!--col-lg-10-->--}}
+                    {{--{{ Form::file('verification', ['style' => 'display:none','placeholder' => '点击此处上传文件']) }}--}}
+                    {{--<div class="col-lg-9">--}}
+                    {{--<div class="input-group">--}}
+                    {{--<input type="text" id="cover" class="form-control">--}}
+                    {{--<span class="input-group-btn">--}}
+                    {{--<button class="btn btn-default" type="button" id="cover-btn" onclick="$('#verification').click()">选择文件</button>--}}
+                    {{--</span>--}}
+                    {{--</div>--}}
+                    {{--</div><!--col-lg-10-->--}}
                     {{--</div>--}}
                     <div class="col-lg-9 col-lg-offset-1">
                         <button class="btn btn-success">提交</button>
@@ -390,6 +390,12 @@
                     {{ Form::checkbox('exhibition') }}
                 </div><!--col-lg-10-->
             </div>
+            <div class="form-group">
+                {{ Form::label('slider',"移动端首页图", ['class' => 'col-lg-2 control-label']) }}
+                <div class="col-lg-9">
+                    {{ Form::checkbox('slider') }}
+                </div><!--col-lg-10-->
+            </div>
             {{ Form::close() }}
         </div>
     </div>
@@ -401,24 +407,35 @@
     {{ Html::script("js/backend/plugin/datatables/dataTables.bootstrap.min.js") }}
     {{ Html::script("//cdn.bootcss.com/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js") }}
     <script>
+        $("#slider").bootstrapSwitch({
+            state:{{ $slider->value }},
+            onSwitchChange: function () {
+                $.get({
+                    url: "{{ route('admin.setting.slider') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    }
+                })
+            }
+        });
         $("#map").bootstrapSwitch({
             state:{{ $map->value }},
-            onSwitchChange:function () {
+            onSwitchChange: function () {
                 $.get({
-                    url:"{{ route('admin.setting.map') }}",
-                    data:{
-                        _token:"{{ csrf_token() }}"
+                    url: "{{ route('admin.setting.map') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}"
                     }
                 })
             }
         });
         $("#exhibition").bootstrapSwitch({
             state:{{ $exhibition->value }},
-            onSwitchChange:function () {
+            onSwitchChange: function () {
                 $.get({
-                    url:"{{ route('admin.setting.exhibition') }}",
-                    data:{
-                        _token:"{{ csrf_token() }}"
+                    url: "{{ route('admin.setting.exhibition') }}",
+                    data: {
+                        _token: "{{ csrf_token() }}"
                     }
                 })
             }

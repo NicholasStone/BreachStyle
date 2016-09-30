@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('before-styles-end')
+@section('fit')
     @include('frontend.mobile.fit', ['route' => route('frontend.m.index')])
 @endsection
 
