@@ -4,7 +4,7 @@
     <div class="sliderNews silder_content">
         <div class="content">
             <div class="content_img_left" style="width: 35%">
-                <img class="left_img" src="{{ asset('img/banner.jpg') }}"/>
+                <img class="left_img" src="{{ asset($branch->avatar) }}"/>
             </div>
             <div class="content_zi_right" style="width: 60%">
                 <div class="content_zi_right_title">
