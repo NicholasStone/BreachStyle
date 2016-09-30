@@ -1,7 +1,7 @@
 @extends('frontend.mobile.master')
 @section('main-content')
 <!--content-->
-@if($sliders_switch->value && isset($sliders))
+@if( isset($sliders_switch) && $sliders_switch->value && isset($sliders))
     @include('frontend.mobile.slider')
 @endif
 <div class="content">

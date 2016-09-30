@@ -55,19 +55,21 @@
                         <ul>
                             @foreach($application['微党课'] as $item)
                                 <li>
-                                    <div class="outBox">
-                                        <div class="vedioImg">
-                                            <img src="{{ asset($item->img_hash) }}"/>
-                                        </div>
-                                        <h3>{{ link_to(route('frontend.course.show', $item->id), $item->name) }}</h3>
-                                        <p>{!! $item->detail !!}</p>
-                                        <div class="data">
+                                    <a href="{{ route('frontend.course.show', $item->id) }}">
+                                        <div class="outBox">
+                                            <div class="vedioImg">
+                                                <img src="{{ asset($item->img_hash) }}"/>
+                                            </div>
+                                            <h3>{{ $item->name }}</h3>
+                                            <p>{!! $item->detail !!}</p>
+                                            <div class="data">
                                         <span class="review"><i
                                                     class="icon iconfont">&#xe60e;</i> {{ $item->total_comment }}</span>
-                                            <span class="like"><i
-                                                        class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                                <span class="like"><i
+                                                            class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </li>
                             @endforeach
                         </ul>
@@ -79,19 +81,21 @@
                         <ul>
                             @foreach($application['工作案例'] as $item)
                                 <li>
-                                    <div class="outBox">
-                                        <div class="vedioImg">
-                                            <img src="{{ asset($item->img_hash) }}"/>
-                                        </div>
-                                        <h3>{{ link_to(route('frontend.case.show', $item->id), $item->name) }}</h3>
-                                        <p>{{ $item->summary }}</p>
-                                        <div class="data">
+                                    <a href="{{ route('frontend.case.show', $item->id) }}">
+                                        <div class="outBox">
+                                            <div class="vedioImg">
+                                                <img src="{{ asset($item->img_hash) }}"/>
+                                            </div>
+                                            <h3>{{ $item->name }}</h3>
+                                            <p>{{ $item->summary }}</p>
+                                            <div class="data">
                                         <span class="review"><i
                                                     class="icon iconfont">&#xe60e;</i> {{ $item->total_comment }}</span>
-                                            <span class="like"><i
-                                                        class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                                <span class="like"><i
+                                                            class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </li>
                             @endforeach
                         </ul>
@@ -103,19 +107,21 @@
                         <ul>
                             @foreach($application[$branch->type.'推荐展示'] as $item)
                                 <li>
-                                    <div class="outBox">
-                                        <div class="vedioImg">
-                                            <img src="{{ asset($item->img_hash) }}"/>
-                                        </div>
-                                        <h3>{{ link_to(route('frontend.recommend.show', $item->id), $item->name) }}</h3>
-                                        <p>{{ $item->summary }}</p>
-                                        <div class="data">
+                                    <a href="{{ route('frontend.recommend.show', $item->id) }}">
+                                        <div class="outBox">
+                                            <div class="vedioImg">
+                                                <img src="{{ asset($item->img_hash) }}"/>
+                                            </div>
+                                            <h3>{{ $item->name }}</h3>
+                                            <p>{{ $item->summary }}</p>
+                                            <div class="data">
                                         <span class="review"><i
                                                     class="icon iconfont">&#xe60e;</i> {{ $item->total_comment }}</span>
-                                            <span class="like"><i
-                                                        class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                                <span class="like"><i
+                                                            class="icon iconfont">&#xe609;</i> {{ $item->fancy }}</span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </li>
                             @endforeach
                         </ul>

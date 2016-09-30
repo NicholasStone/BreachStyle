@@ -64,29 +64,32 @@
                 </div>
                 @foreach($application['工作案例'] as $item)
                     <div class="anli">
-
-                        <div class="content_img_left" style="width: 45%">
-                            <img class="left_img" src="{{ asset($item->img_hash) }}"/>
-                        </div>
-                        <div class="content_zi_right" style="width: 50%">
-                            <div class="content_zi_right_title">
-							<span class="zhubuleixing" style="font-weight:bold">
-								{{ link_to(route('frontend.case.show', $item->id), $item->name) }}
+                        <a href="{{ route('frontend.recommend.show' ,$item->id) }}">
+                            <div class="content_img_left" style="width: 45%">
+                                <img class="left_img" src="{{ asset($item->img_hash) }}"/>
+                            </div>
+                            <div class="content_zi_right" style="width: 50%">
+                                <div class="content_zi_right_title">
+							<span class="zhubuleixing">
+								{{ $item->name }}
 							</span>
-                                <p class="" style="height:72px;overflow: hidden;">{{ $item->summary }}</p>
+                                    {{--<p class="" style="height:72px;overflow: hidden;">{{ $item->summary }}</p>--}}
+                                </div>
+                                <div class="icon_all">
+                                <span style="color:#aeaead;">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->total_comment }}
+                                </span>
+                                    <span style="color:#aeaead;">
+                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->fancy }}
+                                </span>
+                                </div>
                             </div>
-                            <div class="icon_all">
-                                <i class="iconfont icon2">&#xf0093;</i><span
-                                        style="color:#aeaead;"> {{ $item->total_comment }}</span>
-                                <i class="iconfont icon2">&#xe66a;</i><span
-                                        style="color:#aeaead;"> {{ $item->fancy }}</span>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
             </div>
         @endunless
-        @unless(empty($application['工作案例']))
+        @unless(empty($application['微党课']))
             <div class="fabu_list_nav">
 
                 <div class="fabu_list1">
@@ -97,30 +100,34 @@
                 </div>
                 @foreach($application['微党课'] as $item)
                     <div class="anli">
-                        <div class="content_img_left" style="width: 45%">
-                            <img class="left_img" src="{{ asset($item->img_hash) }}"/>
-                        </div>
-                        <div class="content_zi_right" style="width: 50%">
-                            <div class="content_zi_right_title">
-							<span class="zhubuleixing" style="font-weight:bold">
-								{{ link_to(route('frontend.course.show', $item->id), $item->name) }}
+                        <a href="{{ route('frontend.course.show' ,$item->id) }}">
+
+                            <div class="content_img_left" style="width: 45%">
+                                <img class="left_img" src="{{ asset($item->img_hash) }}"/>
+                            </div>
+                            <div class="content_zi_right" style="width: 50%">
+                                <div class="content_zi_right_title">
+							<span class="zhubuleixing">
+								{{  $item->name }}
 							</span>
-                                <p class="" style="height:72px;overflow: hidden;">{!! $item->detail !!}</p>
+                                    {{--<p class="" style="height:22px;overflow: hidden;">{!! $item->detail !!}</p>--}}
+                                </div>
+                                <div class="icon_all">
+                                <span style="color:#aeaead;">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->total_comment }}
+                                </span>
+                                    <span style="color:#aeaead;">
+                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->fancy }}
+                                </span>
+                                </div>
                             </div>
-                            <div class="icon_all">
-                                <i class="iconfont icon2">&#xf0093;</i><span
-                                        style="color:#aeaead;"> {{ $item->total_comment }}</span>
-                                <i class="iconfont icon2">&#xe66a;</i><span
-                                        style="color:#aeaead;"> {{ $item->fancy }}</span>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
             </div>
         @endunless
         <div class="fabu_list_nav">
-            @unless(empty($application['推荐展示']))
-
+            @unless(empty($application[$branch->type.'推荐展示']))
                 <div class="fabu_list1">
                     <span id="boder_left"></span>
                     <span id="zi">
@@ -129,23 +136,27 @@
                 </div>
                 @foreach($application[$branch->type.'推荐展示'] as $item)
                     <div class="anli">
-                        <div class="content_img_left" style="width: 45%">
-                            <img class="left_img" src="{{ asset($item->img_hash) }}"/>
-                        </div>
-                        <div class="content_zi_right" style="width: 50%">
-                            <div class="content_zi_right_title">
-							<span class="zhubuleixing" style="font-weight:bold">
-								{{ link_to(route('frontend.recommend.show', $item->id), $item->name) }}
+                        <a href="{{ route('frontend.recommend.show' ,$item->id) }}">
+                            <div class="content_img_left" style="width: 45%">
+                                <img class="left_img" src="{{ asset($item->img_hash) }}"/>
+                            </div>
+                            <div class="content_zi_right" style="width: 50%">
+                                <div class="content_zi_right_title">
+							<span class="zhubuleixing">
+								{{ $item->name }}
 							</span>
-                                <p class="" style="height:72px;overflow: hidden;">{{ $item->summary }}</p>
+                                    {{--<p class="" style="height:72px;overflow: hidden;">{{ $item->summary }}</p>--}}
+                                </div>
+                                <div class="icon_all">
+                                <span style="color:#aeaead;">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i> {{ $item->total_comment }}
+                                </span>
+                                    <span style="color:#aeaead;">
+                                    <i class="fa fa-commenting-o" aria-hidden="true"></i> {{ $item->fancy }}
+                                </span>
+                                </div>
                             </div>
-                            <div class="icon_all">
-                                <i class="iconfont icon2">&#xf0093;</i><span
-                                        style="color:#aeaead;"> {{ $item->total_comment }}</span>
-                                <i class="iconfont icon2">&#xe66a;</i><span
-                                        style="color:#aeaead;"> {{ $item->fancy }}</span>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
         </div>
