@@ -5,7 +5,7 @@
 
     #slider {
         width: 100%;
-        height: 330px;
+        height: 195px;
         z-index: 1000;
     }
 
