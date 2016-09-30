@@ -1,6 +1,9 @@
 @extends('frontend.mobile.master')
 @section('main-content')
 <!--content-->
+@if(isset($sliders))
+    @include('frontend.mobile.slider')
+@endif
 <div class="content">
     <ul class="index-main-ul">
         @foreach($applications as $item)

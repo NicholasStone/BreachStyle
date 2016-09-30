@@ -49,8 +49,8 @@ class FrontendController extends Controller
             }, 'comments'    => function ($query) {
                 $query->select(['id']);
             }])->orderBy('updated_at', 'desc')->get();
-
-        return view("frontend.mobile.list", compact("applications"));
+        $sliders = Slider::all();
+        return view("frontend.mobile.list", compact("applications", "sliders"));
     }
 
     /**

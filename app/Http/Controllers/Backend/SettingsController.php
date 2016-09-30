@@ -18,15 +18,17 @@ class SettingsController extends Controller
 
     protected $storagePath = '';
 
+    protected $uploadDir = '/uploadImages/';
+
     public function __construct()
     {
-        $this->storagePath = storage_path() . '/app/public/';
+        $this->storagePath = public_path() . $this->uploadDir;
     }
 
     public function index()
     {
-        $count = Slider::count();
-        $map = Setting::find(4);
+        $count      = Slider::count();
+        $map        = Setting::find(4);
         $exhibition = Setting::find(3);
 
         return view('backend.settings', compact("count", "map", "exhibition"));
@@ -37,23 +39,23 @@ class SettingsController extends Controller
         $this->validate($request, [
             'enroll'       => 'url',
             'notice'       => 'url',
-            'verification' => 'image'
+            'verification' => 'image',
         ]);
 
         if ($val = $request->get('enroll')) {
-            $enroll = Setting::find(1);
+            $enroll        = Setting::find(1);
             $enroll->value = $val;
             $enroll->save();
         }
 
         if ($val = $request->get('notice')) {
-            $notice = Setting::find(2);
+            $notice        = Setting::find(2);
             $notice->value = $request->get('applies');
             $notice->save();
         }
         if ($val = $request->file('verification')) {
-            $verification = Setting::find(3);
-            $path = $this->saveImage($val, 'Frontend/Index');
+            $verification        = Setting::find(3);
+            $path                = $this->saveImage($val, 'Frontend/Index');
             $verification->value = $path;
             $verification->save();
         }
@@ -72,14 +74,14 @@ class SettingsController extends Controller
 
     public function map()
     {
-        $map = Setting::find(4);
+        $map        = Setting::find(4);
         $map->value = !$map->value;
         $map->save();
     }
 
     public function exhibition()
     {
-        $exhibition = Setting::find(3);
+        $exhibition        = Setting::find(3);
         $exhibition->value = !$exhibition->value;
         $exhibition->save();
     }
@@ -94,12 +96,14 @@ class SettingsController extends Controller
     public function upload(Request $request)
     {
         $this->validate($request, [
-            'img' => 'required'
+            'img' => 'required',
         ]);
-        $photo = $request->file('img');
-        $manager = new ImageManager();
-        $filename = md5_file($photo->getRealPath());
-        $image = $manager->make($photo)->encode('jpg')->save($this->storagePath . $filename);
+        $photo    = $request->file('img');
+        $filename = md5_file($photo->getRealPath()) . $photo->getClientOriginalExtension();
+        $path     = $this->storagePath . $filename;
+        $url      = $this->uploadDir . $filename;
+        $manager  = new ImageManager();
+        $image    = $manager->make($photo)->encode('jpg')->save($path);
 
         if (!$image) {
 
@@ -109,25 +113,25 @@ class SettingsController extends Controller
             ], 500);
 
         }
-        \Session::set('filename', \Storage::url($filename));
+        \Session::set('filename', $url);
 
         return response()->json([
             'status' => 'success',
-            'url'    => \Storage::url($filename),
+            'url'    => url($url),
             'width'  => $image->width(),
-            'height' => $image->height()
+            'height' => $image->height(),
         ], 200);
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'link' => 'required|url'
+            'link' => 'required|url',
         ], [
-            'link.url' => '您输入的链接无效（请检查是否带有 http:// 或 https://）'
+            'link.url' => '您输入的链接无效（请检查是否带有 http:// 或 https://）',
         ]);
 
-        $slider = new Slider();
+        $slider       = new Slider();
         $slider->link = $request->get('link');
         $slider->path = \Session::pull('filename');
         $slider->save();
@@ -153,10 +157,10 @@ class SettingsController extends Controller
         $angle = $form_data['rotation'];
 
         $filename_array = explode('/', $image_url);
-        $filename = $filename_array[sizeof($filename_array) - 1];
+        $filename       = $filename_array[ sizeof($filename_array) - 1 ];
 
         $manager = new ImageManager();
-        $image = $manager->make($this->storagePath . $filename);
+        $image   = $manager->make($this->storagePath . $filename);
         $image->resize($imgW, $imgH)
             ->rotate(-$angle)
             ->crop($cropW, $cropH, $imgX1, $imgY1)
@@ -170,11 +174,11 @@ class SettingsController extends Controller
             ], 200);
 
         }
-        \Session::set('filename', \Storage::url('cropped-' . $filename));
+        \Session::set('filename', $this->uploadDir . 'cropped-' . $filename);
 
         return response()->json([
             'status' => 'success',
-            'url'    => \Storage::url('cropped-' . $filename),
+            'url'    => $this->uploadDir . 'cropped-' . $filename,
         ], 200);
     }
 }
