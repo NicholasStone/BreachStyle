@@ -41,7 +41,8 @@
                     </li>
                 @else
                     <li class="login">
-                        <a href="{{ route('frontend.user.profile.detail') }}" class="reg new_reg">欢迎 {{ Auth::user()->name }}</a>
+                        <a href="{{ route('frontend.user.profile.detail') }}"
+                           class="reg new_reg">欢迎 {{ Auth::user()->name }}</a>
                         <a href="{{ route('auth.logout') }}" class="reg">退出</a>
                     </li>
                 @endif
@@ -71,7 +72,11 @@
                 <a href="{{ route('frontend.index') }}">首页</a>
             </li>
             <li class="nav">
-                <a href="{{ route('frontend.index') }}#activeInfo">活动详情</a>
+                @if(Route::current()->getPath() == '/')
+                    <a href="javascript:void(0)" id="scroll">活动详情</a>
+                @else
+                    <a href="{{ route('frontend.index') }}#activeInfo" id="scroll">活动详情</a>
+                @endif
             </li>
             <li class="nav">
                 <a href="{{ route('frontend.branch.index') }}">参与党支部</a>
@@ -120,7 +125,7 @@
             var box = document.getElementsByTagName("body")[0];
             floatLogin.className = "floatLogin";
             box.appendChild(floatLogin);
-            if(floatLogin.innerHTML == "") {
+            if (floatLogin.innerHTML == "") {
                 var iFrame = document.createElement("iframe");
                 iFrame.src = "http://uzone.univs.cn/sso.action";
                 floatLogin.appendChild(iFrame);

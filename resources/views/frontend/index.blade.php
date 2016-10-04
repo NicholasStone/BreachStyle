@@ -420,13 +420,16 @@
 @section('after-scripts-end')
     {!! Html::script('js/swipeslider.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/raphael/2.2.1/raphael.min.js') !!}
+    {!! Html::script('//cdn.bootcss.com/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js') !!}
+    <script>
+        $("#scroll").on('click', function () {
+            $.scrollTo('#activeInfo', 500);
+        });
+    </script>
     @if($settings[3]->value)
-
         {!! Html::script('js/chinaMapConfig.js') !!}
         {!! Html::script('js/map.js') !!}
         <script type="text/javascript">
-
-
             $(function () {
                 var b = {};
                 var a = ["d7201d", "d84f45", "d99992", "cccccc"];
