@@ -55,6 +55,9 @@
                     <dd>{!! $summary !!}</dd>
                     <dt>{{ trans('strings.backend.verification.branch.detail') }}</dt>
                     <dd>{!! $detail!!}</dd>
+                    <dt>申请表</dt>
+                    <dd><img src="{{ asset($apply_img) }}" alt="配图" class="thumbnail"
+                             style="width: 500px; height: auto;"></dd>
                 </dl>
                 <img src="{{ asset($avatar) }}" alt="配图" class="thumbnail col-cm-12 col-md-6"
                      style="width: 300px; height: auto;">

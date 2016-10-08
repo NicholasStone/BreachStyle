@@ -57,9 +57,11 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'              => 'required',
             'avatar'            => 'required',
+            'type'              => 'required|in:学生党支部,教师党支部',
             'university'        => 'required|exists:universities,name',
             'secretary'         => 'required|exists:users,name',
             'secretary_summary' => 'required|max:100',
@@ -81,11 +83,14 @@ class BranchController extends Controller
             return redirect()->back();
         }
         $user              = Auth::user();
-        $all               = $request->all();
+        $all               = $request->only([
+            'name', 'avatar', 'type', 'university', 'secretary',
+            'secretary_summary', 'total_membership',
+            'tel', 'address', 'summary', 'detail', 'apply',
+        ]);
         $all['avatar']     = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
         $all['apply_img']  = $this->saveImage($request->file('apply'), 'Branch/Applies');
         $all['university'] = $user->university;
-        $all['type']       = $user->type == '学生' ? '学生党支部' : '教师党支部';
         $branch            = Branch::create($all);
         $branch->secretary = $user->id;
         $branch->save();
@@ -144,14 +149,11 @@ class BranchController extends Controller
     public function update(Request $request, $id)
     {
         $validate = Validator::make($request->all(), [
-            'name'              => 'required',
-            'secretary_summary' => 'required|max:100',
-            'total_membership'  => 'required',
-            'tel'               => 'required',
-            'address'           => 'required|max:200',
-            'summary'           => 'required|max:300',
-            'detail'            => 'required',
-//            'apply'             => 'required',
+            'type'              => 'in:学生党支部,教师党支部',
+            'secretary'         => 'exists:users,name',
+            'secretary_summary' => 'max:100',
+            'address'           => 'max:200',
+            'summary'           => 'max:300',
         ]);
 
         if ($validate->fails()) {
@@ -161,7 +163,10 @@ class BranchController extends Controller
         }
 
         $branch = Branch::findOrFail($id);
-        $all    = $request->all();
+        $all    = $request->only([
+            'name', 'type', 'secretary', 'secretary_summary',
+            'total_membership', 'tel', 'address', 'summary', 'detail',
+        ]);
 
         if ($request->file('avatar')) {
             $img_hash      = $this->saveImage($request->file('avatar'), "Branch/avatar");

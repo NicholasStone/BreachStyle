@@ -28,18 +28,18 @@
                     <div class="row">
                         <h4>党支部类型:</h4>
                         <div class="radioitem">
-                            <input type="radio" name="type" id="teashow" value="tea" readonly
+                            <input type="radio" name="type" id="teashow" value="教师党支部" readonly
                                    @if($user->type == "教师") checked @endif/><label for="teashow">教师党支部</label>
                         </div>
                         <div class="radioitem">
-                            <input type="radio" name="type" id="stushow" value="stu" readonly
+                            <input type="radio" name="type" id="stushow" value="学生党支部" readonly
                                    @if($user->type == "学生") checked @endif/><label for="stushow">学生党支部</label>
                         </div>
                     </div>
                     <div class="row">
                         <h4>所在学校<span>*</span> : </h4>
                         <input type="text" name="university" id="school" class="school" readonly
-                               value="{{ $user->university->name }}" required/>
+                               value="{{ $user->university }}" required/>
                     </div>
                     <div class="row">
                         <h4>党支部书记名称<span>*</span> : </h4>

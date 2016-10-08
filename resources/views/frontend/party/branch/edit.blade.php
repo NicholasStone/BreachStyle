@@ -2,7 +2,6 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
-    {{--@include('UEditor::head')--}}
 @endsection
 
 @section("content")
@@ -24,6 +23,17 @@
                     <div class="row">
                         <h4>党支部名称<span>*</span> : </h4>
                         <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName" required value="{{ $name }}"/>
+                    </div>
+                    <div class="row">
+                        <h4>党支部类型:</h4>
+                        <div class="radioitem">
+                            <input type="radio" name="type" id="teashow" value="教师党支部" readonly
+                                   @if($type == "教师党支部") checked @endif/><label for="teashow">教师党支部</label>
+                        </div>
+                        <div class="radioitem">
+                            <input type="radio" name="type" id="stushow" value="学生党支部" readonly
+                                   @if($type == "学生党支部") checked @endif/><label for="stushow">学生党支部</label>
+                        </div>
                     </div>
                     <div class="row">
                         <h4>党支部书记简介<span>*</span> : </h4>

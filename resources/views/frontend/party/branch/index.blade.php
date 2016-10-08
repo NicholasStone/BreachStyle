@@ -103,7 +103,7 @@
                 </div>
                 <div class="pub">
                     @unless(empty($application[$branch->type.'推荐展示']))
-                        <p class="pubTitle"><span></span>已发布{{ $item->type }}推荐展示</p>
+                        <p class="pubTitle"><span></span>已发布推荐展示</p>
                         <ul>
                             @foreach($application[$branch->type.'推荐展示'] as $item)
                                 <li>
