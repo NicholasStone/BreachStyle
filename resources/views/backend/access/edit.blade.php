@@ -12,110 +12,137 @@
 @section('content')
     {{ Form::model($user, ['route' => ['admin.access.user.update', $user], 'class' => 'form-horizontal', 'role' => 'form', 'method' => 'PATCH']) }}
 
-        <div class="box box-success">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ trans('labels.backend.access.users.edit') }}</h3>
+    <div class="box box-success">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{ trans('labels.backend.access.users.edit') }}</h3>
 
-                <div class="box-tools pull-right">
-                    @include('backend.access.includes.partials.header-buttons')
-                </div><!--box-tools pull-right-->
-            </div><!-- /.box-header -->
+            <div class="box-tools pull-right">
+                @include('backend.access.includes.partials.header-buttons')
+            </div><!--box-tools pull-right-->
+        </div><!-- /.box-header -->
 
-            <div class="box-body">
+        <div class="box-body">
+            <div class="form-group">
+                {{ Form::label('name', trans('validation.attributes.backend.access.users.name'), ['class' => 'col-lg-2 control-label']) }}
+
+                <div class="col-lg-10">
+                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.users.name')]) }}
+                </div><!--col-lg-10-->
+            </div><!--form control-->
+
+            <div class="form-group">
+                {{ Form::label('email', trans('validation.attributes.backend.access.users.email'), ['class' => 'col-lg-2 control-label']) }}
+
+                <div class="col-lg-10">
+                    {{ Form::text('email', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.users.email')]) }}
+                </div><!--col-lg-10-->
+            </div><!--form control-->
+
+            @if ($user->id != 1)
                 <div class="form-group">
-                    {{ Form::label('name', trans('validation.attributes.backend.access.users.name'), ['class' => 'col-lg-2 control-label']) }}
+                    {{ Form::label('status', trans('validation.attributes.backend.access.users.active'), ['class' => 'col-lg-2 control-label']) }}
 
-                    <div class="col-lg-10">
-                        {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.users.name')]) }}
-                    </div><!--col-lg-10-->
+                    <div class="col-lg-1">
+                        {{ Form::checkbox('status', '1', $user->status == 1) }}
+                    </div><!--col-lg-1-->
                 </div><!--form control-->
 
                 <div class="form-group">
-                    {{ Form::label('email', trans('validation.attributes.backend.access.users.email'), ['class' => 'col-lg-2 control-label']) }}
+                    {{ Form::label('confirmed', trans('validation.attributes.backend.access.users.confirmed'), ['class' => 'col-lg-2 control-label']) }}
 
-                    <div class="col-lg-10">
-                        {{ Form::text('email', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.users.email')]) }}
-                    </div><!--col-lg-10-->
+                    <div class="col-lg-1">
+                        {{ Form::checkbox('confirmed', '1', $user->confirmed == 1) }}
+                    </div><!--col-lg-1-->
                 </div><!--form control-->
 
-                @if ($user->id != 1)
-                    <div class="form-group">
-                        {{ Form::label('status', trans('validation.attributes.backend.access.users.active'), ['class' => 'col-lg-2 control-label']) }}
+                <div class="form-group">
+                    {{ Form::label('status', trans('validation.attributes.backend.access.users.associated_roles'), ['class' => 'col-lg-2 control-label']) }}
 
-                        <div class="col-lg-1">
-                            {{ Form::checkbox('status', '1', $user->status == 1) }}
-                        </div><!--col-lg-1-->
-                    </div><!--form control-->
-
-                    <div class="form-group">
-                        {{ Form::label('confirmed', trans('validation.attributes.backend.access.users.confirmed'), ['class' => 'col-lg-2 control-label']) }}
-
-                        <div class="col-lg-1">
-                            {{ Form::checkbox('confirmed', '1', $user->confirmed == 1) }}
-                        </div><!--col-lg-1-->
-                    </div><!--form control-->
-
-                    <div class="form-group">
-                        {{ Form::label('status', trans('validation.attributes.backend.access.users.associated_roles'), ['class' => 'col-lg-2 control-label']) }}
-
-                        <div class="col-lg-3">
-                            @if (count($roles) > 0)
-                                @foreach($roles as $role)
-                                    <input type="checkbox" value="{{$role->id}}" name="assignees_roles[]" {{in_array($role->id, $user_roles) ? 'checked' : ''}} id="role-{{$role->id}}" /> <label for="role-{{$role->id}}">{{ $role->name }}</label>
-                                        <a href="#" data-role="role_{{$role->id}}" class="show-permissions small">
-                                            (
-                                                <span class="show-text">{{ trans('labels.general.show') }}</span>
-                                                <span class="hide-text hidden">{{ trans('labels.general.hide') }}</span>
-                                                {{ trans('labels.backend.access.users.permissions') }}
-                                            )
-                                        </a>
-                                    <br/>
-                                    <div class="permission-list hidden" data-role="role_{{$role->id}}">
-                                        @if ($role->all)
-                                            {{ trans('labels.backend.access.users.all_permissions') }}<br/><br/>
-                                        @else
-                                            @if (count($role->permissions) > 0)
-                                                <blockquote class="small">{{--
+                    <div class="col-lg-3">
+                        @if (count($roles) > 0)
+                            @foreach($roles as $role)
+                                <input type="checkbox" value="{{$role->id}}" name="assignees_roles[]"
+                                       {{in_array($role->id, $user_roles) ? 'checked' : ''}} id="role-{{$role->id}}"/>
+                                <label for="role-{{$role->id}}">{{ $role->name }}</label>
+                                <a href="#" data-role="role_{{$role->id}}" class="show-permissions small">
+                                    (
+                                    <span class="show-text">{{ trans('labels.general.show') }}</span>
+                                    <span class="hide-text hidden">{{ trans('labels.general.hide') }}</span>
+                                    {{ trans('labels.backend.access.users.permissions') }}
+                                    )
+                                </a>
+                                <br/>
+                                <div class="permission-list hidden" data-role="role_{{$role->id}}">
+                                    @if ($role->all)
+                                        {{ trans('labels.backend.access.users.all_permissions') }}<br/><br/>
+                                    @else
+                                        @if (count($role->permissions) > 0)
+                                            <blockquote class="small">{{--
                                             --}}@foreach ($role->permissions as $perm){{--
                                             --}}{{$perm->display_name}}<br/>
-                                                    @endforeach
-                                                </blockquote>
-                                            @else
-                                                {{ trans('labels.backend.access.users.no_permissions') }}<br/><br/>
-                                            @endif
+                                                @endforeach
+                                            </blockquote>
+                                        @else
+                                            {{ trans('labels.backend.access.users.no_permissions') }}<br/><br/>
                                         @endif
-                                    </div><!--permission list-->
-                                @endforeach
-                            @else
-                                {{ trans('labels.backend.access.users.no_roles') }}
-                            @endif
-                        </div><!--col-lg-3-->
-                    </div><!--form control-->
-                @endif
-            </div><!-- /.box-body -->
-        </div><!--box-->
+                                    @endif
+                                </div><!--permission list-->
+                            @endforeach
+                        @else
+                            {{ trans('labels.backend.access.users.no_roles') }}
+                        @endif
+                    </div><!--col-lg-3-->
+                </div><!--form control-->
+            @endif
+            <div class="pull-left">
+                {{ link_to_route('admin.access.user.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-xs']) }}
+            </div><!--pull-left-->
 
-        <div class="box box-success">
-            <div class="box-body">
-                <div class="pull-left">
-                    {{ link_to_route('admin.access.user.index', trans('buttons.general.cancel'), [], ['class' => 'btn btn-danger btn-xs']) }}
-                </div><!--pull-left-->
+            <div class="pull-right">
+                {{ Form::submit(trans('buttons.general.crud.update'), ['class' => 'btn btn-success btn-xs']) }}
+            </div><!--pull-right-->
+        </div><!-- /.box-body -->
+    </div><!--box-->
 
-                <div class="pull-right">
-                    {{ Form::submit(trans('buttons.general.crud.update'), ['class' => 'btn btn-success btn-xs']) }}
-                </div><!--pull-right-->
-
-                <div class="clearfix"></div>
-            </div><!-- /.box-body -->
-        </div><!--box-->
-
-        @if ($user->id == 1)
-            {{ Form::hidden('status', 1) }}
-            {{ Form::hidden('confirmed', 1) }}
-            {{ Form::hidden('assignees_roles[]', 1) }}
-        @endif
+    @if ($user->id == 1)
+        {{ Form::hidden('status', 1) }}
+        {{ Form::hidden('confirmed', 1) }}
+        {{ Form::hidden('assignees_roles[]', 1) }}
+    @endif
 
     {{ Form::close() }}
+    @if($user->id > 3)
+        <div class="box box-success">
+            <div class="box-header with-border">
+                <h3 class="box-title">详情</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <dl class="col-sm-12 col-md-6 dl-horizontal">
+                        <dt>姓名 :</dt>
+                        <dd>{{ $user->name }}</dd>
+                        <dt>类型 :</dt>
+                        <dd>{{ $user->type }}</dd>
+                        <dt>所在城市 :</dt>
+                        <dd>{{ $user->province }} {{ $user->city }}</dd>
+                        <dt>学校 :</dt>
+                        <dd>{{ $user->university }}</dd>
+                        <dt>邮箱 :</dt>
+                        <dd>{{ $user->email }}</dd>
+                        <dt>工作电话 :</dt>
+                        <dd>{{ $user->tel_work }}</dd>
+                        <dt>电话 :</dt>
+                        <dd>{{ $user->tel }}</dd>
+                        <dt>所属支部 :</dt>
+                        <dd>{{ $user->branch->name or '未加入支部' }}</dd>
+                        <dt>头像 :</dt>
+                        <dd><img src="{{ $user->avatar }}" alt="配图" class="thumbnail"
+                                 style="width: 500px; height: auto;"></dd>
+                    </dl>
+                </div>
+            </div>
+        </div><!-- /.box -->
+    @endif
 @stop
 
 @section('after-scripts-end')

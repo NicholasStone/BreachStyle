@@ -136,12 +136,12 @@ return [
                 ],
 
                 'users' => [
-                    'active' => 'Active',
-                    'associated_roles' => 'Associated Roles',
-                    'confirmed' => 'Confirmed',
-                    'email' => 'E-mail Address',
-                    'name' => 'Name',
-                    'other_permissions' => 'Other Permissions',
+                    'active' => '活跃',
+                    'associated_roles' => '已有权限',
+                    'confirmed' => '已确认',
+                    'email' => 'E-mail',
+                    'name' => '姓名',
+                    'other_permissions' => '其他权限',
                     'password' => '密码',
                     'password_confirmation' => '确认密码',
                     'send_confirmation_email' => 'Send Confirmation E-mail',
