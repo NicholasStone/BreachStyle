@@ -58,7 +58,6 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'              => 'required',
             'avatar'            => 'required',
@@ -76,24 +75,24 @@ class BranchController extends Controller
             'tel.unique'        => '此工作号码已存在',
             'secretary.exists'  => '此用户不存在',
             'university.exists' => '此学校不存在',
-            'apply.required'    => '需要提交申请表文件'
+            'apply.required'    => '需要提交申请表文件',
         ]);
 
         if ($validate->fails()) {
-            alert()->error($validate->errors()->all());
+            alert()->error($validate->errors()->all())->persistent('Close');
 
             return redirect()->back()->withInput();
         }
-        $user              = Auth::user();
-        $all               = $request->only([
+        $user = Auth::user();
+        $all = $request->only([
             'name', 'avatar', 'type', 'university', 'secretary',
             'secretary_summary', 'total_membership',
             'tel', 'address', 'summary', 'detail', 'apply',
         ]);
-        $all['avatar']     = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
-        $all['apply_img']  = $this->saveImage($request->file('apply'), 'Branch/Applies');
+        $all['avatar'] = $this->saveImage($request->file('avatar'), 'Branch/Avatar');
+        $all['apply_img'] = $this->saveImage($request->file('apply'), 'Branch/Applies');
         $all['university'] = $user->university;
-        $branch            = Branch::create($all);
+        $branch = Branch::create($all);
         $branch->secretary = $user->id;
         $branch->save();
         $user->branch_id = $branch ? $branch->id : '';
@@ -165,17 +164,17 @@ class BranchController extends Controller
         }
 
         $branch = Branch::findOrFail($id);
-        $all    = $request->only([
+        $all = $request->only([
             'name', 'type', 'secretary', 'secretary_summary',
             'total_membership', 'tel', 'address', 'summary', 'detail',
         ]);
 
         if ($request->file('avatar')) {
-            $img_hash      = $this->saveImage($request->file('avatar'), "Branch/avatar");
+            $img_hash = $this->saveImage($request->file('avatar'), "Branch/avatar");
             $all['avatar'] = $img_hash;
         }
         if ($request->file('apply_img')) {
-            $apply_hash       = $this->saveImage($request->file('apply_img'), "Branch/Applies");
+            $apply_hash = $this->saveImage($request->file('apply_img'), "Branch/Applies");
             $all['apply_img'] = $apply_hash;
         }
         $branch->verification = 0;
@@ -205,13 +204,13 @@ class BranchController extends Controller
     protected function getIndexData($id)
     {
         if (empty($id)) {
-            $page       = Branch::select(['id', 'type', 'name', 'university', 'avatar', 'summary'])->where('verification', 1)->withProvince()->paginate(16);
+            $page = Branch::select(['id', 'type', 'name', 'university', 'avatar', 'summary'])->where('verification', 1)->withProvince()->paginate(16);
             $university = null;
 
             return [$page, $university];
         } else {
             $university = University::findOrFail($id);
-            $page       = Branch::select(['id', 'name', 'branch_id', 'avatar', 'summary'])->where('university', $university->name)->withProvince()->paginate();
+            $page = Branch::select(['id', 'name', 'branch_id', 'avatar', 'summary'])->where('university', $university->name)->withProvince()->paginate();
 
             return [$page, $university];
         }
@@ -223,11 +222,11 @@ class BranchController extends Controller
      */
     protected function getShowData($id)
     {
-        $branch                                = Branch::with(['secretary' => function ($query) {
+        $branch = Branch::with(['secretary' => function ($query) {
             $query->select(['id', 'name', 'avatar']);
         }])->where('id', $id)->first();
-        $application['微党课']                    = Application::withStatus()->where('branch_id', $branch->id)->where('type', '微党课')->get();
-        $application['工作案例']                   = Application::withStatus()->where('branch_id', $branch->id)->where('type', '工作案例')->get();
+        $application['微党课'] = Application::withStatus()->where('branch_id', $branch->id)->where('type', '微党课')->get();
+        $application['工作案例'] = Application::withStatus()->where('branch_id', $branch->id)->where('type', '工作案例')->get();
         $application[ $branch->type . '推荐展示' ] = Application::withStatus()->where('branch_id', $branch->id)->where('type', $branch->type . '推荐展示')->get();
 
         return [$branch, $application];

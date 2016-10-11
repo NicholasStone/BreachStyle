@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Party;
 
 use Auth;
+use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -50,26 +51,37 @@ class CaseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param CaseRequest|Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|mixed
      */
-    public function store(CaseRequest $request)
+    public function store(Request $request)
     {
-        $application              = new Application();
-        $apply                    = $request->all();
-        $img_hash                 = $this->saveImage($request->file('img'), "Application/Case");
-        $apply_hash               = $this->saveImage($request->file('apply'), "Application/Apply");
-        $application->name        = $apply['name'];
-        $application->type        = '工作案例';
-        $application->detail      = $apply['detail'];
-        $application->summary     = $apply['summary'];
-        $application->branch_id   = Auth::user()->branch_id;
-        $application->branch_type = Auth::user()->branch_type;
-        $application->university  = Auth::user()->university;
-        $application->img_hash    = $img_hash;
-        $application->apply_hash  = $apply_hash;
-        $application->save();
+        $validate = Validator::make($request->all(), [
+            'name'    => 'required|unique:applications,name',
+            'summary' => 'required|max:300',
+            'detail'  => 'required',
+            'apply'   => 'required',
+            'img'     => 'required',
+        ], [
+            'name.unique'    => '此名称已存在',
+            'apply.required' => '请上传申请表',
+            'img.required'   => '请上传封面',
+        ]);
 
-        alert()->success('提交成功，请等待审核通过');
+
+        if ($validate->fails()) {
+            return $this->validateFailed($validate);
+        }
+
+        $apply                = $request->all();
+        $apply['img_hash']    = $this->saveImage($request->file('img'), "Application/Case");
+        $apply['apply_hash']  = $this->saveImage($request->file('apply'), "Application/Apply");
+        $apply['type']        = '工作案例';
+        $apply['branch_id']   = Auth::user()->branch_id;
+        $apply['branch_type'] = Auth::user()->branch_type;
+        $apply['university']  = Auth::user()->university;
+        Application::create($apply);
+
+        alert()->success('提交成功，请等待审核通过')->persistent('关闭');
 
         return redirect()->route('frontend.index');
     }
@@ -97,14 +109,14 @@ class CaseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $application = Application::findOrFail($id);
-        $apply       = $request->all();
-        $application = $this->updateApplication($request, $application);
+        $application               = Application::findOrFail($id);
+        $apply                     = $request->all();
+        $application               = $this->updateApplication($request, $application);
         $application->detail       = $apply['detail'];
         $application->verification = 0;
         $application->save();

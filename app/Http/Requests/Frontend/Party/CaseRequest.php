@@ -51,7 +51,7 @@ class CaseRequest extends Request
      */
     public function formatErrors(Validator $validator)
     {
-        alert()->error($validator->errors()->all());
+        alert()->error($validator->errors()->all())->persistent('Close');
         return redirect()->back()->withInput();
     }
 }

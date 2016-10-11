@@ -15,8 +15,8 @@ class Application extends Model
     protected $date = ['deleted_at'];
 
     protected $fillable = [
-        'name', 'type', 'detail', 'summary', 'img_hash', 'branch_name',
-        'apply_hash', 'video_hash', 'source_lecturer', 'secretary', 'deleted_at',
+        'name', 'type', 'detail', 'summary', 'img_hash', 'branch_id', 'university',
+        'apply_hash', 'video_path', 'source_lecturer', 'secretary', 'deleted_at',
     ];
 
     public function branch()

@@ -25,6 +25,9 @@ class DropUniques extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('branches', function (Blueprint $table){
+            $table->unique('name');
+            $table->unique('tel');
+        });
     }
 }

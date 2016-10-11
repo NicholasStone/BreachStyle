@@ -1,8 +1,10 @@
 <?php
 namespace App\Http\Controllers\Frontend\Party\Traits;
 
+use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Array_;
 
 trait ApplicationTrait
 {
@@ -37,10 +39,10 @@ trait ApplicationTrait
 
     protected function getIndexPage($type, $sort)
     {
-        if($sort == 'time')
-        {
+        if ($sort == 'time') {
             $sort = 'updated_at';
         }
+
         return Application::with('branch')->where('type', $type)->where('verification', 1)->orderBy($sort, 'desc')->paginate();
     }
 
@@ -49,9 +51,9 @@ trait ApplicationTrait
         $application = Application::with(['branch.university.province', 'comments' => function ($query) {
             $query->with('user');
         }])->withStatus()->where("id", $id)->firstOrFail();
-        $comments    = $application->comments;
-        $branch      = $application->branch;
-        $university  = $branch->university;
+        $comments = $application->comments;
+        $branch = $application->branch;
+        $university = $branch->university;
 
         return compact('comments', 'branch', 'application', 'university');
     }
@@ -74,11 +76,11 @@ trait ApplicationTrait
     protected function updateApplication(Request $request, $application)
     {
         if ($request->file('img')) {
-            $img_hash              = $this->saveImage($request->file('img'), "Application/Case");
+            $img_hash = $this->saveImage($request->file('img'), "Application/Case");
             $application->img_hash = $img_hash;
         }
         if ($request->file('apply')) {
-            $apply_hash              = $this->saveImage($request->file('apply'), "Application/Apply");
+            $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
             $application->apply_hash = $apply_hash;
         }
         if (\Session::has('video_path') && (\Session::get('video_token') == $request->get('video_token'))) {
@@ -86,7 +88,7 @@ trait ApplicationTrait
             \Session::set('video_path', null);
             \Session::set('video_token', null);
         }
-        $application->name    = $request->get('name');
+        $application->name = $request->get('name');
         $application->summary = $request->get('summary');
 
         return $application;
@@ -95,7 +97,6 @@ trait ApplicationTrait
     protected function getIndexData_m($type)
     {
         $applications = Application::
-//        select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
         select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash'])
             ->where('type', $type)
             ->withStatus()
@@ -105,7 +106,7 @@ trait ApplicationTrait
                 $query->select(['id']);
             }])->orderBy('updated_at', 'desc')->get();
 
-        $applications = $applications->each(function ($item){
+        $applications = $applications->each(function ($item) {
             $item->summary = mb_strimwidth($item->summary, 0, 30);
         });
 
@@ -118,5 +119,12 @@ trait ApplicationTrait
         \Session::set('video_token', $token);
 
         return $token;
+    }
+
+    protected function validateFailed($validator)
+    {
+        alert()->error($validator->errors()->all())->persistent('关闭');
+
+        return redirect()->back()->withInput();
     }
 }

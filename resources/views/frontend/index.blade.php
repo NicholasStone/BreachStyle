@@ -19,7 +19,7 @@
                             <ul class="sw-slides">
                                 @foreach($sliders as $slider)
                                     <li class="sw-slide">
-                                        <a href="{{ asset($slider->link) }}">
+                                        <a href="{{ asset($slider->link) }}" target="_blank">
                                             {!! $slider->path !!}
                                         </a>
                                     </li>

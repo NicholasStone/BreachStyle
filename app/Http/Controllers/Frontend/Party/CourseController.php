@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Party;
 
 use Auth;
+use phpDocumentor\Reflection\Types\Mixed;
 use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
@@ -53,7 +54,7 @@ class CourseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|Mixed
      */
     public function store(Request $request)
     {
@@ -64,11 +65,13 @@ class CourseController extends Controller
             'apply'           => 'required',
             'img'             => 'required',
             'video_token'     => 'required',
+        ], [
+            'name.unique' => '此名称已存在',
         ]);
-        if ($validate->fails()) {
-            alert()->error("请完整填写所有字段！");
 
-            return redirect()->back();
+
+        if ($validate->fails()) {
+            return $this->validateFailed($validate);
         }
         if (!\Session::has('video_path')) {
             alert()->error('请先上传视频');
@@ -81,26 +84,22 @@ class CourseController extends Controller
 
             return redirect()->route('frontend.index');
         }
-        $application                  = new Application();
-        $application->video_hash      = \Session::get('video_path');
-        $apply                        = $request->all();
-        $img_hash                     = $this->saveImage($request->file('img'), "Application/Course");
-        $apply_hash                   = $this->saveImage($request->file('apply'), "Application/Apply");
-        $application->name            = $apply['name'];
-        $application->type            = '微党课';
-        $application->summary         = $apply['summary'];
-        $application->detail          = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
-        $application->branch_id       = Auth::user()->branch_id;
-        $application->branch_type     = Auth::user()->branch_type;
-        $application->university      = Auth::user()->university;
-        $application->course_lecturer = $apply['course_lecturer'];
-        $application->img_hash        = $img_hash;
-        $application->apply_hash      = $apply_hash;
-        $application->save();
+        $apply                = $request->all();
+        $apply['img_hash']    = $this->saveImage($request->file('img'), "Application/Course");
+        $apply['apply_hash']  = $this->saveImage($request->file('apply'), "Application/Apply");
+        $apply['type']        = '微党课';
+        $apply['detail']      = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
+        $apply['branch_id']   = Auth::user()->branch_id;
+        $apply['branch_type'] = Auth::user()->branch_type;
+        $apply['university']  = Auth::user()->university;
+        $apply['video_path']  = \Session::get('video_path');
+        Application::create($apply);
+
+
         \Session::set('video_path', null);
         \Session::set('video_token', null);
 
-        alert()->success('提交成功，请等待审核');
+        alert()->success('提交成功，请等待审核')->persistent('关闭');
 
         return redirect()->route('frontend.index');
     }
@@ -131,7 +130,7 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
