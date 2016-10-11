@@ -79,6 +79,7 @@
                     </div>
                     <div class="row">
                         <h4>党支部认证表<span>*</span> : </h4>
+                        <p style="color: red;">请不要上传大于3M的图片</p>
                         <input type="file" name="apply" id="apply" accept="image/*" class="casePreview" onchange="loadImageFile1()" value="{{ old('apply') }}"/>
                         <label for="apply" id="apply-preview">
                             <span>添加图片</span>

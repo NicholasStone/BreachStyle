@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Party;
 
 use App\Models\Application;
 use Auth;
+use phpDocumentor\Reflection\Types\Mixed;
 use Validator;
 use App\Models\Branch;
 use App\Models\University;
@@ -53,7 +54,7 @@ class BranchController extends Controller
      * Store a newly created resource in storage.
      *
      * @param BranchRequest|Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|Mixed
      */
     public function store(Request $request)
     {
@@ -75,12 +76,13 @@ class BranchController extends Controller
             'tel.unique'        => '此工作号码已存在',
             'secretary.exists'  => '此用户不存在',
             'university.exists' => '此学校不存在',
+            'apply.required'    => '需要提交申请表文件'
         ]);
 
         if ($validate->fails()) {
             alert()->error($validate->errors()->all());
 
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
         $user              = Auth::user();
         $all               = $request->only([

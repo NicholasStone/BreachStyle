@@ -1,5 +1,6 @@
 <div class="row">
     <h4>上传报名表<span>*</span> : </h4>
+    <p style="color: red; margin-bottom: 5px">请不要上传大于3M的图片</p>
     <input type="file" name="apply" id="apply" accept="image/*" class="casePreview" onchange="loadImageFile1()"
            value="{{ old('apply') }}"/>
     <label for="apply" id="apply-preview">
@@ -9,6 +10,7 @@
 </div>
 <div class="row">
     <h4>上传预览图<span>*</span> : </h4>
+    <p style="color: red; margin-bottom: 5px">请不要上传大于3M的图片</p>
     <input type="file" name="img" id="img" accept="image/*" class="casePreview" onchange="loadImageFile2()" value="{{ old('img') }}"/>
     <label for="img" id="img-preview">
         <span>添加图片</span>

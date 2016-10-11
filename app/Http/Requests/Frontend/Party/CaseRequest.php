@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Frontend\Party;
 
 use App\Http\Requests\Request;
+use Illuminate\Contracts\Validation\Validator;
+use phpDocumentor\Reflection\Types\Mixed;
 
 class CaseRequest extends Request
 {
@@ -30,5 +32,26 @@ class CaseRequest extends Request
             'apply'   => 'required',
             'img'     => 'required',
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'apply.required' => '请上传申请表',
+            'img.required'   => '请上传封面',
+        ];
+    }
+
+    /**
+     * @param Validator $validator
+     * @return Mixed
+     */
+    public function formatErrors(Validator $validator)
+    {
+        alert()->error($validator->errors()->all());
+        return redirect()->back()->withInput();
     }
 }
