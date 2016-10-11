@@ -40,7 +40,7 @@
                     </div>
                     <div class="row">
                         <h4>上传课程视频<span>*</span> :</h4>
-                        <p style="color: red">视频格式为MP4，且大小必须小于100M</p>
+                        <p style="color: red">视频格式为MP4，且大小必须小于100M，选择文件后请点击右侧的 " 开始上传 " 按钮</p>
                         <div id="wrapper">
                             <div id="container">
                                 <div id="uploader">

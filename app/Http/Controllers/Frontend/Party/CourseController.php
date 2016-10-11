@@ -92,7 +92,7 @@ class CourseController extends Controller
         $apply['branch_id']   = Auth::user()->branch_id;
         $apply['branch_type'] = Auth::user()->branch_type;
         $apply['university']  = Auth::user()->university;
-        $apply['video_path']  = \Session::get('video_path');
+        $apply['video_hash']  = \Session::get('video_path');
         Application::create($apply);
 
 
