@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
 <head>
     @yield('fit')
     <meta charset="utf-8"/>

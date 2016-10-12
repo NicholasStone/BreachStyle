@@ -5,7 +5,9 @@
 @endsection
 
 @section('after-styles-end')
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
     {!! Html::style(asset('css/frontend/map.css'))!!}
+    {!! Html::style(asset('css/frontend/weibo.css'))!!}
     {!! Html::style(asset('css/frontend/swipeslider.css'))!!}
 @endsection
 
@@ -407,6 +409,32 @@
                         @endforeach
                     </ul>
                 </div>
+                <div class="weibo-content">
+                    <div class="weibo_show">
+                        <div class="main">
+                            <wb:topic uid="1708159150" topmid="z8ClGsZa8" column="y" border="n"
+                                      title="%E7%82%B9%E4%BA%AE%E9%9D%92%E6%98%A5%EF%BC%8C%E4%BC%A0%E9%80%92%E6%A2%A6%E6%83%B3"
+                                      width="821" height="1190" tags="%E6%94%AF%E9%83%A8%E9%A3%8E%E9%87%87"
+                                      language="zh_cn"
+                                      version="base" appkey="5fvBHZ" footbar="y"
+                                      url="http%3A%2F%2Fweibo.com%2Fp%2F1008081771063c4d98edfef37a3ddc85e14c15"
+                                      filter="y"></wb:topic>
+                        </div>
+                    </div>
+
+                    <div class="content_us">
+                        <div class="main">
+                            <wb:bulkfollow uids="1708159150,5889406737" type="1" width="300" count="2"
+                                           color="C2D9F2,FFFFFF,0082CB,666666"></wb:bulkfollow>
+                        </div>
+                        <div class="imgs">
+                            <p>活动相关事宜咨询请关注微信订阅号 <b>" 中国大学生在线 "</b> 后回复信息 <b>" 支部风采 "</b> 获取相关信息。</p>
+                            <img src="{{ asset('build/img/QR.jpg') }}" alt="中国大学生在线" style="margin-bottom: 20px">
+                            <img src="{{ asset('build/img/wechat.jpg') }}" alt="中国大学生在线" width="50">
+                            <img src="{{ asset('build/img/univs-logo.png') }}" alt="中国大学生在线" width="246">
+                        </div>
+                    </div>
+                </div>
                 <div class="lookmore">
                     <a href="{{ route('frontend.case.list') }}">查看更多</a>
                 </div>
@@ -415,6 +443,8 @@
         <!-- show -->
     @endif
     <div class="clearfix"></div>
+
+
 @endsection
 
 @section('after-scripts-end')

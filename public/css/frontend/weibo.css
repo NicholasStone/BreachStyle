@@ -1,0 +1,32 @@
+.weibo-content * {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.weibo_show{
+    position: relative;
+    width: 70%;
+    height: 1200px;
+}
+
+.content_us {
+    width: 29%;
+}
+
+.content_us .main{
+    height: 300px;
+}
+
+.content_us *{
+    vertical-align: top;
+    display: inline-block;
+}
+
+.content_us .imgs img{
+    max-width: 300px;
+}
+.content_us .imgs p{
+    margin-bottom: 20px;
+    width: 80%;
+    text-align: left;
+}
