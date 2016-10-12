@@ -20,7 +20,7 @@
                                 </div>
                             </label>
                             <h4>上传头像<span>*</span> : </h4>
-                            <span style="color:red;">图片大小不要超过1MB</span>
+                            <span style="color:red;">图片大小不要超过2MB</span>
                         </div>
                     </div>
                     <div class="infoListRight">
