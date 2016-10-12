@@ -20,22 +20,22 @@
                                 </div>
                             </label>
                             <h4>上传头像<span>*</span> : </h4>
+                            <span style="color:red;">图片大小不要超过1MB</span>
                         </div>
                     </div>
                     <div class="infoListRight">
-                        <p>真实姓名<input class="input" type="text" name="name" id="realName" required/><span>*</span></p>
-                        <p>身份证号<input class="input" type="text" name="id_number" id="idnumber" required/><span>*</span>
+                        <p>真实姓名<input class="input" type="text" name="name" id="realName" required value="{{ old('name') }}"/><span>*</span></p>
+                        <p>身份证号<input class="input" type="text" name="id_number" id="idnumber" required value="{{ old('id_number') }}"/><span>*</span>
                         </p>
                         <div class="row">
                             <p>用户类型</p>
                             <div class="radioitem">
-                                <input class="input" type="radio" name="type" id="teashow" value="教师"
-                                       checked="checked"/><label
-                                        for="teashow">教师</label>
+                                <input class="input" type="radio" name="type" id="teashow" value="教师" @if(old('type')==null || old('type')=='教师') checked @endif/>
+                                <label for="teashow">教师</label>
                             </div>
                             <div class="radioitem">
-                                <input class="input" type="radio" name="type" id="stushow" value="学生"/><label
-                                        for="stushow">学生</label>
+                                <input class="input" type="radio" name="type" id="stushow" value="学生" @if(old('type')=='学生') checked @endif/>
+                                <label for="stushow">学生</label>
                             </div>
                         </div>
                         <div class="row" data-toggle="distpicker">
@@ -56,14 +56,15 @@
                                     <option value="{{ $item->name }}">{{ $item->name }}</option>
                                 @endforeach
                             </select><span>*</span></p>
-                        <p><label for="tel_work">办公电话</label><input class="input" type="tel" name="tel_work"
-                                                                    id="tel_work"
-                                                                    required/><span>*</span>可填写自己常用的手机号</p>
-                        <p><label for="tel">绑定手机</label><input class="input" type="tel" name="tel" id="tel"
-                                                               required/><span>*</span>
+                        <p>
+                            <label for="tel_work">办公电话</label><input class="input" type="tel" name="tel_work" id="tel_work" required value="{{ old('tel_work') }}"/><span>*</span>可填写自己常用的手机号
                         </p>
-                        <p><label for="email">绑定邮箱</label><input class="input" type="email" name="email" id="email"
-                                                                 required/><span>*</span></p>
+                        <p>
+                            <label for="tel">绑定手机</label><input class="input" type="tel" name="tel" id="tel" required value="{{ old('tel') }}"/><span>*</span>
+                        </p>
+                        <p>
+                            <label for="email">绑定邮箱</label><input class="input" type="email" name="email" id="email" required value="{{ old('email') }}"/><span>*</span>
+                        </p>
                         <input type="button" id="submit" class="submitBtn" value="提交"/>
                         <button type="submit" id="submit-button" hidden></button>
                     </div>

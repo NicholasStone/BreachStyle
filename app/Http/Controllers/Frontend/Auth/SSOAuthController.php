@@ -19,11 +19,11 @@ class SSOAuthController extends Controller
 
     public function ssoAuth(SSORequest $request)
     {
-        $subSiteId = \Config::get('app.sub-site-id');
+        $subSiteId  = \Config::get('app.sub-site-id');
         $privateKey = \Config::get('app.private-key');
         $time_token = Session::get('time-token');
-        $uid = $request->get('uId');
-        $checkCode = md5($time_token . $subSiteId . $privateKey . $uid);
+        $uid        = $request->get('uId');
+        $checkCode  = md5($time_token . $subSiteId . $privateKey . $uid);
         if ($request->get('checkCode') != $checkCode) {
             alert()->error("登录失败");
 
@@ -55,9 +55,9 @@ class SSOAuthController extends Controller
 
     public function ssoToken()
     {
-        $subSiteId = \Config::get('app.sub-site-id');
+        $subSiteId  = \Config::get('app.sub-site-id');
         $privateKey = \Config::get('app.private-key');
-        $token = date("YmdHis", time());
+        $token      = date("YmdHis", time());
         Session::set('time-token', $token);
         $checkCode = md5($token . $subSiteId . $privateKey);
 
@@ -66,6 +66,9 @@ class SSOAuthController extends Controller
 
     public function binding()
     {
+        if (Auth::check() && Auth::user()->name) {
+            return redirect()->route('frontend.index');
+        }
         $universities = Province::with("universities")->where('name', '北京市')->first();
         $universities = $universities->universities;
 
@@ -83,7 +86,7 @@ class SSOAuthController extends Controller
 
             return redirect()->route('frontend.index');
         }
-        $fill = $request->all();
+        $fill     = $request->all();
         $validate = Validator::make($fill, [
             'name'       => 'required',
             'id_number'  => 'required|unique:users,id_number',
@@ -94,7 +97,7 @@ class SSOAuthController extends Controller
             'tel_work'   => 'required|unique:users,tel',
             'tel'        => 'required|unique:users,tel_work',
             'email'      => 'required|email|unique:users,email',
-            'avatar'     => 'required',
+            'avatar'     => 'required|image|max:2048',
         ], [
             'university.exists' => '所填大学不存在',
             'avatar.required'   => '请上传头像',
@@ -102,15 +105,17 @@ class SSOAuthController extends Controller
             'tel_work.unique'   => '此工作电话已存在',
             'email.email'       => '请写入正确的电子邮箱',
             'email.unique'      => '此邮箱已存在',
+            'avatar.max'        => '请上传小于2MB的图片',
+            'avatar.image'      => '请上传图片',
         ]);
         if ($validate->fails()) {
-            alert()->error($validate->errors()->all());
+            alert()->error($validate->errors()->all())->persistent('关闭');
 
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
         $fill['user_id'] = Session::get('user_id');
-        $fill['avatar'] = $this->saveImage($request->file('avatar'), 'User/Avatar');
-        $user = User::Create($fill);
+        $fill['avatar']  = $this->saveImage($request->file('avatar'), 'User/Avatar');
+        $user            = User::Create($fill);
         Auth::login($user);
         alert()->success('身份信息录入成功');
 

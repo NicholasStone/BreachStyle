@@ -180,7 +180,7 @@
                             </div>
                         </li>
                         <li class="activeSignUp" style="border: none;">
-                            <p class="tit"><span>报名 : </span>下载活动报名表，填写完成并由高校党委主管部门盖章后，拍照或扫描成jpg格式，文件命名为"报名表.jpg"提交到活动官网。推荐成果须有学校审核后统一报送，每类成果限报两项。
+                            <p class="tit"><span>报名 : </span>下载活动报名表，填写完成并由高校党委主管部门盖章后，由各党支部支书自行注册账号，登录活动页面，建立党支部后将校方审核的报名表拍照或扫描成jpg格式，文件命名为"报名表.jpg"提交到活动官网。推荐成果须有学校审核后统一报送，每类成果限报两项。
                             </p>
                         </li>
                     </ul>
@@ -361,7 +361,7 @@
                                 </div>
                                 <div class="data">
                                     <h3>
-                                        <a href="{{ route('frontend.course.show', $teacher->id) }}">{{ $teacher->summary }}</a>
+                                        <a href="{{ route('frontend.recommend.show', $teacher->id) }}">{{ $teacher->summary }}</a>
                                     </h3>
                                     <p class="label">
                                         <i class="iconfont">&#xe610;</i><span>推荐展示</span>
@@ -383,7 +383,7 @@
                         @foreach($student_list as $student)
                             <li>
                                 <div class="imgBox">
-                                    <a href="{{ route('frontend.course.show', $student->id) }}">
+                                    <a href="{{ route('frontend.recommend.show', $student->id) }}">
                                         <img src="{{ $student->img_hash }}"/>
                                     </a>
                                 </div>
@@ -548,7 +548,7 @@
         moreBtn.onclick = function () {
             more1.innerHTML = "<span>1.支部工作案例 : </span>工作案例汇集“两微一端”、组织生活会及其他方式的创新工作方法、典型事例、特色主题活动等。各高校根据“两学一做”学习教育精神，要求各教师党支部、大学生党支部深入贯彻落实习近平总书记关于“两学一做”学习教育工作的重要指示，鼓励师生党员创新学习方式、探索实践形式，将有关<b>工作案例</b>、<b>工作经验</b>和<b>先进典型</b>通过网络等多种媒体予以展示。工作案例需包含主题与思路、实施方法与过程、主要成效及经验等，要求文字简洁、重点突出，字数3000字以内 <span style='color:red; font-weight: bolder; font-size: 1.4em;'>提交的材料为图文</span>。";
             more2.innerHTML = "<span>2.微党课 : </span>鼓励各校教师党支部、大学生党支部积极联系实际讲党课，利用<b>微视频</b>、<b>动漫</b>等多种体裁形式，创新党课宣讲模式。党课选题紧扣师生学习生活实践，围绕“两学一做”、纪念建党95周年和红军长征胜利80周年等主题，要求内容完整，主题突出，结构合理，表达流畅，富有时代气息，符合党性要求。微党课视频时长<b>小于10分钟</b>。 <span style='font-weight: bolder;color: red;font-size: 1.4em;'>提交的材料为视频</span>";
-            more3.innerHTML = "<span>3.教师党支部、大学生党支部推荐展示 : </span>各高校根据各教师党支部、大学生党支部开展“两学一做”学习教育的<b>优秀经验</b>和<b>实际成效</b>，评选出在学校能够叫得响、立得住、师生群众公认的教师党支部、大学生党支部，并且把典型材料推荐到活动平台进行展示。平台定期推送“支部风采”展示材料。<span style='color: red; font-weight: bolder; font-size: 1.4em;'> 提交的材料为图文或者是视频</span>";
+            more3.innerHTML = "<span>3.教师党支部、大学生党支部推荐展示 : </span> 各高校根据各教师党支部、大学生党支部开展“两学一做”学习教育的优秀经验和实际成效，评选出在学校能够叫得响、立得住、师生群众公认的教师党支部、大学生党支部，并且把典型材料推荐到活动平台进行展示。平台定期推送“支部风采”展示材料。<span style='color: red; font-weight: bolder; font-size: 1.4em;'> 要求字数3000字以内  提交的材料为图文或者是视频。</span>";
             more2.style.whiteSpace = "normal";
             more2.style.overflow = "visible";
             more2.style.textOverflow = "clip";
