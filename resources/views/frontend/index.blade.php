@@ -391,7 +391,7 @@
                                 </div>
                                 <div class="data">
                                     <h3>
-                                        <a href="{{ route('frontend.course.show', $student->id) }}">{{ $student->name }}</a>
+                                        <a href="{{ route('frontend.recommend.show', $student->id) }}">{{ $student->name }}</a>
                                     </h3>
                                     <p class="label">
                                         <i class="iconfont">&#xe610;</i><span>推荐展示</span>
