@@ -44,6 +44,8 @@ class CourseController extends Controller
      */
     public function create()
     {
+//        alert()->info('由于我们正在对视频服务进行升级，所以您暂时无法上传微党课。请您随时关注此功能的动向，对于给您造成的不便我们深表歉意。希望您能理解，谢谢合作。')->persistent('关闭');
+//        return redirect()->back();
         $video_token = $this->generateVideoToken();
 
         return view("frontend.party.course.create", compact("video_token"))
