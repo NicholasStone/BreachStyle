@@ -411,10 +411,11 @@
                 </div>
                 <div class="weibo-content">
                     <div class="weibo_show">
+                        <div class="title"><img src="{{ asset('build/img/contactus.png') }}" alt="微博展示"></div>
                         <div class="main">
                             <wb:topic uid="1708159150" topmid="z8ClGsZa8" column="y" border="n"
                                       title="%E7%82%B9%E4%BA%AE%E9%9D%92%E6%98%A5%EF%BC%8C%E4%BC%A0%E9%80%92%E6%A2%A6%E6%83%B3"
-                                      width="821" height="1190" tags="%E6%94%AF%E9%83%A8%E9%A3%8E%E9%87%87"
+                                      width="821" height="790" tags="%E6%94%AF%E9%83%A8%E9%A3%8E%E9%87%87"
                                       language="zh_cn"
                                       version="base" appkey="5fvBHZ" footbar="y"
                                       url="http%3A%2F%2Fweibo.com%2Fp%2F1008081771063c4d98edfef37a3ddc85e14c15"
@@ -423,6 +424,7 @@
                     </div>
 
                     <div class="content_us">
+                        <div class="title"><img src="{{ asset('build/img/qwe.png') }}" alt="微博展示"></div>
                         <div class="main">
                             <wb:bulkfollow uids="1708159150,5889406737" type="1" width="300" count="2"
                                            color="C2D9F2,FFFFFF,0082CB,666666"></wb:bulkfollow>

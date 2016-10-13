@@ -3,29 +3,39 @@
     display: inline-block;
 }
 
-.weibo_show{
+.weibo_show {
     position: relative;
     width: 70%;
-    height: 1200px;
+    height: 830px;
+}
+
+.weibo_show .main{
+    margin-top: 25px;
 }
 
 .content_us {
     width: 29%;
 }
 
-.content_us .main{
+.content_us * {
+    display: block;
+}
+
+.content_us .main {
+    margin-top: 25px;
     height: 300px;
 }
 
-.content_us *{
+.content_us * {
     vertical-align: top;
     display: inline-block;
 }
 
-.content_us .imgs img{
+.content_us .imgs img {
     max-width: 300px;
 }
-.content_us .imgs p{
+
+.content_us .imgs p {
     margin-bottom: 20px;
     width: 80%;
     text-align: left;
