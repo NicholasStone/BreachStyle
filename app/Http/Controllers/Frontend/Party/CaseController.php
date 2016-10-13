@@ -59,12 +59,14 @@ class CaseController extends Controller
             'name'    => 'required|unique:applications,name',
             'summary' => 'required|max:300',
             'detail'  => 'required',
-            'apply'   => 'required',
-            'img'     => 'required',
+            'apply'   => 'required|max:3072',
+            'img'     => 'required|max:3072',
         ], [
             'name.unique'    => '此名称已存在',
             'apply.required' => '请上传申请表',
             'img.required'   => '请上传封面',
+            'apply.max' => '请不要上传大于3MB的申报表图片',
+            'img.max'   => '请不要上传大于3MB的封面图片'
         ]);
 
 

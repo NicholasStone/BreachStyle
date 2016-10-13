@@ -81,11 +81,13 @@ class RecommendController extends Controller
         $validate = Validator::make($request->all(), [
             'name'    => 'required|unique:applications,name',
             'summary' => 'required|max:300',
-            'apply'   => 'required',
-            'img'     => 'required',
+            'apply'   => 'required|max:3072',
+            'img'     => 'required|max:3072',
             'detail'  => 'required',
         ], [
             'name.unique' => '此名称已存在',
+            'apply.max' => '请不要上传大于3MB的申报表图片',
+            'img.max'   => '请不要上传大于3MB的封面图片'
         ]);
 
         if ($validate->fails()) {

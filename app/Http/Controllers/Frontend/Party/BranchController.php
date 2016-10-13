@@ -60,7 +60,6 @@ class BranchController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'name'              => 'required',
-            'avatar'            => 'required',
             'type'              => 'required|in:学生党支部,教师党支部',
             'university'        => 'required|exists:universities,name',
             'secretary'         => 'required|exists:users,name',
@@ -70,12 +69,15 @@ class BranchController extends Controller
             'address'           => 'required|max:200',
             'summary'           => 'required|max:300',
             'detail'            => 'required',
-            'apply'             => 'required',
+            'avatar'            => 'required|max:3072',
+            'apply'             => 'required|max:3072',
         ], [
             'tel.unique'        => '此工作号码已存在',
             'secretary.exists'  => '此用户不存在',
             'university.exists' => '此学校不存在',
             'apply.required'    => '需要提交申请表文件',
+            'apply.max' => '请不要上传大于3MB的申报表图片',
+            'avatar.max'   => '请不要上传大于3MB的封面图片'
         ]);
 
         if ($validate->fails()) {
