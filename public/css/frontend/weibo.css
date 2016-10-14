@@ -1,42 +1,116 @@
-.weibo-content * {
-    vertical-align: top;
-    display: inline-block;
+@media (min-width: 1172px) {
+    .weibo-content * {
+        vertical-align: top;
+        display: inline-block;
+    }
+
+    .content_us {
+        width: 29%;
+    }
+
+    .content_us * {
+        display: block;
+        vertical-align: top;
+        /*display: inline-block;*/
+    }
+
+    .content_us .wechat * {
+        max-width: 300px;
+        display: inline;
+    }
+
+    #notice-wechat {
+        width: 50px;
+    }
+
+    #notice-logo {
+        width: 246px;
+    }
+
+    .content_us .wechat .wechat-notice p {
+        margin-top: 20px;
+        display: block;
+        line-height: 2em;
+        margin-bottom: 20px;
+        width: 80%;
+        text-align: left;
+    }
+
+    .content_us .main {
+        margin-top: 25px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 1172px) {
+    .weibo-content {
+        margin-left: 7%;
+    }
+
+    .weibo-content * {
+        vertical-align: top;
+    }
+
+    .content_us {
+        width: 821px;
+        margin-top: 50px;
+    }
+    .content_us .wechat,
+    .content_us .main {
+        display: inline-block;
+        margin-top: 20px;
+    }
+
+    .content_us .main {
+        margin-left: 0;
+        margin-right: 5px;
+        height: 225px;
+        width: 30%;
+    }
+
+    .content_us .wechat {
+        width: 505px;
+        margin-left: 60px;
+    }
+
+    .content_us .wechat .wechat-notice {
+        padding-top: 10px;
+        width: 220px;
+        margin-left: 5px;
+    }
+
+    .content_us .wechat .wechat-notice p{
+        margin-top: 20px;
+    }
+
+    .content_us .wechat * {
+        display: inline-block;
+    }
+
+    .content_us .wechat .wechat-QR > img {
+        height: 225px;
+        width: 225px;
+    }
+
+    #notice-wechat {
+        width: 33px;
+    }
+
+    #notice-logo {
+        width: 182px;
+    }
 }
 
 .weibo_show {
     position: relative;
-    width: 70%;
+    width: 821px;
     height: 830px;
 }
 
-.weibo_show .main{
+.weibo_show .main {
     margin-top: 25px;
 }
 
-.content_us {
-    width: 29%;
-}
-
-.content_us * {
-    display: block;
-}
-
-.content_us .main {
-    margin-top: 25px;
-    height: 300px;
-}
-
-.content_us * {
-    vertical-align: top;
-    display: inline-block;
-}
-
-.content_us .imgs img {
-    max-width: 300px;
-}
-
-.content_us .imgs p {
-    margin-bottom: 20px;
-    width: 80%;
-    text-align: left;
+.weibo_show {
+    text-align: center;
 }

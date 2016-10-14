@@ -429,11 +429,15 @@
                             <wb:bulkfollow uids="1708159150,5889406737" type="1" width="300" count="2"
                                            color="C2D9F2,FFFFFF,0082CB,666666"></wb:bulkfollow>
                         </div>
-                        <div class="imgs">
-                            <p>活动相关事宜咨询请关注微信订阅号 <b>" 中国大学生在线 "</b> 后回复信息 <b>" 支部风采 "</b> 获取相关信息。</p>
-                            <img src="{{ asset('build/img/QR.jpg') }}" alt="中国大学生在线" style="margin-bottom: 20px">
-                            <img src="{{ asset('build/img/wechat.jpg') }}" alt="中国大学生在线" width="50">
-                            <img src="{{ asset('build/img/univs-logo.png') }}" alt="中国大学生在线" width="246">
+                        <div class="wechat">
+                            <div class="wechat-QR">
+                                <img src="{{ asset('build/img/QR.jpg') }}" alt="中国大学生在线" style="margin-bottom: 20px">
+                            </div>
+                            <div class="wechat-notice">
+                                <img src="{{ asset('build/img/wechat.jpg') }}" alt="中国大学生在线" id="notice-wechat">
+                                <img src="{{ asset('build/img/univs-logo.png') }}" alt="中国大学生在线" id="notice-logo">
+                                <p>活动相关事宜咨询请关注微信订阅号 <b>" 中国大学生在线 "</b> 后回复信息 <b>" 支部风采 "</b> 获取相关信息。</p>
+                            </div>
                         </div>
                     </div>
                 </div>
