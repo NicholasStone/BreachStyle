@@ -86,8 +86,9 @@ class RecommendController extends Controller
             'detail'  => 'required',
         ], [
             'name.unique' => '此名称已存在',
-            'apply.max' => '请不要上传大于3MB的申报表图片',
-            'img.max'   => '请不要上传大于3MB的封面图片'
+            'summary.max' => '简介请不要多于300字',
+            'apply.max'   => '请不要上传大于3MB的申报表图片',
+            'img.max'     => '请不要上传大于3MB的封面图片',
         ]);
 
         if ($validate->fails()) {
@@ -105,7 +106,8 @@ class RecommendController extends Controller
             $apply['video_hash'] = \Session::get('video_path');
             \Session::set('video_path', null);
             \Session::set('video_token', null);
-        }Application::create($apply);
+        }
+        Application::create($apply);
 
         alert()->success('提交成功，请等待审核')->persistent('关闭');
 
@@ -138,7 +140,7 @@ class RecommendController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

@@ -30,7 +30,7 @@
                     </div>
                     <div class="row">
                         <h4>工作案例简介<span>*</span> : </h4>
-                        <textarea class="caseIntroduce" name="summary" required
+                        <textarea class="caseIntroduce" name="summary" required placeholder="请不要超过300字" maxlength="300"
                                   title="请填写案例简介">{{ old('summary') or '' }}</textarea>
                     </div>
                     <div class="row">
