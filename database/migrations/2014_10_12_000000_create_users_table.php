@@ -20,9 +20,9 @@ class CreateUsersTable extends Migration
             $table->enum('type', ['学生', '教师']);
             $table->string('university', 30);
             $table->string('avatar');
-            $table->string('email')->unique();
-            $table->string('tel_work', 11)->unique();
-            $table->string('tel', 11)->unique();
+            $table->string('email');
+            $table->string('tel_work', 20);
+            $table->string('tel', 20);
             $table->unsignedInteger('branch_id');
             $table->string('province', 15);
             $table->string('city', 20);

@@ -44,6 +44,8 @@ class CourseController extends Controller
      */
     public function create()
     {
+//        alert()->info('由于我们正在对视频服务进行升级，所以您暂时无法上传微党课。请您随时关注此功能的动向，对于给您造成的不便我们深表歉意。希望您能理解，谢谢合作。')->persistent('关闭');
+//        return redirect()->back();
         $video_token = $this->generateVideoToken();
 
         return view("frontend.party.course.create", compact("video_token"))
@@ -60,15 +62,16 @@ class CourseController extends Controller
     {
         $validate = Validator::make($request->all(), [
             'name'            => 'required|unique:applications,name',
-            'summary'         => 'required|max:200',
+            'summary'         => 'required|max:370',
             'course_lecturer' => 'required|max:20',
             'apply'           => 'required|max:3072',
             'img'             => 'required|max:3072',
             'video_token'     => 'required',
         ], [
             'name.unique' => '此名称已存在',
-            'apply.max' => '请不要上传大于3MB的申报表图片',
-            'img.max'   => '请不要上传大于3MB的封面图片'
+            'summary.max' => '简介请不要多于300字',
+            'apply.max'   => '请不要上传大于3MB的申报表图片',
+            'img.max'     => '请不要上传大于3MB的封面图片',
         ]);
 
 
@@ -132,7 +135,7 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

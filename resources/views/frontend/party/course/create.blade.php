@@ -68,7 +68,7 @@
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="editor" name="summary" required title="请填写微党课简介">
-                                {{ old('detail') ? old('detail') : '在此插入图片时请插入图片链接'}}
+                                {{ old('detail') ? old('detail') : '在此插入图片时请插入图片链接, 请不要超过300字'}}
                             </textarea>
                         </div>
                     </div>

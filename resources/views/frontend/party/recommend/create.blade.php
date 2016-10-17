@@ -22,16 +22,19 @@
                 </li>
             </ul>
             <div class="crtDepart">
-                <form action="{{ route('frontend.recommend.store') }}" method="post" enctype="multipart/form-data" id="application-form">
+                <form action="{{ route('frontend.recommend.store') }}" method="post" enctype="multipart/form-data"
+                      id="application-form">
                     {!! csrf_field() !!}
                     <input type="text" name="video_token" id="video-token" readonly hidden value="{{ $video_token }}">
                     <div class="row">
                         <h4>推荐展示名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="courseName" placeholder="请输入课题名称" class="courseName" required title="请填写推荐展示标题" value="{{ old('name') }}"/>
+                        <input type="text" name="name" id="courseName" placeholder="请输入课题名称" class="courseName" required
+                               title="请填写推荐展示标题" value="{{ old('name') }}"/>
                     </div>
                     <div class="row">
                         <h4>推荐展示简介<span>*</span> : </h4>
-                        <textarea class="caseIntroduce" name="summary" required title="请填写简介">{{ old('summary') }}</textarea>
+                        <textarea class="caseIntroduce" name="summary" required title="请填写简介" placeholder="请不要超过300字"
+                                  maxlength="300">{{ old('summary') }}</textarea>
                     </div>
                     <div class="row">
                         <h4>上传视频 :</h4>
@@ -79,6 +82,6 @@
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.recommend.upload'), 'required'=>false])
     <script>
-        CKEDITOR.replace( 'detail' );
+        CKEDITOR.replace('detail');
     </script>
 @endsection
