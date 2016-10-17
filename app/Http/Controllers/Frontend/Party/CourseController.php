@@ -64,14 +64,14 @@ class CourseController extends Controller
             'name'            => 'required|unique:applications,name',
             'summary'         => 'required|max:370',
             'course_lecturer' => 'required|max:20',
-            'apply'           => 'required|max:3072',
-            'img'             => 'required|max:3072',
+            'apply'           => 'required|max:512',
+            'img'             => 'required|max:512',
             'video_token'     => 'required',
         ], [
             'name.unique' => '此名称已存在',
             'summary.max' => '简介请不要多于300字',
-            'apply.max'   => '请不要上传大于3MB的申报表图片',
-            'img.max'     => '请不要上传大于3MB的封面图片',
+            'apply.max'   => '请不要上传大于512KB的申报表图片',
+            'img.max'     => '请不要上传大于512KB的封面图片',
         ]);
 
 

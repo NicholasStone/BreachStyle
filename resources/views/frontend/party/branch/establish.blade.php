@@ -20,6 +20,7 @@
                             </div>
                         </label>
                         <h4>党支部配图<span>*</span> : </h4>
+                        <p style="color: red;">请不要上传大于500KB的图片</p>
                     </div>
                     <div class="row">
                         <h4>党支部名称<span>*</span> : </h4>
@@ -79,7 +80,7 @@
                     </div>
                     <div class="row">
                         <h4>党支部认证表<span>*</span> : </h4>
-                        <p style="color: red;">请不要上传大于3M的图片</p>
+                        <p style="color: red;">请不要上传大于500KB的图片</p>
                         <input type="file" name="apply" id="apply" accept="image/*" class="casePreview" onchange="loadImageFile1()" value="{{ old('apply') }}"/>
                         <label for="apply" id="apply-preview">
                             <span>添加图片</span>
@@ -158,6 +159,10 @@
                         alert("你必须选择一个图片!");
                         return;
                     }
+                    if((aFiles[0].size/1024).toFixed(2) > 500){
+                        alert("您选择的图片大于500kb，请重新选择。");
+                        return;
+                    }
                     oFReader.readAsDataURL(aFiles[0]);
                 }
             }
@@ -184,6 +189,10 @@
                     }
                     if (!rFilter.test(aFiles[0].type)) {
                         alert("你必须选择一个图片!");
+                        return;
+                    }
+                    if((aFiles[0].size/1024).toFixed(2) > 500){
+                        alert("您选择的图片大于500kb，请重新选择。");
                         return;
                     }
                     oFReader.readAsDataURL(aFiles[0]);

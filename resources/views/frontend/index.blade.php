@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('fit')
-    {{--@include('frontend.mobile.fit', ['route' => route('frontend.m.index')])--}}
+    @include('frontend.mobile.fit', ['route' => route('frontend.m.index')])
 @endsection
 
 @section('after-styles-end')

@@ -69,17 +69,17 @@ class BranchController extends Controller
             'address'           => 'required|max:200',
             'summary'           => 'required|max:300',
             'detail'            => 'required',
-            'avatar'            => 'required|max:3072',
-            'apply'             => 'required|max:3072',
+            'avatar'            => 'required|max:512',
+            'apply'             => 'required|max:512',
         ], [
             'tel.unique'            => '此工作号码已存在',
             'secretary.exists'      => '此用户不存在',
             'university.exists'     => '此学校不存在',
-            'apply.max'             => '请不要上传大于3MB的封面图片',
+            'apply.max'             => '请不要上传大于512的封面图片',
             'summary.max'           => '简介请不要多于300字',
             'secretary_summary.max' => '支部书记简介请不要多于100字',
             'address.max'           => '地址请不要多于200字',
-            'avatar.max'            => '请不要上传大于3MB的封面图片',
+            'avatar.max'            => '请不要上传大于512的封面图片',
         ]);
 
         if ($validate->fails()) {
