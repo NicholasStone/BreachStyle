@@ -38,6 +38,23 @@ class FrontendController extends Controller
             'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders', 'settings'));
     }
 
+    public function index_lab()
+    {
+        $sliders = Slider::all();
+        $settings = Setting::all();
+        $last_trends = Application::orderBy('created_at', 'desc')->where('verification', 1)->take(8)->get();
+        $count_branches = Branch::all()->count();
+        $count_universities = University::has('branches')->count();
+        $count_verify_through_application = Application::where('verification', 1)->count();
+        $work_list = Application::where('type', '工作案例')->where('verification', 1)->orderBy('created_at', 'desc')->take(3)->get();
+        $tiny_list = Application::where('type', '微党课')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
+        $teacher_list = Application::where('type', '教师党支部推荐展示')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
+        $student_list = Application::where('type', '学生党支部推荐展示')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
+
+        return view('frontend.lab', compact('last_trends', 'count_branches', 'count_universities', 'count_verify_through_application', 'datas',
+            'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders', 'settings'));
+    }
+
     public function index_m()
     {
         $applications = Application::

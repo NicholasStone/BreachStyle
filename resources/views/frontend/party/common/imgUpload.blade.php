@@ -42,6 +42,10 @@
                     alert("你必须选择一个图片!");
                     return;
                 }
+                if((aFiles[0].size/1024).toFixed(2) > 500){
+                    alert("您选择的图片大于500kb，请重新选择。");
+                    return;
+                }
                 oFReader.readAsDataURL(aFiles[0]);
             }
         }
@@ -68,6 +72,10 @@
                 }
                 if (!rFilter.test(aFiles[0].type)) {
                     alert("你必须选择一个图片!");
+                    return;
+                }
+                if((aFiles[0].size/1024).toFixed(2) > 500){
+                    alert("您选择的图片大于500kb，请重新选择。");
                     return;
                 }
                 oFReader.readAsDataURL(aFiles[0]);

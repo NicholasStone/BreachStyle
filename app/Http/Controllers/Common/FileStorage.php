@@ -19,8 +19,8 @@ trait FileStorage
             $this->makeDir(public_path($path) . '/');
         }
         $image = $manager->make($file);
-        if($image->width() > 1024){
-            $image->resize(1024, null, function ($c){
+        if($image->width() > 800){
+            $image->resize(800, null, function ($c){
                 $c->aspectRatio();
             });
         }
