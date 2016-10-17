@@ -179,6 +179,6 @@
 @yield('before-scripts-end')
 @include("sweet::alert")
 @yield('after-scripts-end')
-{{--@include('frontend.includes.google-analytics')--}}
+@include('frontend.includes.google-analytics')
 </body>
 </html>
