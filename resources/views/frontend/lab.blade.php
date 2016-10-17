@@ -453,7 +453,7 @@
 @endsection
 
 @section('after-scripts-end')
-    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+    {{--<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>--}}
     {!! Html::script('js/swipeslider.min.js') !!}
     {!! Html::script('js/detail.js') !!}
     {!! Html::script('//cdn.bootcss.com/raphael/2.2.1/raphael.min.js') !!}
