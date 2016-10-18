@@ -2,7 +2,6 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
-    <script src="/vendor/ckeditor/ckeditor.js"></script>
 @endsection
 
 @section('content')
@@ -37,7 +36,7 @@
                         <h4>工作案例说明<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="editor" name="detail" required title="请填写案例说明">
-                                {{ old('summary') ? old('detail') : '在此插入图片时请插入图片链接'}}
+                                {{ old('summary') ? old('detail') : '拖拽图片至此以上传图片，右键单击已上传图片编辑'}}
                             </textarea>
                         </div>
                     </div>
@@ -50,10 +49,11 @@
 @endsection
 
 @section("after-scripts-end")
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('detail', {
             language: 'zh-cn',
-            uploadUrl: '{{ route("frontend.case.image") }}?_token={{ csrf_token() }}',
+            uploadUrl: '{{ route("frontend.case.image.drag") }}?_token={{ csrf_token() }}',
             filebrowserUploadUrl: '{{ route("frontend.case.image") }}?_token={{ csrf_token() }}'
         });
     </script>

@@ -2,7 +2,6 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section('content')
@@ -10,13 +9,13 @@
         <div class="content">
             <ul class="achieveNavList">
                 <li class="active">
-                    <a href="{{ route("frontend.case.create") }}" ><span></span>发布工作案例</a>
+                    <a href="{{ route("frontend.case.create") }}"><span></span>发布工作案例</a>
                 </li>
                 <li>
-                    <a href="{{ route("frontend.course.create") }}" ><span></span>发布微党课</a>
+                    <a href="{{ route("frontend.course.create") }}"><span></span>发布微党课</a>
                 </li>
                 <li>
-                    <a href="{{ route("frontend.recommend.create") }}" ><span></span>发布推荐展示</a>
+                    <a href="{{ route("frontend.recommend.create") }}"><span></span>发布推荐展示</a>
                 </li>
             </ul>
             <div class="crtDepart">
@@ -50,7 +49,12 @@
 @endsection
 
 @section("after-scripts-end")
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'detail' );
+        CKEDITOR.replace('detail', {
+            language: 'zh-cn',
+            uploadUrl: '{{ route("frontend.case.image.drag") }}?_token={{ csrf_token() }}',
+            filebrowserUploadUrl: '{{ route("frontend.case.image") }}?_token={{ csrf_token() }}'
+        });
     </script>
 @endsection

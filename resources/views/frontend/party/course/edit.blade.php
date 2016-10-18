@@ -4,7 +4,6 @@
     {!! Html::style(asset('css/frontend/create.css')) !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
     {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section("content")
@@ -12,13 +11,13 @@
         <div class="content">
             <ul class="achieveNavList">
                 <li>
-                    <a href="{{ route("frontend.case.create") }}" ><span></span>发布工作案例</a>
+                    <a href="{{ route("frontend.case.create") }}"><span></span>发布工作案例</a>
                 </li>
                 <li class="active">
-                    <a href="{{ route("frontend.course.create") }}" ><span></span>发布微党课</a>
+                    <a href="{{ route("frontend.course.create") }}"><span></span>发布微党课</a>
                 </li>
-                <li >
-                    <a href="{{ route("frontend.recommend.create") }}" ><span></span>发布推荐展示</a>
+                <li>
+                    <a href="{{ route("frontend.recommend.create") }}"><span></span>发布推荐展示</a>
                 </li>
             </ul>
 
@@ -28,11 +27,13 @@
                     <input type="text" name="video_token" id="video-token" readonly hidden value="{{ $video_token }}">
                     <div class="row">
                         <h4>微党课名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="courseName" placeholder="请输入微党课名称" class="courseName" value="{{ $name }}"/>
+                        <input type="text" name="name" id="courseName" placeholder="请输入微党课名称" class="courseName"
+                               value="{{ $name }}"/>
                     </div>
                     <div class="row">
                         <h4>微党课讲师<span>*</span> : </h4>
-                        <input type="text" name="course_lecturer" id="courseTeacher" class="courseTeacher" value="{{ $course_lecturer }}"/>
+                        <input type="text" name="course_lecturer" id="courseTeacher" class="courseTeacher"
+                               value="{{ $course_lecturer }}"/>
                         <span class="note">(默认为视频上传者)</span>
                     </div>
                     @include("frontend.party.common.img-upload-edit")
@@ -82,7 +83,12 @@
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload'), 'required' => false])
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'summary' );
+        CKEDITOR.replace('summary', {
+            language: 'zh-cn',
+            uploadUrl: '{{ route("frontend.course.image.drag") }}?_token={{ csrf_token() }}',
+            filebrowserUploadUrl: '{{ route("frontend.course.image") }}?_token={{ csrf_token() }}'
+        });
     </script>
 @endsection

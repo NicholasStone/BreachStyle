@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
+use App\Http\Controllers\Frontend\Party\Traits\ApplicationTrait;
 use App\Models\Application;
 use Auth;
 use phpDocumentor\Reflection\Types\Mixed;
@@ -15,7 +16,7 @@ use App\Http\Requests\Frontend\Party\BranchRequest;
 
 class BranchController extends Controller
 {
-    use FileStorage;
+    use FileStorage, ApplicationTrait;
 
     /**
      * Display a listing of the resource.

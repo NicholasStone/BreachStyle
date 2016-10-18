@@ -4,7 +4,6 @@
     {!! Html::style('css/frontend/create.css') !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
     {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section("content")
@@ -66,7 +65,7 @@
                         <h4>推荐展示说明<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="editor" name="detail" required title="请填写说明">
-                                {{ old('detail') ? old('detail') : '在此插入图片时请插入图片链接'}}
+                                {{ old('detail') ? old('detail') : '拖拽图片至此以上传图片，右键单击已上传图片编辑'}}
                             </textarea>
                         </div>
                     </div>
@@ -81,7 +80,12 @@
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.recommend.upload'), 'required'=>false])
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace('detail');
+        CKEDITOR.replace('detail', {
+            language: 'zh-cn',
+            uploadUrl: '{{ route("frontend.recommend.image.drag") }}?_token={{ csrf_token() }}',
+            filebrowserUploadUrl: '{{ route("frontend.recommend.image") }}?_token={{ csrf_token() }}'
+        });
     </script>
 @endsection

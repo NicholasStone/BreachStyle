@@ -4,7 +4,6 @@
     {!! Html::style('css/frontend/create.css') !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
     {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section("content")
@@ -88,7 +87,12 @@
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.recommend.upload'), 'required'=>false])
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace('detail');
+        CKEDITOR.replace('detail', {
+            language: 'zh-cn',
+            uploadUrl: '{{ route("frontend.recommend.image.drag") }}?_token={{ csrf_token() }}',
+            filebrowserUploadUrl: '{{ route("frontend.recommend.image") }}?_token={{ csrf_token() }}'
+        });
     </script>
 @endsection

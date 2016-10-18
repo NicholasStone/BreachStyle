@@ -7,22 +7,37 @@ use Illuminate\Http\Request;
 
 trait ApplicationTrait
 {
+
+    public function imageDrag(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $file     = $request->file('upload');
+            $fileName = $file->getClientOriginalName();
+            $url      = $this->saveImage($file, 'Article');
+            $uploaded = 1;
+
+            return response()->json(compact("fileName", "url", "uploaded"));
+        }
+    }
+
     /**
-     * 富文本编辑器图片上传
+     * 富文本编辑器图片点击上传
      * @param Request $request
      * @return string
      */
     public function image(Request $request)
     {
         if ($request->hasFile('upload')) {
-            $file     = $request->file('upload');
-            $save     = $this->saveImage($file, 'Article');
-            $save     = addslashes($save);
-            $response = '<script type="text/javascript">'
-                . "window.parent.CKEDITOR.tools.callFunction('0', '$save', '');"
-                . '</script>';
+            $funNum = $request->get('CKEditorFuncNum');
+            $file   = $request->file('upload');
+            $save   = $this->saveImage($file, 'Article');
+            $script = <<<SCRIPT
+<script text="text/javascript">
+window.parent.CKEDITOR.tools.callFunction('$funNum','$save','');
+</script>
+SCRIPT;
 
-            echo $response;
+            return response($script);
         }
     }
 

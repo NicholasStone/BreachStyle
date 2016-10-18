@@ -4,7 +4,6 @@
     {!! Html::style(asset('css/frontend/create.css')) !!}
     {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
     {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 @endsection
 
 @section("content")
@@ -68,7 +67,7 @@
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="editor" name="summary" required title="请填写微党课简介">
-                                {{ old('detail') ? old('detail') : '在此插入图片时请插入图片链接, 请不要超过300字'}}
+                                {{ old('detail') ? old('detail') : '拖拽图片至此以上传图片，右键单击已上传图片编辑，请不要超过300字'}}
                             </textarea>
                         </div>
                     </div>
@@ -82,9 +81,14 @@
 
 @section("after-scripts-end")
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload'), 'required' => true])
     <script>
-        CKEDITOR.replace('summary');
+        CKEDITOR.replace('summary', {
+            language: 'zh-cn',
+            uploadUrl: '{{ route("frontend.course.image.drag") }}?_token={{ csrf_token() }}',
+            filebrowserUploadUrl: '{{ route("frontend.course.image") }}?_token={{ csrf_token() }}'
+        });
     </script>
 
 @endsection

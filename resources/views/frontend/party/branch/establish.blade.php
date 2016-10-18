@@ -10,10 +10,12 @@
     <div class="create">
         <div class="content">
             <div class="crtDepart">
-                <form action="{{ route('frontend.branch.create') }}" method="post" enctype="multipart/form-data" id="application-form">
+                <form action="{{ route('frontend.branch.create') }}" method="post" enctype="multipart/form-data"
+                      id="application-form">
                     {!! csrf_field() !!}
                     <div class="uploadImg">
-                        <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()" value="{{ old('avatar') }}"/>
+                        <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()"
+                               value="{{ old('avatar') }}"/>
                         <label for="headImg">
                             <div class="imgBox" id="imgBox">
 
@@ -24,7 +26,8 @@
                     </div>
                     <div class="row">
                         <h4>党支部名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName" required value="{{ old('name') }}"/>
+                        <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"
+                               required value="{{ old('name') }}"/>
                     </div>
                     <div class="row">
                         <h4>党支部类型:</h4>
@@ -50,38 +53,44 @@
                     </div>
                     <div class="row">
                         <h4>党支部书记简介<span>*</span> : </h4>
-                        <textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary" required>{{ old('secretary_summary') }}</textarea>
+                        <textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary"
+                                  required>{{ old('secretary_summary') }}</textarea>
                         <p class="count">还可以输入<span id="word">100</span>字</p>
 
                     </div>
                     <div class="row">
                         <h4>党员人数<span>*</span> : </h4>
-                        <input type="text" name="total_membership" id="people" class="people" value="{{ old('total_membership') }}" required/>
+                        <input type="text" name="total_membership" id="people" class="people"
+                               value="{{ old('total_membership') }}" required/>
                     </div>
                     <div class="row">
                         <h4>手机号<span>*</span> : </h4>
-                        <input type="text" name="tel" id="mobilePhone" class="mobile" value="{{ old('tel') }}" required/>
+                        <input type="text" name="tel" id="mobilePhone" class="mobile" value="{{ old('tel') }}"
+                               required/>
                     </div>
                     <div class="row">
                         <h4>通讯地址<span>*</span> : </h4>
-                        <input type="text" name="address" id="address" class="address" value="{{ old('address') }}" required/>
+                        <input type="text" name="address" id="address" class="address" value="{{ old('address') }}"
+                               required/>
                     </div>
                     <div class="row">
                         <h4>党支部摘要<span>*</span> : </h4>
-                        <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary" required>{{ old('summary') }}</textarea>
+                        <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary"
+                                  required>{{ old('summary') }}</textarea>
                     </div>
                     <div class="row">
                         <h4>党支部情况介绍<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="editor" name="detail" required>
-                                {{ old('detail') ? old('detail') : '在此插入图片时请插入图片链接'}}
+                                {{ old('detail') ? old('detail') : '拖拽图片至此以上传图片，右键单击已上传图片编辑'}}
                             </textarea>
                         </div>
                     </div>
                     <div class="row">
                         <h4>党支部认证表<span>*</span> : </h4>
                         <p style="color: red;">请不要上传大于500KB的图片</p>
-                        <input type="file" name="apply" id="apply" accept="image/*" class="casePreview" onchange="loadImageFile1()" value="{{ old('apply') }}"/>
+                        <input type="file" name="apply" id="apply" accept="image/*" class="casePreview"
+                               onchange="loadImageFile1()" value="{{ old('apply') }}"/>
                         <label for="apply" id="apply-preview">
                             <span>添加图片</span>
                         </label>
@@ -97,9 +106,13 @@
 @endsection
 
 @section("after-scripts-end")
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace( 'detail' );
+        CKEDITOR.replace('detail', {
+            language: 'zh-cn',
+            uploadUrl: '{{ route("frontend.branch.image.drag") }}?_token={{ csrf_token() }}',
+            filebrowserUploadUrl: '{{ route("frontend.branch.image") }}?_token={{ csrf_token() }}'
+        });
         $("#application-form").submit(function (e) {
             var apply = $("#apply");
             var avatar = $('#headImg');
@@ -135,22 +148,22 @@
             word.innerHTML = (100 - intro.value.length);
         }
 
-        var loadImageFile1 = (function() {
+        var loadImageFile1 = (function () {
             if (window.FileReader) {
                 var oPreviewImg = null,
                         oFReader = new window.FileReader(),
                         rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-                oFReader.onload = function(oFREvent) {
+                oFReader.onload = function (oFREvent) {
                     if (!oPreviewImg) {
                         var newPreview = document.getElementById("apply-preview");
                         newPreview.innerHTML = "";
                         oPreviewImg = document.createElement('img');
                         newPreview.appendChild(oPreviewImg);
-                        oPreviewImg.style.width = 200+"px";
+                        oPreviewImg.style.width = 200 + "px";
                     }
                     oPreviewImg.src = oFREvent.target.result;
                 };
-                return function() {
+                return function () {
                     var aFiles = document.getElementById("apply").files;
                     if (aFiles.length === 0) {
                         return;
@@ -159,7 +172,7 @@
                         alert("你必须选择一个图片!");
                         return;
                     }
-                    if((aFiles[0].size/1024).toFixed(2) > 500){
+                    if ((aFiles[0].size / 1024).toFixed(2) > 500) {
                         alert("您选择的图片大于500kb，请重新选择。");
                         return;
                     }
@@ -191,7 +204,7 @@
                         alert("你必须选择一个图片!");
                         return;
                     }
-                    if((aFiles[0].size/1024).toFixed(2) > 500){
+                    if ((aFiles[0].size / 1024).toFixed(2) > 500) {
                         alert("您选择的图片大于500kb，请重新选择。");
                         return;
                     }
