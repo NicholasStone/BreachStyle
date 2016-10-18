@@ -2,7 +2,7 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
-    <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
 @endsection
 
 @section('content')
@@ -51,6 +51,10 @@
 
 @section("after-scripts-end")
     <script>
-        CKEDITOR.replace('detail');
+        CKEDITOR.replace('detail', {
+            language: 'zh-cn',
+            uploadUrl: '{{ route("frontend.case.image") }}?_token={{ csrf_token() }}',
+            filebrowserUploadUrl: '{{ route("frontend.case.image") }}?_token={{ csrf_token() }}'
+        });
     </script>
 @endsection

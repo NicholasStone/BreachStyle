@@ -19,21 +19,21 @@ trait FileStorage
             $this->makeDir(public_path($path) . '/');
         }
         $image = $manager->make($file);
-        if($image->width() > 800){
-            $image->resize(800, null, function ($c){
+        if ($image->width() > 800) {
+            $image->resize(800, null, function ($c) {
                 $c->aspectRatio();
             });
         }
         $image->save(public_path($path) . '/' . $file_name);
 
-        return env('APP_URL') . $path . '/' . $file_name;
+        return $path . '/' . $file_name;
 //        Storage::put($file_name, file_get_contents($file->getRealPath()));
 //        return Storage::url($file_name);
     }
 
     protected function saveImage(UploadedFile $file, $path)
     {
-        return $this->save($file, 'uploadImages/' . $path);
+        return env('APP_URL') . $this->save($file, 'uploadImages/' . $path);
     }
 
     protected function saveVideo(UploadedFile $file)

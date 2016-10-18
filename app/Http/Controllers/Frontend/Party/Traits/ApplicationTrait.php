@@ -4,10 +4,28 @@ namespace App\Http\Controllers\Frontend\Party\Traits;
 use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Array_;
 
 trait ApplicationTrait
 {
+    /**
+     * 富文本编辑器图片上传
+     * @param Request $request
+     * @return string
+     */
+    public function image(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $file     = $request->file('upload');
+            $save     = $this->saveImage($file, 'Article');
+            $save     = addslashes($save);
+            $response = '<script type="text/javascript">'
+                . "window.parent.CKEDITOR.tools.callFunction('0', '$save', '');"
+                . '</script>';
+
+            echo $response;
+        }
+    }
+
     /**
      * 上传视频文件
      * @param Request $request
@@ -51,9 +69,9 @@ trait ApplicationTrait
         $application = Application::with(['branch.university.province', 'comments' => function ($query) {
             $query->with('user');
         }])->withStatus()->where("id", $id)->firstOrFail();
-        $comments = $application->comments;
-        $branch = $application->branch;
-        $university = $branch->university;
+        $comments    = $application->comments;
+        $branch      = $application->branch;
+        $university  = $branch->university;
 
         return compact('comments', 'branch', 'application', 'university');
     }
@@ -76,11 +94,11 @@ trait ApplicationTrait
     protected function updateApplication(Request $request, $application)
     {
         if ($request->file('img')) {
-            $img_hash = $this->saveImage($request->file('img'), "Application/Case");
+            $img_hash              = $this->saveImage($request->file('img'), "Application/Case");
             $application->img_hash = $img_hash;
         }
         if ($request->file('apply')) {
-            $apply_hash = $this->saveImage($request->file('apply'), "Application/Apply");
+            $apply_hash              = $this->saveImage($request->file('apply'), "Application/Apply");
             $application->apply_hash = $apply_hash;
         }
         if (\Session::has('video_path') && (\Session::get('video_token') == $request->get('video_token'))) {
@@ -88,7 +106,7 @@ trait ApplicationTrait
             \Session::set('video_path', null);
             \Session::set('video_token', null);
         }
-        $application->name = $request->get('name');
+        $application->name    = $request->get('name');
         $application->summary = $request->get('summary');
 
         return $application;

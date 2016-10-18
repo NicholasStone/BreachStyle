@@ -84,7 +84,7 @@
     {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload'), 'required' => true])
     <script>
-        CKEDITOR.replace( 'summary' );
+        CKEDITOR.replace('summary');
     </script>
 
 @endsection

@@ -208,7 +208,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Fenos\Notifynder\NotifynderServiceProvider::class,
-        Unisharp\Ckeditor\ServiceProvider::class,
         /*
          * Has to override the Collective\Html\HtmlServiceProvider form singleton
          */
