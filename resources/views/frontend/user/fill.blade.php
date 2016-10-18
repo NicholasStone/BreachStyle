@@ -108,7 +108,6 @@
                     var school = $("#school");
                     school.empty();
                     $.each(data, function (index, val) {
-                        school.append($("<option>").text("--请选择--").attr('disabled','disabled'));
                         school.append($("<option>").val(val.name).text(val.name));
                     });
                 }
