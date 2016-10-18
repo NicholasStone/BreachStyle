@@ -35,20 +35,10 @@ class Branch extends Model
         return $this->hasMany(Application::class);
     }
 
-//    public function getApplicationAttribute()
-//    {
-//        return Application::where('branch_id', $this->id)->where('verification', '1')->get();
-//    }
-
     public function scopeWithProvince($query)
     {
         return $query->with('university.province');
     }
-//
-//    public function getSecretaryAttribute($value)
-//    {
-//        return User::select(['name'])->where("id", $value)->first();
-//    }
 
     public function scopeWithSecretaryName($query)
     {
@@ -59,6 +49,7 @@ class Branch extends Model
 
     public function scopeIsHasName($query, $name)
     {
+        $name = trim($name);
         if ($name) {
             return $query->where('name', 'like', '%' . $name . '%');
         }
@@ -68,6 +59,7 @@ class Branch extends Model
 
     public function scopeIsHasType($query, $type)
     {
+        $type = trim($type);
         if ($type) {
             return $query->where('type', $type);
         }
