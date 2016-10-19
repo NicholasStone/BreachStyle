@@ -76,7 +76,7 @@ SCRIPT;
             $sort = 'updated_at';
         }
 
-        return Application::with('branch')->where('type', $type)->where('verification', 1)->orderBy($sort, 'desc')->paginate();
+        return Application::with('branch')->where('type', $type)->where('verification', 1)->orderBy($sort, 'desc')->paginate(16);
     }
 
     protected function getShowData($id)

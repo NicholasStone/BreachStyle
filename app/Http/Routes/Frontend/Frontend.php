@@ -4,9 +4,6 @@
  * Frontend Controllers
  */
 Route::get('/', 'FrontendController@index')->name('frontend.index');
-Route::get('/lab', 'FrontendController@index_lab');
-Route::get('/lab/play', 'FrontendController@play');
-Route::get('/lab/upload', 'FrontendController@upload');
 
 Route::group(['middleware'=>'map'],function (){
     Route::get('/frontend/mapdata', 'FrontendController@getMapData');

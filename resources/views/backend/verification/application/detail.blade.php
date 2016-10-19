@@ -36,6 +36,7 @@
 @section('content')
     <div class="box box-success">
         <div class="box-header with-border">
+            <div class="col-sm-10">
             <h3 class="box-title">{{ trans('strings.backend.verification.application.title') }}</h3>
             <p>
                 当前文章状态：
@@ -51,6 +52,10 @@
                     @endif
                 @endif
             </p>
+                </div>
+            <div class="col-sm-2">
+                <a type="button" href="{{ route('admin.verify.application') }}" class="btn bg-navy btn-flat pull-right">返回</a>
+            </div>
         </div><!-- /.box-header -->
         <div class="box-body">
             <dl class="dl-horizontal">
@@ -106,7 +111,6 @@
                     @endif
                     <button id="delete-btn" class="btn bg-maroon btn-flat">删除</button>
                 @endif
-                <button type="button" onclick="history.back()" class="btn bg-navy btn-flat pull-right">返回</button>
             </div>
         </div><!-- /.box-body -->
     </div><!--box box-success-->

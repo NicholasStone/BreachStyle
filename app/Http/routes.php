@@ -14,6 +14,7 @@ Route::group(['middleware' => 'web'], function () {
      */
     Route::group(['namespace' => 'Frontend'], function () {
         require(__DIR__ . '/Routes/Frontend/Frontend.php');
+        require(__DIR__ . '/Routes/Frontend/Lab.php');
         require(__DIR__ . '/Routes/Frontend/Access.php');
         require(__DIR__ . '/Routes/Frontend/Party.php');
         require(__DIR__ . '/Routes/Frontend/SSOAuth.php');

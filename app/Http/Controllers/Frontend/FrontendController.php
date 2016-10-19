@@ -40,24 +40,6 @@ class FrontendController extends Controller
             'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders', 'settings'));
     }
 
-    public function index_lab()
-    {
-        $strDataId = str_random(7);
-        $strKey    = substr(md5($strDataId . "enet"), 8, 16);
-//        Cache::put()
-        return view('frontend.labupload', compact("strDataId", "strKey"));
-    }
-
-    public function play()
-    {
-        return view('frontend.labplay');
-    }
-
-    public function upload(Request $request)
-    {
-        dd($request);
-    }
-
     public function index_m()
     {
         $applications   = Application::

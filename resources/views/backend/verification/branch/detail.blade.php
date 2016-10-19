@@ -16,21 +16,26 @@
 @section('content')
     <div class="box box-success">
         <div class="box-header with-border">
-            <h3 class="box-title">{{ trans('strings.backend.verification.branch.title') }}</h3>
-            <p>
-                当前支部状态：
-                @if($deleted_at)
-                    <span class="label label-danger">已删除</span>
-                @else
-                    @if($verification == 0)
-                        <span class="label label-default">等待审核</span>
-                    @elseif($verification == 1)
-                        <span class="label label-success">已通过</span>
-                    @elseif($verification == -1)
-                        <span class="label label-warning">被驳回</span>
+            <div class="col-sm-10">
+                <h3 class="box-title">{{ trans('strings.backend.verification.branch.title') }}</h3>
+                <p>
+                    当前支部状态：
+                    @if($deleted_at)
+                        <span class="label label-danger">已删除</span>
+                    @else
+                        @if($verification == 0)
+                            <span class="label label-default">等待审核</span>
+                        @elseif($verification == 1)
+                            <span class="label label-success">已通过</span>
+                        @elseif($verification == -1)
+                            <span class="label label-warning">被驳回</span>
+                        @endif
                     @endif
-                @endif
-            </p>
+                </p>
+            </div>
+            <div class="col-sm-2">
+                <a type="button" href="{{ route('admin.verify.branch') }}" class="btn bg-navy btn-flat pull-right">返回</a>
+            </div>
         </div><!-- /.box-header -->
         <div class="box-body">
             <div class="row">
@@ -74,7 +79,6 @@
                     @endif
                     <button id="delete-btn" class="btn bg-maroon btn-flat">删除</button>
                 @endif
-                <button type="button" onclick="history.back()" class="btn bg-navy btn-flat pull-right">返回</button>
             </div>
         </div><!-- /.box-body -->
     </div><!--box box-success-->
