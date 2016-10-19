@@ -132,7 +132,7 @@
             var intro = document.getElementById('intro');
             var word = document.getElementById('word');
             if (intro.value.length >= 100) {
-                alert("超出字符限制");
+                swal("抱歉","超出字符限制","error");
                 word.innerHTML = 0;
             }
             word.innerHTML = (100 - intro.value.length);
@@ -142,7 +142,7 @@
             var intro = document.getElementById('intro');
             var word = document.getElementById('word');
             if (intro.value.length >= 100) {
-                alert("超出字符限制");
+                swal("抱歉","超出字符限制","error");
                 word.innerHTML = 0;
             }
             word.innerHTML = (100 - intro.value.length);
@@ -169,11 +169,11 @@
                         return;
                     }
                     if (!rFilter.test(aFiles[0].type)) {
-                        alert("你必须选择一个图片!");
+                        swal("抱歉","您必须选择一个文件","error");
                         return;
                     }
                     if ((aFiles[0].size / 1024).toFixed(2) > 500) {
-                        alert("您选择的图片大于500kb，请重新选择。");
+                        swal("抱歉","您选择的图片大于500kb，请重新选择。","error");
                         return;
                     }
                     oFReader.readAsDataURL(aFiles[0]);
@@ -201,11 +201,11 @@
                         return;
                     }
                     if (!rFilter.test(aFiles[0].type)) {
-                        alert("你必须选择一个图片!");
+                        swal("抱歉","您必须选择一个文件","error");
                         return;
                     }
                     if ((aFiles[0].size / 1024).toFixed(2) > 500) {
-                        alert("您选择的图片大于500kb，请重新选择。");
+                        swal("抱歉","您选择的图片大于500kb，请重新选择。","error");
                         return;
                     }
                     oFReader.readAsDataURL(aFiles[0]);
