@@ -52,7 +52,7 @@
                     <dt>{{ trans('strings.backend.verification.branch.total-membership') }}</dt>
                     <dd>{{ $total_membership }}</dd>
                     <dt>{{ trans('strings.backend.verification.branch.summary') }}</dt>
-                    <dd>{!! $summary !!}</dd>
+                    <dd>{{ $summary }}</dd>
                     <dt>{{ trans('strings.backend.verification.branch.detail') }}</dt>
                     <dd>{!! $detail!!}</dd>
                     <dt>申请表</dt>

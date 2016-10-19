@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Request;
 use App\Models\Settings\Setting;
 use App\Models\Settings\Slider;
 use App\Models\Application;
@@ -10,6 +11,7 @@ use App\Models\Branch;
 use App\Models\Province;
 use App\Models\University;
 use App\Components\MapData;
+use Dompdf\Image\Cache;
 use Illuminate\Support\Facades\Redis;
 
 /**
@@ -23,41 +25,42 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        $sliders = Slider::all();
-        $settings = Setting::all();
-        $last_trends = Application::orderBy('created_at', 'desc')->where('verification', 1)->take(8)->get();
-        $count_branches = Branch::all()->count();
-        $count_universities = University::has('branches')->count();
+        $sliders                          = Slider::all();
+        $settings                         = Setting::all();
+        $last_trends                      = Application::orderBy('created_at', 'desc')->where('verification', 1)->take(8)->get();
+        $count_branches                   = Branch::where('verification', 1)->count();
+        $count_universities               = University::has('branches')->count();
         $count_verify_through_application = Application::where('verification', 1)->count();
-        $work_list = Application::where('type', '工作案例')->where('verification', 1)->orderBy('created_at', 'desc')->take(3)->get();
-        $tiny_list = Application::where('type', '微党课')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
-        $teacher_list = Application::where('type', '教师党支部推荐展示')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
-        $student_list = Application::where('type', '学生党支部推荐展示')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
-
+        $work_list                        = Application::where('type', '工作案例')->where('verification', 1)->orderBy('created_at', 'desc')->take(3)->get();
+        $tiny_list                        = Application::where('type', '微党课')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
+        $teacher_list                     = Application::where('type', '教师党支部推荐展示')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
+        $student_list                     = Application::where('type', '学生党支部推荐展示')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
+//
         return view('frontend.index', compact('last_trends', 'count_branches', 'count_universities', 'count_verify_through_application', 'datas',
             'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders', 'settings'));
     }
 
     public function index_lab()
     {
-        $sliders = Slider::all();
-        $settings = Setting::all();
-        $last_trends = Application::orderBy('created_at', 'desc')->where('verification', 1)->take(8)->get();
-        $count_branches = Branch::all()->count();
-        $count_universities = University::has('branches')->count();
-        $count_verify_through_application = Application::where('verification', 1)->count();
-        $work_list = Application::where('type', '工作案例')->where('verification', 1)->orderBy('created_at', 'desc')->take(3)->get();
-        $tiny_list = Application::where('type', '微党课')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
-        $teacher_list = Application::where('type', '教师党支部推荐展示')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
-        $student_list = Application::where('type', '学生党支部推荐展示')->where('verification', 1)->orderBy('created_at', 'desc')->take(4)->get();
+        $strDataId = str_random(7);
+        $strKey    = substr(md5($strDataId . "enet"), 8, 16);
+//        Cache::put()
+        return view('frontend.labupload', compact("strDataId", "strKey"));
+    }
 
-        return view('frontend.lab', compact('last_trends', 'count_branches', 'count_universities', 'count_verify_through_application', 'datas',
-            'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders', 'settings'));
+    public function play()
+    {
+        return view('frontend.labplay');
+    }
+
+    public function upload(Request $request)
+    {
+        dd($request);
     }
 
     public function index_m()
     {
-        $applications = Application::
+        $applications   = Application::
         select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash'])
             ->where("verification", 1)
             ->with(['branch' => function ($query) {
@@ -65,8 +68,9 @@ class FrontendController extends Controller
             }, 'comments'    => function ($query) {
                 $query->select(['id']);
             }])->orderBy('updated_at', 'desc')->get();
-        $sliders = Slider::all();
+        $sliders        = Slider::all();
         $sliders_switch = Setting::find(5);
+
         return view("frontend.mobile.list", compact("applications", "sliders", "sliders_switch"));
     }
 
@@ -137,8 +141,8 @@ class FrontendController extends Controller
             $count_application,
             $count_university
             ) = $this->Count($id);
-        $province = Province::find($id);
-        $universities = $province->universities;
+        $province                      = Province::find($id);
+        $universities                  = $province->universities;
         $count_universities_has_branch = $province->universities()->has('branches')->count();
 
         return view('frontend.universities', compact("count_application", "count_student_branch", "count_teacher_branch", "count_university", "universities", "count_universities_has_branch", "province"));
@@ -150,12 +154,12 @@ class FrontendController extends Controller
      */
     protected function Count($id)
     {
-        $province = Province::find($id);
+        $province             = Province::find($id);
         $count_student_branch = 0;
         $count_teacher_branch = 0;
-        $count_application = 0;
-        $count_user = 0;
-        $count_university = $province->universities->count();
+        $count_application    = 0;
+        $count_user           = 0;
+        $count_university     = $province->universities->count();
         foreach ($province->universities as $university) {
             $count_student_branch += $university->branches()->where('type', '学生党支部')->count();
             $count_teacher_branch += $university->branches()->where('type', '教师党支部')->count();

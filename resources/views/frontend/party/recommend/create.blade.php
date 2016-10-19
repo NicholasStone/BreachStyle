@@ -65,7 +65,7 @@
                         <h4>推荐展示说明<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="editor" name="detail" required title="请填写说明">
-                                {{ old('detail') ? old('detail') : '拖拽图片至此以上传图片，右键单击已上传图片编辑'}}
+                                {{ old('detail') ? old('detail') : '如需上传图片，请拖拽图片至此，右键单击已上传图片编辑'}}
                             </textarea>
                         </div>
                     </div>

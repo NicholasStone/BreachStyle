@@ -223,9 +223,9 @@
             </div>
             <div class="timePoint">
                 <span class="time1">7/20</span>
-                <span class="time2">10/20</span>
-                <span class="time3">12/15</span>
-                <span class="time4">12/30</span>
+                <span class="time2">11/30</span>
+                <span class="time3">01/15</span>
+                <span class="time4">01/20</span>
             </div>
             <div class="timeLine">
                 <span class="line one"></span>
