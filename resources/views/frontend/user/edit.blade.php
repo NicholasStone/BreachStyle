@@ -25,20 +25,20 @@
                     </div>
                     <div class="infoListRight">
                         <p>真实姓名<input class="input" type="text" name="name" id="realName" required
-                                      value="{{ old('name') }}"/><span>*</span></p>
+                                      value="{{ $user->name }}"/><span>*</span></p>
                         <p>身份证号<input class="input" type="text" name="id_number" id="idnumber" required
-                                      value="{{ old('id_number') }}"/><span>*</span>
+                                      value="{{ $user->id_number }}"/><span>*</span>
                         </p>
                         <div class="row">
                             <p>用户类型</p>
                             <div class="radioitem">
                                 <input class="input" type="radio" name="type" id="teashow" value="教师"
-                                       @if(old('type')=='教师') checked @endif/>
+                                       @if($user->type == '教师') checked @endif/>
                                 <label for="teashow">教师</label>
                             </div>
                             <div class="radioitem">
                                 <input class="input" type="radio" name="type" id="stushow" value="学生"
-                                       @if(old('type')=='学生') checked @endif/>
+                                       @if($user->type == '学生') checked @endif/>
                                 <label for="stushow">学生</label>
                             </div>
                         </div>
@@ -56,7 +56,6 @@
                         <p><label for="school">所在大学</label>
                             <select name="university" id="school" style="width: 120px;height: 32px;margin-left: 15px"
                                     class="input">
-                                <option disabled selected>—— 学校 ——</option>
                                 @foreach($universities as $item)
                                     <option value="{{ $item->name }}">{{ $item->name }}</option>
                                 @endforeach
@@ -88,9 +87,6 @@
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.data.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.min.js') !!}
     <script type="text/javascript">
-        @if(old('province'))
-        $("option[value={{ old('province') }}]");
-        @endif
         $('#submit').click(function () {
             if (!validate()) {
                 swal("请正确填写所有信息", "注意", "error");
@@ -119,7 +115,6 @@
                 success: function (data) {
                     var school = $("#school");
                     school.empty();
-                    school.append($("<option>").text("—— 学校 ——").attr('selected', 'selected').attr('disabled', 'disabled'));
                     $.each(data, function (index, val) {
                         school.append($("<option>").val(val.name).text(val.name));
                     });
@@ -128,11 +123,8 @@
         });
         var validate = function () {
             var validate = true;
-            if ($("input[type=radio][name=type]:checked").length == 0) {
-                validate = false;
-            }
             $(".input").each(function () {
-                if ($(this).val() == "" || $(this).val() == null) {
+                if ($(this).val() == "") {
                     validate = false;
                     return false;
                 }
