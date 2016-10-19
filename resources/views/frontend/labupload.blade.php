@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-<iframe  src="http://dxsupload.enetedu.com?strDataId={{ $strDataId }}&strKey={{ $strKey }}&strType=2&ResUrl={{ url('lab/upload') }}" width="1000" height="800"></iframe>
+<iframe  src="http://dxsupload.enetedu.com?strDataId={{ $strDataId }}&strKey={{ $strKey }}&strType=1&ResUrl={{ url('lab/upload') }}" width="1000" height="800"></iframe>
 </body>
 </html>
