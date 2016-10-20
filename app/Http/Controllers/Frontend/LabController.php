@@ -21,7 +21,9 @@ class LabController extends Controller
 
     public function play()
     {
-        dd(Redis::get('request'));
+        $get = Redis::get('request');
+        Redis::del('request');
+        dd($get);
         $upFileID = Redis::get('upFildId');
         $key      = md5($upFileID . 'enet');
 
