@@ -30,7 +30,8 @@
             </p>
         </div>
         <footer class="anniu">
-            <button class="close-popdown close" onclick="$('.popdown-content').remove()">关闭</button>
+            {{--<button class="close-popdown close">关闭</button>--}}
+            <p><b id="pop-countdown">5</b>秒后自动关闭</p>
         </footer>
     </div>
     @if($settings[2]->value)
@@ -481,6 +482,14 @@
     {!! Html::script('//cdn.bootcss.com/raphael/2.2.1/raphael.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js') !!}
     <script>
+        var countdown = setInterval(function () {
+            var b = $("#pop-countdown");
+            b.text(parseInt(b.text()) - 1);
+        }, 1000);
+        setTimeout(function () {
+            clearInterval(countdown);
+            $(".popdown-content").remove();
+        }, 5000);
         $("#scroll").on('click', function () {
             $.scrollTo('#activeInfo', 500);
         });

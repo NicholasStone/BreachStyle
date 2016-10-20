@@ -16,19 +16,7 @@
 	line-height: 2.2em;
     font-size: 1.2em;
 }
-.anniu button{
-    float: right;
-	padding: 0px 35px;
+.anniu {
+    padding-right: 37%;
     text-align: right;
-    
-}
-.anniu button.close{
-	background: #e43e2f;
-    font-size: 1em;
-    font-weight: 600;
-    letter-spacing: 2px;
-}
-.anniu button.close:hover{
-	background:#e43e2f ;
-	font-size: 1em;
 }

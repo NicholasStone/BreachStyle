@@ -122,7 +122,7 @@ class BranchController extends VerificationController
                 ->orderBy('created_at', 'asc')->get()
         )
             ->addColumn('operations', function ($branch) {
-                return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
+                return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
             })
             ->make(true);
     }
