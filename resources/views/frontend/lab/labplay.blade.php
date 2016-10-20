@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-<iframe src="http://playfile.enetedu.com/VideoPlay/Video?upFileID=1&key=f34d68ab44144eef&width=600&height=400" width="1000" height="800"></iframe>
+<iframe src="http://playfile.enetedu.com/VideoPlay/Video?upFileID={{ $upFileID }}&key={{ $key }}&width=800&height=600" width="1000" height="800"></iframe>
 </body>
 </html>

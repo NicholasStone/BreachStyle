@@ -13,7 +13,7 @@ class LabController extends Controller
 
     public function index_lab()
     {
-        $strDataId = mt_rand(0,2000000000);
+        $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
 //        Cache::put()
 
@@ -28,12 +28,21 @@ class LabController extends Controller
 
     public function play()
     {
-        return view('frontend.lab.labplay');
+        $upFileID = Redis::get('upFildId');
+        $key      = md5($upFileID . 'enet');
+
+        return view('frontend.lab.labplay', compact("upFileID", "key"));
     }
 
     public function upload(Request $request)
     {
-        dd($request);
+        Redis::setex('strDataId', $request->get('strDataId'));
+        Redis::setex('upFileId', $request->get('upFileId'));
+        Redis::setex('upFileType', $request->get('upFileType'));
+        Redis::setex('upFileSize', $request->get('upFileSize'));
+        Redis::setex('strKey', $request->get('strKey'));
+
+        return redirect()->route('name');
     }
 
     public function youku()

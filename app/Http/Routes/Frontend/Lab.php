@@ -1,7 +1,7 @@
 <?php
 Route::get('/lab', 'LabController@index_lab');
-Route::get('/lab/play', 'LabController@play');
-Route::get('/lab/upload', 'LabController@upload');
+Route::get('/lab/play', 'LabController@play')->name('upload');
+Route::post('/lab/upload', 'LabController@upload');
 
 Route::get('/lab/youku/', 'LabController@youku');
 Route::get('/lab/youku/play', 'LabController@youkuPlay')->name('frontend.lab.play');
