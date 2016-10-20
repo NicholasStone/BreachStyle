@@ -15,15 +15,8 @@ class LabController extends Controller
     {
         $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
-//        Cache::put()
 
-        $content  = view('frontend.lab.labupload', compact("strDataId", "strKey"));
-        $response = response($content)->withHeaders([
-            'Access-Control-Allow-Origin' => '*',
-        ]);
-
-        return $response;
-
+        return view('frontend.lab.labupload', compact("strDataId", "strKey"));
     }
 
     public function play()
@@ -36,13 +29,14 @@ class LabController extends Controller
 
     public function upload(Request $request)
     {
-        Redis::setex('strDataId', $request->get('strDataId'));
-        Redis::setex('upFileId', $request->get('upFileId'));
-        Redis::setex('upFileType', $request->get('upFileType'));
-        Redis::setex('upFileSize', $request->get('upFileSize'));
-        Redis::setex('strKey', $request->get('strKey'));
+//        dd($request);
+        Redis::setex('strDataId', 3600, $request->get('strDataId'));
+        Redis::setex('upFileId', 3600, $request->get('upFileId'));
+        Redis::setex('upFileType', 3600, $request->get('upFileType'));
+        Redis::setex('upFileSize', 3600, $request->get('upFileSize'));
+        Redis::setex('strKey', 3600, $request->get('strKey'));
 
-        return redirect()->route('name');
+//        return redirect()->route('name');
     }
 
     public function youku()

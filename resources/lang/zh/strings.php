@@ -25,7 +25,7 @@ return [
         'verification' => [
             'application' => [
                 'title'      => '成果展示申请详情',
-                'name'       => '成功名称',
+                'name'       => '成果名称',
                 'type'       => '推荐种类',
                 'detail'     => '正文',
                 'user'       => '申报联系人',

@@ -1,5 +1,7 @@
 <?php
 //Auth::loginUsingId(1);
+Route::post('/lab/upload', 'Frontend\LabController@upload');
+
 Route::group(['middleware' => 'web'], function () {
     /**
      * Switch between the included languages
