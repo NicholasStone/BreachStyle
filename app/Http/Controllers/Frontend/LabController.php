@@ -13,7 +13,7 @@ class LabController extends Controller
 
     public function index_lab()
     {
-        $strDataId = str_random(7);
+        $strDataId = mt_rand(0,2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
 //        Cache::put()
 
