@@ -8,9 +8,31 @@
     {!! Html::style(asset('css/frontend/map.css'))!!}
     {!! Html::style(asset('css/frontend/weibo.css'))!!}
     {!! Html::style(asset('css/frontend/swipeslider.css'))!!}
+    <link rel="stylesheet" href="{{ asset('css/frontend/window.css') }}">
 @endsection
 
 @section('content')
+    <div class="popdown-content">
+        <header class="head_nav">
+            <h2>提示：活动时间修改</h2>
+        </header>
+        <div class="inform_content">
+            <p>
+                1.提交：2016年7月20日至2016年11月30日
+            </p>
+
+            <p>
+                2.遴选：2016年12月1日至2017年1月15日
+            </p>
+
+            <p>
+                3.公示：2017年1月16日至2017年1月20日
+            </p>
+        </div>
+        <footer class="anniu">
+            <button class="close-popdown close" onclick="$('.popdown-content').remove()">关闭</button>
+        </footer>
+    </div>
     @if($settings[2]->value)
         <div class="sliderNews">
             <div class="content">
