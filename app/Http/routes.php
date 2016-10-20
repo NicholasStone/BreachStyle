@@ -1,6 +1,6 @@
 <?php
 //Auth::loginUsingId(1);
-Route::get('/lab/upload', 'Frontend\LabController@upload');
+Route::any('/lab/upload', 'Frontend\LabController@upload');
 
 Route::group(['middleware' => 'web'], function () {
     /**

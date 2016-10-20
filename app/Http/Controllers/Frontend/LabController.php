@@ -33,7 +33,7 @@ class LabController extends Controller
     public function upload(Request $request)
     {
         $now = Carbon::now();
-        Redis::setex('request', 3600, "Callback at " . $now . "Json : " . json_encode($request->all()));
+        Redis::setex('request', 3600, "Callback at " . $now . " Method id " . $request->method() . " Json : " . json_encode($request->all()));
 //        dd($request);
 //        Redis::setex('strDataId', 3600, $request->get('strDataId'));
 //        Redis::setex('upFileId', 3600, $request->get('upFileId'));
