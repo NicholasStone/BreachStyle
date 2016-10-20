@@ -21,6 +21,7 @@ class LabController extends Controller
 
     public function play()
     {
+        dd(Redis::get('request'));
         $upFileID = Redis::get('upFildId');
         $key      = md5($upFileID . 'enet');
 
@@ -30,11 +31,12 @@ class LabController extends Controller
     public function upload(Request $request)
     {
 //        dd($request);
-        Redis::setex('strDataId', 3600, $request->get('strDataId'));
-        Redis::setex('upFileId', 3600, $request->get('upFileId'));
-        Redis::setex('upFileType', 3600, $request->get('upFileType'));
-        Redis::setex('upFileSize', 3600, $request->get('upFileSize'));
-        Redis::setex('strKey', 3600, $request->get('strKey'));
+        Redis::setex('request', 3600, json_encode($request->all()));
+//        Redis::setex('strDataId', 3600, $request->get('strDataId'));
+//        Redis::setex('upFileId', 3600, $request->get('upFileId'));
+//        Redis::setex('upFileType', 3600, $request->get('upFileType'));
+//        Redis::setex('upFileSize', 3600, $request->get('upFileSize'));
+//        Redis::setex('strKey', 3600, $request->get('strKey'));
 
 //        return redirect()->route('name');
     }
