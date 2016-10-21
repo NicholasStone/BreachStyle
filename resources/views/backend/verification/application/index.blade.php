@@ -110,7 +110,7 @@
                     {data: 'verify'},
                     {data: 'operations'}
                 ],
-                order: [[0, "asc"]]
+                order: []
 //                searchDelay: 500
             });
 
