@@ -20,7 +20,7 @@
                                 </div>
                             </label>
                             <h4>上传头像<span>*</span> : </h4>
-                            <span style="color:red;">图片大小不要超过500KB</span>
+                            <span style="color:red;">图片大小不要超过500KB , 此图片将显示在 <b> 个人信息页 </b> , 如果您创建了支部，此图片将显示在支部首页的 <b> 支部书记位置 </b></span>
                         </div>
                     </div>
                     <div class="infoListRight">
@@ -53,14 +53,11 @@
                                 <select class="form-control input" id="city1" name="city"></select>
                             </div>
                         </div>
-                        <p><label for="school">所在大学</label>
+                        <p><label for="school">所在高校</label>
                             <select name="university" id="school" style="width: 120px;height: 32px;margin-left: 15px"
                                     class="input">
-                                {{--<option disabled selected>—— 学校 ——</option>--}}
-                                {{--@foreach($universities as $item)--}}
-                                {{--<option value="{{ $item->name }}">{{ $item->name }}</option>--}}
-                                {{--@endforeach--}}
-                            </select><span>*</span></p>
+                            </select><span>*</span>
+                        </p>
                         <p>
                             <label for="tel_work">办公电话</label><input class="input" type="tel" name="tel_work"
                                                                      id="tel_work" required
@@ -95,7 +92,8 @@
             }
             swal({
                 title: "注意",
-                text: "提交信息后，除姓名及工作电话外，其他信息无法更改",
+                html: true,
+                text: "提交信息创建支部后，您的<b style='color:red'>用户类型、所在城市及所在高校</b>将<b style='color:red'><br>不能修改</br> .",
                 type: "info",
                 showCancelButton: true,
                 cancelButtonText: "取消",
@@ -174,6 +172,11 @@
                     }
                     if (!rFilter.test(aFiles[0].type)) {
                         alert("你必须选择一个图片!");
+                        return;
+                    }
+                    if ((aFiles[0].size / 1024).toFixed(2) > 500) {
+                        swal("注意", "您上传的图片大于500KB", "error");
+                        imgSelect.value = null;
                         return;
                     }
                     oFReader.readAsDataURL(aFiles[0]);

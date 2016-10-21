@@ -71,7 +71,7 @@
 	width: 65%;
 	float: left;
 	margin-left: 3%;
-	font-size: .75em;
+	font-size: 1em;
 	color: #363636;
 }
 .create .content .crtDepart .row input.departName,.create .content .crtDepart .row input.courseName{

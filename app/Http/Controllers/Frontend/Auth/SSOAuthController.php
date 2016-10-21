@@ -77,8 +77,6 @@ class SSOAuthController extends Controller
 
     public function complete(Request $request)
     {
-        return redirect()->back()->withInput();
-
         if (Session::has('id')) {
             return redirect()->back();
         }
@@ -98,7 +96,7 @@ class SSOAuthController extends Controller
             'tel_work'   => 'required|unique:users,tel',
             'tel'        => 'required|unique:users,tel_work',
             'email'      => 'required|email|unique:users,email',
-            'avatar'     => 'required|image|max:2048',
+            'avatar'     => 'required|image|max:500',
         ], [
             'university.exists' => '所填大学不存在',
             'avatar.required'   => '请上传头像',
