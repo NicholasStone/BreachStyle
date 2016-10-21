@@ -38,7 +38,8 @@
                     <div class="form-group">
                         <label for="sr-only">审核状态</label>
                         <select class="form-control" id="status" name="status">
-                            <option value="0" selected>未审核</option>
+                            <option value="3" selected>全部</option>
+                            <option value="0">未审核</option>
                             <option value="1">已通过</option>
                             <option value="-1">已驳回</option>
                             <option value="2">已删除</option>
@@ -56,6 +57,7 @@
                         <th>支部类型</th>
                         <th>总人数</th>
                         <th>提交时间</th>
+                        <th>状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -87,6 +89,7 @@
                     {data: 'type'},
                     {data: 'total_membership'},
                     {data: 'created_at'},
+                    {data: 'verify'},
                     {data: 'operations'}
                 ],
                 order: [[0, "asc"]],

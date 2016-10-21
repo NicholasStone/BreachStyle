@@ -52,6 +52,9 @@ class Application extends Model
 
     public function scopeWithStatus($query, $status = 1)
     {
+        if ($status == 3){
+            return $query->withTrashed();
+        }
         if ($status == 2) {
             return $query->onlyTrashed();
         } else {

@@ -70,4 +70,37 @@ abstract class VerificationController extends Controller
      * @return mixed
      */
     public abstract function search(Request $request);
+
+
+    /**
+     * 获得 DataTable 中状态数据
+     *
+     * @param Model $model
+     * @return string
+     */
+    protected function getVerificationLabel($model){
+        $color   = '';
+        $message = '';
+        if ($model->trashed()) {
+            $color   = 'bg-red';
+            $message = '已删除';
+        } else {
+            switch ($model->verification) {
+                case 0;
+                    $color   = 'label-default';
+                    $message = "待审核";
+                    break;
+                case -1;
+                    $color   = 'bg-yellow';
+                    $message = "已驳回";
+                    break;
+                case 1;
+                    $color   = 'bg-green';
+                    $message = "已通过";
+                    break;
+            }
+        }
+
+        return "<label class='label $color'>" . $message . "</label>";
+    }
 }

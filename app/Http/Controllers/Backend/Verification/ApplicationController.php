@@ -109,7 +109,7 @@ class ApplicationController extends VerificationController
                 '提交作品类型'  => $item->type,
                 '支部名称'    => $item->branch->name,
                 '支部类型'    => $item->branch->type,
-                '所属学校'    => $item->branch->university->name,
+                '所属学校'    => $item->branch->university,
                 '简介'      => $item->summary,
                 '详情'      => $item->detail,
                 '是否已通过审核' => $item->verification ? "是" : "否",
@@ -136,7 +136,7 @@ class ApplicationController extends VerificationController
             $this->application
                 ->withStatus($request->get('status'))
                 ->whereName($request->get('application_name'))
-                ->select(['id', 'name', 'type', 'created_at', 'branch_id'])
+                ->select(['id', 'name', 'type', 'created_at', 'branch_id', 'verification'])
                 ->whereHas('branch', function ($query) use ($request) {
                     if ($request->get('branch_name')) {
                         $query->where('name', 'like', '%' . $request->get('branch_name') . '%');
@@ -149,6 +149,9 @@ class ApplicationController extends VerificationController
                 ->orderBy('created_at', 'desc')
                 ->get()
         )
+            ->addColumn('verify', function ($apply) {
+                return $this->getVerificationLabel($apply);
+            })
             ->addColumn('operations', function ($apply) {
                 return '<a href="' . route('admin.verify.application.detail', $apply->id) . '" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
             })

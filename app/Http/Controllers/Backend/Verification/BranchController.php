@@ -102,7 +102,7 @@ class BranchController extends VerificationController
                 "总人数"     => $item->total_membership,
                 "支部书记"    => $item->secretary->name,
                 "支部书记简介"  => $item->secretary_summary,
-                "所在学校"    => $item->university->name,
+                "所在学校"    => $item->university,
                 '是否已通过审核' => $item->verification ? "是" : "否",
                 '提交于'     => $item->created_at,
                 '通过于'     => $item->verification ? $item->updated_at : "未审核",
@@ -121,6 +121,9 @@ class BranchController extends VerificationController
                 ->isHasType($request->get('branch_type'))
                 ->orderBy('created_at', 'desc')->get()
         )
+            ->addColumn('verify', function ($branch) {
+                return $this->getVerificationLabel($branch);
+            })
             ->addColumn('operations', function ($branch) {
                 return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';
             })
