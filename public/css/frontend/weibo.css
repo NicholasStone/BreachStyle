@@ -1,8 +1,11 @@
 @media (min-width: 1172px) {
+    .weibo-content{
+        margin-bottom: 50px;
+    }
+
     .weibo-content * {
         vertical-align: top;
         display: inline-block;
-        margin-bottom: 30px;
     }
 
     .content_us {
@@ -46,6 +49,7 @@
 @media (max-width: 1172px) {
     .weibo-content {
         margin-left: 7%;
+        margin-bottom: 50px;
     }
 
     .weibo-content * {
