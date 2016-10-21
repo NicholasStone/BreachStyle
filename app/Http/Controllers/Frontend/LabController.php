@@ -48,7 +48,7 @@ class LabController extends Controller
         $branch                     = Branch::with('university')->where('id', 4)->first();
 
         $upFileID = Redis::get('upFildID');
-        $key      = md5($upFileID . 'enet');
+        $key      = md5('dxsfdy' . $upFileID);
 
         return view('frontend.lab.labplay', compact('comments', 'branch', 'application', 'university', 'upFileID', 'key'));
     }
