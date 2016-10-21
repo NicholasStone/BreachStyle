@@ -47,7 +47,7 @@ class LabController extends Controller
         $comments                   = null;
         $branch                     = Branch::with('university')->where('id', 4)->first();
 
-        $upFileID = Redis::get('upFildID');
+        $upFileID = Redis::get('upFileID');
         $key      = md5('dxsfdy' . $upFileID);
         $request  = Redis::get('request');
 
