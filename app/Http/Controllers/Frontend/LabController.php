@@ -49,14 +49,15 @@ class LabController extends Controller
 
         $upFileID = Redis::get('upFildID');
         $key      = md5('dxsfdy' . $upFileID);
+        $request  = Redis::get('request');
 
-        return view('frontend.lab.labplay', compact('comments', 'branch', 'application', 'university', 'upFileID', 'key'));
+        return view('frontend.lab.labplay', compact('comments', 'branch', 'application', 'university', 'upFileID', 'key', 'request'));
     }
 
     public function upload(Request $request)
     {
-//        $now = Carbon::now();
-//        Redis::setex('request', 3600, "Callback at " . $now . " Method id " . $request->method() . " Json : " . json_encode($request->all()));
+        $now = Carbon::now();
+        Redis::setex('request', 3600, "Callback at " . $now . " Method id " . $request->method() . " Json : " . json_encode($request->all()));
 //        dd($request);
         Redis::setex('strDataId', 3600, $request->get('strDataId'));
         Redis::setex('upFileID', 3600, $request->get('upFileID'));
