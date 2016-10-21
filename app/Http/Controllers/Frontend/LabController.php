@@ -21,13 +21,34 @@ class LabController extends Controller
 
     public function play()
     {
-//        $get = Redis::get('request');
-//        Redis::del('request');
-//        dd($get);
+        $application             = new class
+        {
+            private $values = [];
+
+            function __set($name, $value)
+            {
+                $this->values[ $name ] = $value;
+            }
+
+            function __get($name)
+            {
+                return $this->values[ $name ];
+            }
+        };
+        $application->name       = Redis::get('name');
+        $application->detail     = Redis::get('detail');
+        $application->fancy      = 11;
+        $application->id         = 11;
+        $application->created_at = Carbon::now();
+        $application->branch     = "测试支部";
+        $application->province   = "北京";
+        $university              = '123';
+        $comments                = null;
+        $branch                  = Branch::with('university')->where('id', 4)->first();
+
         $upFileID = Redis::get('upFildID');
         $key      = md5($upFileID . 'enet');
-
-        return view('frontend.lab.labplay', compact("upFileID", "key"));
+        return view('frontend.lab.detail', compact('comments', 'branch', 'application', 'university', 'upFildID', 'key'));
     }
 
     public function upload(Request $request)
