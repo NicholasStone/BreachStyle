@@ -334,7 +334,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="title"><img src="img/achivement.png"/></div>
                 <div class="showList">
                     <ul class="showListBox">
