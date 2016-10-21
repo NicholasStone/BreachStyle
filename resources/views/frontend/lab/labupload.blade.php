@@ -38,7 +38,7 @@
                         <h4>上传课程视频<span>*</span> :</h4>
                         {{--<p style="color: red">请将已上传的优酷视频分享链接填至此处，请填入通用代码或html代码</p>--}}
                         {{--<input type="text" name="video_path" class="courseName" required title="请填写视频路径" value="{{ old('video_path') }}">--}}
-                        <iframe  src="http://dxsupload.enetedu.com?strDataId={{ $strDataId }}&strKey={{ $strKey }}&strType=1&ResUrl={{ url('lab/upload') }}" width="900" height="200"></iframe>
+                        <iframe  src="http://dxsupload.enetedu.com?strDataId={{ $strDataId }}&strKey={{ $strKey }}&strType=1&ResUrl={{ url('lab/upload') }}" width="900" height="300" frameborder="none"></iframe>
                     </div>
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
