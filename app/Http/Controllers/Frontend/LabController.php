@@ -47,25 +47,19 @@ class LabController extends Controller
         $comments                   = null;
         $branch                     = Branch::with('university')->where('id', 4)->first();
 
-        $upFileID = Redis::get('upFileID');
-        $key      = substr(md5('dxsfdy' . $upFileID), 8, 16);
-        $request  = Redis::get('request');
+        $application->video_path = Redis::get('upFileID');
+        $key      = substr(md5('dxsfdy' . $application->video_path), 8, 16);
 
-        return view('frontend.lab.labplay', compact('comments', 'branch', 'application', 'university', 'upFileID', 'key', 'request'));
+        return view('frontend.lab.labplay', compact('comments', 'branch', 'application', 'university', 'key'));
     }
 
     public function upload(Request $request)
     {
-        $now = Carbon::now();
-        Redis::setex('request', 3600, "Callback at " . $now . " Method id " . $request->method() . " Json : " . json_encode($request->all()));
-//        dd($request);
         Redis::setex('strDataId', 3600, $request->get('strDataId'));
         Redis::setex('upFileID', 3600, $request->get('upFileID'));
         Redis::setex('upFileType', 3600, $request->get('upFileType'));
         Redis::setex('upFileSize', 3600, $request->get('upFileSize'));
         Redis::setex('strKey', 3600, $request->get('strKey'));
-
-//        return redirect()->route('name');
     }
 
     public function youku()
