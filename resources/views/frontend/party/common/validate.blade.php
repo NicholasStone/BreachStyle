@@ -12,9 +12,9 @@
         if (!(apply.val() && img.val() && str)) {
             e.preventDefault();
             var alertMsg = apply.val() == "" ? '请上传申请图片' : '';
-            alertMsg += img.val() == "" ? '\n请上传封面' : "";
+            alertMsg += img.val() == "" ? '\n请上传封面/预览图' : "";
             alertMsg += str == "" ? '\n请填写说明或简介' : '';
-            sweetAlert('请上传图片', alertMsg, 'error');
+            sweetAlert('完整填写所有信息', alertMsg, 'error');
         }
     })
 </script>

@@ -119,7 +119,7 @@ class BranchController extends VerificationController
                 ->withStatus($request->get('status'))
                 ->isHasName($request->get('branch_name'))
                 ->isHasType($request->get('branch_type'))
-                ->orderBy('created_at', 'asc')->get()
+                ->orderBy('created_at', 'desc')->get()
         )
             ->addColumn('operations', function ($branch) {
                 return '<a href="' . route('admin.verify.branch.detail', $branch->id) . '" target="_blank" class="btn btn-xs btn-primary"><i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.detail') . '"></i></a> ';

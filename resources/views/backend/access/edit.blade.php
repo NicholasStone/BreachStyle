@@ -123,6 +123,8 @@
                         <dd>{{ $user->name }}</dd>
                         <dt>类型 :</dt>
                         <dd>{{ $user->type }}</dd>
+                        <dt>在线ID :</dt>
+                        <dd>{{ $user->user_id }}</dd>
                         <dt>所在城市 :</dt>
                         <dd>{{ $user->province }} {{ $user->city }}</dd>
                         <dt>学校 :</dt>

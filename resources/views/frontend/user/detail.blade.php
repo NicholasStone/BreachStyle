@@ -50,7 +50,8 @@
                         </ul>
                     </li>
                     <li class="certify">
-                        <a id="editPersonal">修改资料<span class="iconfont">&#xe60d;</span></a>
+                        <a id="editPersonal" href="{{ route('frontend.user.profile.edit') }}">修改资料<span
+                                    class="iconfont">&#xe60d;</span></a>
                     </li>
                 </ul>
                 <div class="bindDepart">
@@ -64,34 +65,35 @@
                 </div>
             </div>
             @if($notifies->count())
-            <div class="idCard" style="margin-top: 30px; padding: 30px">
-                <table class="notify">
-                    <thead>
-                    <tr>
-                        <th width="5%">#</th>
-                        <th width="85%">消息</th>
-                        <th width="10%">标记为</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($notifies as $num => $notify)
+                <div class="idCard" style="margin-top: 30px; padding: 30px">
+                    <table class="notify">
+                        <thead>
                         <tr>
-                            <td>{{ $num + 1 }}</td>
-                            <td>
-                                <a href="{{ $notify->url }}" @if(!$notify->read) style="font-weight: 800" @endif>{{ $notify->text }}</a>
-                            </td>
-                            <td>
-                                @if($notify->read)
-                                    <a href="{{ route('frontend.notify.unread', $notify->id) }}">未读</a>
-                                @else
-                                    <a href="{{ route('frontend.notify.read', $notify->id) }}">已读</a>
-                                @endif
-                            </td>
+                            <th width="5%">#</th>
+                            <th width="85%">消息</th>
+                            <th width="10%">标记为</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                        @foreach($notifies as $num => $notify)
+                            <tr>
+                                <td>{{ $num + 1 }}</td>
+                                <td>
+                                    <a href="{{ $notify->url }}"
+                                       @if(!$notify->read) style="font-weight: 800" @endif>{{ $notify->text }}</a>
+                                </td>
+                                <td>
+                                    @if($notify->read)
+                                        <a href="{{ route('frontend.notify.unread', $notify->id) }}">未读</a>
+                                    @else
+                                        <a href="{{ route('frontend.notify.read', $notify->id) }}">已读</a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @endif
         </div>
     </div>
@@ -100,23 +102,9 @@
 
 @section('before-scripts-end')
 
-    <!-- floatPanel -->
-    <div class="floatPanel" id="panel">
-        <div class="editPanel" id="editPanel">
-            <form action="{{ route('frontend.user.profile.update') }}" method="post">
-                {!! csrf_field() !!}
-                <h3>修改个人资料</h3>
-                <p>姓名 :</p>
-                <input type="text" name="name" id="name" value="{{ $user['name'] }}"/>
-                <p>办公电话 :</p>
-                <input type="text" name="tel" id="tel" value="{{ $user['tel'] }}"/>
-                <div class="BtnList">
-                    <button type="submit" id="editSave">保 存</button>
-                    <button type="button" id="editCancel">取 消</button>
-                </div>
-            </form>
-        </div>
-        @if(empty($user['branch_id']))
+    @if(empty($user['branch_id']))
+        <!-- floatPanel -->
+        <div class="floatPanel" id="panel">
             <div class="bindPanel" id="bindPanel">
                 <form method="post" action="{{ route('frontend.user.profile.join') }}">
                     {!! csrf_field() !!}
@@ -148,27 +136,27 @@
                     bindPanel.style.display = "none";
                 }
             </script>
-        @endif
     </div>
     <!-- floatPanel -->
+    @endif
 @endsection
 
-@section('after-scripts-end')
-    <script type="text/javascript">
-        var panel = document.getElementById('panel');
-        var editBtn = document.getElementById('editPersonal');
-        var editPanel = document.getElementById('editPanel');
-        var editCancel = document.getElementById('editCancel');
+{{--@section('after-scripts-end')--}}
+    {{--<script type="text/javascript">--}}
+        {{--var panel = document.getElementById('panel');--}}
+        {{--var editBtn = document.getElementById('editPersonal');--}}
+        {{--var editPanel = document.getElementById('editPanel');--}}
+        {{--var editCancel = document.getElementById('editCancel');--}}
 
-        editBtn.onclick = function () {
-            panel.style.display = "block";
-            editPanel.style.display = "block";
-        }
-        editCancel.onclick = function () {
-            panel.style.display = "none";
-            editPanel.style.display = "none";
-        }
+        {{--editBtn.onclick = function () {--}}
+            {{--panel.style.display = "block";--}}
+            {{--editPanel.style.display = "block";--}}
+        {{--}--}}
+        {{--editCancel.onclick = function () {--}}
+            {{--panel.style.display = "none";--}}
+            {{--editPanel.style.display = "none";--}}
+        {{--}--}}
 
 
-    </script>
-@endsection
+    {{--</script>--}}
+{{--@endsection--}}

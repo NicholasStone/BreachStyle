@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Frontend\User;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Frontend\User\UpdateProfileRequest;
+use Validator;
 use App\Models\Branch;
 use Illuminate\Http\Request;
+use App\Models\Access\User\User;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Common\FileStorage;
+use App\Http\Requests\Frontend\User\UpdateProfileRequest;
 
 /**
  * Class ProfileController
@@ -15,19 +17,25 @@ use Validator;
  */
 class ProfileController extends Controller
 {
+    use FileStorage;
+
     /**
      * @param  UpdateProfileRequest $request
      * @return mixed
      */
     public function update(UpdateProfileRequest $request)
     {
-        $user = Auth::user();
-        $user->name = $request->get('name');
-        $user->tel = $request->get('tel');
-        $user->save();
+        $update = $request->only([
+            'name', 'id_number', 'tel_work', 'tel', 'email',
+        ]);
+        if ($request->hasFile('avatar')) {
+            $update['avatar'] = $this->saveImage($request->file('avatar'), "Application/Case");
+        }
+        $user = User::find(Auth::id());
+        $user->update($update);
         alert()->success("信息修改成功");
 
-        return redirect()->back();
+        return redirect()->route('frontend.user.profile.detail');
     }
 
     /**
@@ -36,13 +44,14 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user();
-        if(!$user->user_id) {
+        if (!$user->user_id) {
             return redirect()->route('admin.dashboard');
         }
         $user->branch;
         $branches = Branch::where('university', $user->university)->get();
         $notifies = $user->getNotifications();
-        return view('frontend.user.detail')->with(compact("user", "branches","notifies"));
+
+        return view('frontend.user.detail')->with(compact("user", "branches", "notifies"));
     }
 
     /**
@@ -64,11 +73,17 @@ class ProfileController extends Controller
             return redirect()->back();
         }
 
-        $user = Auth::user();
+        $user            = Auth::user();
         $user->branch_id = $request->get('bind');
         $user->save();
 
         alert()->success('加入成功!');
+
         return redirect()->back();
+    }
+
+    public function edit()
+    {
+        return view('frontend.user.edit')->withUser(Auth::user());
     }
 }

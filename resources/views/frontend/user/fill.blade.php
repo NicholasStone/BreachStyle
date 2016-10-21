@@ -20,7 +20,7 @@
                                 </div>
                             </label>
                             <h4>上传头像<span>*</span> : </h4>
-                            <span style="color:red;">图片大小不要超过2MB</span>
+                            <span style="color:red;">图片大小不要超过500KB</span>
                         </div>
                     </div>
                     <div class="infoListRight">
@@ -56,10 +56,10 @@
                         <p><label for="school">所在大学</label>
                             <select name="university" id="school" style="width: 120px;height: 32px;margin-left: 15px"
                                     class="input">
-                                <option disabled selected>—— 学校 ——</option>
-                                @foreach($universities as $item)
-                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                @endforeach
+                                {{--<option disabled selected>—— 学校 ——</option>--}}
+                                {{--@foreach($universities as $item)--}}
+                                {{--<option value="{{ $item->name }}">{{ $item->name }}</option>--}}
+                                {{--@endforeach--}}
                             </select><span>*</span></p>
                         <p>
                             <label for="tel_work">办公电话</label><input class="input" type="tel" name="tel_work"
@@ -88,9 +88,6 @@
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.data.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.min.js') !!}
     <script type="text/javascript">
-        @if(old('province'))
-        $("option[value={{ old('province') }}]");
-        @endif
         $('#submit').click(function () {
             if (!validate()) {
                 swal("请正确填写所有信息", "注意", "error");
@@ -108,12 +105,23 @@
                 $("#submit-button").click();
             })
         });
-        $('#province1').change(function () {
+        var province = $("#province1");
+        $(function () {
+            @if(old('province'))
+            $("#province1 option[value={{ old('province') }}]").attr('selected', 'selected').trigger("change");
+            $("#city1 option[value={{ old('city') }}]").attr('selected', 'selected');
+            @endif
+        getUniversity();
+        });
+        province.on("change", function () {
+            getUniversity();
+        });
+        var getUniversity = function () {
             $.ajax({
                 url: "{{ route('sso.universities') }}",
                 method: 'get',
                 data: {
-                    province: $("#province1").val(),
+                    province: province.val(),
                     _token: "{{ csrf_token() }}"
                 },
                 success: function (data) {
@@ -123,9 +131,13 @@
                     $.each(data, function (index, val) {
                         school.append($("<option>").val(val.name).text(val.name));
                     });
+                    @if(old('province'))
+                    $("#school option[value={{ old('university') }}]").attr('selected', 'selected');
+                    @endif
                 }
-            })
-        });
+            });
+        };
+
         var validate = function () {
             var validate = true;
             if ($("input[type=radio][name=type]:checked").length == 0) {

@@ -40,6 +40,7 @@ class User extends Authenticatable
         'tel_work',
         'type',
         'province',
+        'id_number',
         'city',
         'avatar',
     ];
