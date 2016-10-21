@@ -21,10 +21,10 @@ class LabController extends Controller
 
     public function play()
     {
-        $get = Redis::get('request');
-        Redis::del('request');
-        dd($get);
-        $upFileID = Redis::get('upFildId');
+//        $get = Redis::get('request');
+//        Redis::del('request');
+//        dd($get);
+        $upFileID = Redis::get('upFildID');
         $key      = md5($upFileID . 'enet');
 
         return view('frontend.lab.labplay', compact("upFileID", "key"));
@@ -32,14 +32,14 @@ class LabController extends Controller
 
     public function upload(Request $request)
     {
-        $now = Carbon::now();
-        Redis::setex('request', 3600, "Callback at " . $now . " Method id " . $request->method() . " Json : " . json_encode($request->all()));
+//        $now = Carbon::now();
+//        Redis::setex('request', 3600, "Callback at " . $now . " Method id " . $request->method() . " Json : " . json_encode($request->all()));
 //        dd($request);
-//        Redis::setex('strDataId', 3600, $request->get('strDataId'));
-//        Redis::setex('upFileId', 3600, $request->get('upFileId'));
-//        Redis::setex('upFileType', 3600, $request->get('upFileType'));
-//        Redis::setex('upFileSize', 3600, $request->get('upFileSize'));
-//        Redis::setex('strKey', 3600, $request->get('strKey'));
+        Redis::setex('strDataId', 3600, $request->get('strDataId'));
+        Redis::setex('upFileID', 3600, $request->get('upFileID'));
+        Redis::setex('upFileType', 3600, $request->get('upFileType'));
+        Redis::setex('upFileSize', 3600, $request->get('upFileSize'));
+        Redis::setex('strKey', 3600, $request->get('strKey'));
 
 //        return redirect()->route('name');
     }
