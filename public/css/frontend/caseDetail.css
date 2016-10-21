@@ -45,18 +45,18 @@
 	width: 96%;
 	margin: 24px 2%;
 }
-.caseDetail .content .article p{
-	font-size: 1em;
-	color: #7a6465;
-	text-indent: 2em;
-	line-height: 1.25em;
-	margin-bottom: .5em;
-}
-.caseDetail .content .article img{
-	width: 80%;
-	height: auto;
-	margin: 1em 10%;
-}
+/*.caseDetail .content .article p{*/
+	/*font-size: 1em;*/
+	/*color: #7a6465;*/
+	/*text-indent: 2em;*/
+	/*line-height: 1.25em;*/
+	/*margin-bottom: .5em;*/
+/*}*/
+/*.caseDetail .content .article img{*/
+	/*width: 80%;*/
+	/*height: auto;*/
+	/*margin: 1em 10%;*/
+/*}*/
 .caseDetail .content .click{
 	width: 134px;
 	height: 42px;

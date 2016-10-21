@@ -78,7 +78,7 @@
                     <dd>{{ $course_lecturer }}</dd>
                 @endif
                 <dt>{{ trans('strings.backend.verification.application.detail') }}</dt>
-                <dd>{!! $detail !!}</dd>
+                <dd class="col-sm-8">{!! $detail !!}</dd>
                 <dt>{{ trans('strings.backend.verification.application.img') }}</dt>
                 <dd><img src="{{ $img_hash }}" alt="缩略图" class="thumbnail" width="50%" height="50%"></dd>
                 @if($video_hash)
