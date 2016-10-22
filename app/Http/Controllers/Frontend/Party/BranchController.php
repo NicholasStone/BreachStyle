@@ -229,7 +229,7 @@ class BranchController extends Controller
     {
         $branch                                = Branch::with(['secretary' => function ($query) {
             $query->select(['id', 'name', 'avatar']);
-        }])->where('id', $id)->first();
+        }])->where('id', $id)->firstOrFail();
         $application['微党课']                    = Application::withStatus()->where('branch_id', $branch->id)->where('type', '微党课')->get();
         $application['工作案例']                   = Application::withStatus()->where('branch_id', $branch->id)->where('type', '工作案例')->get();
         $application[ $branch->type . '推荐展示' ] = Application::withStatus()->where('branch_id', $branch->id)->where('type', $branch->type . '推荐展示')->get();
