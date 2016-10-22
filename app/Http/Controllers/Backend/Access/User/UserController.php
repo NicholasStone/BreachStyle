@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Backend\Access\User;
 
+use Carbon\Carbon;
 use App\Models\Access\User\User;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Facades\Datatables;
 use App\Http\Requests\Backend\Access\User\StoreUserRequest;
 use App\Http\Requests\Backend\Access\User\ManageUserRequest;
@@ -101,7 +103,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User              $user
      * @param ManageUserRequest $request
      * @return mixed
      */
@@ -114,7 +116,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User              $user
      * @param UpdateUserRequest $request
      * @return mixed
      */
@@ -129,7 +131,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User              $user
      * @param ManageUserRequest $request
      * @return mixed
      */
@@ -141,7 +143,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User              $user
      * @param ManageUserRequest $request
      * @return mixed
      */
@@ -153,7 +155,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User              $user
      * @param ManageUserRequest $request
      * @return mixed
      */
@@ -165,8 +167,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
-     * @param $status
+     * @param User              $user
+     * @param                   $status
      * @param ManageUserRequest $request
      * @return mixed
      */
@@ -196,7 +198,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User              $user
      * @param ManageUserRequest $request
      * @return mixed
      */
@@ -207,7 +209,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User                      $user
      * @param UpdateUserPasswordRequest $request
      * @return mixed
      */
@@ -219,9 +221,9 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User                           $user
      * @param FrontendUserRepositoryContract $user_repository
-     * @param ManageUserRequest $request
+     * @param ManageUserRequest              $request
      * @return mixed
      */
     public function resendConfirmationEmail(User $user, FrontendUserRepositoryContract $user_repository, ManageUserRequest $request)
@@ -232,7 +234,7 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param User              $user
      * @param ManageUserRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -247,5 +249,42 @@ class UserController extends Controller
     public function logoutAs()
     {
         return $this->users->logoutAs();
+    }
+
+    public function excel()
+    {
+        Excel::create("用户列表-截止于" . Carbon::now('Asia/Shanghai'), function ($excel) {
+            $excel->sheet('用户列表', function ($sheet) {
+                $data = $this->getExcelData();
+                $sheet->with($data);
+            });
+        })->download('xlsx');
+    }
+
+    protected function getExcelData()
+    {
+        $users = User::where('id', '>', 3)->with(['branch' => function ($query) {
+            $query->select(['id', 'name']);
+        }])->select([
+            'name', 'user_id', 'type', 'university', 'email', 'tel_work', 'tel', 'branch_id', 'province', 'city', 'created_at',
+        ])->get();
+        $data  = [];
+        foreach ($users as $index => $user) {
+            array_push($data, [
+                '#'       => $index + 1,
+                '姓名'      => $user->name,
+                '大学生在线ID' => $user->user_id,
+                '类型'      => $user->type,
+                '省'       => $user->province,
+                '市'       => $user->city,
+                '学校'      => $user->university,
+                'E-mail'  => $user->email,
+                '电话'      => $user->tel,
+                '工作电话'    => $user->tel_work,
+                '所在支部名称'  => $user->branch->name,
+            ]);
+        }
+
+        return $data;
     }
 }
