@@ -306,12 +306,12 @@
                     <div class="weibo_show">
                         <div class="title"><img src="{{ asset('build/img/contactus.png') }}" alt="微博展示"></div>
                         <div class="main">
-                            <wb:topic uid="1708159150" topmid="z8ClGsZa8" column="y" border="n"
-                                      title="%E7%82%B9%E4%BA%AE%E9%9D%92%E6%98%A5%EF%BC%8C%E4%BC%A0%E9%80%92%E6%A2%A6%E6%83%B3"
+                            <wb:topic uid="1708159150" topmid="Ecuyimeo3" column="y" border="y"
+                                      title="%E7%82%B9%E4%BA%AE%E9%9D%92%E6%98%A5%EF%BC%8C%E4%BC%A0%E9%80%92%E6%A2%A6%E6%83%B3%EF%BC%81"
                                       width="821" height="790" tags="%E6%94%AF%E9%83%A8%E9%A3%8E%E9%87%87"
-                                      language="zh_cn"
-                                      version="base" appkey="5fvBHZ" footbar="y"
-                                      url="http%3A%2F%2Fweibo.com%2Fp%2F1008081771063c4d98edfef37a3ddc85e14c15"
+                                      color="333333%2Cffffff%2C0078b6%2Ccccccc%2C333333%2Cfafeff%2C0078b6%2Ccccccc%2C%2Ce9f4fb"
+                                      language="zh_cn" version="base" appkey="5fvBHZ" footbar="y"
+                                      url="http%3A%2F%2Fweibo.com%2Fp%2F1008081771063c4d98edfef37a3ddc85e14c15%3Fk%3D%E6%94%AF%E9%83%A8%E9%A3%8E%E9%87%87%26from%3D501%26_from_%3Dhuati_topic"
                                       filter="y"></wb:topic>
                         </div>
                     </div>
