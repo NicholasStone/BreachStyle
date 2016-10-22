@@ -39,6 +39,9 @@
                         </tr>
                     </thead>
                 </table>
+                <br>
+                <a target="_blank" href="{{ route("admin.access.user.excel") }}" class="btn btn-default btn-flat" id="excel">全部导出为Excel</a>
+                <p style="color: red">因为数据量大，加载时间可能略长，请耐心等候，谢谢。</p>
             </div><!--table-responsive-->
         </div><!-- /.box-body -->
     </div><!--box-->
