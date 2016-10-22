@@ -59,6 +59,7 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'              => 'required',
             'type'              => 'required|in:学生党支部,教师党支部',

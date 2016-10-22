@@ -77,8 +77,7 @@ class SSOAuthController extends Controller
 
     public function complete(Request $request)
     {
-        return redirect()->route('sso.fill')->withInput();
-
+//        return redirect()->back()->withInput();
         if (Session::has('id')) {
             return redirect()->back();
         }
@@ -106,7 +105,7 @@ class SSOAuthController extends Controller
             'tel_work.unique'   => '此工作电话已存在',
             'email.email'       => '请写入正确的电子邮箱',
             'email.unique'      => '此邮箱已存在',
-            'avatar.max'        => '请上传小于2MB的图片',
+            'avatar.max'        => '请上传小于500KB的图片',
             'avatar.image'      => '请上传图片',
         ]);
         if ($validate->fails()) {

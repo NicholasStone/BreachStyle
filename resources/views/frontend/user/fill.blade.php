@@ -12,41 +12,51 @@
             <div class="infoList">
                 <form id="signupform" autocomplete="off" method="post" action="{{ route("sso.complete") }}"
                       enctype="multipart/form-data">
+                    {!! csrf_field() !!}
                     <div class="infoListLeft">
                         <div class="uploadImg">
-                            <input type="file" style="position: fixed; z-index: -999;display: block;" accept="image/*"
+                            <input type="file" style="display: none" accept="image/*"
                                    name="avatar" id="headImg" onchange="loadImageFile()"/>
                             <label for="headImg">
                                 <div class="imgBox" id="imgBox"></div>
                             </label>
                             <h4>上传头像<span>*</span> : </h4>
-                            <div style="color:red;margin-top: 50px;">图片大小不要超过500KB , 此图片将显示在 <b> 个人信息页 </b> ,
-                                如果您创建了支部，此图片将显示在支部首页的 <b> 支部书记位置 </b></div>
+                            <div style="color:red;margin-top: 50px;">
+                                图片大小不要超过500KB ，并且尺寸不大于 1000px &times; 1500px。
+                                <br>
+                                此图片将显示在 <b> 个人信息页 </b> 。
+                                如果您创建了支部，此图片将显示在支部首页的 <b> 支部书记位置 </b>。
+                                <br>
+                                提交信息创建支部后，您的<b>用户类型、所在城市及所在高校</b>将<b>不能修改</b>。
+                            </div>
                         </div>
                         <span class="status head"></span>
                     </div>
                     <div class="infoListRight">
                         <div class="Row">
                             <p>
-                                真实姓名<input type="text" name="name" id="name" value=""/><span>*</span>
+                                真实姓名<input type="text" name="name" id="name" value="{{ old('name') }}"/><span>*</span>
                             </p>
                             <p class="status"></p>
                         </div>
                         <div class="Row">
-                            <p>身份证号<input type="text" name="id_number" id="id_number" value=""/><span>*</span>
+                            <p>身份证号<input type="text" name="id_number" id="id_number" value="{{ old('id_number') }}"/><span>*</span>
                             </p>
                             <p class="status"></p>
                         </div>
                         <div class="row">
                             <p>用户类型</p>
                             <div class="radioitem">
-                                <input type="radio" name="type" id="teashow" value="tea"/><label
+                                <input type="radio" name="type" id="teashow" value="教师"/><label
                                         for="teashow">教师</label>
                             </div>
                             <div class="radioitem">
-                                <input type="radio" name="type" id="stushow" value="stu"/><label
+                                <input type="radio" name="type" id="stushow" value="学生"/><label
                                         for="stushow">学生</label>
+
                             </div>
+                            <span style="margin-left: 54px; color: #e34e3f;line-height: 3em">*</span>
+                            <small class="status"></small>
                         </div>
                         <div class="row" data-toggle="distpicker">
                             <p>所在城市</p>
@@ -61,10 +71,8 @@
                         </div>
                         <div class="Row">
                             <p>
-                                所在大学
-                                <select name="university" id="school"
-                                        style="width: 120px;height: 32px;margin-left: 15px"
-                                        class="input">
+                                所在高校
+                                <select name="university" id="school" style="width: 120px;height: 32px;margin-left: 15px" class="input">
                                 </select><span>*</span>
                             </p>
                             <p class="status"></p>
@@ -72,101 +80,28 @@
                         <div class="Row">
                             <p>
                                 办公电话
-                                <input type="text" name="tel_work" id="telephone" value=""/><span>*</span>
+                                <input type="text" name="tel_work" id="telephone" value="{{ old('tel_work') }}"/><span>*</span>
                             </p>
                             <p class="status"></p>
                         </div>
+                        <small>可填写自己常用的手机号</small>
                         <div class="Row">
                             <p>
                                 绑定手机
-                                <input type="text" name="tel" id="mobilephone" value=""/><span>*</span>
+                                <input type="text" name="tel" id="mobilephone" value="{{ old('tel') }}"/><span>*</span>
                             </p>
                             <p class="status"></p>
                         </div>
                         <div class="Row">
                             <p>
                                 绑定邮箱
-                                <input type="text" name="email" id="email" value=""/><span>*</span>
+                                <input type="text" name="email" id="email" value="{{ old('email') }}"/><span>*</span>
                             </p>
                             <p class="status"></p>
                         </div>
-                        <input type="submit" name="sub" id="sub" class="submitBtn" value="提交"/>
+                        <input type="submit" name="sub" id="submit" class="submitBtn" value="提交"/>
                     </div>
                 </form>
-                {{--<form method="post" action="{{ route("sso.complete") }}" enctype="multipart/form-data" id="fill-form">--}}
-                {{--{!! csrf_field() !!}--}}
-                {{--<div class="infoListLeft">--}}
-                {{--<div class="uploadImg">--}}
-                {{--<input type="file" style="position: fixed; z-index: -999;display: block;" accept="image/*"--}}
-                {{--name="avatar" id="headImg" onchange="loadImageFile()"/>--}}
-                {{--<label for="headImg">--}}
-                {{--<div class="imgBox" id="imgBox"></div>--}}
-                {{--</label>--}}
-                {{--<h4>上传头像<span>*</span> : </h4>--}}
-                {{--<span style="color:red;">图片大小不要超过500KB , 此图片将显示在 <b> 个人信息页 </b> , 如果您创建了支部，此图片将显示在支部首页的 <b> 支部书记位置 </b></span>--}}
-                {{--</div>--}}
-                {{--<span class="status head"></span>--}}
-                {{--</div>--}}
-                {{--<div class="infoListRight">--}}
-                {{--<p>真实姓名<input class="input" type="text" name="name" id="realName" required--}}
-                {{--value="{{ old('name') }}"/>--}}
-                {{--<span>*</span>--}}
-                {{--</p>--}}
-                {{--<p class="status"></p>--}}
-                {{--<p>身份证号<input class="input" type="text" name="id_number" id="idnumber" required--}}
-                {{--value="{{ old('id_number') }}"/>--}}
-                {{--<span>*</span>--}}
-                {{--</p>--}}
-                {{--<p class="status"></p>--}}
-                {{--<div class="row">--}}
-                {{--<p>用户类型</p>--}}
-                {{--<div class="radioitem">--}}
-                {{--<input class="input" type="radio" name="type" id="teashow" value="教师"--}}
-                {{--@if(old('type')=='教师') checked @endif/>--}}
-                {{--<label for="teashow">教师</label>--}}
-                {{--</div>--}}
-                {{--<div class="radioitem">--}}
-                {{--<input class="input" type="radio" name="type" id="stushow" value="学生"--}}
-                {{--@if(old('type')=='学生') checked @endif/>--}}
-                {{--<label for="stushow">学生</label>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<div class="row" data-toggle="distpicker">--}}
-                {{--<p>所在城市</p>--}}
-                {{--<div class="form-group">--}}
-                {{--<label class="sr-only" for="province1">省</label>--}}
-                {{--<select class="form-control input" id="province1" name="province"></select>--}}
-                {{--</div>--}}
-                {{--<div class="form-group">--}}
-                {{--<label class="sr-only" for="city1">市</label>--}}
-                {{--<select class="form-control input" id="city1" name="city"></select>--}}
-                {{--</div>--}}
-                {{--</div>--}}
-                {{--<p><label for="school">所在高校</label>--}}
-                {{--<select name="university" id="school" style="width: 120px;height: 32px;margin-left: 15px"--}}
-                {{--class="input">--}}
-                {{--</select><span>*</span>--}}
-                {{--</p>--}}
-                {{--<p>--}}
-                {{--<label for="tel_work">办公电话</label><input class="input" type="tel" name="tel_work"--}}
-                {{--id="tel_work" required--}}
-                {{--value="{{ old('tel_work') }}"/><span>*</span>可填写自己常用的手机号--}}
-                {{--</p>--}}
-                {{--<p class="status"></p>--}}
-                {{--<p>--}}
-                {{--<label for="tel">绑定手机</label><input class="input" type="tel" name="tel" id="tel" required--}}
-                {{--value="{{ old('tel') }}"/><span>*</span>--}}
-                {{--</p>--}}
-                {{--<p class="status"></p>--}}
-                {{--<p>--}}
-                {{--<label for="email">绑定邮箱</label><input class="input" type="email" name="email" id="email"--}}
-                {{--required value="{{ old('email') }}"/><span>*</span>--}}
-                {{--</p>--}}
-                {{--<p class="status"></p>--}}
-                {{--<input type="button" id="submit" class="submitBtn" value="提交"/>--}}
-                {{--<button type="submit" id="submit-button" hidden></button>--}}
-                {{--</div>--}}
-                {{--</form>--}}
             </div>
         </div>
     </div>
@@ -180,6 +115,9 @@
     <script type="text/javascript">
         $(function () {
             /*表单验证-start*/
+            $.validator.setDefaults({
+                ignore: []
+            });
             $.validator.addMethod("isIdCardNo", function (value, element) {
                 return this.optional(element) || isIdCardNo(value);
             }, "请正确输入您的身份证号码");
@@ -191,12 +129,15 @@
             }, "请正确填写您的电话号码");
             $.validator.addMethod("mobile", function (value, element) {
                 var length = value.length;
-                var mobilePhone = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
+                var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
                 return (length == 11 && mobile.exec(value)) ? true : false;
             }, "请正确填写您的手机号码");
             $("#signupform").validate({
                 rules: {
                     avatar: {
+                        required: true
+                    },
+                    type: {
                         required: true
                     },
                     name: {
@@ -215,17 +156,19 @@
                     },
                     tel: {
                         required: true,
-//                        minlength: 11,
                         mobile: true
                     },
                     email: {
                         required: true,
-                        email: true,
+                        email: true
                     }
                 },
                 messages: {
                     avatar: {
-                        required: "(*请上传头像)"
+                        required: "(请上传头像)"
+                    },
+                    type: {
+                        required: "(请选择类型)"
                     },
                     name: {
                         required: "(真实姓名不能为空)"
@@ -260,10 +203,6 @@
                         error.appendTo(element.next());
                     else
                         error.appendTo(element.parent().next());
-                },
-                // specifying a submitHandler prevents the default submit, good for the demo
-                submitHandler: function () {
-                    alert("submitted!");
                 },
                 // set this class to error-labels to indicate valid fields
                 success: function (label) {
@@ -351,75 +290,58 @@
             }
 
             /*表单验证-end*/
-            /*获取元素实际样式-start*/
-            function imgAttr(imgUrl) {
-                var tmpImg = new Image;
-                tmpImg.src = imgUrl;
-                return tmpImg;
-            }
-
-            /*获取元素实际样式-end*/
-            var imgSelect = document.getElementById("headImg");
-            var loadImageFile = (function () {
-                if (window.FileReader) {
-                    var oPreviewImg = null,
-                            oFReader = new window.FileReader(),
-                            rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-                    oFReader.onload = function (oFREvent) {
-                        if (!oPreviewImg) {
-                            var newPreview = document.getElementById("imgBox");
-                            oPreviewImg = document.createElement('img');
-                            newPreview.appendChild(oPreviewImg);
+        });
+        /*获取元素实际样式-start*/
+        function imgAttr(imgUrl) {
+            var tmpImg = new Image;
+            tmpImg.src = imgUrl;
+            return tmpImg;
+        }
+        /*获取元素实际样式-end*/
+        var imgSelect = document.getElementById("headImg");
+        var loadImageFile = (function () {
+            if (window.FileReader) {
+                var oPreviewImg = null,
+                        oFReader = new window.FileReader(),
+                        rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                oFReader.onload = function (oFREvent) {
+                    if (!oPreviewImg) {
+                        var newPreview = document.getElementById("imgBox");
+                        oPreviewImg = document.createElement('img');
+                        newPreview.appendChild(oPreviewImg);
+                    }
+                    oPreviewImg.src = oFREvent.target.result;
+                };
+                return function () {
+                    var aFiles = document.getElementById("headImg").files;
+                    var temURL = window.URL.createObjectURL(aFiles[0]);
+                    var tmp = imgAttr(temURL);
+                    tmp.onload = function () {
+                        var width = tmp.width;
+                        var height = tmp.height;
+                        if ((aFiles[0].size / 1024).toFixed(2) > 500) {
+                            swal("抱歉", "您选择的图片大于500kb，请重新选择。", "error");
+                            imgSelect.value = null;
+                            return;
                         }
-                        oPreviewImg.src = oFREvent.target.result;
-                    };
-                    return function () {
-                        var aFiles = document.getElementById("headImg").files;
-                        var temURL = window.URL.createObjectURL(aFiles[0]);
-                        var tmp = imgAttr(temURL);
-                        tmp.onload = function () {
-                            var width = tmp.width;
-                            var height = tmp.height;
-                            if (width > 80 && height > 80) {
-                                alert("抱歉，您选择的图片尺寸过大！(请选择宽度小于1000像素，高度小于1500像素的图片！)");
-                                return false;
-                            }
-                            if (aFiles.length === 0) {
-                                return;
-                            }
-                            if (!rFilter.test(aFiles[0].type)) {
-                                alert("你必须选择一个图片!");
-                                return;
-                            }
-                            oFReader.readAsDataURL(aFiles[0]);
+                        if (width > 1000 && height > 1500) {
+                            swal("抱歉", "您选择的图片尺寸过大！(请选择宽度小于1000像素，高度小于1500像素的图片！)", "error");
+                            return false;
                         }
+                        if (aFiles.length === 0) {
+                            return;
+                        }
+                        oFReader.readAsDataURL(aFiles[0]);
                     }
                 }
-            })();
-        });
-        $('#submit').click(function () {
-//            if (!validate()) {
-//                swal("请正确填写所有信息", "注意", "error");
-//                return;
-//            }
-            swal({
-                title: "注意",
-                html: true,
-                text: "提交信息创建支部后，您的<b style='color:red'>用户类型、所在城市及所在高校</b>将<b style='color:red'><br>不能修改</br> .",
-                type: "info",
-                showCancelButton: true,
-                cancelButtonText: "取消",
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "确认提交"
-            }, function () {
-                $("#submit-button").click();
-            })
-        });
+            }
+        })();
         var province = $("#province1");
         $(function () {
             @if(old('province'))
             $("#province1 option[value={{ old('province') }}]").attr('selected', 'selected').trigger("change");
             $("#city1 option[value={{ old('city') }}]").attr('selected', 'selected');
+            $("input[name=type][value={{ old('type') }}]").attr('checked', 'checked');
             @endif
         getUniversity();
         });
@@ -447,19 +369,5 @@
                 }
             });
         };
-
-        //        var validate = function () {
-        //            var validate = true;
-        //            if ($("input[type=radio][name=type]:checked").length == 0) {
-        //                validate = false;
-        //            }
-        //            $(".input").each(function () {
-        //                if ($(this).val() == "" || $(this).val() == null) {
-        //                    validate = false;
-        //                    return false;
-        //                }
-        //            });
-        //            return validate;
-        //        }
     </script>
 @endsection

@@ -2,6 +2,7 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
+    {!! Html::style(asset('css/frontend/formcheck.css')) !!}
 @endsection
 
 @section("content")
@@ -9,92 +10,121 @@
     <div class="create">
         <div class="content">
             <div class="crtDepart">
-                <form action="{{ route('frontend.branch.create') }}" method="post" enctype="multipart/form-data"
-                      id="application-form">
-                    {!! csrf_field() !!}
+                <form id="signupform" autocomplete="off" action="{{ route('frontend.branch.create') }}" method="post"
+                      enctype="multipart/form-data">
+                    {{ csrf_field() }}
                     <div class="uploadImg">
-                        <input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()"
-                               value="{{ old('avatar') }}"/>
-                        <label for="headImg">
-                            <div class="imgBox" id="imgBox">
-
-                            </div>
-                        </label>
-                        <h4>党支部配图<span>*</span> : </h4>
-                        <p style="color: red;">请不要上传大于500KB的图片</p>
+							<span>
+								<input type="file" accept="image/*" name="avatar" id="headImg"
+                                       onchange="loadImageFile()"/>
+								<label for="headImg">
+								<div class="imgBox" id="imgBox"></div>
+								</label>
+								<h4>党支部配图<span>*</span> : </h4>
+							</span>
+                        <span class="status" id="picture"></span>
                     </div>
                     <div class="row">
-                        <h4>党支部名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"
-                               required value="{{ old('name') }}"/>
+							<span>
+								<h4>党支部名称<span>*</span> : </h4>
+							<input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"
+                                   value="{{ old('name') }}"/>
+							</span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>党支部类型:</h4>
                         <div class="radioitem">
-                            <input type="radio" name="type" id="teashow" value="教师党支部" readonly
-                                   @if($user->type == "教师") checked @endif/><label for="teashow">教师党支部</label>
+                            <input type="radio" name="type" id="teashow" value="教师党支部"/><label
+                                    for="teashow">教师党支部</label>
                         </div>
                         <div class="radioitem">
-                            <input type="radio" name="type" id="stushow" value="学生党支部" readonly
-                                   @if($user->type == "学生") checked @endif/><label for="stushow">学生党支部</label>
+                            <input type="radio" name="type" id="stushow" value="学生党支部"/><label
+                                    for="stushow">学生党支部</label>
                         </div>
+                        <div class="status"></div>
                     </div>
                     <div class="row">
-                        <h4>所在学校<span>*</span> : </h4>
-                        <input type="text" name="university" id="school" class="school" readonly
-                               value="{{ $user->university }}" required/>
-                    </div>
-                    <div class="row">
-                        <h4>党支部书记名称<span>*</span> : </h4>
-                        <input type="text" name="secretary" id="leader" class="leader" readonly
-                               value="{{ $user->name }}" required/>
-                        <span class="note">默认创建党支部者为党支部书记</span>
-                    </div>
-                    <div class="row">
-                        <h4>党支部书记简介<span>*</span> : </h4>
-                        <textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary"
-                                  required>{{ old('secretary_summary') }}</textarea>
-                        <p class="count">还可以输入<span id="word">100</span>字</p>
+							<span>
+								<h4>所在学校<span>*</span> : </h4>
+							<input type="text" name="university" id="school" class="school" readonly
+                                   value="{{ $user->university }}"/>
+							</span>
+                        <span class="status"></span>
 
                     </div>
                     <div class="row">
-                        <h4>党员人数<span>*</span> : </h4>
-                        <input type="text" name="total_membership" id="people" class="people"
-                               value="{{ old('total_membership') }}" required/>
+							<span>
+								<h4>党支部书记名称<span>*</span> : </h4>
+							<input type="text" name="secretary" id="leader" class="leader" readonly
+                                   value="{{ $user->name }}"/>
+							<span class="note">默认创建党支部者为党支部书记</span>
+							</span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
-                        <h4>手机号<span>*</span> : </h4>
-                        <input type="text" name="tel" id="mobilePhone" class="mobile" value="{{ old('tel') }}"
-                               required/>
+							<span>
+								<h4>党支部书记简介<span>*</span> : </h4>
+                                <!--<textarea class="introduce" name="introduce" oninput="wordChange()" id="intro"></textarea>-->
+							<textarea id="introduce" name="secretary_summary" maxlength="100"
+                                      oninput="wordChange()">{{ old('secretary_summary') }}</textarea>
+							<p class="tips" id="introduce-note">还可以输入<span id="word">100</span>字</p>
+							</span>
+                        <span class="status"></span>
+
                     </div>
                     <div class="row">
-                        <h4>通讯地址<span>*</span> : </h4>
-                        <input type="text" name="address" id="address" class="address" value="{{ old('address') }}"
-                               required/>
+							<span>
+								<h4>党员人数<span>*</span> : </h4>
+							<input type="text" name="total_membership" id="people" class="people"
+                                   value="{{ old('total_membership') }}"/>
+							</span>
+                        <span class="status"></span>
+                    </div>
+                    <div class="row">
+							<span>
+								<h4>手机号<span>*</span> : </h4>
+							<input type="text" name="tel" id="mobilePhone" class="mobile" value="{{ old('tel') }}"/>
+							</span>
+                        <span class="status"></span>
+                    </div>
+                    <div class="row">
+							<span>
+								<h4>通讯地址<span>*</span> : </h4>
+							<input type="text" name="address" id="address" class="address"
+                                   value="{{ old('address') }}"/>
+							</span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>党支部摘要<span>*</span> : </h4>
+                        <div>
                         <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary"
                                   required>{{ old('summary') }}</textarea>
+                        </div>
+                        <div class="status"></div>
                     </div>
                     <div class="row">
-                        <h4>党支部情况介绍<span>*</span> :</h4>
-                        <div id="editor">
+                        <span>
+                            <h4>党支部情况介绍<span>*</span> :</h4>
+                            <div id="editor">
                             <textarea id="editor" name="detail" required>
                                 {{ old('detail') ? old('detail') : '如需上传图片，请拖拽图片至此，右键单击已上传图片编辑'}}
                             </textarea>
-                        </div>
+                            </div>
+                        </span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
-                        <h4>党支部认证表<span>*</span> : </h4>
-                        <p style="color: red;">请不要上传大于500KB的图片</p>
-                        <input type="file" name="apply" id="apply" accept="image/*" class="casePreview"
-                               onchange="loadImageFile1()" value="{{ old('apply') }}"/>
-                        <input type="file" style="position: fixed; z-index: -999; display: block;" name="departCertify"
-                               id="departCertify" accept="image/*" class="casePreview" onchange="uploadCertify()"/>
-                        <label for="apply" id="apply-preview">
-                            <span>添加图片</span>
-                        </label>
+							<span>
+								<h4>党支部认证表<span>*</span> : </h4>
+								<input type="file" name="apply" id="departCertify" accept="image/*" class="casePreview"
+                                       onchange="uploadCertify()"/>
+								<label for="departCertify" id="img-preview">
+								<span>添加图片</span>
+								</label>
+							</span>
+                        <span class="status"></span>
                     </div>
                     <div class="submitBtn">
                         <input type="submit" name="submit" id="submit" value="确认创建"/>
@@ -103,6 +133,102 @@
             </div>
         </div>
     </div>
+    {{--<div class="create">--}}
+    {{--<div class="content">--}}
+    {{--<div class="crtDepart">--}}
+    {{--<form action="{{ route('frontend.branch.create') }}" method="post" enctype="multipart/form-data"--}}
+    {{--id="application-form">--}}
+    {{--{!! csrf_field() !!}--}}
+    {{--<div class="uploadImg">--}}
+    {{--<input type="file" accept="image/*" name="avatar" id="headImg" onchange="loadImageFile()"/>--}}
+    {{--<label for="headImg">--}}
+    {{--<div class="imgBox" id="imgBox">--}}
+
+    {{--</div>--}}
+    {{--</label>--}}
+    {{--<h4>党支部配图<span>*</span> : </h4>--}}
+    {{--<p style="color: red;">请不要上传大于500KB的图片</p>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>党支部名称<span>*</span> : </h4>--}}
+    {{--<input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"--}}
+    {{--required value="{{ old('name') }}"/>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>党支部类型:</h4>--}}
+    {{--<div class="radioitem">--}}
+    {{--<input type="radio" name="type" id="teashow" value="教师党支部" readonly--}}
+    {{--@if($user->type == "教师") checked @endif/><label for="teashow">教师党支部</label>--}}
+    {{--</div>--}}
+    {{--<div class="radioitem">--}}
+    {{--<input type="radio" name="type" id="stushow" value="学生党支部" readonly--}}
+    {{--@if($user->type == "学生") checked @endif/><label for="stushow">学生党支部</label>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>所在学校<span>*</span> : </h4>--}}
+    {{--<input type="text" name="university" id="school" class="school" readonly--}}
+    {{--value="{{ $user->university }}" required/>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>党支部书记名称<span>*</span> : </h4>--}}
+    {{--<input type="text" name="secretary" id="leader" class="leader" readonly--}}
+    {{--value="{{ $user->name }}" required/>--}}
+    {{--<span class="note">默认创建党支部者为党支部书记</span>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>党支部书记简介<span>*</span> : </h4>--}}
+    {{--<textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary"--}}
+    {{--required>{{ old('secretary_summary') }}</textarea>--}}
+    {{--<p class="count">还可以输入<span id="word">100</span>字</p>--}}
+
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>党员人数<span>*</span> : </h4>--}}
+    {{--<input type="text" name="total_membership" id="people" class="people"--}}
+    {{--value="{{ old('total_membership') }}" required/>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>手机号<span>*</span> : </h4>--}}
+    {{--<input type="text" name="tel" id="mobilePhone" class="mobile" value="{{ old('tel') }}"--}}
+    {{--required/>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>通讯地址<span>*</span> : </h4>--}}
+    {{--<input type="text" name="address" id="address" class="address" value="{{ old('address') }}"--}}
+    {{--required/>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>党支部摘要<span>*</span> : </h4>--}}
+    {{--<textarea class="introduce" oninput="wordChange2()" id="summary" name="summary"--}}
+    {{--required>{{ old('summary') }}</textarea>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>党支部情况介绍<span>*</span> :</h4>--}}
+    {{--<div id="editor">--}}
+    {{--<textarea id="editor" name="detail" required>--}}
+    {{--{{ old('detail') ? old('detail') : '如需上传图片，请拖拽图片至此，右键单击已上传图片编辑'}}--}}
+    {{--</textarea>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="row">--}}
+    {{--<h4>党支部认证表<span>*</span> : </h4>--}}
+    {{--<p style="color: red;">请不要上传大于500KB的图片</p>--}}
+    {{--<input type="file" name="apply" id="apply" accept="image/*" class="casePreview"--}}
+    {{--onchange="loadImageFile1()" value="{{ old('apply') }}"/>--}}
+    {{--<input type="file" style="position: fixed; z-index: -999; display: block;" name="departCertify"--}}
+    {{--id="departCertify" accept="image/*" class="casePreview" onchange="uploadCertify()"/>--}}
+    {{--<label for="apply" id="apply-preview">--}}
+    {{--<span>添加图片</span>--}}
+    {{--</label>--}}
+    {{--</div>--}}
+    {{--<div class="submitBtn">--}}
+    {{--<input type="submit" name="submit" id="submit" value="确认创建"/>--}}
+    {{--</div>--}}
+    {{--</form>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
     <!-- createDepart -->
 @endsection
 
@@ -123,12 +249,15 @@
             if (!str) {
                 e.preventDefault();
                 alertMsg += str == "" ? '请填写简介' : '';
-                sweetAlert('请上传图片', alertMsg, 'error');
+                sweetAlert('抱歉，您的输入有误', alertMsg, 'error');
             }
-        })
+        });
+        $.validator.setDefaults({
+            ignore: []
+        });
         $.validator.addMethod("mobile", function (value, element) {
             var length = value.length;
-            var mobilePhone = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
+            var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
             return (length == 11 && mobile.exec(value)) ? true : false;
         }, "请正确填写您的手机号码");
         $("#signupform").validate({
@@ -139,10 +268,7 @@
                 name: {
                     required: true
                 },
-                university: {
-                    required: true
-                },
-                secretary: {
+                type: {
                     required: true
                 },
                 summary: {
@@ -168,26 +294,22 @@
             },
             messages: {
                 avatar: {
-                    required: "(*请上传配图)"
+                    required: "*请上传配图"
                 },
                 name: {
+                    required: "*请选择支部类型"
+                },
+                type: {
                     required: "*党支部名称不能为空"
                 },
-
-                university: {
-                    required: "*所在学校不能为空"
-                },
-                secretary: {
-                    required: "(*党支部书记名称不能为空)"
-                },
                 summary: {
-                    required: "(*此处不能为空)"
+                    required: "*请填写党支部摘要"
                 },
                 secretary_summary: {
-                    required: "*党员人数不能为空"
+                    required: "*请填写支部书记简介"
                 },
                 total_membership: {
-                    required: "*党员人数不能为空"
+                    required: "*请填写党员人数"
                 },
                 tel: {
                     required: "*请输入手机号",
@@ -228,13 +350,16 @@
         }
         /*获取元素实际样式-end*/
         function wordChange() {
-            var intro = document.getElementById('intro');
+            var intro = document.getElementById('introduce');
             var word = document.getElementById('word');
+            var tips = document.getElementById('introduce-note');
             if (intro.value.length >= 100) {
                 swal("抱歉", "超出字符限制", "error");
-                word.innerHTML = 0;
+//                word.innerHTML = 0;
+                tips.innerHTML = "<b style='color:red;'>已超出最大字数限制</b>";
+            } else {
+                tips.innerHTML = '还可以输入<span id="word">' + (100 - intro.value.length) + '</span>字';
             }
-            word.innerHTML = (100 - intro.value.length);
         }
 
         var uploadCertify = (function () {

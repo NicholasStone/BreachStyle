@@ -2,6 +2,7 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
+    {!! Html::style(asset('css/frontend/formcheck.css')) !!}
 @endsection
 
 @section('content')
@@ -24,13 +25,19 @@
                     {!! csrf_field() !!}
                     <div class="row">
                         <h4>工作案例名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="caseName" placeholder="请输入案例名称" class="caseName"
-                               value="{{ old('name') or '' }}" required title="请填写案例名称"/>
+                        <div>
+                            <input type="text" name="name" id="caseName" placeholder="请输入案例名称" class="caseName"
+                                   value="{{ old('name') or '' }}" title="请填写案例名称"/>
+                        </div>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>工作案例简介<span>*</span> : </h4>
-                        <textarea class="caseIntroduce" name="summary" required placeholder="请不要超过300字" maxlength="300"
+                        <div>
+                        <textarea class="caseIntroduce" name="summary" placeholder="请不要超过300字" maxlength="300"
                                   title="请填写案例简介">{{ old('summary') or '' }}</textarea>
+                        </div>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>工作案例说明<span>*</span> :</h4>
@@ -41,7 +48,9 @@
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
-                    @include("frontend.party.common.validate")
+                    <div class="submitBtn">
+                        <input type="submit" name="submit" id="submit" value="确认提交"/>
+                    </div>
                 </form>
             </div>
         </div>
@@ -57,4 +66,34 @@
             filebrowserUploadUrl: '{{ route("frontend.case.image") }}?_token={{ csrf_token() }}'
         });
     </script>
+    @include('frontend.party.common.validate',[
+    'rules' => [
+        'apply' => [
+            'required'=>true,
+        ],
+        'img' => [
+            'required'=>true,
+        ],
+        'name' => [
+            'required'=>true,
+        ],
+        'summary' => [
+            'required'=>true,
+        ],
+    ],
+    'messages'=>[
+        'apply' => [
+            'required'=>"(*请上传报名表)",
+        ],
+        'img' => [
+            'required'=>"(*请上传预览图)",
+        ],
+        'name' => [
+            'required'=>"*（案例名称不能为空）",
+        ],
+        'summary' => [
+            'required'=>"*（案例简介不能为空）",
+        ],
+    ]
+])
 @endsection

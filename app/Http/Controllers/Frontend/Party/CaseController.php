@@ -55,6 +55,7 @@ class CaseController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'    => 'required|unique:applications,name',
             'summary' => 'required|max:300',

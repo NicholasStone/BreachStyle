@@ -2,8 +2,7 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
-    {!! Html::style("//cdn.bootcss.com/webuploader/0.1.1/webuploader.css") !!}
-    {!! Html::style(asset('css/frontend/uploadstyle.css')) !!}
+    {!! Html::style(asset('css/frontend/formcheck.css')) !!}
 @endsection
 
 @section("content")
@@ -22,46 +21,28 @@
             </ul>
 
             <div class="crtDepart">
-                <form method="post" action="{{ route('frontend.course.store') }}" enctype="multipart/form-data"
-                      id="application-form">
-                    {!! csrf_field() !!}
-                    <input type="text" name="video_token" id="video-token" readonly hidden value="{{ $video_token }}">
+                <form id="application-form" method="post" action="{{ route('frontend.course.store') }}"
+                      enctype="multipart/form-data">
+                    {{ csrf_field() }}
                     <div class="row">
-                        <h4>微党课名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="courseName" placeholder="请输入微党课名称" class="courseName"
-                               required title="请填写微党课名称" value="{{ old('name') }}"/>
+							<span>
+								<h4>微党课名称<span>*</span> : </h4>
+								<input type="text" name="name" id="courseName" placeholder="请输入微党课名称" class="courseName"
+                                       value="{{ old('name') }}"/>
+							</span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
-                        <h4>微党课讲师<span>*</span> : </h4>
-                        <input type="text" name="course_lecturer" id="courseTeacher" class="courseTeacher" required
-                               title="请填写微党课讲师" value="{{ old('course_lecturer') }}"/>
-                        <span class="note">(默认为视频上传者)</span>
+							<span>
+							<h4>微党课讲师<span>*</span> : </h4>
+							<input type="text" id="courseTeacher" class="courseTeacher"
+                                   value="{{ old('course_lecturer') }}" name="course_lecturer"/>
+							<span class="note">(默认为视频上传者)</span>
+							</span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>上传课程视频<span>*</span> :</h4>
-                        <p style="color: red">视频格式为MP4，且大小必须小于100M，选择文件后请点击右侧的 " 开始上传 " 按钮</p>
-                        <div id="wrapper">
-                            <div id="container">
-                                <div id="uploader">
-                                    <div class="queueList">
-                                        <div id="dndArea" class="placeholder">
-                                            <div id="filePicker"></div>
-                                        </div>
-                                    </div>
-                                    <div class="statusBar" style="display:none;">
-                                        <div class="progress">
-                                            <span class="text">0%</span>
-                                            <span class="percentage"></span>
-                                        </div>
-                                        <div class="info"></div>
-                                        <div class="btns">
-                                            <div id="filePicker2"></div>
-                                            <div class="uploadBtn">开始上传</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
@@ -72,7 +53,9 @@
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
-                    @include("frontend.party.common.validate")
+                    <div class="submitBtn">
+                        <input type="submit" name="submit" id="submit" value="确认提交"/>
+                    </div>
                 </form>
             </div>
         </div>
@@ -80,9 +63,7 @@
 @endsection
 
 @section("after-scripts-end")
-    {!! Html::script('//cdn.bootcss.com/webuploader/0.1.1/webuploader.min.js') !!}
     <script src="/vendor/ckeditor/ckeditor.js"></script>
-    @include('frontend.party.common.uploadVideo', ['server'=> route('frontend.course.upload'), 'required' => true])
     <script>
         CKEDITOR.replace('summary', {
             language: 'zh-cn',
@@ -90,5 +71,34 @@
             filebrowserUploadUrl: '{{ route("frontend.course.image") }}?_token={{ csrf_token() }}'
         });
     </script>
-
+    @include('frontend.party.common.validate',[
+        'rules' => [
+            'apply' => [
+                'required'=>true,
+            ],
+            'img' => [
+                'required'=>true,
+            ],
+            'name' => [
+                'required'=>true,
+            ],
+            'course_lecturer' => [
+                'required'=>true,
+            ],
+        ],
+        'messages'=>[
+            'apply' => [
+                'required'=>"(*请上传报名表)",
+            ],
+            'img' => [
+                'required'=>"(*请上传预览图)",
+            ],
+            'name' => [
+                'required'=>"*（微党课名称不能为空）",
+            ],
+            'course_lecturer' => [
+                'required'=>"*（微党课讲师不能为空）",
+            ],
+        ]
+    ])
 @endsection

@@ -24,27 +24,31 @@
                                          onclick="$('#cover-img').click()">
                                 </div>
                             </label>
-                            <span style="color:red;">图片大小不要超过500KB</span>
+                            <div style="color:red;margin-top: 50px;">
+                                图片大小不要超过500KB 。并且尺寸不大于 1000px &times; 1500px。
+                            </div>
                         </div>
                     </div>
                     <div class="infoListRight">
-                        <p>真实姓名<input class="input" type="text" name="name" id="realName"
-                                      value="{{ $user->name }}"/><span>*</span></p>
-                        <p>身份证号<input class="input" type="text" name="id_number" id="idnumber"
-                                      value="{{ $user->id_number }}"/><span>*</span>
-                            <small style="font-size: 0.5em">出于保护隐私目的不显示身份证号，如需修改请直接输入信息</small>
-                        </p>
+                        <div class="Row">
+                            <p>
+                                真实姓名<input type="text" name="name" id="name" value="{{ $user->name  }}"/><span>*</span>
+                            </p>
+                        </div>
+                        <div class="Row">
+                            <p>身份证号<input type="text" name="id_number" id="id_number"/><span>*</span>
+                            </p>
+                        </div>
+                        <small>处于保护隐私目的身份证号不在此显示，如需修改请写入新身份证号即可</small>
                         @unless($user->branch_id)
                             <div class="row">
                                 <p>用户类型</p>
                                 <div class="radioitem">
-                                    <input class="input" type="radio" name="type" id="teashow" value="教师"
-                                           @if($user->type == '教师') checked @endif/>
+                                    <input class="input" type="radio" name="type" id="teashow" value="教师"/>
                                     <label for="teashow">教师</label>
                                 </div>
                                 <div class="radioitem">
-                                    <input class="input" type="radio" name="type" id="stushow" value="学生"
-                                           @if($user->type == '学生') checked @endif/>
+                                    <input class="input" type="radio" name="type" id="stushow" value="学生"/>
                                     <label for="stushow">学生</label>
                                 </div>
                             </div>
@@ -59,29 +63,38 @@
                                     <select class="form-control input" id="city1" name="city"></select>
                                 </div>
                             </div>
-                            <p><label for="school">所在大学</label>
-                                <select name="university" id="school"
-                                        style="width: 120px;height: 32px;margin-left: 15px"
-                                        class="input">
-                                </select><span>*</span>
-                            </p>
+                            <div class="Row">
+                                <p>
+                                    所在高校
+                                    <select name="university" id="school"
+                                            style="width: 120px;height: 32px;margin-left: 15px" class="input">
+                                    </select><span>*</span>
+                                </p>
+                            </div>
                         @endunless
-                        <p>
-                            <label for="tel_work">办公电话</label>
-                            <input class="input" type="tel" name="tel_work" id="tel_work"
-                                   value="{{ $user->tel_work }}"/><span>*</span>
-                            <small>可填写自己常用的手机号</small>
-                        </p>
-                        <p>
-                            <label for="tel">绑定手机</label>
-                            <input class="input" type="tel" name="tel" id="tel"
-                                   value="{{ $user->tel }}"/><span>*</span>
-                        </p>
-                        <p>
-                            <label for="email">绑定邮箱</label>
-                            <input class="input" type="email" name="email" id="email"
-                                   value="{{ $user->email }}"/><span>*</span>
-                        </p>
+                        <div class="Row">
+                            <p>
+                                办公电话
+                                <input type="text" name="tel_work" id="telephone"
+                                       value="{{ $user->tel_work }}"/><span>*</span>
+                            </p>
+                            <p class="status"></p>
+                        </div>
+                        <small>可填写自己常用的手机号</small>
+                        <div class="Row">
+                            <p>
+                                绑定手机
+                                <input type="text" name="tel" id="mobilephone" value="{{ $user->tel }}"/><span>*</span>
+                            </p>
+                            <p class="status"></p>
+                        </div>
+                        <div class="Row">
+                            <p>
+                                绑定邮箱
+                                <input type="text" name="email" id="email" value="{{ $user->email }}"/><span>*</span>
+                            </p>
+                            <p class="status"></p>
+                        </div>
                         <input type="submit" id="submit" class="submitBtn" value="提交"/>
                     </div>
                 </form>
@@ -99,6 +112,7 @@
         $(function () {
             $("#province1 option[value={{ $user->province }}]").attr('selected', 'selected').trigger("change");
             $("#city1 option[value={{ $user->city }}]").attr('selected', 'selected');
+            $("input[name=type][value={{ $user->type }}]").attr('checked', 'checked');
             getUniversity();
         });
         province.on("change", function () {
