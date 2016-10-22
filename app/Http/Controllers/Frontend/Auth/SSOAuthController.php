@@ -77,6 +77,8 @@ class SSOAuthController extends Controller
 
     public function complete(Request $request)
     {
+        return redirect()->route('sso.fill')->withInput();
+
         if (Session::has('id')) {
             return redirect()->back();
         }

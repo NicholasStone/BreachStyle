@@ -1,0 +1,24 @@
+.create .content .crtDepart .row label.error{
+	font-family: "微软雅黑";
+    font-size: 0.675em;
+    color: #CC2C1e;
+}
+#picture label{
+	font-family: "微软雅黑";
+    font-size: 0.675em;
+    color: #CC2C1e;
+}
+.Row .error{
+	font-family: "微软雅黑";
+    font-size: 0.675em;
+    color: #CC2C1e;
+}
+.head{
+	display: inline-block;
+    font-family: "微软雅黑";
+    font-size: 0.675em;
+    color: #CC2C1e;
+    margin-top: 11%;
+    text-align: center;
+    width: 47%;
+}

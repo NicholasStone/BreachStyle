@@ -281,7 +281,7 @@ class UserController extends Controller
                 'E-mail'  => $user->email,
                 '电话'      => $user->tel,
                 '工作电话'    => $user->tel_work,
-                '所在支部名称'  => $user->branch->name,
+                '所在支部名称'  => isset($user->branch->name) ? $user->branch->name : "未加入支部",
             ]);
         }
 

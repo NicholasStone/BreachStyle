@@ -2,7 +2,6 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
-    {{--@include('UEditor::head')--}}
 @endsection
 
 @section("content")
@@ -91,6 +90,8 @@
                         <p style="color: red;">请不要上传大于500KB的图片</p>
                         <input type="file" name="apply" id="apply" accept="image/*" class="casePreview"
                                onchange="loadImageFile1()" value="{{ old('apply') }}"/>
+                        <input type="file" style="position: fixed; z-index: -999; display: block;" name="departCertify"
+                               id="departCertify" accept="image/*" class="casePreview" onchange="uploadCertify()"/>
                         <label for="apply" id="apply-preview">
                             <span>添加图片</span>
                         </label>
@@ -107,6 +108,7 @@
 
 @section("after-scripts-end")
     <script src="/vendor/ckeditor/ckeditor.js"></script>
+    {{ Html::script('//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.js') }}
     <script>
         CKEDITOR.replace('detail', {
             language: 'zh-cn',
@@ -114,48 +116,135 @@
             filebrowserUploadUrl: '{{ route("frontend.branch.image") }}?_token={{ csrf_token() }}'
         });
         $("#application-form").submit(function (e) {
-            var apply = $("#apply");
-            var avatar = $('#headImg');
             var str = CKEDITOR.instances.editor.getData();
             str = str.replace("<br />", "");
             str = str.replace("<br>", "");
             str = str.replace('/(^/s*)|(/s*$)/g', "");
-            if (!(apply.val() && avatar.val() && str)) {
+            if (!str) {
                 e.preventDefault();
-                var alertMsg = apply.val() == "" ? '请上传认证表' : '';
-                alertMsg += avatar.val() == "" ? '\n请上传支部配图' : "";
-                alertMsg += str == "" ? '\n请填写说明或简介' : '';
+                alertMsg += str == "" ? '请填写简介' : '';
                 sweetAlert('请上传图片', alertMsg, 'error');
             }
         })
-        function wordChange1() {
+        $.validator.addMethod("mobile", function (value, element) {
+            var length = value.length;
+            var mobilePhone = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
+            return (length == 11 && mobile.exec(value)) ? true : false;
+        }, "请正确填写您的手机号码");
+        $("#signupform").validate({
+            rules: {
+                avatar: {
+                    required: true
+                },
+                name: {
+                    required: true
+                },
+                university: {
+                    required: true
+                },
+                secretary: {
+                    required: true
+                },
+                summary: {
+                    required: true
+                },
+                secretary_summary: {
+                    required: true
+                },
+                total_membership: {
+                    required: true
+                },
+                tel: {
+                    required: true,
+                    minlength: 11,
+                    mobile: true
+                },
+                address: {
+                    required: true
+                },
+                apply: {
+                    required: true
+                }
+            },
+            messages: {
+                avatar: {
+                    required: "(*请上传配图)"
+                },
+                name: {
+                    required: "*党支部名称不能为空"
+                },
+
+                university: {
+                    required: "*所在学校不能为空"
+                },
+                secretary: {
+                    required: "(*党支部书记名称不能为空)"
+                },
+                summary: {
+                    required: "(*此处不能为空)"
+                },
+                secretary_summary: {
+                    required: "*党员人数不能为空"
+                },
+                total_membership: {
+                    required: "*党员人数不能为空"
+                },
+                tel: {
+                    required: "*请输入手机号",
+                    minlength: "*确认手机不能小于11个字符",
+                    mobile: "*请正确填写您的手机号码"
+                },
+                address: {
+                    required: "*通讯地址不能为空"
+                },
+                apply: {
+                    required: '*请选择认证表'
+                }
+            },
+            // the errorPlacement has to take the table layout into account
+            errorPlacement: function (error, element) {
+                if (element.is(":radio"))
+                    error.appendTo(element.parent().next().next());
+                else if (element.is(":checkbox"))
+                    error.appendTo(element.next());
+                else
+                    error.appendTo(element.parent().next());
+            },
+            // set this class to error-labels to indicate valid fields
+            success: function (label) {
+                // set   as text for IE
+                label.html(" ").addClass("checked");
+            },
+            highlight: function (element, errorClass) {
+                $(element).parent().next().find("." + errorClass).removeClass("checked");
+            }
+        });
+        /*表单验证-end*/
+        /*获取元素实际样式-start*/
+        function imgAttr(imgUrl) {
+            var tmpImg = new Image;
+            tmpImg.src = imgUrl;
+            return tmpImg;
+        }
+        /*获取元素实际样式-end*/
+        function wordChange() {
             var intro = document.getElementById('intro');
             var word = document.getElementById('word');
             if (intro.value.length >= 100) {
-                swal("抱歉","超出字符限制","error");
+                swal("抱歉", "超出字符限制", "error");
                 word.innerHTML = 0;
             }
             word.innerHTML = (100 - intro.value.length);
         }
 
-        function wordChange2() {
-            var intro = document.getElementById('intro');
-            var word = document.getElementById('word');
-            if (intro.value.length >= 100) {
-                swal("抱歉","超出字符限制","error");
-                word.innerHTML = 0;
-            }
-            word.innerHTML = (100 - intro.value.length);
-        }
-
-        var loadImageFile1 = (function () {
+        var uploadCertify = (function () {
             if (window.FileReader) {
                 var oPreviewImg = null,
                         oFReader = new window.FileReader(),
                         rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
                 oFReader.onload = function (oFREvent) {
                     if (!oPreviewImg) {
-                        var newPreview = document.getElementById("apply-preview");
+                        var newPreview = document.getElementById("img-preview");
                         newPreview.innerHTML = "";
                         oPreviewImg = document.createElement('img');
                         newPreview.appendChild(oPreviewImg);
@@ -164,19 +253,29 @@
                     oPreviewImg.src = oFREvent.target.result;
                 };
                 return function () {
-                    var aFiles = document.getElementById("apply").files;
-                    if (aFiles.length === 0) {
-                        return;
+                    var aFiles = document.getElementById("departCertify").files;
+                    var temURL = window.URL.createObjectURL(aFiles[0]);
+                    var tmp = imgAttr(temURL);
+                    tmp.onload = function () {
+                        var width = tmp.width;
+                        var height = tmp.height;
+                        if (width > 1000 && height > 80) {
+                            swal("抱歉", "您选择的图片尺寸过大！(请选择宽度小于1000像素，高度小于1500像素的图片！)", 'error');
+                            return false;
+                        }
+                        if (aFiles.length === 0) {
+                            return;
+                        }
+                        if (!rFilter.test(aFiles[0].type)) {
+                            swal("抱歉", "您必须选择一个文件", "error");
+                            return;
+                        }
+                        if ((aFiles[0].size / 1024).toFixed(2) > 500) {
+                            swal("抱歉", "您选择的图片大于500kb，请重新选择。", "error");
+                            return;
+                        }
+                        oFReader.readAsDataURL(aFiles[0]);
                     }
-                    if (!rFilter.test(aFiles[0].type)) {
-                        swal("抱歉","您必须选择一个文件","error");
-                        return;
-                    }
-                    if ((aFiles[0].size / 1024).toFixed(2) > 500) {
-                        swal("抱歉","您选择的图片大于500kb，请重新选择。","error");
-                        return;
-                    }
-                    oFReader.readAsDataURL(aFiles[0]);
                 }
             }
         })();
@@ -197,18 +296,24 @@
                 };
                 return function () {
                     var aFiles = document.getElementById("headImg").files;
-                    if (aFiles.length === 0) {
-                        return;
+                    var temURL = window.URL.createObjectURL(aFiles[0]);
+                    var tmp = imgAttr(temURL);
+                    tmp.onload = function () {
+                        var width = tmp.width;
+                        var height = tmp.height;
+                        if (width > 1000 && height > 1500) {
+                            swal("抱歉", "您选择的图片尺寸过大！(请选择宽度小于1000像素，高度小于1500像素的图片！)", 'error');
+                            return false;
+                        }
+                        if (aFiles.length === 0) {
+                            return;
+                        }
+                        if (!rFilter.test(aFiles[0].type)) {
+                            alert("你必须选择一个图片!");
+                            return;
+                        }
+                        oFReader.readAsDataURL(aFiles[0]);
                     }
-                    if (!rFilter.test(aFiles[0].type)) {
-                        swal("抱歉","您必须选择一个文件","error");
-                        return;
-                    }
-                    if ((aFiles[0].size / 1024).toFixed(2) > 500) {
-                        swal("抱歉","您选择的图片大于500kb，请重新选择。","error");
-                        return;
-                    }
-                    oFReader.readAsDataURL(aFiles[0]);
                 }
             }
         })();

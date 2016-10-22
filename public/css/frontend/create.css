@@ -71,7 +71,7 @@
 	width: 65%;
 	float: left;
 	margin-left: 3%;
-	font-size: 1em;
+	font-size: .75em;
 	color: #363636;
 }
 .create .content .crtDepart .row input.departName,.create .content .crtDepart .row input.courseName{
@@ -92,9 +92,9 @@
 .create .content .crtDepart .row .casePreview{
 	display: none;
 }
-.create .content .crtDepart .row label{
+/*.create .content .crtDepart .row label{
 	float: left;
-}
+}*/
 .create .content .crtDepart .row .radioitem label{
 	float: none;
 	font-size: .75em;
@@ -116,23 +116,24 @@
 	text-indent: 1em;
 }
 .create .content .crtDepart .row input.address{
-	width: 80%;
+	width: 70%;
 	height: 34px;
 	text-indent: 1em;
 }
 .create .content .crtDepart .row textarea{
-	width: 80%;
+	width: 70%;
 	height: 120px;
 	resize: none;
 	border: 1px solid #D6BEC1;
 	float: left;
+	text-indent: 1%;
 }
 .create .content .crtDepart .row .tips{
 	font-size: .75em;
 	color: #a3a3a3;
 	position: absolute;
 	bottom: 5px;
-	right: 8%;
+	right: 22%;
 }
 .create .content .crtDepart .row .tips span{
 	color: #E43E2F;

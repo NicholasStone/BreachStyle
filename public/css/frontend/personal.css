@@ -246,18 +246,14 @@
 	font-size: .875em;
 	margin: 12px 0;
 }
-
-
-
 .bindinfo{
 	width: 100%;
 }
 .bindinfo .content{
-	width: 640px;
+	width: 70%;
 	padding: 40px 0 80px 50px;
 	margin: 40px auto;
 	overflow: hidden;
-	background: url("/public/img/infoBg.jpg") center center no-repeat;
 	background-size: 100% 100%;
 }
 .bindinfo .content .infoList{
@@ -308,15 +304,10 @@
 	width: 55%;
 	float: left;
 }
-.bindinfo .content .infoList .infoListRight input{
-	width: 65%;
-}
-.bindinfo .content .infoList .infoListRight input[type=radio]{
-	width: 30%;
-}
 .bindinfo .content .infoList p{
 	width: 100%;
 	line-height: 48px;
+	display: inline;
 }
 .bindinfo .content .infoList .row{
 	width: 100%;
@@ -360,6 +351,19 @@
 	color: #ffffff;
 	margin-top: 32px;
 }
+
+
+
+
+
+@media (max-width:720px) {
+	.bindinfo .content{
+		padding: 50px 0 50px 5%;
+		width: 90%;
+	}
+}
+
+
 @media (max-width: 640px) {
 	.bindinfo .content{
 		width: 95%;
@@ -380,3 +384,38 @@
 		margin-left: 40%;
 	}
 }
+@media (max-width: 540px){
+	.bindinfo .content .infoList .infoListLeft{
+		width: 100%;
+	}
+	.bindinfo .content .infoList .infoListLeft .uploadImg{
+		width: 26%;
+		padding-top: 26%;
+		margin: 0px auto 40px;
+	}
+	.bindinfo .content .infoList .infoListRight{
+		width: 100%;
+	}
+	.bindinfo .content .infoList p{
+		text-align: left;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
