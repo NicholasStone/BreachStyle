@@ -98,6 +98,7 @@ class CourseController extends Controller
 
     public function uploadCallback(Request $request)
     {
+        Redis::setex('1',3600,json_encode($request->all()));
         $lifetime          = Carbon::now()->addHour();
         $tags              = [];
         $tags['strDataID'] = $request->get('strDataID');
