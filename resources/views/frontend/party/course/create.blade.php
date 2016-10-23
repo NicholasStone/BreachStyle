@@ -43,7 +43,8 @@
                     </div>
                     <div class="row">
                         <h4>上传课程视频<span>*</span> :</h4>
-                        <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl={{ route('frontend.course.callback') }}"
+                        {{--<iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl={{ route('frontend.course.callback') }}"--}}
+                        <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl=q.nichospace.com/callback"
                                 width="900" height="300" frameborder="none"></iframe>
                     </div>
                     <div class="row">
