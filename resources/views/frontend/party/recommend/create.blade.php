@@ -1,4 +1,4 @@
-cfrec@extends("frontend.layouts.master")
+@extends("frontend.layouts.master")
 
 @section("after-styles-end")
     {!! Html::style('css/frontend/create.css') !!}
