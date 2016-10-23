@@ -2,6 +2,12 @@
 <html lang="en" xmlns:wb=“http://open.weibo.com/wb”>
 <head>
     @yield('fit')
+    <script>
+        if (window.attachEvent){
+            alert('请使用高版本IE或火狐浏览器');
+            window.location.href = "http://www.firefox.com.cn/";
+        }
+    </script>
     <meta charset="utf-8"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
