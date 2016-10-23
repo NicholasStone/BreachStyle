@@ -26,7 +26,7 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $update = $request->only([
-            'name', 'id_number', 'tel_work', 'tel', 'email',
+            'name', 'id_number', 'tel_work', 'tel', 'email', 'province', 'university', 'city'
         ]);
         if ($request->hasFile('avatar')) {
             $update['avatar'] = $this->saveImage($request->file('avatar'), "Application/Case");
