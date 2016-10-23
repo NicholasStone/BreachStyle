@@ -100,7 +100,7 @@ SCRIPT;
 
             return view($view, $application)->with(compact("video_token"));
         } else {
-            alert()->error("您现在不能修改成功信息");
+            alert()->error("您现在不能修改成果信息");
 
             return redirect()->back();
         }
