@@ -60,14 +60,13 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+//        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'            => 'required|unique:applications,name',
             'summary'         => 'required|max:370',
             'course_lecturer' => 'required|max:20',
             'apply'           => 'required|max:512',
             'img'             => 'required|max:512',
-            'video_token'     => 'required',
         ], [
             'name.unique' => '此名称已存在',
             'summary.max' => '简介请不要多于300字',
@@ -79,17 +78,17 @@ class CourseController extends Controller
         if ($validate->fails()) {
             return $this->validateFailed($validate);
         }
-        if (!\Session::has('video_path')) {
-            alert()->error('请先上传视频');
-
-            return redirect()->back();
-        }
-
-        if (\Session::get('video_token') != $request->get('video_token')) {
-            alert()->error('请勿非法提交');
-
-            return redirect()->route('frontend.index');
-        }
+//        if (!\Session::has('video_path')) {
+//            alert()->error('请先上传视频');
+//
+//            return redirect()->back();
+//        }
+//
+//        if (\Session::get('video_token') != $request->get('video_token')) {
+//            alert()->error('请勿非法提交');
+//
+//            return redirect()->route('frontend.index');
+//        }
         $apply                = $request->all();
         $apply['img_hash']    = $this->saveImage($request->file('img'), "Application/Course");
         $apply['apply_hash']  = $this->saveImage($request->file('apply'), "Application/Apply");

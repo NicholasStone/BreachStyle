@@ -30,7 +30,6 @@
             </p>
         </div>
         <footer class="anniu">
-            {{--<button class="close-popdown close">关闭</button>--}}
             <p><b id="pop-countdown">5</b>秒后自动关闭</p>
         </footer>
     </div>

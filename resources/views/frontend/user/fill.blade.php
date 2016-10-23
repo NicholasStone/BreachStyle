@@ -15,7 +15,7 @@
                     {!! csrf_field() !!}
                     <div class="infoListLeft">
                         <div class="uploadImg">
-                            <input type="file" style="display: none" accept="image/*"
+                            <input type="file" style="display: none" accept="image/jpeg,image/png"
                                    name="avatar" id="headImg" onchange="loadImageFile()"/>
                             <label for="headImg">
                                 <div class="imgBox" id="imgBox"></div>

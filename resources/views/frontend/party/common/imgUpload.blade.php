@@ -2,7 +2,7 @@
 	<span>
 	<h4>上传报名表<span>*</span> : </h4>
 	<p style="color: red; margin-bottom: 5px">图片大小不要超过500KB ，并且尺寸不大于 1000px &times; 1500px。</p>
-	<input type="file" name="apply" id="apply" accept="image/*" class="casePreview" onchange="loadImageFile1()"/>
+	<input type="file" name="apply" id="apply" accept="image/jpeg,image/png" class="casePreview" onchange="loadImageFile1()"/>
 	<label for="apply" id="apply-preview">
 		<span>添加图片</span>
 		</label>
@@ -14,7 +14,7 @@
 	<span>
 	<h4>上传预览图<span>*</span> : </h4>
 	<p style="color: red; margin-bottom: 5px">图片大小不要超过500KB ，并且尺寸不大于 1000px &times; 1500px。</p>
-	<input type="file" name="img" id="img" accept="image/*" class="casePreview" onchange="loadImageFile2()"/>
+	<input type="file" name="img" id="img" accept="image/jpeg,image/png" class="casePreview" onchange="loadImageFile2()"/>
 	<label for="img" id="img-preview">
 		<span>添加图片</span>
 	</label>

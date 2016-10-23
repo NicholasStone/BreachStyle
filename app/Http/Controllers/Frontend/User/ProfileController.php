@@ -31,6 +31,14 @@ class ProfileController extends Controller
         if ($request->hasFile('avatar')) {
             $update['avatar'] = $this->saveImage($request->file('avatar'), "Application/Case");
         }
+        foreach ($update as $item => $value) {
+            if(empty($update[ $item ])) {
+                unset($update[ $item ]);
+            }
+        }
+//        if (isset($update['id_number']) && empty($update['id_number'])) {
+//            unset($update['id_number']);
+//        }
         $user = User::find(Auth::id());
         $user->update($update);
         alert()->success("信息修改成功");

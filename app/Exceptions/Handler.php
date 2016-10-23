@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Intervention\Image\Exception\NotReadableException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Exceptions\Backend\Access\User\UserNeedsRolesException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
@@ -34,7 +35,7 @@ class Handler extends ExceptionHandler
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
      * @return void
      */
     public function report(Exception $e)
@@ -45,8 +46,8 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception               $e
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
@@ -56,7 +57,8 @@ class Handler extends ExceptionHandler
          * Usually because user stayed on the same screen too long and their session expired
          */
         if ($e instanceof TokenMismatchException) {
-            return redirect()->route('auth.login');
+            alert()->info('您的会话已超时(3分钟)，请重新提交','会话超时')->persistent('关闭');
+            return redirect()->back()->withInput();
         }
 
         /**
@@ -71,6 +73,13 @@ class Handler extends ExceptionHandler
          */
         if ($e instanceof UserNeedsRolesException) {
             return redirect()->route('admin.access.user.edit', $e->userID())->withInput()->withFlashDanger($e->validationErrors());
+        }
+        /**
+         * 图片
+         */
+        if ($e instanceof NotReadableException) {
+            alert()->error("请上传 jpg 或 png 格式图片","无法识别的图片类型")->persistent('关闭');
+            return redirect()->back()->withInput();
         }
 
         return parent::render($request, $e);

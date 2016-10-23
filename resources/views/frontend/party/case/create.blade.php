@@ -25,10 +25,10 @@
                     {!! csrf_field() !!}
                     <div class="row">
                         <h4>工作案例名称<span>*</span> : </h4>
-                        <div>
+                        <span>
                             <input type="text" name="name" id="caseName" placeholder="请输入案例名称" class="caseName"
                                    value="{{ old('name') or '' }}" title="请填写案例名称"/>
-                        </div>
+                        </span>
                         <span class="status"></span>
                     </div>
                     <div class="row">

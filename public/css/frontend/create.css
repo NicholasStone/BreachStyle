@@ -50,10 +50,10 @@
 	margin-top: 32px;
 	position: relative;
 }
-.create .content .crtDepart .row div {
-	display: inline-block;
-	vertical-align: top;
-}
+/*.create .content .crtDepart .row div {*/
+	/*display: inline-block;*/
+	/*vertical-align: top;*/
+/*}*/
 
 .create .content .crtDepart .row h4{
 	color: #818181;
@@ -73,7 +73,7 @@
 	font-size: .75em;
 }
 .create .content .crtDepart .row .notes{
-	width: 65%;
+	width: 60%;
 	float: left;
 	margin-left: 3%;
 	font-size: .75em;

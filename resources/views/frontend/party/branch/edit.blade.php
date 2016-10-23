@@ -2,6 +2,7 @@
 
 @section("after-styles-end")
     {!! Html::style(asset('css/frontend/create.css')) !!}
+    {!! Html::style(asset('css/frontend/formcheck.css')) !!}
 @endsection
 
 @section("content")
@@ -23,9 +24,12 @@
                         <h4>党支部配图<span>*</span> : </h4>
                     </div>
                     <div class="row">
-                        <h4>党支部名称<span>*</span> : </h4>
-                        <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"
-                               required value="{{ $name }}"/>
+                        <div>
+                            <h4>党支部名称<span>*</span> : </h4>
+                            <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"
+                                   required value="{{ $name }}"/>
+                        </div>
+                        <div class="status"></div>
                     </div>
                     <div class="row">
                         <h4>党支部类型:</h4>
@@ -37,30 +41,46 @@
                             <input type="radio" name="type" id="stushow" value="学生党支部" readonly
                                    @if($type == "学生党支部") checked @endif/><label for="stushow">学生党支部</label>
                         </div>
+                        <div class="status"></div>
                     </div>
                     <div class="row">
                         <h4>党支部书记简介<span>*</span> : </h4>
+                        <span>
                         <textarea class="introduce" oninput="wordChange1()" id="intro" name="secretary_summary"
                                   style="width: 50%" required>{{ $secretary_summary }}</textarea>
+                            </span>
+                        <span class="status"></span>
                         <p class="count">还可以输入<span id="word">100</span>字</p>
                     </div>
                     <div class="row">
                         <h4>党员人数<span>*</span> : </h4>
+                        <span>
                         <input type="text" name="total_membership" id="people" class="people"
                                value="{{ $total_membership }}" required/>
+                            </span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>手机号<span>*</span> : </h4>
+                        <span>
                         <input type="text" name="tel" id="mobilePhone" class="mobile" value="{{ $tel }}" required/>
+                            </span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>通讯地址<span>*</span> : </h4>
+                        <span>
                         <input type="text" name="address" id="address" class="address" value="{{ $address }}" required/>
+                            </span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>党支部摘要<span>*</span> : </h4>
+                        <span>
                         <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary"
                                   required>{{ $summary }}</textarea>
+                            </span>
+                        <span class="status"></span>
                     </div>
                     <div class="row">
                         <h4>党支部情况介绍<span>*</span> :</h4>
@@ -112,17 +132,17 @@
             }
             return url;
         }
-        $("#application-form").submit(function (e) {
-            var str = CKEDITOR.instances.editor.getData();
-            str = str.replace("<br />", "");
-            str = str.replace("<br>", "");
-            str = str.replace('/(^/s*)|(/s*$)/g', "");
-            if (!(apply.val() && avatar.val() && str)) {
-                e.preventDefault();
-                var alertMsg = str == "" ? '\n请填写简介' : '';
-                sweetAlert('请上传图片', alertMsg, 'error');
-            }
-        });
+//        $("#application-form").submit(function (e) {
+//            var str = CKEDITOR.instances.editor.getData();
+//            str = str.replace("<br />", "");
+//            str = str.replace("<br>", "");
+//            str = str.replace('/(^/s*)|(/s*$)/g', "");
+//            if (!(apply.val() && avatar.val() && str)) {
+//                e.preventDefault();
+//                var alertMsg = str == "" ? '\n请填写简介' : '';
+//                sweetAlert('请上传图片', alertMsg, 'error');
+//            }
+//        });
         function wordChange1() {
             var intro = document.getElementById('intro');
             var word = document.getElementById('word');
@@ -143,4 +163,16 @@
             word.innerHTML = (100 - intro.value.length);
         }
     </script>
+    @include('frontend.party.common.validate',[
+        'rules' => [
+            'tel' => [
+                'mobile' => 'true'
+            ]
+        ],
+        'messages' => [
+            'tel' => [
+                'mobile' => '(请填入正确的手机号)'
+            ]
+        ]
+    ])
 @endsection

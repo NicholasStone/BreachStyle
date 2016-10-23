@@ -2,6 +2,7 @@
 
 @section('after-styles-end')
     {!! Html::style(asset('css/frontend/personal.css')) !!}
+    {!! Html::style(asset('css/frontend/formcheck.css')) !!}
 @endsection
 
 @section("content")
@@ -10,11 +11,11 @@
         <div class="content">
             <div class="infoList">
                 <form method="post" action="{{ route("frontend.user.profile.update") }}" enctype="multipart/form-data"
-                      id="fill-form">
+                      id="application-form">
                     {!! csrf_field() !!}
                     <div class="infoListLeft">
                         <div class="uploadImg">
-                            <input type="file" accept="image/*" name="avatar" id="headImg"
+                            <input type="file" accept="image/jpeg,image/png" name="avatar" id="headImg"
                                    onchange="preview(this,$('#cover'))"
                                    class="input"/>
                             <label for="headImg">
@@ -38,6 +39,7 @@
                         <div class="Row">
                             <p>身份证号<input type="text" name="id_number" id="id_number"/><span>*</span>
                             </p>
+                            <p class="status"></p>
                         </div>
                         <small>处于保护隐私目的身份证号不在此显示，如需修改请写入新身份证号即可</small>
                         @unless($user->branch_id)
@@ -107,7 +109,32 @@
 @section('after-scripts-end')
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.data.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.min.js') !!}
+    @include('frontend.party.common.validate',[
+        "rules" => [
+            'id_number'=> [
+                'isIdCardNo' => true,
+            ],
+            'tel' => [
+                'mobile' => true,
+            ],
+            'tel_work'=>[
+                'isTel' => true
+            ]
+        ],
+        "messages" => [
+            'id_number' => [
+                 'isIdCardNo' => "(请填写正确的身份证号码)",
+            ],
+            'tel' => [
+                'mobile' => "(请填写正确的手机号)",
+            ],
+            'tel_work' => [
+                'isTel'=>"(请填写正确的号码)"
+            ]
+        ]
+    ])
     <script type="text/javascript">
+                @unless($user->branch_id)
         var province = $("#province1");
         $(function () {
             $("#province1 option[value={{ $user->province }}]").attr('selected', 'selected').trigger("change");
@@ -137,18 +164,19 @@
                 }
             });
         };
+                @endunless
         var preview = function (inp, img) {
-            var file = inp.files[0];
-            if (file.size / 1024 > 500) {
-                swal('抱歉', '图片文件大小超过500kB', 'error');
-                inp.value = null;
-                return;
-            }
-            var objUrl = getObjectURL(file);
-            if (objUrl) {
-                img.attr("src", objUrl);
-            }
-        };
+                    var file = inp.files[0];
+                    if (file.size / 1024 > 500) {
+                        swal('抱歉', '图片文件大小超过500kB', 'error');
+                        inp.value = null;
+                        return;
+                    }
+                    var objUrl = getObjectURL(file);
+                    if (objUrl) {
+                        img.attr("src", objUrl);
+                    }
+                };
         function getObjectURL(file) {
             var url = null;
             if (window.createObjectURL != undefined) { // basic

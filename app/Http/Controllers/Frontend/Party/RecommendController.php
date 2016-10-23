@@ -40,7 +40,6 @@ class RecommendController extends Controller
     public function index_m()
     {
         $applications = Application::
-//        select(['id', 'name', 'type', 'branch_id', 'summary', 'fancy', 'img_hash'])
         select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash'])
             ->where('type', "学生党支部推荐展示")
             ->orWhere('type', "教师党支部推荐展示")
