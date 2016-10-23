@@ -1,12 +1,5 @@
 <script>
-    document.onreadystatechange = subSomething;
-
-    function subSomething() {
-        if(document.readyState == "interactive") {
-            browserRedirect();
-        }
-    }
-    function browserRedirect() {
+    document.onreadystatechange = function() {
         var sUserAgent = navigator.userAgent.toLowerCase();
         var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
         var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
@@ -19,5 +12,5 @@
         if(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
             window.location.href="{{ $route }}";
         }
-    }
+    };
 </script>
