@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Frontend\Party;
 
 use Auth;
-use Carbon\Carbon;
-use Dompdf\Image\Cache;
-use Illuminate\Cache\Events\CacheHit;
-use Illuminate\Support\Facades\Redis;
-use phpDocumentor\Reflection\Types\Mixed;
+use Cache;
 use Validator;
+use Carbon\Carbon;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redis;
 use App\Http\Controllers\Common\FileStorage;
 use App\Http\Controllers\Frontend\Party\Traits\ApplicationTrait;
 
