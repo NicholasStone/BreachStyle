@@ -76,6 +76,11 @@ class CourseController extends Controller
         if ($validate->fails()) {
             return $this->validateFailed($validate);
         }
+        if ($this->uploadVerify()) {
+            alert()->error('请上传视频')->persistent('关闭');
+
+            return redirect()->back()->withInput();
+        }
 
         $apply                = $request->all();
         $apply['img_hash']    = $this->saveImage($request->file('img'), "Application/Course");
@@ -95,7 +100,7 @@ class CourseController extends Controller
 
     public function uploadCallback(Request $request)
     {
-        Redis::setex('1',3600,json_encode($request->all()));
+        Redis::setex('1', 3600, json_encode($request->all()));
         $lifetime          = Carbon::now()->addHour();
         $tags              = [];
         $tags['strDataID'] = $request->get('strDataID');

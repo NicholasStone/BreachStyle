@@ -64,9 +64,9 @@ class RecommendController extends Controller
      */
     public function create()
     {
-        $video_token = $this->generateVideoToken();
+        list($strDataID, $strKey) = $this->generateVideoToken();
 
-        return view('frontend.party.recommend.create', compact("video_token"))->withUser(access()->user());
+        return view('frontend.party.recommend.create', compact("strDataID", "strKey"))->withUser(access()->user());
     }
 
     /**
@@ -99,11 +99,8 @@ class RecommendController extends Controller
         $apply['branch_id']   = Auth::user()->branch_id;
         $apply['branch_type'] = Auth::user()->branch_type;
         $apply['university']  = Auth::user()->university;
-        if (\Session::has('video_path') && \Session::get('video_token') == $request->get('video_token')) {
-            dd(1111);
-            $apply['video_hash'] = \Session::get('video_path');
-            \Session::set('video_path', null);
-            \Session::set('video_token', null);
+        if ($this->uploadVerify()) {
+            $apply['video_hash'] = $this->getUpload();
         }
         Application::create($apply);
 
@@ -111,6 +108,7 @@ class RecommendController extends Controller
 
         return redirect()->route('frontend.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -138,7 +136,7 @@ class RecommendController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
