@@ -28,7 +28,7 @@
 
                                         <div class="searchLeft">
                                             <h3>{{ $item->name }}</h3>
-                                            <div>{!! $item->summary !!}</div>
+                                            <p class="search_list">{!! $item->summary !!}</p>
                                             <span><i class="icon iconfont">&#xe60e;</i>{{ $item->fancy }}</span>
                                             <span><i class="icon iconfont">&#xe609;</i>{{ $item->total_comment }}</span>
                                         </div>

@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
-                    @include("frontend.party.common.validate")
+                    {{--@include("frontend.party.common.validate")--}}
                 </form>
             </div>
         </div>

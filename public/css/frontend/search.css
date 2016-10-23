@@ -1,20 +1,23 @@
-.caseList ul li{
-	padding-top: 13%;
+.caseList ul li {
+	padding-top: 17%;
 	border-bottom: 1px solid #eddfc0;
 }
-.caseList ul li a{
+
+.caseList ul li a {
 	width: 90%;
 	height: 84%;
 	position: absolute;
 	top: 8%;
 	left: 5%;
 }
-.caseList ul li a .searchLeft{
+
+.caseList ul li a .searchLeft {
 	width: 67%;
-	height: 100%;
+	height: 53%;
 	float: left;
 }
-.caseList ul li a .searchLeft h3{
+
+.caseList ul li a .searchLeft h3 {
 	width: 90%;
 	height: 2.5em;
 	line-height: 1.25em;
@@ -22,14 +25,15 @@
 	color: #111111;
 	margin-top: 12px;
 	display: -webkit-box;
-    overflow: hidden;
-    white-space: normal !important;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+	overflow: hidden;
+	white-space: normal !important;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
 }
-.caseList ul li a .searchLeft p{
+
+.caseList ul li a .searchLeft p {
 	display: -webkit-box;
 	overflow: hidden;
 	white-space: normal !important;
@@ -37,10 +41,12 @@
 	word-wrap: break-word;
 	-webkit-box-orient: vertical;
 	-webkit-line-clamp: 2;
-	height: 42px;
-	line-height: 21px;
+	/*height: 42px;*/
+	line-height: 22px;
+	padding-top: 4px;
 }
-.caseList ul li a .searchLeft span{
+
+.caseList ul li a .searchLeft span {
 	width: 45%;
 	display: block;
 	color: #A7A7A7;
@@ -48,17 +54,20 @@
 	margin-top: 8px;
 	float: left;
 }
-.caseList ul li a .searchLeft span i{
+
+.caseList ul li a .searchLeft span i {
 	margin-right: 6px;
 }
-.caseList ul li a .searchLeft span.depart{
+
+.caseList ul li a .searchLeft span.depart {
 	width: 90%;
-	margin-top: 12px;
+	margin-top: 6px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
-.caseList ul li a .searchRight{
+
+.caseList ul li a .searchRight {
 	width: 33%;
 	height: 100%;
 	float: left;
@@ -66,7 +75,210 @@
 	padding: 12px;
 	box-sizing: border-box;
 }
-.caseList ul li a .searchRight .searchImgBox img,.caseList ul li a .searchRight .searchImgBox{
+
+.caseList ul li a .searchRight .searchImgBox img,
+.caseList ul li a .searchRight .searchImgBox {
 	width: 100%;
 	height: 100%;
+}
+
+.search_list {
+	overflow: hidden;
+	height: 71%;
+	color: #A7A7A7;
+	font-size: 16px;
+	line-height: 22px;
+}
+
+@media only screen and (min-width: 1120px) and (max-width: 1200px) {
+	.caseList ul li {
+		padding-top: 21%;
+		border-bottom: 1px solid #eddfc0;
+	}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 92px;
+	}
+	.caseList ul li a .searchLeft {
+		width: 67%;
+		height: 58%;
+		float: left;
+	}
+}
+
+@media only screen and (min-width: 1045px) and (max-width: 1119px) {
+	.caseList ul li {
+		padding-top: 19%;
+		border-bottom: 1px solid #eddfc0;
+	}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+
+@media only screen and (min-width: 1000px) and (max-width: 1044px) {
+	.caseList ul li {
+		padding-top: 20%;
+		border-bottom: 1px solid #eddfc0;
+	}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+
+@media only screen and (min-width: 900px) and (max-width: 999px) {
+	.caseList ul li {
+		padding-top: 23%;
+		border-bottom: 1px solid #eddfc0;
+	}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+
+@media only screen and (min-width: 850px) and (max-width: 899px) {
+	.caseList ul li {
+		padding-top: 24%;
+		border-bottom: 1px solid #eddfc0;
+	}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+@media only screen and (min-width: 720px) and (max-width: 849px) {
+	.caseList ul li {
+    padding-top: 28%;
+    border-bottom: 1px solid #eddfc0;
+}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+@media only screen and (min-width: 600px) and (max-width: 719px) {
+	.achievementList .content .nav .NavList ul li a {
+    font-size: 0.875em;
+    padding: 0px 26px;
+    color: #9b927f;
+    display: block;
+}
+	.caseList ul li {
+    padding-top: 34%;
+    border-bottom: 1px solid #eddfc0;
+}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+@media only screen and (min-width: 600px) and (max-width: 623px) {
+	.achievementList .content .nav .NavList ul {
+    width: 107% !important;
+}
+	.achievementList .content .nav .NavList ul li a {
+    font-size: 0.875em;
+    padding: 0px 22px;
+    color: #9b927f;
+    display: block;
+}
+}
+@media only screen and (min-width: 528px) and (max-width: 599px) {
+	.achievementList .content .nav .NavList ul {
+    width: 107% !important;
+}
+	.achievementList .content .nav .NavList ul li a {
+    font-size: 0.875em;
+    padding: 0px 13px;
+    color: #9b927f;
+    display: block;
+}
+	.caseList ul li {
+    padding-top: 38%;
+    border-bottom: 1px solid #eddfc0;
+}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+@media only screen and (min-width: 475px) and (max-width: 527px) {
+	.achievementList .content .nav .NavList ul {
+    width: 107% !important;
+}
+	.achievementList .content .nav .NavList ul li a {
+    font-size: 0.875em;
+    padding: 0px 5px;
+    color: #9b927f;
+    display: block;
+}
+	.caseList ul li {
+    padding-top: 43%;
+    border-bottom: 1px solid #eddfc0;
+}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+@media only screen and (min-width: 400px) and (max-width: 474px) {
+	.achievementList .content .nav .NavList ul {
+    width: 107% !important;
+}
+	.achievementList .content .nav .NavList ul li a {
+    font-size: 0.875em;
+    padding: 0px 5px;
+    color: #9b927f;
+    display: block;
+}
+	.caseList ul li {
+    padding-top: 50%;
+    border-bottom: 1px solid #eddfc0;
+}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+@media only screen and (min-width: 320px) and (max-width: 399px) {
+	.achievementList .content .nav .NavList ul {
+    width: 107% !important;
+}
+	.achievementList .content .nav .NavList ul li a {
+    font-size: 0.875em;
+    padding: 0;
+    color: #9b927f;
+    display: block;
+}
+	.caseList ul li {
+    padding-top: 66%;
+    border-bottom: 1px solid #eddfc0;
+}
+	.caseList ul li a .searchLeft p {
+		font-size: 14px;
+		height: 62px;
+	}
+}
+@media only screen and (min-width: 320px) and (max-width: 368px) {
+	.achievementList .content .nav .NavList ul {
+    width: 111% !important;
+}
+}
+@media only screen and (min-width: 320px) and (max-width: 368px) {
+	.achievementList .content .nav .NavList ul {
+    width: 127% !important;
+}
+}
+@media only screen and (min-width: 320px) and (max-width: 368px) {
+	.achievementList .content .nav .NavList ul {
+    width: 127% !important;
+}
+}
+@media only screen and (min-width: 319px) and (max-width: 320px) {
+	.achievementList .content .nav .NavList ul {
+    width: 130% !important;
+}
 }
