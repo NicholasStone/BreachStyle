@@ -57,13 +57,12 @@ class CaseController extends Controller
     {
 //        dd($request->all());
         $validate = Validator::make($request->all(), [
-            'name'    => 'required|unique:applications,name',
+            'name'    => 'required',
             'summary' => 'required|max:300',
             'detail'  => 'required',
             'apply'   => 'required|max:512',
             'img'     => 'required|max:512',
         ], [
-            'name.unique'    => '此名称已存在',
             'apply.required' => '请上传申请表',
             'img.required'   => '请上传封面',
             'summary.max'    => '简介请不要多于300字',
