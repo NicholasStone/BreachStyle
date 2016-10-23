@@ -1,20 +1,17 @@
 {{ Html::script('//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.js') }}
 <script>
-    //    $("#application-form").submit(function (e) {
-    //        var apply = $("#apply");
-    //        var img = $("#img");
-    //        var str = CKEDITOR.instances.editor.getData();
-    //        str = str.replace("<br />", "");
-    //        str = str.replace("<br>", "");
-    //        str = str.replace('/(^/s*)|(/s*$)/g', "");
-    //        if (!(apply.val() && img.val() && str)) {
-    //            e.preventDefault();
-    //            var alertMsg = apply.val() == "" ? '请上传申请图片' : '';
-    //            alertMsg += img.val() == "" ? '\n请上传封面/预览图' : "";
-    //            alertMsg += str == "" ? '\n请填写说明或简介' : '';
-    //            sweetAlert('完整填写所有信息', alertMsg, 'error');
-    //        }
-    //    })
+    var application = $("#application-form");
+    application.submit(function (e) {
+        var str = CKEDITOR.instances.editor.getData();
+        str = str.replace("<br />", "");
+        str = str.replace("<br>", "");
+        str = str.replace('/(^/s*)|(/s*$)/g', "");
+        if (!str) {
+            e.preventDefault();
+            alertMsg = str == "" ? '请填写简介' : '';
+            sweetAlert('抱歉，您的输入有误', alertMsg, 'error');
+        }
+    });
     function isIdCardNo(num) {
         var factorArr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1];
         var parityBit = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];
@@ -110,7 +107,7 @@
         var mobile = /^1[34578]\d{9}$/;
         return (length == 11 && mobile.exec(value)) ? true : false;
     }, "请正确填写您的手机号码");
-    $("#application-form").validate({
+    application.validate({
         rules: {!! json_encode($rules) !!},
         messages: {!! json_encode($messages) !!},
         // the errorPlacement has to take the table layout into account

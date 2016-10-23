@@ -10,7 +10,7 @@
     <div class="create">
         <div class="content">
             <div class="crtDepart">
-                <form id="signupform" autocomplete="off" action="{{ route('frontend.branch.create') }}" method="post"
+                <form id="application-form" autocomplete="off" action="{{ route('frontend.branch.create') }}" method="post"
                       enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="uploadImg">
@@ -28,6 +28,7 @@
 							<span>
 								<h4>党支部名称<span>*</span> : </h4>
 							<input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"
+                                   style="width: 30em"
                                    value="{{ old('name') }}"/>
 							</span>
                         <span class="status"></span>
@@ -47,7 +48,7 @@
                     <div class="row">
 							<span>
 								<h4>所在学校<span>*</span> : </h4>
-							<input type="text" name="university" id="school" class="school" readonly
+							<input type="text" name="university" id="school" class="school" readonly style="width: 20em"
                                    value="{{ $user->university }}"/>
 							</span>
                         <span class="status"></span>
@@ -99,7 +100,7 @@
                     <div class="row">
                         <h4>党支部摘要<span>*</span> : </h4>
                         <div>
-                        <textarea class="introduce" oninput="wordChange2()" id="summary" name="summary"
+                        <textarea class="introduce" id="summary" name="summary"
                                   required>{{ old('summary') }}</textarea>
                         </div>
                         <div class="status"></div>
@@ -140,22 +141,15 @@
     <script src="/vendor/ckeditor/ckeditor.js"></script>
     {{ Html::script('//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.js') }}
     <script>
+        $(function () {
+            $("#application-form input[type=radio][value={{ old('type') }}]").attr('selected', 'selected');
+        });
         CKEDITOR.replace('detail', {
             language: 'zh-cn',
             uploadUrl: '{{ route("frontend.branch.image.drag") }}?_token={{ csrf_token() }}',
             filebrowserUploadUrl: '{{ route("frontend.branch.image") }}?_token={{ csrf_token() }}'
         });
-        $("#application-form").submit(function (e) {
-            var str = CKEDITOR.instances.editor.getData();
-            str = str.replace("<br />", "");
-            str = str.replace("<br>", "");
-            str = str.replace('/(^/s*)|(/s*$)/g', "");
-            if (!str) {
-                e.preventDefault();
-                alertMsg += str == "" ? '请填写简介' : '';
-                sweetAlert('抱歉，您的输入有误', alertMsg, 'error');
-            }
-        });
+
         $.validator.setDefaults({
             ignore: []
         });
@@ -164,7 +158,7 @@
             var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
             return (length == 11 && mobile.exec(value)) ? true : false;
         }, "请正确填写您的手机号码");
-        $("#signupform").validate({
+        $("#application-form").validate({
             rules: {
                 avatar: {
                     required: true
@@ -182,7 +176,8 @@
                     required: true
                 },
                 total_membership: {
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 tel: {
                     required: true,
@@ -213,7 +208,8 @@
                     required: "*请填写支部书记简介"
                 },
                 total_membership: {
-                    required: "*请填写党员人数"
+                    required: "*请填写党员人数",
+                    digits: "*请填入合法的数字"
                 },
                 tel: {
                     required: "*请输入手机号",
