@@ -27,7 +27,7 @@
                         <h4>工作案例名称<span>*</span> : </h4>
                         <span>
                             <input type="text" name="name" id="caseName" placeholder="请输入案例名称" class="caseName"
-                                   value="{{ old('name') or '' }}" title="请填写案例名称"/>
+                                   value="{{ old('name') }}" title="请填写案例名称"/>
                         </span>
                         <span class="status"></span>
                     </div>
@@ -35,7 +35,7 @@
                         <h4>工作案例简介<span>*</span> : </h4>
                         <div>
                         <textarea class="caseIntroduce" name="summary" placeholder="请不要超过300字" maxlength="300"
-                                  title="请填写案例简介">{{ old('summary') or '' }}</textarea>
+                                  title="请填写案例简介">{{ old('summary') }}</textarea>
                         </div>
                         <span class="status"></span>
                     </div>
