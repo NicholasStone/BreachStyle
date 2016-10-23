@@ -43,7 +43,7 @@
                     </div>
                     <div class="row">
                         <h4>上传视频 :</h4>
-                        <p style="color: red">视频格式为MP4，且大小必须小于100M</p>
+                        <p style="color: red">视频格式为MP4，请使用<b><a href="http://www.firefox.com.cn/">火狐浏览器</a></b>上传视频</p>
                         <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl={{ route('frontend.course.callback') }}"
                                 width="900" height="300" frameborder="none"></iframe>
                     </div>
