@@ -119,6 +119,9 @@
             ],
             'tel_work'=>[
                 'isTel' => true
+            ],
+            'email' => [
+                'email' => true
             ]
         ],
         "messages" => [
@@ -130,6 +133,9 @@
             ],
             'tel_work' => [
                 'isTel'=>"(请填写正确的号码)"
+            ],
+            'email' => [
+                'email' => '(请填入正确的电子邮箱)'
             ]
         ]
     ])

@@ -26,8 +26,13 @@
 
     @yield('after-styles-end')
     {!! Html::script("//cdn.bootcss.com/jquery/2.1.1/jquery.min.js") !!}
-
-    <!--[if lt IE 9]>
+    <!--[if IE]>
+    <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <![endif]-->
+    <!--[if IE 7]>
+    <link rel="stylesheet" type="text/css" href="css/ieAdaptation.css"/>
+    <![endif]-->
+    <!--[if IE 8]>
     <link rel="stylesheet" type="text/css" href="css/ieAdaptation.css"/>
     <![endif]-->
 
@@ -78,7 +83,7 @@
                 @else
                     <li class="login">
                         <a href="{{ route('frontend.user.profile.detail') }}"
-                           class="reg new_reg">欢迎 {{ Auth::user()->name }}</a>
+                           class="reg new_reg"><p class="person">欢迎 {{ Auth::user()->name }}</p></a>
                         <a href="{{ route('auth.logout') }}" class="reg">退出</a>
                     </li>
                 @endif
