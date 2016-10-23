@@ -48,7 +48,7 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Exception               $e
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function render($request, Exception $e)
     {
@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler
          * Usually because user stayed on the same screen too long and their session expired
          */
         if ($e instanceof TokenMismatchException) {
-            alert()->info('您的会话已超时(3分钟)，请重新提交','会话超时')->persistent('关闭');
+            alert()->info('您的会话已超时(10分钟)，请重新提交','会话超时')->persistent('关闭');
             return redirect()->back()->withInput();
         }
 

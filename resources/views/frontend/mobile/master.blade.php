@@ -96,13 +96,13 @@
                 <a href="{{ route('frontend.m.index') }}">首页</a>
             </li>
             <li class="nav">
-                <a href="{{ route('frontend.m.case') }}">支部工作案例</a>
+                <a href="{{ route('frontend.m.case') }}">工作案例</a>
             </li>
             <li class="nav">
                 <a href="{{ route('frontend.m.course') }}">微党课</a>
             </li>
             <li class="nav">
-                <a href="{{ route('frontend.m.recommend') }}">支部推荐展示</a>
+                <a href="{{ route('frontend.m.recommend') }}">推荐展示</a>
             </li>
         </ul>
     </div>
