@@ -102,12 +102,12 @@
     //增加身份证验证
     $.validator.addMethod("isTel", function (value, element) {
         var tel = /^\d{3,4}-?\d{7,9}$/; //电话号码格式010-12345678 、
-        var mob = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
+        var mob = /^1[34578]\d{9}$/;
         return this.optional(element) || (tel.test(value)) || (mob.test(value));
     }, "请正确填写您的电话号码");
     $.validator.addMethod("mobile", function (value, element) {
         var length = value.length;
-        var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
+        var mobile = /^1[34578]\d{9}$/;
         return (length == 11 && mobile.exec(value)) ? true : false;
     }, "请正确填写您的手机号码");
     $("#application-form").validate({
