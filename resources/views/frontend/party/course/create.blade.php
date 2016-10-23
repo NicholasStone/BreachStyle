@@ -43,18 +43,19 @@
                     </div>
                     <div class="row">
                         <h4>上传课程视频<span>*</span> :</h4>
+                        <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl={{ route('frontend.course.callback') }}"
+                                width="900" height="300" frameborder="none"></iframe>
                     </div>
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
                             <textarea id="editor" name="summary" required title="请填写微党课简介">
-                                {{ old('detail') ? old('detail') : '如需上传图片，请拖拽图片至此，右键单击已上传图片编辑，请不要超过300字'}}
                             </textarea>
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
                     <div class="submitBtn">
-                        <input type="submit" name="submit" id="submit" value="确认提交"/>
+                        <input type="button" name="submit" id="submit" value="确认提交"/>
                     </div>
                 </form>
             </div>
@@ -63,12 +64,19 @@
 @endsection
 
 @section("after-scripts-end")
-    <script src="/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace('summary', {
-            language: 'zh-cn',
-            uploadUrl: '{{ route("frontend.course.image.drag") }}?_token={{ csrf_token() }}',
-            filebrowserUploadUrl: '{{ route("frontend.course.image") }}?_token={{ csrf_token() }}'
+        $("#submit").on('click', function () {
+            $.ajax({
+                url: "{{ route('frontend.course.upload.verify') }}",
+                method: "post",
+                success: function (data) {
+                    if (data.success) {
+                        $("#application-form").submit();
+                    } else {
+                        swal("抱歉", "请先上传视频", "error");
+                    }
+                }
+            })
         });
     </script>
     @include('frontend.party.common.validate',[
@@ -85,6 +93,9 @@
             'course_lecturer' => [
                 'required'=>true,
             ],
+            'summary'=>[
+                'required'=>true
+            ],
         ],
         'messages'=>[
             'apply' => [
@@ -99,6 +110,9 @@
             'course_lecturer' => [
                 'required'=>"*（微党课讲师不能为空）",
             ],
+            'summary' => [
+                'required' => "*(微党课简介不能为空)"
+            ]
         ]
     ])
 @endsection

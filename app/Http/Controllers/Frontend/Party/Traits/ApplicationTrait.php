@@ -70,6 +70,30 @@ SCRIPT;
         ]);
     }
 
+    public function uploadVerify()
+    {
+        $tags['strDataID'] = \Session::get('strDataID');
+        $tags['strKey']    = \Session::get('strKey');
+        if (Cache::tags($tags)->has('upFileID')) {
+            return response()->json(['upload' => 1]);
+        } else {
+            return response()->json(['upload' => 0]);
+        }
+    }
+
+    public function getUpload()
+    {
+        $tags['strDataID'] = \Session::get('strDataID');
+        $tags['strKey']    = \Session::get('strKey');
+        $upFileID          = Cache::tags($tags)->get('upFileID');
+
+        \Session::set('strDataID', null);
+        \Session::set('strKey', null);
+        \Cache::tags($tags)->flush();
+
+        return $upFileID;
+    }
+
     protected function getIndexPage($type, $sort)
     {
         if ($sort == 'time') {
@@ -148,10 +172,12 @@ SCRIPT;
 
     protected function generateVideoToken()
     {
-        $token = str_random();
-        \Session::set('video_token', $token);
+        $token  = mt_rand(0, 2000000000);
+        $strKey = substr(md5($token . 'enet'), 8, 16);
+        \Session::set('strDataID', $token);
+        \Session::set('strKey', $strKey);
 
-        return $token;
+        return [$token, $strKey];
     }
 
     protected function validateFailed($validator)

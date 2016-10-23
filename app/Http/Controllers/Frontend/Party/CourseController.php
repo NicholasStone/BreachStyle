@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Frontend\Party;
 
 use Auth;
+use Carbon\Carbon;
+use Dompdf\Image\Cache;
+use Illuminate\Cache\Events\CacheHit;
+use Illuminate\Support\Facades\Redis;
 use phpDocumentor\Reflection\Types\Mixed;
 use Validator;
 use App\Models\Application;
@@ -34,7 +38,6 @@ class CourseController extends Controller
     public function index_m()
     {
         return view("frontend.mobile.list", $this->getIndexData_m("微党课"));
-
     }
 
     /**
@@ -46,9 +49,9 @@ class CourseController extends Controller
     {
 //        alert()->info('由于我们正在对视频服务进行升级，所以您暂时无法上传微党课。请您随时关注此功能的动向，对于给您造成的不便我们深表歉意。希望您能理解，谢谢合作。')->persistent('关闭');
 //        return redirect()->back();
-        $video_token = $this->generateVideoToken();
+        list($strDataID, $strKey) = $this->generateVideoToken();
 
-        return view("frontend.party.course.create", compact("video_token"))
+        return view("frontend.party.course.create", compact("strDataID", "strKey"))
             ->withUser(access()->user());
     }
 
@@ -60,7 +63,6 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'            => 'required|unique:applications,name',
             'summary'         => 'required|max:370',
@@ -74,21 +76,10 @@ class CourseController extends Controller
             'img.max'     => '请不要上传大于512KB的封面图片',
         ]);
 
-
         if ($validate->fails()) {
             return $this->validateFailed($validate);
         }
-//        if (!\Session::has('video_path')) {
-//            alert()->error('请先上传视频');
-//
-//            return redirect()->back();
-//        }
-//
-//        if (\Session::get('video_token') != $request->get('video_token')) {
-//            alert()->error('请勿非法提交');
-//
-//            return redirect()->route('frontend.index');
-//        }
+
         $apply                = $request->all();
         $apply['img_hash']    = $this->saveImage($request->file('img'), "Application/Course");
         $apply['apply_hash']  = $this->saveImage($request->file('apply'), "Application/Apply");
@@ -97,16 +88,21 @@ class CourseController extends Controller
         $apply['branch_id']   = Auth::user()->branch_id;
         $apply['branch_type'] = Auth::user()->branch_type;
         $apply['university']  = Auth::user()->university;
-        $apply['video_hash']  = \Session::get('video_path');
+        $apply['video_hash']  = $this->getUpload();
         Application::create($apply);
-
-
-        \Session::set('video_path', null);
-        \Session::set('video_token', null);
 
         alert()->success('提交成功，请等待审核')->persistent('关闭');
 
         return redirect()->route('frontend.index');
+    }
+
+    public function uploadCallback(Request $request)
+    {
+        $lifetime          = Carbon::now()->addHour();
+        $tags              = [];
+        $tags['strDataID'] = $request->get('strDataID');
+        $tags['strKey']    = $request->get('strKey');
+        Cache::tags($tags)->put('upFileID', $request->get('upFileID'), $lifetime);
     }
 
     /**
@@ -135,7 +131,7 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  int                      $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)

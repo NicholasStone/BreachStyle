@@ -4,7 +4,7 @@
  * Frontend Controllers
  */
 Route::get('/', 'FrontendController@index')->name('frontend.index');
-
+Route::get('/callback', 'Party\CourseController@uploadCallback')->name('frontend.course.callback');
 Route::group(['middleware'=>'map'],function (){
     Route::get('/frontend/mapdata', 'FrontendController@getMapData');
     Route::get('/frontend/province/{id}', 'FrontendController@getProvinceDetail');
