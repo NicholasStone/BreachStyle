@@ -78,7 +78,7 @@ SCRIPT;
      */
     public function uploadCallback(Request $request)
     {
-        Redis::setex($request->get('strDataID'), 3600, json_encode([
+        Redis::setex($request->get('strDataId'), 3600, json_encode([
             'strKey'   => $request->get('strKey'),
             'upFileID' => $request->get('upFileID'),
         ]));
@@ -124,7 +124,18 @@ SCRIPT;
 
         return $upFileID;
     }
+
+    protected function generateVideoToken()
+    {
+        $token  = mt_rand(0, 2000000000);
+        $strKey = substr(md5($token . 'enet'), 8, 16);
+        \Session::set('strDataID', $token);
+        \Session::set('strKey', $strKey);
+
+        return [$token, $strKey];
+    }
 //end video
+
     protected function getIndexPage($type, $sort)
     {
         if ($sort == 'time') {
@@ -199,16 +210,6 @@ SCRIPT;
         });
 
         return compact("applications");
-    }
-
-    protected function generateVideoToken()
-    {
-        $token  = mt_rand(0, 2000000000);
-        $strKey = substr(md5($token . 'enet'), 8, 16);
-        \Session::set('strDataID', $token);
-        \Session::set('strKey', $strKey);
-
-        return [$token, $strKey];
     }
 
     protected function validateFailed($validator)
