@@ -57,11 +57,14 @@ SCRIPT;
 
     /**
      * 视频上传认证
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function uploadVerify(Request $request)
     {
-        $cache = $this->getCachedCallback($request->get('strDataId'));
+        if (!$cache = $this->getCachedCallback($request->get('strDataId'), $request->get('strKey'))) {
+            return response()->json(['upload' => 0]);
+        }
         if ($cache['strKey'] == $request->get('strKey')) {
             return response()->json(['upload' => 1]);
         } else {
@@ -70,24 +73,30 @@ SCRIPT;
     }
 
     /**
-     * 解析保存为Json的缓存
+     * 解析保存为Json的缓存,并验证是否有效
+     * @param $strDataId
+     * @param $strKey
      * @return mixed
      */
-    protected function getCachedCallback($strDataId)
+    protected function getCachedCallback($strDataId, $strKey)
     {
-        return json_decode($strDataId);
+        $cache = json_decode($strDataId);
+        if ($cache['strKey'] == $strKey) {
+            return $cache;
+        } else {
+            return null;
+        }
     }
 
     /**
      * 获得上传的视频
+     * @param $strDataID
+     * @param $strKey
      * @return mixed
      */
-    public function getUpload($strDataID)
+    public function getUpload($strDataID, $strKey)
     {
-        $tags['strDataID'] = \Session::get('strDataID');
-        $tags['strKey']    = \Session::get('strKey');
-        $upFileID          = $this->getCachedCallback($strDataID)['upFileID'];
-
+        $upFileID = $this->getCachedCallback($strDataID, $strKey);
         Redis::del($strDataID);
 
         return $upFileID;
@@ -97,11 +106,10 @@ SCRIPT;
     {
         $token  = mt_rand(0, 2000000000);
         $strKey = substr(md5($token . 'enet'), 8, 16);
-        \Session::set('strDataID', $token);
-        \Session::set('strKey', $strKey);
 
         return [$token, $strKey];
     }
+
 //end video
 
     protected function getIndexPage($type, $sort)
