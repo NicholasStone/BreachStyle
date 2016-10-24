@@ -70,7 +70,7 @@
         $("#submit").on('click', function () {
             $.ajax({
                 url: "{{ route('frontend.course.upload.verify') }}",
-                method: "post",
+                method: "get",
                 success: function (data) {
                     if (data.success) {
                         $("#application-form").submit();

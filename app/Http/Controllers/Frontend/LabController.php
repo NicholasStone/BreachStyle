@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Branch;
 use Carbon\Carbon;
+use Dompdf\Image\Cache;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
@@ -13,6 +14,7 @@ class LabController extends Controller
 
     public function index_lab()
     {
+        dd();
         $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
 
