@@ -70,7 +70,8 @@
                 method: "post",
                 data: {
                     strDataId: $("#strDataID").val(),
-                    strKey: $("#strKey").val()
+                    strKey: $("#strKey").val(),
+                    _token: "{{ csrf_token() }}"
                 },
                 success: function (data) {
                     if (data.success) {
