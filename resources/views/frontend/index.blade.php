@@ -488,9 +488,9 @@
         setTimeout(function () {
             clearInterval(countdown);
             $(".popdown-content").remove();
-        }, 5000);
+        }, 10000);
         $("#scroll").on('click', function () {
-            $.scrollTo('#activeInfo', 1000);
+            $.scrollTo('#activeInfo', 500);
         });
     </script>
     @if($settings[3]->value)
