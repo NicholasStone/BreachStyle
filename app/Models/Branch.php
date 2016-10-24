@@ -122,6 +122,9 @@ class Branch extends Model
     {
         $applications = Application::onlyTrashed()->where('branch_id', $this->id)->get();
         $secretary    = User::find($this->secretary);
+        if (empty($secretary)){
+            return 0;
+        }
         $secretary->attachBranch($this->id);
         $applications->each(function ($item) {
             $item->restore();

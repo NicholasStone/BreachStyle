@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Frontend\Party\Traits;
 
+use Illuminate\Support\Facades\Redis;
 use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
@@ -41,58 +42,78 @@ SCRIPT;
         }
     }
 
+//视频上传功能
     /**
-     * 上传视频文件
+     * 视频上传回调，并将回调结果以Json的形式保存在Redis中
      * @param Request $request
-     * @return mixed
      */
-    public function upload(Request $request)
+    public function uploadCallback(Request $request)
     {
-        if (!$request->hasFile('file')) {
-            return response()->json([
-                'jsonrpc' => '2.0',
-                'error'   => [
-                    'code'    => 103,
-                    'message' => '无法接收上传文件',
-                ],
-                'id'      => 'id',
-            ]);
-        }
-        $path = $this->saveVideo($request->file('file'));
-        \Session::set('video_token', $request->get('video_token'));
-        \Session::set('video_path', $path);
+        Redis::setex($request->get('strDataId'), 3600, json_encode([
+            'strKey'   => $request->get('strKey'),
+            'upFileID' => $request->get('upFileID'),
+        ]));
 
-        return response()->json([
-            'jsonrpc' => '2.0',
-            'result'  => null,
-            'id'      => 'id',
-            'path'    => $path,
-        ]);
     }
 
-    public function uploadVerify()
+    /**
+     * 视频上传认证
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadVerify(Request $request)
     {
-        $tags['strDataID'] = \Session::get('strDataID');
-        $tags['strKey']    = \Session::get('strKey');
-        if (Cache::tags($tags)->has('upFileID')) {
+        $cache = $this->getCachedCallback($request->get('strDataID'), $request->get('strKey'));
+        if ($cache) {
             return response()->json(['upload' => 1]);
         } else {
             return response()->json(['upload' => 0]);
         }
     }
 
-    public function getUpload()
+    /**
+     * 解析保存为Json的缓存,并验证是否有效
+     * @param $strDataId
+     * @param $strKey
+     * @return mixed
+     */
+    protected function getCachedCallback($strDataId, $strKey)
     {
-        $tags['strDataID'] = \Session::get('strDataID');
-        $tags['strKey']    = \Session::get('strKey');
-        $upFileID          = Cache::tags($tags)->get('upFileID');
-
-        \Session::set('strDataID', null);
-        \Session::set('strKey', null);
-        \Cache::tags($tags)->flush();
-
-        return $upFileID;
+        $cache = json_decode(Redis::get($strDataId));
+        if (empty($cache) || $cache->strKey == $strKey) {
+            return $cache;
+        } else {
+            return null;
+        }
     }
+
+    /**
+     * 获得上传的视频
+     * @param $strDataID
+     * @param $strKey
+     * @return mixed
+     */
+    public function getUpload($strDataID, $strKey)
+    {
+        $cache = $this->getCachedCallback($strDataID, $strKey);
+        Redis::del($strDataID);
+
+        if (empty($cache)){
+            return null;
+        }else {
+            return $cache->upFileID;
+        }
+    }
+
+    protected function generateVideoToken()
+    {
+        $token  = mt_rand(0, 2000000000);
+        $strKey = substr(md5($token . 'enet'), 8, 16);
+
+        return [$token, $strKey];
+    }
+
+//end video
 
     protected function getIndexPage($type, $sort)
     {
@@ -120,9 +141,10 @@ SCRIPT;
         $application = Application::findOrFail($id);
 
         if ($application->canEdit()) {
-            $video_token = $this->generateVideoToken();
+            list($strDataID, $strKey) = $this->generateVideoToken();
 
-            return view($view, $application)->with(compact("video_token"));
+            return view($view, $application)->with(compact("strDataID", "strKey"))
+                ->withUser(access()->user());
         } else {
             alert()->error("您现在不能修改成果信息");
 
@@ -168,16 +190,6 @@ SCRIPT;
         });
 
         return compact("applications");
-    }
-
-    protected function generateVideoToken()
-    {
-        $token  = mt_rand(0, 2000000000);
-        $strKey = substr(md5($token . 'enet'), 8, 16);
-        \Session::set('strDataID', $token);
-        \Session::set('strKey', $strKey);
-
-        return [$token, $strKey];
     }
 
     protected function validateFailed($validator)

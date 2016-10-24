@@ -81,7 +81,7 @@ abstract class VerificationController extends Controller
     protected function getVerificationLabel($model){
         $color   = '';
         $message = '';
-        if ($model->trashed()) {
+        if ($model->deleted_at || $model->trashed()) {
             $color   = 'bg-red';
             $message = '已删除';
         } else {

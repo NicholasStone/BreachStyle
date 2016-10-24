@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Frontend\Party\Traits\ApplicationTrait;
 use App\Models\Branch;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Redis;
 
 class LabController extends Controller
 {
-
+    use ApplicationTrait;
     public function index_lab()
     {
         $strDataId = mt_rand(0, 2000000000);
@@ -48,7 +49,7 @@ class LabController extends Controller
         $branch                     = Branch::with('university')->where('id', 4)->first();
 
         $application->video_path = Redis::get('upFileID');
-        $key      = substr(md5('dxsfdy' . $application->video_path), 8, 16);
+        $key                     = substr(md5('dxsfdy' . $application->video_path), 8, 16);
 
         return view('frontend.lab.labplay', compact('comments', 'branch', 'application', 'university', 'key'));
     }

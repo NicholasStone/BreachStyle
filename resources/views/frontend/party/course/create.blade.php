@@ -44,19 +44,18 @@
                     <div class="row">
                         <h4>上传课程视频<span>*</span> :</h4>
                         <p style="color: red">视频格式为MP4，请使用<b><a href="http://www.firefox.com.cn/">火狐浏览器</a></b>上传视频</p>
-                        <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl={{ route('frontend.course.callback') }}"
-                                width="900" height="300" frameborder="none"></iframe>
+                        @include('frontend.party.common.video')
                     </div>
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="editor" name="summary" required title="请填写微党课简介">
-                            </textarea>
+                            <textarea id="editor" name="summary" required title="请填写微党课简介">{{ old('summary') }}</textarea>
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
                     <div class="submitBtn">
                         <input type="button" name="submit" id="submit" value="确认提交"/>
+                        <button type="submit" id="submit-btn"></button>
                     </div>
                 </form>
             </div>
@@ -70,9 +69,14 @@
             $.ajax({
                 url: "{{ route('frontend.course.upload.verify') }}",
                 method: "post",
+                data: {
+                    strDataID: $("#strDataID").val(),
+                    strKey: $("#strKey").val(),
+                    _token: "{{ csrf_token() }}"
+                },
                 success: function (data) {
-                    if (data.success) {
-                        $("#application-form").submit();
+                    if (data.upload) {
+                        $("#submit-btn").click();
                     } else {
                         swal("抱歉", "请先上传视频", "error");
                     }
@@ -81,6 +85,7 @@
         });
     </script>
     @include('frontend.party.common.validate',[
+        'editor'=> false,
         'rules' => [
             'apply' => [
                 'required'=>true,

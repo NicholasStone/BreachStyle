@@ -45,8 +45,6 @@ class CourseController extends Controller
      */
     public function create()
     {
-//        alert()->info('由于我们正在对视频服务进行升级，所以您暂时无法上传微党课。请您随时关注此功能的动向，对于给您造成的不便我们深表歉意。希望您能理解，谢谢合作。')->persistent('关闭');
-//        return redirect()->back();
         list($strDataID, $strKey) = $this->generateVideoToken();
 
         return view("frontend.party.course.create", compact("strDataID", "strKey"))
@@ -67,16 +65,20 @@ class CourseController extends Controller
             'course_lecturer' => 'required|max:20',
             'apply'           => 'required|max:512',
             'img'             => 'required|max:512',
+            'strDataID'       => 'required',
+            'strKey'          => 'required',
         ], [
-            'summary.max' => '简介请不要多于300字',
-            'apply.max'   => '请不要上传大于512KB的申报表图片',
-            'img.max'     => '请不要上传大于512KB的封面图片',
+            'summary.max'        => '简介请不要多于300字',
+            'apply.max'          => '请不要上传大于512KB的申报表图片',
+            'img.max'            => '请不要上传大于512KB的封面图片',
+            'strDataID.required' => '请勿非法提交',
+            'strKey.required'    => '请勿非法提交',
         ]);
 
         if ($validate->fails()) {
             return $this->validateFailed($validate);
         }
-        if ($this->uploadVerify()) {
+        if (!$this->getCachedCallback($request->get('strDataID'), $request->get('strKey'))) {
             alert()->error('请上传视频')->persistent('关闭');
 
             return redirect()->back()->withInput();
@@ -90,22 +92,12 @@ class CourseController extends Controller
         $apply['branch_id']   = Auth::user()->branch_id;
         $apply['branch_type'] = Auth::user()->branch_type;
         $apply['university']  = Auth::user()->university;
-        $apply['video_hash']  = $this->getUpload();
+        $apply['video_hash']  = $this->getUpload($request->get('strDataID'), $request->get('strKey'));
         Application::create($apply);
 
         alert()->success('提交成功，请等待审核')->persistent('关闭');
 
         return redirect()->route('frontend.index');
-    }
-
-    public function uploadCallback(Request $request)
-    {
-        Redis::setex('1', 3600, json_encode($request->all()));
-        $lifetime          = Carbon::now()->addHour();
-        $tags              = [];
-        $tags['strDataID'] = $request->get('strDataID');
-        $tags['strKey']    = $request->get('strKey');
-        Cache::tags($tags)->put('upFileID', $request->get('upFileID'), $lifetime);
     }
 
     /**
@@ -145,6 +137,9 @@ class CourseController extends Controller
         $application->detail          = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
         $application->course_lecturer = $apply['course_lecturer'];;
         $application->verification = 0;
+        if ($this->getCachedCallback($request->get('strDataID'), $request->get('strKey'))) {
+            $application->video_hash = $this->getUpload($request->get('strDataID'), $request->get('strKey'));
+        }
         $application->save();
 
         alert()->success('提交成功，请等待审核');

@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
             Route::get('edit/{id}', 'CourseController@edit')->name('frontend.course.edit');
             Route::post('submit', 'CourseController@store')->name('frontend.course.store');
             Route::post('edit/{id}', 'CourseController@update')->name('frontend.course.update');
-            Route::post('course/verify', 'CourseController@uploadVerify')->name('frontend.course.upload.verify');
+            Route::any('verify', 'CourseController@uploadVerify')->name('frontend.course.upload.verify');
         });
 
         Route::group(['prefix' => 'case'], function () {

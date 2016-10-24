@@ -1,7 +1,11 @@
 {{ Html::script('//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.js') }}
 <script>
     var application = $("#application-form");
+    @if($editor)
     application.submit(function (e) {
+        if (CKEDITOR == undefined){
+            return;
+        }
         var str = CKEDITOR.instances.editor.getData();
         str = str.replace("<br />", "");
         str = str.replace("<br>", "");
@@ -12,6 +16,7 @@
             sweetAlert('抱歉，您的输入有误', alertMsg, 'error');
         }
     });
+    @endif
     function isIdCardNo(num) {
         var factorArr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1];
         var parityBit = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];

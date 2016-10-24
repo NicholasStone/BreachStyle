@@ -44,8 +44,7 @@
                     <div class="row">
                         <h4>上传视频 :</h4>
                         <p style="color: red">视频格式为MP4，请使用<b><a href="http://www.firefox.com.cn/">火狐浏览器</a></b>上传视频</p>
-                        <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl={{ route('frontend.course.callback') }}"
-                                width="900" height="300" frameborder="none"></iframe>
+                        @include('frontend.party.common.video')
                     </div>
                     <div class="row">
                         <h4>推荐展示说明<span>*</span> :</h4>
@@ -75,6 +74,7 @@
         });
     </script>
     @include('frontend.party.common.validate',[
+        'editor'=> true,
         'rules' => [
             'apply' => [
                 'required'=>true,

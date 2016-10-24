@@ -41,8 +41,8 @@
                     </div>
                     <div class="row">
                         <h4>工作案例说明<span>*</span> :</h4>
-                        <div id="editor">
-                            <textarea id="editor" name="detail" required title="请填写案例说明">
+                        <div id="editor" class="editor">
+                            <textarea id="editor" name="detail" required title="请填写案例说明" style="width: 100%">
                                 {{ old('summary') ? old('detail') : '如需上传图片，请拖拽图片至此，右键单击已上传图片编辑'}}
                             </textarea>
                         </div>
@@ -67,6 +67,7 @@
         });
     </script>
     @include('frontend.party.common.validate',[
+    'editor'=> true,
     'rules' => [
         'apply' => [
             'required'=>true,
