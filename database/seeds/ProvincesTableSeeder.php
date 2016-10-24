@@ -159,7 +159,7 @@ class ProvincesTableSeeder extends Seeder
             28 =>
                 array(
                     'id'   => 29,
-                    'name' => '新疆维吾尔族自治区',
+                    'name' => '新疆维吾尔自治区',
                 ),
             29 =>
                 array(

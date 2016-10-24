@@ -210,7 +210,7 @@ class BranchController extends Controller
     protected function getIndexData($id)
     {
         if (empty($id)) {
-            $page       = Branch::select(['id', 'type', 'name', 'university', 'avatar', 'summary'])->where('verification', 1)->withProvince()->paginate(16);
+            $page       = Branch::select(['id', 'type', 'name', 'university', 'avatar', 'summary'])->where('verification', 1)->withProvince()->paginate(15);
             $university = null;
 
             return [$page, $university];

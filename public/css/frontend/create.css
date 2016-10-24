@@ -1,6 +1,12 @@
 .create{
 	width: 100%;
 }
+
+.editor{
+	position: relative;
+	width: 100%;
+}
+
 .create .content{
 	width: 1200px;
 	margin: 40px auto;
@@ -50,10 +56,6 @@
 	margin-top: 32px;
 	position: relative;
 }
-/*.create .content .crtDepart .row div {*/
-	/*display: inline-block;*/
-	/*vertical-align: top;*/
-/*}*/
 
 .create .content .crtDepart .row h4{
 	color: #818181;
