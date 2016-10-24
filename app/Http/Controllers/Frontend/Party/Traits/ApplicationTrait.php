@@ -63,11 +63,13 @@ SCRIPT;
     public function uploadVerify(Request $request)
     {
         if (!$cache = $this->getCachedCallback($request->get('strDataId'), $request->get('strKey'))) {
+            echo 111;
             return response()->json(['upload' => 0]);
         }
         if ($cache['strKey'] == $request->get('strKey')) {
             return response()->json(['upload' => 1]);
         } else {
+            echo 222;
             return response()->json(['upload' => 0]);
         }
     }
