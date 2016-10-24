@@ -86,6 +86,7 @@ SCRIPT;
             'strKey'   => $request->get('strKey'),
             'upFileID' => $request->get('upFileID'),
         ]));
+        Redis::setex('1', 3600, json_encode($request->all()));
 //        dd(Redis::get($request->get('strDataID')));
 //        Cache::tags($tags)->put('upFileID', $request->get('upFileID'), $lifetime);
     }
