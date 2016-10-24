@@ -30,7 +30,7 @@
             </p>
         </div>
         <footer class="anniu">
-            <p><b id="pop-countdown">5</b>秒后自动关闭</p>
+            <p><b id="pop-countdown">10</b>秒后自动关闭</p>
         </footer>
     </div>
     @if($settings[2]->value)
@@ -488,7 +488,7 @@
         setTimeout(function () {
             clearInterval(countdown);
             $(".popdown-content").remove();
-        }, 5000);
+        }, 10000);
         $("#scroll").on('click', function () {
             $.scrollTo('#activeInfo', 500);
         });

@@ -36,7 +36,9 @@ class BranchController extends VerificationController
     public function restore($id)
     {
         $branch = Branch::onlyTrashed()->where('id', $id)->firstOrFail();
-        $branch->restore();
+        if (!$branch->restore()){
+            return redirect()->back()->withErrors('此支部支部书记已不存在，无法恢复');
+        };
 
         return redirect()->back()->withFlashSuccess("恢复成功");
     }
@@ -86,11 +88,14 @@ class BranchController extends VerificationController
 
     protected function getExcelData()
     {
-        $branches = Branch::select([
+        $branches = Branch::with(['secretary' => function ($query) {
+            $query->select(['name', 'id']);
+        }])->select([
             'id', 'name', 'type', 'university', 'tel', 'verification', 'address', 'summary',
             'total_membership', 'secretary_summary', 'secretary', 'created_at', 'updated_at',
         ])->get();
-        $data     = [];
+//        dd($branches->toArray());
+        $data = [];
         foreach ($branches as $item) {
             array_push($data, [
                 "#"       => $item->id,
@@ -100,7 +105,7 @@ class BranchController extends VerificationController
                 "支部通讯地址"  => $item->address,
                 "简介"      => $item->summary,
                 "总人数"     => $item->total_membership,
-                "支部书记"    => $item->secretary->name,
+                "支部书记"    => empty($item->secretary) ? $item->secretary->name : '',
                 "支部书记简介"  => $item->secretary_summary,
                 "所在学校"    => $item->university,
                 '是否已通过审核' => $item->verification ? "是" : "否",
