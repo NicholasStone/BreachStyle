@@ -37,22 +37,22 @@
     <div class="box box-success">
         <div class="box-header with-border">
             <div class="col-sm-10">
-            <h3 class="box-title">{{ trans('strings.backend.verification.application.title') }}</h3>
-            <p>
-                当前文章状态：
-                @if($deleted_at)
-                    <span class="label label-danger">已删除</span>
-                @else
-                    @if($verification == 0)
-                        <span class="label label-default">等待审核</span>
-                    @elseif($verification == 1)
-                        <span class="label label-success">已通过</span>
-                    @elseif($verification == -1)
-                        <span class="label label-warning">被驳回</span>
+                <h3 class="box-title">{{ trans('strings.backend.verification.application.title') }}</h3>
+                <p>
+                    当前文章状态：
+                    @if($deleted_at)
+                        <span class="label label-danger">已删除</span>
+                    @else
+                        @if($verification == 0)
+                            <span class="label label-default">等待审核</span>
+                        @elseif($verification == 1)
+                            <span class="label label-success">已通过</span>
+                        @elseif($verification == -1)
+                            <span class="label label-warning">被驳回</span>
+                        @endif
                     @endif
-                @endif
-            </p>
-                </div>
+                </p>
+            </div>
             <div class="col-sm-2">
                 <a type="button" href="{{ route('admin.verify.application') }}" class="btn bg-navy btn-flat pull-right">返回</a>
             </div>
@@ -84,15 +84,8 @@
                 @if($video_hash)
                     <dt>{{ trans('strings.backend.verification.application.video') }}</dt>
                     <dd>
-                        <video id="my-video" class="video-js" controls preload="auto" width="800"
-                               poster="{{ $img_hash }}" data-setup="{}">
-                            <source src="{{ $video_hash }}" type='video/mp4'>
-                            <p class="vjs-no-js">
-                                请开启您浏览器的JavaScript功能，或者请使用<a href="http://videojs.com/html5-video-support/"
-                                                             target="_blank">支持HTML5</a>的浏览器
-                            </p>
-                        </video>
-                        <script src="http://vjs.zencdn.net/5.11.6/video.js"></script>
+                        <iframe src="http://playfile.enetedu.com/VideoPlay/Video?upFileID={{ $application->video_path }}&key={{ substr(md5('dxsfdy'.$application->video_path),8,16) }}&width=800&height=600"
+                                width="800" height="800"></iframe>
                     </dd>
                 @endif
                 <dt>{{ trans('strings.backend.verification.application.apply') }}</dt>
