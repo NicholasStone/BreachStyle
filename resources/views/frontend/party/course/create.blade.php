@@ -66,8 +66,7 @@
     <script>
         $("#submit").on('click', function () {
             $.ajax({
-                {{--url: "{{ route('frontend.course.upload.verify') }}",--}}
-                url:'http://q.nichospace.com/course/verify',
+                url: "{{ route('frontend.course.upload.verify') }}",
                 method: "post",
                 data: {
                     strDataID: $("#strDataID").val(),
