@@ -67,6 +67,7 @@
         });
     </script>
     @include('frontend.party.common.validate',[
+    'editor'=> false,
     'rules' => [
         'apply' => [
             'required'=>true,

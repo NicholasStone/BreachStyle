@@ -53,6 +53,7 @@ SCRIPT;
             'strKey'   => $request->get('strKey'),
             'upFileID' => $request->get('upFileID'),
         ]));
+
     }
 
     /**
@@ -62,14 +63,10 @@ SCRIPT;
      */
     public function uploadVerify(Request $request)
     {
-        if (!$cache = $this->getCachedCallback($request->get('strDataId'), $request->get('strKey'))) {
-            echo 111;
-            return response()->json(['upload' => 0]);
-        }
-        if ($cache['strKey'] == $request->get('strKey')) {
+        $cache = $this->getCachedCallback($request->get('strDataID'), $request->get('strKey'));
+        if ($cache) {
             return response()->json(['upload' => 1]);
         } else {
-            echo 222;
             return response()->json(['upload' => 0]);
         }
     }
@@ -82,8 +79,8 @@ SCRIPT;
      */
     protected function getCachedCallback($strDataId, $strKey)
     {
-        $cache = json_decode($strDataId);
-        if ($cache['strKey'] == $strKey) {
+        $cache = json_decode(Redis::get($strDataId));
+        if (empty($cache) || $cache->strKey == $strKey) {
             return $cache;
         } else {
             return null;

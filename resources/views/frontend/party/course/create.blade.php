@@ -69,12 +69,12 @@
                 url: "{{ route('frontend.course.upload.verify') }}",
                 method: "post",
                 data: {
-                    strDataId: $("#strDataID").val(),
+                    strDataID: $("#strDataID").val(),
                     strKey: $("#strKey").val(),
                     _token: "{{ csrf_token() }}"
                 },
                 success: function (data) {
-                    if (data.success) {
+                    if (data.upload) {
                         $("#application-form").submit();
                     } else {
                         swal("抱歉", "请先上传视频", "error");
@@ -84,6 +84,7 @@
         });
     </script>
     @include('frontend.party.common.validate',[
+        'editor'=> false,
         'rules' => [
             'apply' => [
                 'required'=>true,
