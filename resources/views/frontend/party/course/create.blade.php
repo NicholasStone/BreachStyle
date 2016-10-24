@@ -44,7 +44,8 @@
                     <div class="row">
                         <h4>上传课程视频<span>*</span> :</h4>
                         <p style="color: red">视频格式为MP4，请使用<b><a href="http://www.firefox.com.cn/">火狐浏览器</a></b>上传视频</p>
-                        <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl={{ route('frontend.course.callback') }}"
+{{--                        <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl={{ route('frontend.course.callback') }}"--}}
+                        <iframe src="http://dxsupload.enetedu.com?strDataId={{ $strDataID }}&strKey={{ $strKey }}&strType=1&ResUrl=http://q.nichospace.com/callback"
                                 width="900" height="300" frameborder="none"></iframe>
                     </div>
                     <div class="row">
