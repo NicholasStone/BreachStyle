@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Branch;
 use Carbon\Carbon;
-use Dompdf\Image\Cache;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 
 class LabController extends Controller
 {
