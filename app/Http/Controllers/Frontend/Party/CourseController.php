@@ -80,7 +80,7 @@ class CourseController extends Controller
         if ($validate->fails()) {
             return $this->validateFailed($validate);
         }
-        if ($this->uploadVerify($request->get('strDataID'))) {
+        if (!$this->getCachedCallback($request->get('strDataID'), $request->get('strKey'))) {
             alert()->error('请上传视频')->persistent('关闭');
 
             return redirect()->back()->withInput();

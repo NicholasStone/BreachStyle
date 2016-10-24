@@ -95,10 +95,14 @@ SCRIPT;
      */
     public function getUpload($strDataID, $strKey)
     {
-        $upFileID = $this->getCachedCallback($strDataID, $strKey);
+        $cache = $this->getCachedCallback($strDataID, $strKey);
         Redis::del($strDataID);
 
-        return $upFileID;
+        if (empty($cache)){
+            return null;
+        }else {
+            return $cache->upFileID;
+        }
     }
 
     protected function generateVideoToken()

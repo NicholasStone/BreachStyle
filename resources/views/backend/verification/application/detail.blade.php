@@ -84,8 +84,8 @@
                 @if($video_hash)
                     <dt>{{ trans('strings.backend.verification.application.video') }}</dt>
                     <dd>
-                        <iframe src="http://playfile.enetedu.com/VideoPlay/Video?upFileID={{ $application->video_path }}&key={{ substr(md5('dxsfdy'.$application->video_path),8,16) }}&width=800&height=600"
-                                width="800" height="800"></iframe>
+                        <iframe style="border: 0" src="http://playfile.enetedu.com/VideoPlay/Video?upFileID={{ $video_hash }}&key={{ substr(md5('dxsfdy'.$video_hash),8,16) }}&width=800&height=600"
+                                width="830" height="620" frameborder="none"></iframe>
                     </dd>
                 @endif
                 <dt>{{ trans('strings.backend.verification.application.apply') }}</dt>

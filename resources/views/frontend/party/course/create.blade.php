@@ -49,12 +49,13 @@
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="editor" name="summary" required title="请填写微党课简介"></textarea>
+                            <textarea id="editor" name="summary" required title="请填写微党课简介">{{ old('summary') }}</textarea>
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
                     <div class="submitBtn">
                         <input type="button" name="submit" id="submit" value="确认提交"/>
+                        <button type="submit" id="submit-btn"></button>
                     </div>
                 </form>
             </div>
@@ -75,7 +76,7 @@
                 },
                 success: function (data) {
                     if (data.upload) {
-                        $("#application-form").submit();
+                        $("#submit-btn").click();
                     } else {
                         swal("抱歉", "请先上传视频", "error");
                     }

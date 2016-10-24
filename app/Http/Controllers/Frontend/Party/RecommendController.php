@@ -78,15 +78,19 @@ class RecommendController extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'name'    => 'required',
-            'summary' => 'required|max:300',
-            'apply'   => 'required|max:512',
-            'img'     => 'required|max:512',
-            'detail'  => 'required',
+            'name'      => 'required',
+            'summary'   => 'required|max:300',
+            'apply'     => 'required|max:512',
+            'img'       => 'required|max:512',
+            'detail'    => 'required',
+            'strDataID' => 'required',
+            'strKey'    => 'required',
         ], [
-            'summary.max' => '简介请不要多于300字',
-            'apply.max'   => '请不要上传大于512KB的申报表图片',
-            'img.max'     => '请不要上传大于512KB的封面图片',
+            'summary.max'        => '简介请不要多于300字',
+            'apply.max'          => '请不要上传大于512KB的申报表图片',
+            'img.max'            => '请不要上传大于512KB的封面图片',
+            'strDataID.required' => '请勿非法提交',
+            'strKey.required'    => '请勿非法提交',
         ]);
 
         if ($validate->fails()) {
@@ -99,7 +103,7 @@ class RecommendController extends Controller
         $apply['branch_id']   = Auth::user()->branch_id;
         $apply['branch_type'] = Auth::user()->branch_type;
         $apply['university']  = Auth::user()->university;
-        $apply['video_hash']  = $this->getUpload($request->get('strDataID'));
+        $apply['video_hash']  = $this->getUpload($request->get('strDataID'), $request->get('strKey'));
         Application::create($apply);
 
         alert()->success('提交成功，请等待审核')->persistent('关闭');
