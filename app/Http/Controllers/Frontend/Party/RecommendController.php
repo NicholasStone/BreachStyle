@@ -146,11 +146,14 @@ class RecommendController extends Controller
         $application = Application::findOrFail($id);
         $apply       = $request->all();
         $application = $this->updateApplication($request, $application);
+        $application->detail       = $apply['detail'];
+        $application->verification = 0;
+        if ($this->getCachedCallback($request->get('strDataID'), $request->get('strKey'))) {
+            $application->video_hash = $this->getUpload($request->get('strDataID'), $request->get('strKey'));
+        }
         if ($request->get('delete_video') == 'on') {
             $application->video_hash = null;
         }
-        $application->detail       = $apply['detail'];
-        $application->verification = 0;
         $application->save();
 
         alert()->success('提交成功，请等待审核');

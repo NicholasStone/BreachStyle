@@ -141,9 +141,10 @@ SCRIPT;
         $application = Application::findOrFail($id);
 
         if ($application->canEdit()) {
-            $video_token = $this->generateVideoToken();
+            list($strDataID, $strKey) = $this->generateVideoToken();
 
-            return view($view, $application)->with(compact("video_token"));
+            return view($view, $application)->with(compact("strDataID", "strKey"))
+                ->withUser(access()->user());
         } else {
             alert()->error("您现在不能修改成果信息");
 

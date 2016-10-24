@@ -45,8 +45,6 @@ class CourseController extends Controller
      */
     public function create()
     {
-//        alert()->info('由于我们正在对视频服务进行升级，所以您暂时无法上传微党课。请您随时关注此功能的动向，对于给您造成的不便我们深表歉意。希望您能理解，谢谢合作。')->persistent('关闭');
-//        return redirect()->back();
         list($strDataID, $strKey) = $this->generateVideoToken();
 
         return view("frontend.party.course.create", compact("strDataID", "strKey"))
@@ -139,6 +137,9 @@ class CourseController extends Controller
         $application->detail          = isset($apply['detail']) ? $apply['detail'] : $apply['summary'];
         $application->course_lecturer = $apply['course_lecturer'];;
         $application->verification = 0;
+        if ($this->getCachedCallback($request->get('strDataID'), $request->get('strKey'))) {
+            $application->video_hash = $this->getUpload($request->get('strDataID'), $request->get('strKey'));
+        }
         $application->save();
 
         alert()->success('提交成功，请等待审核');
