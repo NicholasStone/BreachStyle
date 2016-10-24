@@ -16,7 +16,7 @@ class LabController extends Controller
     {
         $tags['strDataID'] = \Session::get('strDataID');
         $tags['strKey']    = \Session::get('strKey');
-        dd(Cache::tags([$tags])->get('upFileID'));
+        dd(Cache::tags($tags)->get('upFileID'));
         $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
 
