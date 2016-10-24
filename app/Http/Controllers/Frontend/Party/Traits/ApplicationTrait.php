@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Frontend\Party\Traits;
 
+use Illuminate\Support\Facades\Redis;
 use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
@@ -70,27 +71,63 @@ SCRIPT;
             'path'    => $path,
         ]);
     }
+//视频上传功能
+    /**
+     * 视频上传回调，并将回调结果以Json的形式保存在Redis中
+     * @param Request $request
+     */
+    public function uploadCallback(Request $request)
+    {
+//        $lifetime          = Carbon::now()->addHour();
+//        $tags = [];
+//        $tags['strDataID'] = $request->get('strDataID');
+//        $tags['strKey']    = $request->get('strKey');
+        Redis::setex($request->get('strDataID'), 3600, json_encode([
+            'strKey'   => $request->get('strKey'),
+            'upFileID' => $request->get('upFileID'),
+        ]));
+//        dd(Redis::get($request->get('strDataID')));
+//        Cache::tags($tags)->put('upFileID', $request->get('upFileID'), $lifetime);
+    }
 
+    /**
+     * 视频上传认证
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function uploadVerify()
     {
-        $tags['strDataID'] = \Session::get('strDataID');
-        $tags['strKey']    = \Session::get('strKey');
-        if (Cache::tags($tags)->has('upFileID')) {
+//        $tags['strDataID'] = \Session::get('strDataID');
+//        $tags['strKey']    = \Session::get('strKey');
+        $cache = $this->getCachedCallback();
+        if ($cache['strKey'] == \Session::get('strKey')) {
             return response()->json(['upload' => 1]);
         } else {
             return response()->json(['upload' => 0]);
         }
     }
 
+    /**
+     * 解析保存为Json的缓存
+     * @return mixed
+     */
+    protected function getCachedCallback()
+    {
+        return json_decode(Redis::get(\Session::get('strDataID')));
+    }
+
+    /**
+     * 获得上传的视频
+     * @return mixed
+     */
     public function getUpload()
     {
         $tags['strDataID'] = \Session::get('strDataID');
         $tags['strKey']    = \Session::get('strKey');
-        $upFileID          = Cache::tags($tags)->get('upFileID');
+        $upFileID          = $this->getCachedCallback()['upFileID'];
 
+        Redis::del(\Session::get('strDataID'));
         \Session::set('strDataID', null);
         \Session::set('strKey', null);
-        \Cache::tags($tags)->flush();
 
         return $upFileID;
     }
