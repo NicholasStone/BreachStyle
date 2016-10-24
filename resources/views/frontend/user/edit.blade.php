@@ -110,6 +110,7 @@
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.data.min.js') !!}
     {!! Html::script('//cdn.bootcss.com/distpicker/1.0.4/distpicker.min.js') !!}
     @include('frontend.party.common.validate',[
+        "editor" => 'false'
         "rules" => [
             'id_number'=> [
                 'isIdCardNo' => true,
