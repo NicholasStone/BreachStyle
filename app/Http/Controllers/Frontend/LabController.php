@@ -14,9 +14,10 @@ class LabController extends Controller
 
     public function index_lab()
     {
-        $tags['strDataID'] = \Session::get('strDataID');
-        $tags['strKey']    = \Session::get('strKey');
-        dd(Cache::tags($tags)->get('upFileID'));
+//        $tags['strDataID'] = \Session::get('strDataID');
+//        $tags['strKey']    = \Session::get('strKey');
+//        dd(Cache::tags($tags)->get('upFileID'));
+        dd(Cache::get(\Session::get('strDataID')));
         $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
 
