@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Redis;
 use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 trait ApplicationTrait
 {
@@ -43,34 +42,6 @@ SCRIPT;
         }
     }
 
-    /**
-     * 上传视频文件
-     * @param Request $request
-     * @return mixed
-     */
-    public function upload(Request $request)
-    {
-        if (!$request->hasFile('file')) {
-            return response()->json([
-                'jsonrpc' => '2.0',
-                'error'   => [
-                    'code'    => 103,
-                    'message' => '无法接收上传文件',
-                ],
-                'id'      => 'id',
-            ]);
-        }
-        $path = $this->saveVideo($request->file('file'));
-        \Session::set('video_token', $request->get('video_token'));
-        \Session::set('video_path', $path);
-
-        return response()->json([
-            'jsonrpc' => '2.0',
-            'result'  => null,
-            'id'      => 'id',
-            'path'    => $path,
-        ]);
-    }
 //视频上传功能
     /**
      * 视频上传回调，并将回调结果以Json的形式保存在Redis中
@@ -82,17 +53,16 @@ SCRIPT;
             'strKey'   => $request->get('strKey'),
             'upFileID' => $request->get('upFileID'),
         ]));
-        Redis::setex('1', 3600, json_encode($request->all()));
     }
 
     /**
      * 视频上传认证
      * @return \Illuminate\Http\JsonResponse
      */
-    public function uploadVerify()
+    public function uploadVerify(Request $request)
     {
-        $cache = $this->getCachedCallback();
-        if ($cache['strKey'] == \Session::get('strKey')) {
+        $cache = $this->getCachedCallback($request->get('strDataId'));
+        if ($cache['strKey'] == $request->get('strKey')) {
             return response()->json(['upload' => 1]);
         } else {
             return response()->json(['upload' => 0]);
@@ -103,24 +73,22 @@ SCRIPT;
      * 解析保存为Json的缓存
      * @return mixed
      */
-    protected function getCachedCallback()
+    protected function getCachedCallback($strDataId)
     {
-        return json_decode(Redis::get(\Session::get('strDataID')));
+        return json_decode($strDataId);
     }
 
     /**
      * 获得上传的视频
      * @return mixed
      */
-    public function getUpload()
+    public function getUpload($strDataID)
     {
         $tags['strDataID'] = \Session::get('strDataID');
         $tags['strKey']    = \Session::get('strKey');
-        $upFileID          = $this->getCachedCallback()['upFileID'];
+        $upFileID          = $this->getCachedCallback($strDataID)['upFileID'];
 
-        Redis::del(\Session::get('strDataID'));
-        \Session::set('strDataID', null);
-        \Session::set('strKey', null);
+        Redis::del($strDataID);
 
         return $upFileID;
     }

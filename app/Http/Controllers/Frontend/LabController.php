@@ -14,10 +14,6 @@ class LabController extends Controller
     use ApplicationTrait;
     public function index_lab()
     {
-        dd([
-            'session' => \Session::get('strDataID'),
-            'redis'   => $this->getCachedCallback(),
-        ]);
         $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
 

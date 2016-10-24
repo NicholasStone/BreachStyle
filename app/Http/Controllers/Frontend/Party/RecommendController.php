@@ -99,9 +99,7 @@ class RecommendController extends Controller
         $apply['branch_id']   = Auth::user()->branch_id;
         $apply['branch_type'] = Auth::user()->branch_type;
         $apply['university']  = Auth::user()->university;
-        if ($this->uploadVerify()) {
-            $apply['video_hash'] = $this->getUpload();
-        }
+        $apply['video_hash']  = $this->getUpload($request->get('strDataID'));
         Application::create($apply);
 
         alert()->success('提交成功，请等待审核')->persistent('关闭');
