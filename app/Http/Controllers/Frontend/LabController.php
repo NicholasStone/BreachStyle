@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Controllers\Frontend\Party\Traits\ApplicationTrait;
 use App\Models\Branch;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,12 +11,12 @@ use Illuminate\Support\Facades\Redis;
 
 class LabController extends Controller
 {
-
+    use ApplicationTrait;
     public function index_lab()
     {
         dd([
             'session' => \Session::get('strDataID'),
-            'redis'   => Redis::get(\Session::get('strDataID')),
+            'redis'   => $this->getCachedCallback(),
         ]);
         $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
