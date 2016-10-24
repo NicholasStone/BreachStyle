@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Party\Traits;
 use Validator;
 use App\Models\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 trait ApplicationTrait
 {
