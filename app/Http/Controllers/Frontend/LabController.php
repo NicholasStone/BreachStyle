@@ -14,7 +14,9 @@ class LabController extends Controller
 
     public function index_lab()
     {
-        dd();
+        $tags['strDataID'] = \Session::get('strDataID');
+        $tags['strKey']    = \Session::get('strKey');
+        dd(Cache::tags([$tags])->get('upFileID'));
         $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
 
@@ -50,7 +52,7 @@ class LabController extends Controller
         $branch                     = Branch::with('university')->where('id', 4)->first();
 
         $application->video_path = Redis::get('upFileID');
-        $key      = substr(md5('dxsfdy' . $application->video_path), 8, 16);
+        $key                     = substr(md5('dxsfdy' . $application->video_path), 8, 16);
 
         return view('frontend.lab.labplay', compact('comments', 'branch', 'application', 'university', 'key'));
     }
