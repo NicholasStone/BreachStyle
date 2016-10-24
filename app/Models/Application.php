@@ -16,7 +16,7 @@ class Application extends Model
 
     protected $fillable = [
         'name', 'type', 'detail', 'summary', 'img_hash', 'branch_id', 'university',
-        'apply_hash', 'video_hash', 'source_lecturer', 'secretary', 'deleted_at',
+        'apply_hash', 'video_hash', 'course_lecturer', 'secretary', 'deleted_at',
     ];
 
     public function branch()
