@@ -98,19 +98,6 @@ class CourseController extends Controller
         return redirect()->route('frontend.index');
     }
 
-//    public function uploadCallback(Request $request)
-//    {
-////        $lifetime          = Carbon::now()->addHour();
-////        $tags = [];
-////        $tags['strDataID'] = $request->get('strDataID');
-////        $tags['strKey']    = $request->get('strKey');
-//        Redis::setex($request->get('strDataID'), 3600, json_encode([
-//            'strKey'   => $request->get('strDataID'),
-//            'upFileID' => $request->get('upFileID'),
-//        ]));
-////        Cache::tags($tags)->put('upFileID', $request->get('upFileID'), $lifetime);
-//    }
-
     /**
      * Display the specified resource.
      *

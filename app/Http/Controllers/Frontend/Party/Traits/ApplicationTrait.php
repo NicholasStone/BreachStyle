@@ -78,17 +78,11 @@ SCRIPT;
      */
     public function uploadCallback(Request $request)
     {
-//        $lifetime          = Carbon::now()->addHour();
-//        $tags = [];
-//        $tags['strDataID'] = $request->get('strDataID');
-//        $tags['strKey']    = $request->get('strKey');
         Redis::setex($request->get('strDataID'), 3600, json_encode([
             'strKey'   => $request->get('strKey'),
             'upFileID' => $request->get('upFileID'),
         ]));
         Redis::setex('1', 3600, json_encode($request->all()));
-//        dd(Redis::get($request->get('strDataID')));
-//        Cache::tags($tags)->put('upFileID', $request->get('upFileID'), $lifetime);
     }
 
     /**
@@ -97,8 +91,6 @@ SCRIPT;
      */
     public function uploadVerify()
     {
-//        $tags['strDataID'] = \Session::get('strDataID');
-//        $tags['strKey']    = \Session::get('strKey');
         $cache = $this->getCachedCallback();
         if ($cache['strKey'] == \Session::get('strKey')) {
             return response()->json(['upload' => 1]);
@@ -132,7 +124,7 @@ SCRIPT;
 
         return $upFileID;
     }
-
+//end video
     protected function getIndexPage($type, $sort)
     {
         if ($sort == 'time') {

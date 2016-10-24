@@ -7,17 +7,16 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Cache;
 
 class LabController extends Controller
 {
 
     public function index_lab()
     {
-//        $tags['strDataID'] = \Session::get('strDataID');
-//        $tags['strKey']    = \Session::get('strKey');
-//        dd(Cache::tags($tags)->get('upFileID'));
-        dd(Cache::get(\Session::get('strDataID')));
+        dd([
+            'session' => \Session::get('strDataID'),
+            'redis'   => Redis::get(\Session::get('strDataID')),
+        ]);
         $strDataId = mt_rand(0, 2000000000);
         $strKey    = substr(md5($strDataId . "enet"), 8, 16);
 
