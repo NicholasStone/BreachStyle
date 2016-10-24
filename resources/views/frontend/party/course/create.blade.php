@@ -49,8 +49,7 @@
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="editor" name="summary" required title="请填写微党课简介">
-                            </textarea>
+                            <textarea id="editor" name="summary" required title="请填写微党课简介"></textarea>
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
@@ -70,8 +69,8 @@
                 url: "{{ route('frontend.course.upload.verify') }}",
                 method: "post",
                 data: {
-                    strDataId: "{{ $strDataID }}",
-                    strKey: "{{ $strKey }}"
+                    strDataId: $("#strDataID").val(),
+                    strKey: $("#strKey").val()
                 },
                 success: function (data) {
                     if (data.success) {
