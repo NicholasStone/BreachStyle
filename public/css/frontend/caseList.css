@@ -54,12 +54,12 @@
 	font-size: .875em;
 	color: #8e8c86;
 	display: -webkit-box;
-	overflow: hidden;
-	white-space: normal !important;
-	text-overflow: ellipsis;
-	word-wrap: break-word;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 4;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 	margin-top: 20px;
 }
 .caseList ul li.type1 .outBox .top .right div{
@@ -79,7 +79,7 @@
 .caseList ul li.type1 .outBox .bottom{
 	width: 100%;
 	position: absolute;
-	bottom: 12px;
+	bottom: 0;
 	left: 2%;
 }
 .caseList ul li.type1 .outBox .bottom span i{
@@ -101,6 +101,7 @@
 	float: left;
 	width: 20%;
 }
+
 
 @media(max-width: 1200px) {
 	.achievementList .content{

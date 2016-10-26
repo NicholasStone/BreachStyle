@@ -4,8 +4,8 @@
 @endsection
 @section('after-styles-end')
     {!! Html::style(asset('css/frontend/depart.css'))!!}
-    {!! Html::style(asset('css/frontend/video.css')) !!}
-    {!! Html::style('//cdn.bootcss.com/video.js/5.11.0/video-js.min.css') !!}
+    {!! Html::style(asset('css/frontend/show.css'))!!}
+    {!! Html::style(asset('css/frontend/caseList.css'))!!}
 @endsection
 
 @section('content')
@@ -45,7 +45,9 @@
                     <img src="{{ asset('img/departShow.png') }}"/>
                 </div>
                 <div class="showContent">
+                    <div class="new_row">
                     {!! $branch->detail !!}
+                    </div>
                 </div>
             </div>
             <div class="pubList">

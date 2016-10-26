@@ -13,12 +13,12 @@
                 <form action="{{ route('frontend.branch.edit', $id)}}" method="post" enctype="multipart/form-data"
                       id="application-form">
                     {!! csrf_field() !!}
-                    <div class="uploadImg" onclick="$('#headImg').click()">
+                    <div class="uploadImg">
                         <input type="file" accept="image/*" name="avatar" id="headImg" value="{{ $avatar }}"
                                onchange="preview(this, $('#cover'))"/>
                         <label for="headImg">
                             <div class="imgBox" id="imgBox">
-                                <img src="{{ asset($avatar) }}" alt="支部配图" id="cover">
+                                <img src="{{ asset($avatar) }}" alt="支部配图" id="cover" onclick="$('#headImg').click()">
                             </div>
                         </label>
                         <h4>党支部配图<span>*</span> : </h4>
@@ -26,7 +26,8 @@
                     <div class="row">
                         <div>
                             <h4>党支部名称<span>*</span> : </h4>
-                            <input type="text" name="name" id="departName" placeholder="请输入党支部名称" class="departName"
+                            <input type="text" name="name" style="width:40em" id="departName" placeholder="请输入党支部名称"
+                                   class="departName"
                                    required value="{{ $name }}"/>
                         </div>
                         <div class="status"></div>
@@ -92,7 +93,7 @@
                     </div>
                     <div class="row">
                         <h4>党支部认证表<span>*</span> : </h4>
-                        <input type="file" name="apply_img" id="apply-img" hidden
+                        <input type="file" name="apply" id="apply-img" hidden accept="image/jpeg,image/png"
                                onchange="preview(this, $('#apply'))">
                         <img src='{{ asset($apply_img) }}' alt="点击更换图片" width="600" height="auto" id="apply"
                              onclick="$('#apply-img').click()">
@@ -115,8 +116,26 @@
             uploadUrl: '{{ route("frontend.branch.image.drag") }}?_token={{ csrf_token() }}',
             filebrowserUploadUrl: '{{ route("frontend.branch.image") }}?_token={{ csrf_token() }}'
         });
+        function imgAttr(imgUrl) {
+            var tmpImg = new Image;
+            tmpImg.src = imgUrl;
+            return tmpImg;
+        }
         var preview = function (inp, img) {
+            if ((inp.files[0].size / 1024).toFixed(2) > 500) {
+                swal("抱歉", "您选择的图片大于500kb，请重新选择。", "error");
+                inp.value = null;
+                return;
+            }
             var objUrl = getObjectURL(inp.files[0]);
+            var tmp = imgAttr(objUrl);
+            tmp.onload = function () {
+                if (tmp.width > 1000 && tmp.height > 80) {
+                    swal("抱歉", "您选择的图片尺寸过大！(请选择宽度小于1000像素，高度小于1500像素的图片！)", 'error');
+                    inp.value = null;
+                    return;
+                }
+            };
             if (objUrl) {
                 img.attr("src", objUrl);
             }
@@ -132,17 +151,6 @@
             }
             return url;
         }
-//        $("#application-form").submit(function (e) {
-//            var str = CKEDITOR.instances.editor.getData();
-//            str = str.replace("<br />", "");
-//            str = str.replace("<br>", "");
-//            str = str.replace('/(^/s*)|(/s*$)/g', "");
-//            if (!(apply.val() && avatar.val() && str)) {
-//                e.preventDefault();
-//                var alertMsg = str == "" ? '\n请填写简介' : '';
-//                sweetAlert('请上传图片', alertMsg, 'error');
-//            }
-//        });
         function wordChange1() {
             var intro = document.getElementById('intro');
             var word = document.getElementById('word');
@@ -164,6 +172,7 @@
         }
     </script>
     @include('frontend.party.common.validate',[
+        'editor' => 'true',
         'rules' => [
             'tel' => [
                 'mobile' => 'true'

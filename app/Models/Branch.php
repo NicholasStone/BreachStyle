@@ -84,7 +84,9 @@ class Branch extends Model
         $this->verification = 1;
         $this->save();
         $secretary = User::find($this->secretary);
-        $secretary->attachRole(2);
+        if (!$secretary->hasRole(2)) {
+            $secretary->attachRole(2);
+        }
 
         $this->sendNotify('branch.granted', route('frontend.branch.show', $this->id));
     }

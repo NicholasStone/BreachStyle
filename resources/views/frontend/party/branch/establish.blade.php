@@ -155,7 +155,7 @@
         });
         $.validator.addMethod("mobile", function (value, element) {
             var length = value.length;
-            var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
+            var mobile = /^1[34578]\d{9}$/;
             return (length == 11 && mobile.exec(value)) ? true : false;
         }, "请正确填写您的手机号码");
         $("#application-form").validate({

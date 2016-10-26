@@ -13,15 +13,27 @@
          onclick="$('#cover-img').click()">
 </div>
 <script type="text/javascript">
+    function imgAttr(imgUrl) {
+        var tmpImg = new Image;
+        tmpImg.src = imgUrl;
+        return tmpImg;
+    }
     var preview = function (inp, img) {
-        var file = inp.files[0];
-        if (file.size / 1024 > 500) {
-            swal('抱歉', '图片文件大小超过500kB', 'error');
+        if ((inp.files[0].size / 1024).toFixed(2) > 500) {
+            swal("抱歉", "您选择的图片大于500kb，请重新选择。", "error");
             inp.value = null;
             return;
         }
-        var objUrl = getObjectURL(file);
-        if (objUrl) {
+        var objUrl = getObjectURL(inp.files[0]);
+        var tmp = imgAttr(objUrl);
+        tmp.onload = function () {
+            if (tmp.width > 1000 && tmp.height > 80) {
+                swal("抱歉", "您选择的图片尺寸过大！(请选择宽度小于1000像素，高度小于1500像素的图片！)", 'error');
+                inp.value = null;
+                return false;
+            }
+        };
+        if (loadImg && objUrl) {
             img.attr("src", objUrl);
         }
     };
