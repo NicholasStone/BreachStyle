@@ -11,6 +11,11 @@
                 width="830" height="620" frameborder="none"></iframe>
     </div>
     <div style="margin-top: 50px;">
-        {{ $application->detail }}
+        <h3>
+            主讲人：{{ $application->course_lecturer }}
+        </h3>
+        <div>
+           <p style="line-height: 3em">视频简介：</p><p style="position:relative;margin-left: 5em;overflow-wrap: break-word">{{ $application->detail }}</p>
+        </div>
     </div>
 @endsection
