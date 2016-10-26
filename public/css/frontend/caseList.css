@@ -51,6 +51,7 @@
 	margin-top: 24px;
 }
 .caseList ul li.type1 .outBox .top .left p{
+	height: 5.8em;
 	font-size: .875em;
 	color: #8e8c86;
 	display: -webkit-box;
