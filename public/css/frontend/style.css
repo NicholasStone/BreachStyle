@@ -250,9 +250,9 @@ iframe {
     display: inline-block;
     float: left;
     width: 100px;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     white-space: nowrap;
     text-overflow: ellipsis
 }
@@ -431,9 +431,9 @@ iframe {
 .sliderNews {
     width: 100%;
     height: auto;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     margin-top: 40px
 }
 
@@ -667,9 +667,9 @@ iframe {
 .sliderNews .content .news .container .newList {
     width: 100%;
     height: auto;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     padding-left: 32px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -698,9 +698,9 @@ iframe {
     width: 200px;
     margin-right: 15px;
     white-space: nowrap;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     text-overflow: ellipsis;
     display: inline-block;
     float: left
@@ -777,9 +777,9 @@ iframe {
 
 .ChinaMap {
     width: 100%;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     margin-top: 60px
 }
 
@@ -823,9 +823,9 @@ iframe {
     color: #793911;
     font-size: .875em;
     white-space: nowrap;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     text-overflow: ellipsis
 }
 
@@ -926,9 +926,9 @@ iframe {
 
 .require {
     width: 100%;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     margin-top: 80px
 }
 
@@ -971,9 +971,9 @@ iframe {
 
 .time {
     width: 100%;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     margin-top: 50px
 }
 
@@ -1168,9 +1168,9 @@ iframe {
     font-size: 1em;
     margin: 10px 0 8px;
     font-weight: 600;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     white-space: nowrap;
     text-overflow: ellipsis
 }
@@ -1180,9 +1180,9 @@ iframe {
     display: block;
     margin-bottom: 4px;
     width: 100%;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color: #a7a7a7
@@ -1192,9 +1192,9 @@ iframe {
     color: #3e3c3b;
     font-size: .75em;
     display: -webkit-box;
-    overflow: hidden;
+    height: 3.5em;
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;;
     white-space: normal !important;
     text-overflow: ellipsis;
     word-wrap: break-word;
@@ -1262,9 +1262,9 @@ iframe {
 .show .content .showList .showListBox li.case ul li.type1 .outBox .top .left h3 {
     font-size: 1.125em;
     color: #131313;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-top: 24px
@@ -1274,9 +1274,9 @@ iframe {
     font-size: .875em;
     color: #8e8c86;
     display: -webkit-box;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     white-space: normal !important;
     text-overflow: ellipsis;
     word-wrap: break-word;
@@ -1351,9 +1351,9 @@ iframe {
 .show .content .showList .showListBox li.case ul li.type2 .outBox .top .left h3 {
     font-size: 1.125em;
     color: #131313;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-top: 24px
@@ -1363,9 +1363,9 @@ iframe {
     font-size: .875em;
     color: #8e8c86;
     display: -webkit-box;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     white-space: normal !important;
     text-overflow: ellipsis;
     word-wrap: break-word;
@@ -1531,9 +1531,9 @@ iframe {
 .recTeaStu li .data h3 {
     color: #783a13;
     font-size: 1.125em;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     padding: 0 12px;
@@ -1568,9 +1568,9 @@ iframe {
     box-sizing: border-box;
     color: #a8a8a8;
     font-size: .875em;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     position: absolute;
@@ -1627,9 +1627,9 @@ iframe {
 .achievementList .content .mainList {
     width: 73%;
     float: left;
-    overflow: hidden;
+
     overflow-x: hidden;
-    overflow-y: hidden
+    overflow-y: hidden;
     margin-right: 2%
 }
 
