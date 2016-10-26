@@ -86,6 +86,7 @@ class CourseController extends Controller
         }
 
         $apply                = $request->all();
+        $apply['summary']     = htmlspecialchars($apply['summary']);
         $apply['img_hash']    = $this->saveImage($request->file('img'), "Application/Course");
         $apply['apply_hash']  = $this->saveImage($request->file('apply'), "Application/Apply");
         $apply['type']        = '微党课';
@@ -127,7 +128,7 @@ class CourseController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
