@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Frontend\Party\Traits;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Redis;
 use Validator;
 use App\Models\Application;
@@ -49,6 +50,7 @@ SCRIPT;
      */
     public function uploadCallback(Request $request)
     {
+        \Log::info("Callback at " . Carbon::now() . " Json:" . json_encode($request->all()));
         Redis::setex($request->get('strDataId'), 3600, json_encode([
             'strKey'   => $request->get('strKey'),
             'upFileID' => $request->get('upFileID'),
@@ -65,10 +67,13 @@ SCRIPT;
     {
         $cache = $this->getCachedCallback($request->get('strDataID'), $request->get('strKey'));
         if ($cache) {
-            return response()->json(['upload' => 1]);
+            $result = 1;
         } else {
-            return response()->json(['upload' => 0]);
+            $result = 0;
         }
+        \Log::info("User " . \Auth::user()->name . "(" . \Auth::id() . ")" . " verified video,result is " . ($result ? "true" : "false"));
+
+        return response()->json(['upload' => $result]);
     }
 
     /**
@@ -98,9 +103,9 @@ SCRIPT;
         $cache = $this->getCachedCallback($strDataID, $strKey);
         Redis::del($strDataID);
 
-        if (empty($cache)){
+        if (empty($cache)) {
             return null;
-        }else {
+        } else {
             return $cache->upFileID;
         }
     }
