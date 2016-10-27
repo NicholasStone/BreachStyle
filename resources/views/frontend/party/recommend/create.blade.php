@@ -43,7 +43,6 @@
                     </div>
                     <div class="row">
                         <h4>上传视频 :</h4>
-                        <p style="color: red">视频格式为MP4，请使用<b><a href="http://www.firefox.com.cn/">火狐浏览器</a></b>上传视频</p>
                         @include('frontend.party.common.video')
                     </div>
                     <div class="row">
