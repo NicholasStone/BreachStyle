@@ -50,10 +50,11 @@ SCRIPT;
      */
     public function uploadCallback(Request $request)
     {
-        \Log::info("Callback at " . Carbon::now() . " Json:" . json_encode($request->all()));
+        \Log::info("Callback from ".$request->ip()." at " . Carbon::now() . " Json:" . json_encode($request->all()));
         Redis::setex($request->get('strDataId'), 3600, json_encode([
             'strKey'   => $request->get('strKey'),
             'upFileID' => $request->get('upFileID'),
+            'status'   => $request->get('status'),
         ]));
 
     }
@@ -85,7 +86,7 @@ SCRIPT;
     protected function getCachedCallback($strDataId, $strKey)
     {
         $cache = json_decode(Redis::get($strDataId));
-        if (empty($cache) || $cache->strKey == $strKey) {
+        if (!empty($cache) && $cache->strKey == $strKey) {
             return $cache;
         } else {
             return null;
