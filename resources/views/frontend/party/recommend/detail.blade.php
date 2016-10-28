@@ -1,6 +1,6 @@
 @extends("frontend.party.common.detail-layout")
-@section('meta')
-<title>{{ $branch-name }}</title>
+@section('title')
+{{ $application->name }}_
 @endsection
 @section('sub-styles')
     <link href="http://vjs.zencdn.net/5.11.6/video-js.css" rel="stylesheet">

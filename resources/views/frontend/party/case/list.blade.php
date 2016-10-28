@@ -1,8 +1,8 @@
 @section('fit')
     @include('frontend.mobile.fit', ['route' => route('frontend.m.case') ])
 @endsection
-@section('meta')
-<title>党支部工作案例_全国高校“两学一做”支部风采展示活动_中国大学生在线</title>
+@section('title')
+支部工作案例_
 @endsection
 <div class="caseList">
     <ul>

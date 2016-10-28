@@ -16,9 +16,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="_token" content="{{ csrf_token() }}"/>
     <meta name="keywords" content="两学一做 高校 支部  中国大学生在线" />
-
+    <meta name="description" content="不断挖掘、深入总结、广泛推广高校基层党支部在开展“两学一做”学习教育、学习习近平总书记“七一”重要讲话和纪念建党95周年“学党史、感党恩、跟党走”主题教育活动中的先锋模范、先进经验、典型案例，发挥典型引领和带动作用，推动“两学一做”学习教育向广大党员拓展、向经常性教育延伸，推动高校基层党支部整体功能提升。">
     
-    <title>全国高校“两学一做”支部风采展示活动_中国大学生在线</title>
+    <title>@yield('title')全国高校“两学一做”支部风采展示活动_中国大学生在线</title>
 
     <!-- Meta -->
 

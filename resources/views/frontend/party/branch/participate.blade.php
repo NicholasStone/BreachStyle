@@ -1,11 +1,15 @@
 @extends('frontend.layouts.master')
+
+@section('title')
+
+@endsection
 @section('before-styles-end')
     @include('frontend.mobile.fit', ['route' => route('frontend.m.branch.index') ])
 @endsection
 @section('after-styles-end')
     {!! Html::style('css/frontend/participate.css') !!}
 @endsection 
-
+参与党支部
 @section('content')
     <!-- participate -->
     <div class="participate">

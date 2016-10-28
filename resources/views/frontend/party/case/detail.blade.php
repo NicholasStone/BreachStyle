@@ -1,6 +1,6 @@
 @extends("frontend.party.common.detail-layout")
-@section('meta')
-<title>{{ $application-name }}</title>
+@section('title')
+{{ $application->name }}_
 @endsection
 @section('article')
     {!! $application->detail !!}

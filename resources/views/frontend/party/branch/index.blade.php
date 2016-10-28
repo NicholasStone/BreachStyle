@@ -1,4 +1,7 @@
 @extends('frontend.layouts.master')
+@section('title')
+{{ $branch->name }}_
+@endsection
 @section('before-styles-end')
     @include('frontend.mobile.fit', ['route' => route('frontend.m.branch.show', $branch->id) ])
 @endsection
