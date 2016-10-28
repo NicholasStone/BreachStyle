@@ -1,5 +1,5 @@
 <script>
-    document.onreadystatechange = function() {
+    function mobileFiter(func) {
         var sUserAgent = navigator.userAgent.toLowerCase();
         var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
         var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
@@ -10,7 +10,12 @@
         var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
         var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
         if(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
-            window.location.href="{{ $route }}";
+            func();
         }
+    }
+    document.onreadystatechange = function() {
+        mobileFiter(function () {
+            window.location.href="{{ $route }}";
+        })
     };
 </script>
