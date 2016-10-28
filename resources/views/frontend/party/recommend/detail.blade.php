@@ -7,8 +7,7 @@
 @section('article')
     @if($application->video_hash)
         <div style="text-align: center">
-            <iframe src="http://playfile.enetedu.com/VideoPlay/Video?upFileID={{ $application->video_hash }}&key={{ substr(md5('dxsfdy'.$application->video_hash),8,16) }}&width=800&height=600"
-                    width="830" height="620" frameborder="none"></iframe>
+            @include('frontend.party.common.video-player')
         </div>
     @endif
     {!! $application->detail !!}
