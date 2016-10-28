@@ -45,7 +45,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        alert()->info("视频上传功能还在完善中，请各支部等待视频上传详细说明公布后，再上传。感谢配合。")->persistent('关闭');
+//        alert()->info("视频上传功能还在完善中，请各支部等待视频上传详细说明公布后，再上传。感谢配合。")->persistent('关闭');
         list($strDataID, $strKey) = $this->generateVideoToken();
 
         return view("frontend.party.course.create", compact("strDataID", "strKey"))

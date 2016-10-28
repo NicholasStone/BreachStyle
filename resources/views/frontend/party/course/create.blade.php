@@ -48,7 +48,7 @@
                     <div class="row">
                         <h4>微党课简介<span>*</span> :</h4>
                         <div id="editor">
-                            <textarea id="editor" name="summary" required title="请填写微党课简介">{{ old('summary') }}</textarea>
+                            <textarea id="editor" name="summary" maxlength="300" required title="请填写微党课简介">{{ old('summary') }}</textarea>
                         </div>
                     </div>
                     @include("frontend.party.common.imgUpload")
