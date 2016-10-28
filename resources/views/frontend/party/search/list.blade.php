@@ -1,5 +1,7 @@
 @extends("frontend.layouts.master")
-
+@section('meta')
+<title>搜索_全国高校“两学一做”支部风采展示活动_中国大学生在线</title>
+@endsection
 @section('after-styles-end')
     {!! Html::style(asset('css/frontend/caseList.css')) !!}
     {!! Html::style(asset('css/frontend/search.css')) !!}

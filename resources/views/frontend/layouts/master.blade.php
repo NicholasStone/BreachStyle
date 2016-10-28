@@ -15,8 +15,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="_token" content="{{ csrf_token() }}"/>
+    <meta name="keywords" content="两学一做 高校 支部  中国大学生在线" />
 
-    <title>@yield('title', app_name())</title>
+    
+    <title>全国高校“两学一做”支部风采展示活动_中国大学生在线</title>
 
     <!-- Meta -->
 
