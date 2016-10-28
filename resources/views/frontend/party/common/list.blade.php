@@ -1,4 +1,7 @@
 @extends("frontend.layouts.master")
+@section('title')
+{{ $type }}_
+@endsection
 @section('after-styles-end')
     @if($type == "微党课")
         {!! Html::style('css/frontend/courseList.css') !!}

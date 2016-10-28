@@ -1,7 +1,7 @@
 @extends('frontend.layouts.master')
 
 @section('title')
-
+参与党支部_
 @endsection
 @section('before-styles-end')
     @include('frontend.mobile.fit', ['route' => route('frontend.m.branch.index') ])

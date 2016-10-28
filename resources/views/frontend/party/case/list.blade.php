@@ -1,9 +1,6 @@
 @section('fit')
     @include('frontend.mobile.fit', ['route' => route('frontend.m.case') ])
 @endsection
-@section('title')
-支部工作案例_
-@endsection
 <div class="caseList">
     <ul>
         @foreach($page as $item)
