@@ -98,7 +98,7 @@ class ApplicationController extends VerificationController
     protected function getExcelData()
     {
         $application = Application::with("branch")->select([
-            "id", "name", "type", "verification", "branch_type", "created_at", "branch_id", "updated_at", "detail", "summary",
+            "id", "name", "type", "verification", "branch_type", "created_at", "branch_id", "updated_at", "detail", "summary", "deleted_at",
         ])->get();
 
         $data = [];
@@ -112,7 +112,7 @@ class ApplicationController extends VerificationController
                 '所属学校'    => $item->branch->university,
                 '简介'      => $item->summary,
                 '详情'      => $item->detail,
-                '是否已通过审核' => $item->verification ? "是" : "否",
+                '是否已通过审核' => $item->deleted_at ? "删除于" . $item->deleted_at : $item->verification ? "是" : "否",
                 '提交于'     => $item->created_at,
                 '通过于'     => $item->verification ? $item->updated_at : "未审核",
             ]);
@@ -136,7 +136,7 @@ class ApplicationController extends VerificationController
             $this->application
                 ->withStatus($request->get('status'))
                 ->whereName($request->get('application_name'))
-                ->select(['id', 'name', 'type', 'created_at', 'branch_id', 'verification'])
+                ->select(['id', 'name', 'type', 'created_at', 'branch_id', 'verification', 'deleted_at'])
                 ->whereHas('branch', function ($query) use ($request) {
                     if ($request->get('branch_name')) {
                         $query->where('name', 'like', '%' . $request->get('branch_name') . '%');
@@ -145,7 +145,9 @@ class ApplicationController extends VerificationController
                         $query->where('university', 'like', '%' . $request->get('university_name') . '%');
                     }
                 })
-                ->with('branch')
+                ->with(['branch'=>function($query){
+                    $query->select(['id', 'name', 'university']);
+                }])
                 ->orderBy('created_at', 'desc')
                 ->get()
         )
