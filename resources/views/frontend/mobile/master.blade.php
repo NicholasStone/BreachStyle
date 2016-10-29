@@ -9,30 +9,24 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>支部风采</title>
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
     <link href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/style.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/swipeslider.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/iconfont-m.css') }}"/>
     {!! Html::style(asset('css/frontend/iconfont.css'))!!}
-    <link href="//cdn.bootcss.com/unslider/2.0.3/css/unslider.css" rel="stylesheet">
-    <link href="//cdn.bootcss.com/unslider/2.0.3/css/unslider-dots.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/new_style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/head.css') }}"/>
+    @yield('styles')
     <!--[if IE 7]>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/ieAdaptation.css') }}"/>
     <![endif]-->
     <!--[if IE 8]>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/ieAdaptation.css') }}"/>
     <![endif]-->
-
-    <script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
-    {{ HTML::script('/js/jquery.event.move.min.js') }}
-    {{ HTML::script('/js/jquery.event.swipe.js') }}
-    {{ HTML::script('//cdn.bootcss.com/unslider/2.0.3/js/unslider-min.js') }}
     <!--[if IE]>
     <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
     <![endif]-->
-    <script src="//cdn.bootcss.com/unslider/2.0.3/js/unslider-min.js"></script>
 </head>
 
 <body>
@@ -121,5 +115,5 @@
 </div>
 <!--footer-->
 </body>
-
+@yield('scripts')
 </html>

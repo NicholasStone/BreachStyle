@@ -45,3 +45,18 @@
 </div>
 <!--content-->
 @endsection
+
+@section('styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/swipeslider.css') }}"/>
+    <link href="//cdn.bootcss.com/unslider/2.0.3/css/unslider.css" rel="stylesheet">
+    <link href="//cdn.bootcss.com/unslider/2.0.3/css/unslider-dots.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/dropload.css') }}"/>
+@endsection
+
+@section('script')
+    <script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    {{ HTML::script('/js/jquery.event.move.min.js') }}
+    {{ HTML::script('/js/jquery.event.swipe.js') }}
+    {{ HTML::script('/js/dropload.min.js') }}
+    {{ HTML::script('//cdn.bootcss.com/unslider/2.0.3/js/unslider-min.js') }}
+@endsection
