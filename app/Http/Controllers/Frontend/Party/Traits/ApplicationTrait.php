@@ -50,7 +50,7 @@ SCRIPT;
      */
     public function uploadCallback(Request $request)
     {
-        \Log::info("Callback from ".$request->ip()." at " . Carbon::now() . " Json:" . json_encode($request->all()));
+//        \Log::info("Callback from ".$request->ip()." at " . Carbon::now() . " Json:" . json_encode($request->all()));
         Redis::setex($request->get('strDataId'), 3600, json_encode([
             'strKey'   => $request->get('strKey'),
             'upFileID' => $request->get('upFileID'),
@@ -72,7 +72,7 @@ SCRIPT;
         } else {
             $result = 0;
         }
-        \Log::info("User " . \Auth::user()->name . "(" . \Auth::id() . ")" . " verified video,result is " . ($result ? "true" : "false"));
+//        \Log::info("User " . \Auth::user()->name . "(" . \Auth::id() . ")" . " verified video,result is " . ($result ? "true" : "false"));
 
         return response()->json(['upload' => $result]);
     }
