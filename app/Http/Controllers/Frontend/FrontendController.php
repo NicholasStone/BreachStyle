@@ -40,22 +40,6 @@ class FrontendController extends Controller
             'work_list', 'tiny_list', 'teacher_list', 'student_list', 'sliders', 'settings'));
     }
 
-    public function index_m()
-    {
-        $applications   = Application::
-        select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash'])
-            ->where("verification", 1)
-            ->with(['branch' => function ($query) {
-                $query->select(['id', 'name']);
-            }, 'comments'    => function ($query) {
-                $query->select(['id']);
-            }])->orderBy('updated_at', 'desc')->get();
-        $sliders        = Slider::all();
-        $sliders_switch = Setting::find(5);
-
-        return view("frontend.mobile.list", compact("applications", "sliders", "sliders_switch"));
-    }
-
     /**
      * @return array
      */
