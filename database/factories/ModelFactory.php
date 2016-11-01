@@ -13,7 +13,7 @@
 
 $factory->define(App\Models\Access\User\User::class, function (Faker\Generator $faker) {
     $university_names = \App\Models\University::lists('name')->toArray();
-    $province = \App\Models\Province::lists('name')->toArray();
+    $province         = \App\Models\Province::lists('name')->toArray();
 
     return [
         'name'              => $faker->name,
@@ -39,7 +39,8 @@ $factory->define(App\Models\Access\User\User::class, function (Faker\Generator $
 
 $factory->define(\App\Models\Branch::class, function (Faker\Generator $faker) {
     $university_names = \App\Models\University::lists('name')->toArray();
-    $max_user_number = \App\Models\Access\User\User::count('id');
+    $max_user_number  = \App\Models\Access\User\User::count('id');
+
     return [
         'name'              => $faker->name,
         'avatar'            => $faker->imageUrl(256, 256),
@@ -71,27 +72,18 @@ $factory->define(\App\Models\Application::class, function (Faker\Generator $fake
         'apply_hash'      => $faker->imageUrl(256, 256),
         'video_hash'      => $faker->imageUrl(256, 256),
         'course_lecturer' => $faker->userName,
+        'total_comment'   => rand(1, 50),
         'fancy'           => rand(100, 500),
     ];
 });
 
 $factory->define(\App\Models\Comment::class, function (Faker\Generator $faker) {
-    $user_ids = \App\Models\Access\User\User::lists('id')->toArray();
+    $user_ids        = \App\Models\Access\User\User::lists('id')->toArray();
     $application_ids = \App\Models\Application::lists('id')->toArray();
 
     return [
         'user_id'        => $faker->randomElement($user_ids),
         'application_id' => $faker->randomElement($application_ids),
         'comment'        => $faker->paragraph,
-    ];
-});
-
-$factory->define(\App\Models\Fancy::class, function (Faker\Generator $faker) {
-    $user_ids = \App\Models\Access\User\User::lists('id')->toArray();
-    $application_ids = \App\Models\Application::lists('id')->toArray();
-
-    return [
-        'user_id'        => $faker->randomElement($user_ids),
-        'application_id' => $faker->randomElement($application_ids),
     ];
 });

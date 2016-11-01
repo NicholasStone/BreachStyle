@@ -10,24 +10,42 @@ use App\Http\Controllers\Controller;
 
 class MobileController extends Controller
 {
-    protected $applications;
-
-    public function __construct(Application $application)
-    {
-        $this->applications = $application;
-    }
+    protected $ITEM_EACH_PAGE;
 
     public function applications()
     {
         $sliders        = Slider::all();
         $sliders_switch = Setting::find(5);
-        $type = null;
+        $type           = null;
+
         return view("frontend.mobile.list", compact("sliders", "sliders_switch", "type"));
     }
 
-    public function applicationsList(Request $request)
+    public function applicationsList(Application $applications, Request $request)
     {
-        dd($request);
+        $offset       = $request->get('counter') * $this->ITEM_EACH_PAGE;
+        $applications = $applications->select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash', 'total_comment'])
+            ->orderBy('updated_at', 'asc')->withStatus()
+            ->with(['branch' => function ($query) {
+                $query->select(['id', 'name']);
+            }]);
+        if ($request->type) {
+            $applications = $applications->where('type', $request->type);
+        }
+        if ($offset != 0) {
+            $applications = $applications->skip($offset)
+                ->take($this->ITEM_EACH_PAGE);
+        }else{
+            $applications->limit(7);
+        }
+        $lists = $applications->get();
+
+        foreach ($lists as $item) {
+            $item->url         = $this->getApplicationUrl($item);
+            $item->branch->url = $this->getBranchUrl($item->branch);
+        }
+
+        return response()->json(compact("lists"));
     }
 
     public function branches()
@@ -40,24 +58,27 @@ class MobileController extends Controller
 
     }
 
-    protected function listData($type = null)
+    protected function getApplicationUrl($application)
     {
-        $applications = $this->applications
-            ->select(['id', 'name', 'type', 'branch_id', 'fancy', 'img_hash']);
-        if (!empty($type)) {
-            $applications->where('type', $type);
+        $url = '';
+        switch ($application->type) {
+            case "工作案例":
+                $url = route('frontend.case.show', $application->id);
+                break;
+            case "微党课":
+                $url = route('frontend.course.show', $application->id);
+                break;
+            case "教师党支部推荐展示":
+            case "学生党支部推荐展示":
+                $url = route('frontend.recommend.show', $application->id);
+                break;
         }
-        $applications
-            ->withStatus()
-            ->with(['branch' => function ($query) {
-                $query->select(['id', 'name']);
-            }, 'comments'    => function ($query) {
-                $query->select(['id']);
-            }])
-            ->limit(7)
-            ->orderBy('updated_at', 'desc')
-            ->get();
 
-        return compact("applications");
+        return $url;
+    }
+
+    protected function getBranchUrl($branch)
+    {
+        return route('frontend.m.branch.show', $branch->id);
     }
 }

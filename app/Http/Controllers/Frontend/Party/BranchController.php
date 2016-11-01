@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers\Frontend\Party;
 
-use App\Http\Controllers\Frontend\Party\Traits\ApplicationTrait;
-use App\Models\Application;
 use Auth;
-use phpDocumentor\Reflection\Types\Mixed;
 use Validator;
 use App\Models\Branch;
 use App\Models\University;
+use App\Models\Application;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Common\FileStorage;
 use App\Http\Requests\Frontend\Party\BranchRequest;
+use App\Http\Controllers\Frontend\Party\Traits\ApplicationTrait;
 
 class BranchController extends Controller
 {
@@ -59,7 +58,6 @@ class BranchController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
         $validate = Validator::make($request->all(), [
             'name'              => 'required',
             'type'              => 'required|in:学生党支部,教师党支部',
@@ -171,14 +169,15 @@ class BranchController extends Controller
 
         $branch = Branch::findOrFail($id);
         $all = $request->only([
-            'name', 'avatar', 'type', 'secretary_summary', 'total_membership',
-            'tel', 'address', 'summary', 'detail', 'apply',
+            'name', 'type', 'secretary', 'secretary_summary', 'avatar', 'apply',
+            'total_membership', 'tel', 'address', 'summary', 'detail',
         ]);
-        if ($request->file('avatar')) {
+
+        if ($request->hasFile('avatar')) {
             $all['avatar'] = $this->saveImage($request->file('avatar'), "Branch/avatar");
         }
-        if ($request->file('apply')) {
-            $all['apply_img'] = $this->saveImage($request->file('apply'), 'Branch/Applies');
+        if ($request->hasFile('apply')) {
+            $all['apply_img'] = $this->saveImage($request->file('apply'), "Branch/Applies");
         }
         $branch->verification = 0;
         $branch->update($all);
