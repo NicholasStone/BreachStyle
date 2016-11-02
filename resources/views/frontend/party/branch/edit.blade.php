@@ -14,7 +14,7 @@
                       id="application-form">
                     {!! csrf_field() !!}
                     <div class="uploadImg">
-                        <input type="file" accept="image/*" name="avatar" id="headImg" value="{{ $avatar }}"
+                        <input type="file" accept="image/*" name="avatar" id="headImg"
                                onchange="preview(this, $('#cover'))"/>
                         <label for="headImg">
                             <div class="imgBox" id="imgBox">
