@@ -104,17 +104,18 @@ class ApplicationController extends VerificationController
         $data = [];
         foreach ($application as $key => $item) {
             array_push($data, [
-                '#'       => $item->id,
+                'ID'      => $item->id,
                 '提交作品题目'  => $item->name,
                 '提交作品类型'  => $item->type,
                 '支部名称'    => $item->branch->name,
                 '支部类型'    => $item->branch->type,
                 '所属学校'    => $item->branch->university,
                 '简介'      => $item->summary,
-                '详情'      => $item->detail,
                 '是否已通过审核' => $item->deleted_at ? "删除于" . $item->deleted_at : $item->verification ? "是" : "否",
+                '作品状态'    => $item->getStatus(),
                 '提交于'     => $item->created_at,
                 '通过于'     => $item->verification ? $item->updated_at : "未审核",
+                '作品链接'    => $item->deleted_at ? "已删除" : $item->getShowUrl(),
             ]);
         }
 
@@ -145,7 +146,7 @@ class ApplicationController extends VerificationController
                         $query->where('university', 'like', '%' . $request->get('university_name') . '%');
                     }
                 })
-                ->with(['branch'=>function($query){
+                ->with(['branch' => function ($query) {
                     $query->select(['id', 'name', 'university']);
                 }])
                 ->orderBy('created_at', 'desc')

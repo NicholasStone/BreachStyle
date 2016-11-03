@@ -67,19 +67,7 @@ class Application extends Model
         $this->softDeletesRestore();
         $this->verification = 0;
         $this->save();
-        $redirect = '';
-        switch ($this->type) {
-            case "工作案例":
-                $redirect = route('frontend.case.show', $this->id);
-                break;
-            case "微党课":
-                $redirect = route('frontend.course.show', $this->id);
-                break;
-            case "教师党支部推荐展示":
-            case "学生党支部推荐展示":
-                $redirect = route('frontend.recommend.show', $this->id);
-                break;
-        }
+        $redirect = $this->getShowUrl();
         $this->sendNotify('application.restore', $redirect);
     }
 
@@ -115,19 +103,7 @@ class Application extends Model
 
     public function grant()
     {
-        $redirect = '';
-        switch ($this->type) {
-            case "工作案例":
-                $redirect = route('frontend.case.show', $this->id);
-                break;
-            case "微党课":
-                $redirect = route('frontend.course.show', $this->id);
-                break;
-            case "教师党支部推荐展示":
-            case "学生党支部推荐展示":
-                $redirect = route('frontend.recommend.show', $this->id);
-                break;
-        }
+        $redirect = $this->getShowUrl();
 
         $this->sendNotify('application.granted', $redirect);
         $this->verification = 1;
@@ -165,6 +141,52 @@ class Application extends Model
                 'reason'           => $reason,
             ])
             ->send();
+    }
+
+    /**
+     * @return string
+     */
+    public function getShowUrl()
+    {
+        $redirect = '';
+        switch ($this->type) {
+            case "工作案例":
+                $redirect = route('frontend.case.show', $this->id);
+                break;
+            case "微党课":
+                $redirect = route('frontend.course.show', $this->id);
+                break;
+            case "教师党支部推荐展示":
+            case "学生党支部推荐展示":
+                $redirect = route('frontend.recommend.show', $this->id);
+                break;
+        }
+
+        return $redirect;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getStatus()
+    {
+        $status = null;
+        if ($this->trashed()){
+            $status = "已删除";
+        }else{
+            switch ($this->verification){
+                case -1:
+                    $status = "已驳回";
+                    break;
+                case 0:
+                    $status = "待审核";
+                    break;
+                case 1:
+                    $status = "已通过";
+                    break;
+            }
+        }
+        return $status;
     }
 
 }

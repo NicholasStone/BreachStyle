@@ -36,7 +36,7 @@ class BranchController extends VerificationController
     public function restore($id)
     {
         $branch = Branch::onlyTrashed()->where('id', $id)->firstOrFail();
-        if (!$branch->restore()){
+        if (!$branch->restore()) {
             return redirect()->back()->withErrors('此支部支部书记已不存在，无法恢复');
         };
 
@@ -98,7 +98,7 @@ class BranchController extends VerificationController
         $data = [];
         foreach ($branches as $item) {
             array_push($data, [
-                "#"       => $item->id,
+                "ID"      => $item->id,
                 "支部名称"    => $item->name,
                 "支部类型"    => $item->type,
                 "支部联系电话"  => $item->tel,
@@ -109,6 +109,7 @@ class BranchController extends VerificationController
                 "支部书记简介"  => $item->secretary_summary,
                 "所在学校"    => $item->university,
                 '是否已通过审核' => $item->verification ? "是" : "否",
+                '状态'      => $item->getStatus(),
                 '提交于'     => $item->created_at,
                 '通过于'     => $item->verification ? $item->updated_at : "未审核",
             ]);

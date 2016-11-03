@@ -175,10 +175,13 @@ class BranchController extends Controller
 
         if ($request->hasFile('avatar')) {
             $all['avatar'] = $this->saveImage($request->file('avatar'), "Branch/avatar");
+        }else{
+            unset($all['avatar']);
         }
         if ($request->hasFile('apply')) {
             $all['apply_img'] = $this->saveImage($request->file('apply'), "Branch/Applies");
         }
+//        dd($all);
         $branch->verification = 0;
         $branch->update($all);
 

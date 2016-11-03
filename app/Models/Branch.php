@@ -154,4 +154,28 @@ class Branch extends Model
             ])
             ->send();
     }
+
+    /**
+     * @return null|string
+     */
+    public function getStatus()
+    {
+        $status = null;
+        if ($this->trashed()){
+            $status = "已删除";
+        }else{
+            switch ($this->verification){
+                case -1:
+                    $status = "已驳回";
+                    break;
+                case 0:
+                    $status = "待审核";
+                    break;
+                case 1:
+                    $status = "已通过";
+                    break;
+            }
+        }
+        return $status;
+    }
 }

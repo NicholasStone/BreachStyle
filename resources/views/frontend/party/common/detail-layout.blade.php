@@ -26,7 +26,5 @@
             @include('frontend.includes.fancy')
         </div>
     </div>
-    @if(Auth::check() && Auth::user()->user_id)
-        @include('frontend.party.common.comment')
-    @endif
+    @include('frontend.party.common.comment')
 @endsection

@@ -4,13 +4,15 @@
         <div class="commentLength">
             <p>评论(<span>{{ $application->total_comment }}</span>条)</p>
         </div>
-        <div class="publish">
-            <form action="{{ route('frontend.comment.create', $application->id) }}" method="post">
-                {!! csrf_field() !!}
-                <textarea class="review" placeholder="请输入评论内容" name="comment"></textarea>
-                <button type="submit" class="reviewBtn">评论</button>
-            </form>
-        </div>
+        @if(Auth::check()&&Auth::user()->user_id)
+            <div class="publish">
+                <form action="{{ route('frontend.comment.create', $application->id) }}" method="post">
+                    {!! csrf_field() !!}
+                    <textarea class="review" placeholder="请输入评论内容" name="comment"></textarea>
+                    <button type="submit" class="reviewBtn">评论</button>
+                </form>
+            </div>
+        @endif
         <div class="commentList">
             @if(isset($comments))
                 @foreach($comments as $key => $item)
