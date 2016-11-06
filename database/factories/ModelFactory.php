@@ -69,7 +69,7 @@ $factory->define(\App\Models\Application::class, function (Faker\Generator $fake
         'branch_type'     => rand(1, 2),
         'img_hash'        => $faker->imageUrl(256, 256),
         'apply_hash'      => $faker->imageUrl(256, 256),
-        'video_hash'      => $faker->imageUrl(256, 256),
+        'video_hash'      => rand(40,100),
         'course_lecturer' => $faker->userName,
         'fancy'           => rand(100, 500),
     ];

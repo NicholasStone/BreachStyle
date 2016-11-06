@@ -29,6 +29,27 @@
                 reasonFrom.attr('action', "{{ route('admin.verify.application.delete', $id) }}");
                 dialog.modal();
             });
+            $("#source-video").click(function () {
+                $.ajax({
+                    url: "http://playfile.enetedu.com/VideoPlay/GetVideoUrlPath",
+                    data: {
+                        upFileID: "{{ $video_hash }}",
+                        key: "{{ substr(md5('dxsfdy'.$video_hash),8,16) }}"
+                    },
+                    method: "post",
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Code == 1) {
+                            window.open(data.VideoUrl);
+                        } else {
+                            $("#source-message").text(data.Message + "无法导出视频");
+                        }
+                    },
+                    error: function () {
+                        $("#source-message").text("视频服务器错误，无法导出视频");
+                    }
+                })
+            })
         });
     </script>
 @endsection
@@ -84,8 +105,12 @@
                 @if($video_hash)
                     <dt>{{ trans('strings.backend.verification.application.video') }}</dt>
                     <dd>
-                        <iframe style="border: 0" src="http://playfile.enetedu.com/VideoPlay/Video?upFileID={{ $video_hash }}&key={{ substr(md5('dxsfdy'.$video_hash),8,16) }}&width=800&height=600"
+                        <iframe style="border: 0"
+                                src="http://playfile.enetedu.com/VideoPlay/Video?upFileID={{ $video_hash }}&key={{ substr(md5('dxsfdy'.$video_hash),8,16) }}&width=800&height=600"
                                 width="830" height="620" frameborder="none"></iframe>
+                        <br>
+                        <button id="source-video" class="btn bg-olive btn-flat">导出源视频</button>
+                        <p style="color: red;margin: 10px;font-weight: bolder" id="source-message"></p>
                     </dd>
                 @endif
                 <dt>{{ trans('strings.backend.verification.application.apply') }}</dt>
