@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Http\Controllers\Common\FileStorage;
 use Carbon\Carbon;
-use Fenos\Notifynder\Facades\Notifynder;
-use Illuminate\Support\Facades\App;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Facades\Datatables;
 
@@ -71,15 +69,21 @@ class ApplicationController extends VerificationController
 
     public function detail($id)
     {
-        $application = Application::find($id);
+        $application = $this->application->where('id', $id);
         if (!$application) {
-            $application = Application::onlyTrashed()->where('id', $id)->first();
+            $application = $this->application->onlyTrashed()->where('id', $id);
             $application || abort(404);
         }
-        $application->branch;
-
-//        dd($application->toArray());
-        return view('backend.verification.application.detail', $application);
+        $application = $application->with([
+            'branch' => function($query){
+                $query->select(['id', 'name', 'tel', 'university']);
+            },
+            'notification' => function($query){
+                $query->select(['id', 'extra']);
+            }
+        ]);
+        $application = $application->first();
+        return view('backend.verification.application.detail', compact("application"));
     }
 
     public function excel()
@@ -98,7 +102,7 @@ class ApplicationController extends VerificationController
     protected function getExcelData()
     {
         $application = Application::with(["branch" => function ($query) {
-            $query->select(['id', 'name', 'secretary', 'tel', 'university', 'type'])->with(['secretary'=>function($query){
+            $query->select(['id', 'name', 'secretary', 'tel', 'university', 'type'])->with(['secretary' => function ($query) {
                 $query->select(['id', 'name']);
             }]);
         }])->select([
@@ -123,6 +127,7 @@ class ApplicationController extends VerificationController
                 '作品链接'    => $item->deleted_at ? "已删除" : $item->getShowUrl(),
             ]);
         }
+
         return $data;
     }
 

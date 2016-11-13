@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Fenos\Notifynder\Models\Notification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Fenos\Notifynder\Facades\Notifynder;
@@ -32,6 +33,11 @@ class Application extends Model
     public function fancy()
     {
         return $this->hasMany(Fancy::class);
+    }
+
+    public function notification()
+    {
+        return $this->belongsTo(Notification::class);
     }
 
     public function scopeTotalComment($query)
@@ -132,7 +138,7 @@ class Application extends Model
             ]);
         }
         $branch = Branch::select(['secretary'])->withTrashed()->where('id', $this->branch_id)->first();
-        Notifynder::category($category)
+        $i = Notifynder::category($category)
             ->from(\Auth::id())
             ->to($branch->secretary)
             ->url($redirect)
@@ -141,6 +147,8 @@ class Application extends Model
                 'reason'           => $reason,
             ])
             ->send();
+        $this->notification_id = $i->id;
+        $this->save();
     }
 
     /**
