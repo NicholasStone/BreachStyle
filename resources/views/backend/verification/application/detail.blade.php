@@ -53,16 +53,16 @@
                 <p>
                     当前文章状态：
                     @if($application->deleted_at)
-                        <span class="label label-danger">已删除</span>
+                        <span class="label label-danger">已删除</span><br>
                         <span>{{ isset($application->notification) ? "删除原因 :".json_decode($application->notification->extra)->reason : '' }}</span>
                     @else
                         @if($application->verification == 0)
-                            <span class="label label-default">等待审核</span>
+                            <span class="label label-default">等待审核</span><br>
                             <span>{{ isset($application->notification) ? "驳回原因 :".json_decode($application->notification->extra)->reason : ''}}</span>
                         @elseif($application->verification == 1)
                             <span class="label label-success">已通过</span>
                         @elseif($application->verification == -1)
-                            <span class="label label-warning">被驳回</span>
+                            <span class="label label-warning">被驳回</span><br>
                             <span>{{ isset($application->notification) ? "驳回原因 :".json_decode($application->notification->extra)->reason : '' }}</span>
                         @endif
                     @endif
