@@ -69,20 +69,18 @@ class ApplicationController extends VerificationController
 
     public function detail($id)
     {
-        $application = $this->application->where('id', $id);
-        if (!$application) {
-            $application = $this->application->onlyTrashed()->where('id', $id);
-            $application || abort(404);
-        }
-        $application = $application->with([
-            'branch' => function($query){
-                $query->select(['id', 'name', 'tel', 'university']);
-            },
-            'notification' => function($query){
-                $query->select(['id', 'extra']);
-            }
-        ]);
-        $application = $application->first();
+        $application = $this->application
+            ->withTrashed()->where('id', $id)
+            ->with([
+                'branch'       => function ($query) {
+                    $query->select(['id', 'name', 'tel', 'university']);
+                },
+                'notification' => function ($query) {
+                    $query->select(['id', 'extra']);
+                },
+            ])
+            ->firstOrFail();
+
         return view('backend.verification.application.detail', compact("application"));
     }
 
