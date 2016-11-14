@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class MobileController extends Controller
 {
-    protected $ITEM_EACH_PAGE;
+    protected $ITEM_EACH_PAGE = 7;
 
     public function applications()
     {
@@ -36,7 +36,7 @@ class MobileController extends Controller
             $applications = $applications->skip($offset)
                 ->take($this->ITEM_EACH_PAGE);
         }else{
-            $applications->limit(7);
+            $applications = $applications->limit($this->ITEM_EACH_PAGE);
         }
         $lists = $applications->get();
 
