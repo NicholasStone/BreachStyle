@@ -112,6 +112,7 @@ class BranchController extends VerificationController
                 '状态'      => $item->getStatus(),
                 '提交于'     => $item->created_at,
                 '通过于'     => $item->verification ? $item->updated_at : "未审核",
+                '支部链接'    => route('frontend.branch.show', $item->id),
             ]);
         }
 

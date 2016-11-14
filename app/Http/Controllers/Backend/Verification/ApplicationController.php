@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Http\Controllers\Common\FileStorage;
 use Carbon\Carbon;
-use Fenos\Notifynder\Facades\Notifynder;
-use Illuminate\Support\Facades\App;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\Datatables\Facades\Datatables;
 
@@ -71,15 +69,19 @@ class ApplicationController extends VerificationController
 
     public function detail($id)
     {
-        $application = Application::find($id);
-        if (!$application) {
-            $application = Application::onlyTrashed()->where('id', $id)->first();
-            $application || abort(404);
-        }
-        $application->branch;
+        $application = $this->application
+            ->withTrashed()->where('id', $id)
+            ->with([
+                'branch'       => function ($query) {
+                    $query->select(['id', 'name', 'tel', 'university']);
+                },
+                'notification' => function ($query) {
+                    $query->select(['id', 'extra']);
+                },
+            ])
+            ->firstOrFail();
 
-//        dd($application->toArray());
-        return view('backend.verification.application.detail', $application);
+        return view('backend.verification.application.detail', compact("application"));
     }
 
     public function excel()
@@ -97,10 +99,13 @@ class ApplicationController extends VerificationController
      */
     protected function getExcelData()
     {
-        $application = Application::with("branch")->select([
+        $application = Application::with(["branch" => function ($query) {
+            $query->select(['id', 'name', 'secretary', 'tel', 'university', 'type'])->with(['secretary' => function ($query) {
+                $query->select(['id', 'name']);
+            }]);
+        }])->select([
             "id", "name", "type", "verification", "branch_type", "created_at", "branch_id", "updated_at", "detail", "summary", "deleted_at",
         ])->get();
-
         $data = [];
         foreach ($application as $key => $item) {
             array_push($data, [
@@ -108,6 +113,8 @@ class ApplicationController extends VerificationController
                 '提交作品题目'  => $item->name,
                 '提交作品类型'  => $item->type,
                 '支部名称'    => $item->branch->name,
+                '支部书记'    => $item->branch['relations']['secretary']['original']['name'],
+                '工作电话'    => $item->branch->tel,
                 '支部类型'    => $item->branch->type,
                 '所属学校'    => $item->branch->university,
                 '简介'      => $item->summary,

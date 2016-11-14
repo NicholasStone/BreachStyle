@@ -3,7 +3,7 @@
     var application = $("#application-form");
     @if($editor)
     application.submit(function (e) {
-        if (CKEDITOR == undefined){
+        if (CKEDITOR == undefined) {
             return;
         }
         var str = CKEDITOR.instances.editor.getData();
@@ -134,4 +134,16 @@
         }
     });
     /*表单验证-end*/
+    application.submit(function (e) {
+        if (application.valid()) {
+            swal({
+                title: "正在提交",
+                text: "系统正在提交您所填写的信息，请稍后",
+                type: "info",
+                showCancelButton: false,
+                showConfirmButton: false,
+                allowEscapeKey:false
+            });
+        }
+    })
 </script>
