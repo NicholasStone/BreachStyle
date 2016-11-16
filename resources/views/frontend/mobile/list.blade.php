@@ -102,92 +102,90 @@
     {{ Html::script('/js/jquery.event.swipe.js') }}
     {{ Html::script('//cdn.bootcss.com/unslider/2.0.3/js/unslider-min.js') }}
     <script type="text/javascript">
-        $(function () {
-            var Loader = {
-                counter: 0,
-                result: '',
-                load: function () {
-                    this.loader();
-                    if (this.result) {
-                        $("#main-list").append(this.result);
-                        this.counter++;
-                        this.result = '';
-                        return true;
-                    } else {
-                        return false;
-                    }
-                },
-                loader: function () {
-                    $.ajax({
-                        type: 'post',
-                        url: '{{ route('frontend.m.index', $type) }}',
-                        dataType: 'json',
-                        async: false,
-                        data: {
-                            'counter': Loader.counter,
-                            '_token': "{{ csrf_token() }}"
-                        },
-                        success: function (data) {
-                            Loader.render(data);
-                        },
-                        error: function () {
-                            Loader.result = false;
-                        }
-                    });
-                },
-                render: function (data) {
-                    $.each(data.lists, function (i, e) {
-                        Loader.result +=
-                                '<li class="index-list">' +
-                                '<a href="' + e.url + '">' +
-                                '<div class="index-list-top">' +
-                                '<div class="list-top-left">' +
-                                '<h5>' + e.name + '</h5>' +
-                                '</div>' +
-                                '<div class="list-top-right">' +
-                                '<img src="' + e.img_hash + '">' +
-                                '</div>' +
-                                '</div>' +
-                                '</a>' +
-                                '<div class="index-list-bottom">' +
-                                '<div class="list-bottom-left">' +
-                                '<div><i class="fa fa-user" aria-hidden="true"></i></div>' +
-                                '<span><a href="' + e.branch.url + '">' + e.branch.name + '</a></span>' +
-                                '</div>' +
-                                '<div class="list-bottom-right">' +
-                                '<div class="index-zan"><i class="fa fa-heart-o" aria-hidden="true"></i> ' + e.fancy + '</div>' +
-                                '<div class="index-message"><i class="fa fa-commenting-o" aria-hidden="true"></i> ' + e.total_comment + '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</li>';
-                    });
-                }
-            };
-            var loading = function () {
-                $("#load-more").hide();
-                $("#spinner").show();
-            };
-            var loadEnd = function (success) {
-                var info = $("#load-info");
-                var notice = '';
-                if (success) {
-                    notice = "加载成功";
+        var Loader = {
+            counter: 0,
+            result: '',
+            load: function () {
+                this.loader();
+                if (this.result) {
+                    $("#main-list").append(this.result);
+                    this.counter++;
+                    this.result = '';
+                    return true;
                 } else {
-                    notice = "加载失败，请稍后再试";
+                    return false;
                 }
-                $("#spinner").hide();
-                info.text(notice).show();
-                setTimeout(function () {
-                    info.hide();
-                    $("#load-more").fadeIn("slow");
-                }, 1000);
-            };
-            var loadBtn = $("#load-more");
-            loadBtn.click(function () {
-                loading();
-                loadEnd(Loader.load());
-            });
-            loadBtn.trigger("click");
+            },
+            loader: function () {
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route('frontend.m.index', $type) }}',
+                    dataType: 'json',
+                    async: false,
+                    data: {
+                        'counter': Loader.counter,
+                        '_token': "{{ csrf_token() }}"
+                    },
+                    success: function (data) {
+                        Loader.render(data);
+                    },
+                    error: function () {
+                        Loader.result = false;
+                    }
+                });
+            },
+            render: function (data) {
+                $.each(data.lists, function (i, e) {
+                    Loader.result +=
+                            '<li class="index-list">' +
+                            '<a href="' + e.url + '">' +
+                            '<div class="index-list-top">' +
+                            '<div class="list-top-left">' +
+                            '<h5>' + e.name + '</h5>' +
+                            '</div>' +
+                            '<div class="list-top-right">' +
+                            '<img src="' + e.img_hash + '">' +
+                            '</div>' +
+                            '</div>' +
+                            '</a>' +
+                            '<div class="index-list-bottom">' +
+                            '<div class="list-bottom-left">' +
+                            '<div><i class="fa fa-user" aria-hidden="true"></i></div>' +
+                            '<span><a href="' + e.branch.url + '">' + e.branch.name + '</a></span>' +
+                            '</div>' +
+                            '<div class="list-bottom-right">' +
+                            '<div class="index-zan"><i class="fa fa-heart-o" aria-hidden="true"></i> ' + e.fancy + '</div>' +
+                            '<div class="index-message"><i class="fa fa-commenting-o" aria-hidden="true"></i> ' + e.total_comment + '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</li>';
+                });
+            }
+        };
+        var loading = function () {
+            $("#load-more").hide();
+            $("#spinner").show();
+        };
+        var loadEnd = function (success) {
+            var info = $("#load-info");
+            var notice = '';
+            if (success) {
+                notice = "加载成功";
+            } else {
+                notice = "加载失败，请稍后再试";
+            }
+            $("#spinner").hide();
+            info.text(notice).show();
+            setTimeout(function () {
+                info.hide();
+                $("#load-more").fadeIn("slow");
+            }, 1000);
+        };
+        var loadBtn = $("#load-more");
+        loadBtn.click(function () {
+            loading();
+            loadEnd(Loader.load());
         });
+        loadBtn.trigger("click");
     </script>
 @endsection
