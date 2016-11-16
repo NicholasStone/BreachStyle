@@ -1,6 +1,3 @@
-@section('fit')
-    @include('frontend.mobile.fit', ['route' => route('frontend.m.recommend') ])
-@endsection
 <ul class="recTeaList">
     @foreach($page as $item)
         <li>
