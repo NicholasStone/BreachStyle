@@ -97,10 +97,6 @@
 @endsection
 
 @section('scripts')
-    <script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
-    {{ Html::script('/js/jquery.event.move.min.js') }}
-    {{ Html::script('/js/jquery.event.swipe.js') }}
-    {{ Html::script('//cdn.bootcss.com/unslider/2.0.3/js/unslider-min.js') }}
     <script type="text/javascript">
         var Loader = {
             counter: 0,
