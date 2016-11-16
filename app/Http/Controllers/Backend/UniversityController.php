@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Models\Province;
 use App\Models\University;
 use Illuminate\Http\Request;
-use Yajra\Datatables\Facades\Datatables;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use Yajra\Datatables\Facades\Datatables;
+use Carbon\Carbon;
 
 class UniversityController extends Controller
 {
@@ -46,5 +47,28 @@ class UniversityController extends Controller
         ]);
 
         return redirect()->back()->withFlushSuccess("操作成功");
+    }
+
+    public function excel()
+    {
+        Excel::create("高校列表-截止于" . Carbon::now('Asia/Shanghai'), function ($excel) {
+            $excel->sheet('高校列表', function ($sheet) {
+                $data = $this->getUniversitiesHasBranches();
+                $sheet->with($data);
+            });
+        })->download('xlsx');
+    }
+
+    protected function getUniversitiesHasBranches()
+    {
+        $result = [];
+        $universitiesHasBranches = University::has("branches")->with('province')->get();
+        foreach ($universitiesHasBranches as $item){
+            array_push($result, [
+                "高校名称" => $item->name,
+                "所在省份" => $item->province->name,
+            ]);
+        }
+        return $result;
     }
 }

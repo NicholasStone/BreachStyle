@@ -15,3 +15,4 @@ Route::get('university', 'UniversityController@index')->name('admin.university.i
 Route::post('university/get', 'UniversityController@get')->name('admin.university.get');
 Route::post('university/create', 'UniversityController@store')->name('admin.university.store');
 Route::get('university/delete/{id}', 'UniversityController@delete')->name('admin.university.delete');
+Route::get('university/excel', 'UniversityController@excel')->name('admin.university.excel');
