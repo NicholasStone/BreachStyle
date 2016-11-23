@@ -214,7 +214,7 @@ class BranchController extends Controller
             return [$page, $university];
         } else {
             $university = University::findOrFail($id);
-            $page = Branch::select(['id', 'name', 'branch_id', 'avatar', 'summary'])->where('university', $university->name)->withProvince()->paginate();
+            $page = Branch::select(['id', 'type', 'name', 'university', 'avatar', 'summary'])->where('university', $university->name)->withProvince()->paginate();
 
             return [$page, $university];
         }
