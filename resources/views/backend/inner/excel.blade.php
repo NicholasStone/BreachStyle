@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
 <table>
@@ -24,7 +24,7 @@
         <tr>
             <td>{{ $item['id']}}</td>
             <td>
-                {{ $item['verification'] != '是' ? $item['name'] : link_to($item['url'], $item['name']) }}
+                {{ $item['v'] ? link_to($item['url'], $item['name']) : $item['name'] }}
             </td>
             <td>{{ $item['type'] }}</td>
             <td>{{ $item['branch-name'] }}</td>

@@ -124,12 +124,14 @@ class ApplicationController extends VerificationController
                 'school'       => $item->branch->university,
                 'summary'      => $item->summary,
                 'verification' => $item->deleted_at ? "删除于" . $item->deleted_at : $item->verification ? "是" : "否",
+                'v'            => $item->deleted_at ? false : $item->verification == 1 ? true : false,
                 'status'       => $item->getStatus(),
                 'post-at'      => $item->created_at,
                 'pass-at'      => $item->verification ? $item->updated_at : "未审核",
                 'url'          => $item->deleted_at ? "已删除" : $item->getShowUrl(),
             ]);
         }
+
         return $data;
     }
 
