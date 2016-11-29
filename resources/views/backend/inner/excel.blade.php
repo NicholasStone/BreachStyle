@@ -24,7 +24,7 @@
         <tr>
             <td>{{ $item['id']}}</td>
             <td>
-                {{ $item['verification'] != 1 ? $item['name'] : link_to($item['url'], $item['']) }}
+                {{ $item['verification'] != '是' ? $item['name'] : link_to($item['url'], $item['']) }}
             </td>
             <td>{{ $item['type'] }}</td>
             <td>{{ $item['branch-name'] }}</td>
