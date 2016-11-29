@@ -29,7 +29,7 @@
             <td>{{ $item['type'] }}</td>
             <td>{{ $item['branch-name'] }}</td>
             <td>{{ $item['secretary'] }}</td>
-            <td>{{ $item['work-tel'] }}</td>
+            <td>{{ $item['tel-work'] }}</td>
             <td>{{ $item['branch-type'] }}</td>
             <td>{{ $item['school'] }}</td>
             <td>{{ $item['summary'] }}</td>
