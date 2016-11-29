@@ -94,9 +94,9 @@ class SSOAuthController extends Controller
             'province'   => 'required|exists:provinces,name',
             'city'       => 'required|max:20',
             'university' => 'required|exists:universities,name',
-            'tel_work'   => 'required|unique:users,tel',
-            'tel'        => 'required|unique:users,tel_work',
-            'email'      => 'required|email|unique:users,email',
+            'tel_work'   => 'required',
+            'tel'        => 'required',
+            'email'      => 'required|email',
             'avatar'     => 'required|image|max:500',
         ], [
             'university.exists' => '所填大学不存在',
