@@ -100,9 +100,12 @@ class ApplicationController extends VerificationController
     protected function getExcelData()
     {
         $application = Application::with(["branch" => function ($query) {
-            $query->select(['id', 'name', 'secretary', 'tel', 'university', 'type'])->with(['secretary' => function ($query) {
-                $query->select(['id', 'name']);
-            }]);
+            $query
+                ->select(['id', 'name', 'secretary', 'tel', 'university', 'type'])
+                ->with(['secretary' => function ($query) {
+                    $query->select(['id', 'name'])->withTrashed();
+                }])
+                ->withTrashed();
         }])->select([
             "id", "name", "type", "verification", "branch_type", "created_at", "branch_id", "updated_at", "summary", "deleted_at",
         ])
