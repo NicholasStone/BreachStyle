@@ -23,7 +23,9 @@
     @foreach($data as $item)
         <tr>
             <td>{{ $item->id }}</td>
-            <td><a href="{{ $item->deleted_at ? "已删除" : $item->getShowUrl() }}">{{ $item->name }}</a></td>
+            <td>
+                {{ $item->verification != 1 ? $item->name : link_to($item->getShowUrl(), $item->name) }}
+            </td>
             <td>{{ $item->type }}</td>
             <td>{{ $item->branch->name }}</td>
             <td>{{ $item->branch['relations']['secretary']['original']['name'] }}</td>

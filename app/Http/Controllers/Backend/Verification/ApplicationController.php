@@ -86,7 +86,6 @@ class ApplicationController extends VerificationController
 
     public function excel()
     {
-//        return view('backend.inner.excel', ['data' => $this->getExcelData()]);
         Excel::create("提交记录-截止于" . Carbon::now('Asia/Shanghai'), function ($excel) {
             $excel->sheet('提交记录', function ($sheet) {
                 $data = $this->getExcelData();
@@ -106,7 +105,9 @@ class ApplicationController extends VerificationController
             }]);
         }])->select([
             "id", "name", "type", "verification", "branch_type", "created_at", "branch_id", "updated_at", "detail", "summary", "deleted_at",
-        ])->get();
+        ])
+            ->withTrashed()
+            ->get();
 //        $data = [];
 //        foreach ($application as $key => $item) {
 //            array_push($data, [
