@@ -8,8 +8,7 @@
 @endsection
 @section('after-styles-end')
     {!! Html::style('css/frontend/participate.css') !!}
-@endsection 
-参与党支部
+@endsection
 @section('content')
     <!-- participate -->
     <div class="participate">
