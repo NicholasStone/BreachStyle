@@ -20,7 +20,7 @@
         <th>提交于</th>
         <th>通过于</th>
     </tr>
-    @foreach($data as $item)
+    @foreach($data as $key => $item)
         <tr>
             <td>{{ $item['id']}}</td>
             <td>

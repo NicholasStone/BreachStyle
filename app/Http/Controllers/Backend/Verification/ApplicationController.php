@@ -130,7 +130,7 @@ class ApplicationController extends VerificationController
                 'url'          => $item->deleted_at ? "已删除" : $item->getShowUrl(),
             ]);
         }
-
+        return $data;
     }
 
     /**
