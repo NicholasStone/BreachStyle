@@ -86,10 +86,11 @@ class ApplicationController extends VerificationController
 
     public function excel()
     {
+//        return view('backend.inner.excel', ['data' => $this->getExcelData()]);
         Excel::create("提交记录-截止于" . Carbon::now('Asia/Shanghai'), function ($excel) {
             $excel->sheet('提交记录', function ($sheet) {
                 $data = $this->getExcelData();
-                $sheet->with($data);
+                $sheet->loadView('backend.inner.excel')->with(['data' => $data]);
             });
         })->download('xlsx');
     }
@@ -99,34 +100,33 @@ class ApplicationController extends VerificationController
      */
     protected function getExcelData()
     {
-        $application = Application::with(["branch" => function ($query) {
+        return Application::with(["branch" => function ($query) {
             $query->select(['id', 'name', 'secretary', 'tel', 'university', 'type'])->with(['secretary' => function ($query) {
                 $query->select(['id', 'name']);
             }]);
         }])->select([
             "id", "name", "type", "verification", "branch_type", "created_at", "branch_id", "updated_at", "detail", "summary", "deleted_at",
         ])->get();
-        $data = [];
-        foreach ($application as $key => $item) {
-            array_push($data, [
-                'ID'      => $item->id,
-                '提交作品题目'  => $item->name,
-                '提交作品类型'  => $item->type,
-                '支部名称'    => $item->branch->name,
-                '支部书记'    => $item->branch['relations']['secretary']['original']['name'],
-                '工作电话'    => $item->branch->tel,
-                '支部类型'    => $item->branch->type,
-                '所属学校'    => $item->branch->university,
-                '简介'      => $item->summary,
-                '是否已通过审核' => $item->deleted_at ? "删除于" . $item->deleted_at : $item->verification ? "是" : "否",
-                '作品状态'    => $item->getStatus(),
-                '提交于'     => $item->created_at,
-                '通过于'     => $item->verification ? $item->updated_at : "未审核",
-                '作品链接'    => $item->deleted_at ? "已删除" : $item->getShowUrl(),
-            ]);
-        }
+//        $data = [];
+//        foreach ($application as $key => $item) {
+//            array_push($data, [
+//                'ID'      => $item->id,
+//                '提交作品题目'  => $item->name,
+//                '提交作品类型'  => $item->type,
+//                '支部名称'    => $item->branch->name,
+//                '支部书记'    => $item->branch['relations']['secretary']['original']['name'],
+//                '工作电话'    => $item->branch->tel,
+//                '支部类型'    => $item->branch->type,
+//                '所属学校'    => $item->branch->university,
+//                '简介'      => $item->summary,
+//                '是否已通过审核' => $item->deleted_at ? "删除于" . $item->deleted_at : $item->verification ? "是" : "否",
+//                '作品状态'    => $item->getStatus(),
+//                '提交于'     => $item->created_at,
+//                '通过于'     => $item->verification ? $item->updated_at : "未审核",
+//                '作品链接'    => $item->deleted_at ? "已删除" : $item->getShowUrl(),
+//            ]);
+//        }
 
-        return $data;
     }
 
     /**
