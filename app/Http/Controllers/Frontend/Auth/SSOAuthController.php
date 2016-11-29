@@ -89,7 +89,7 @@ class SSOAuthController extends Controller
         $fill     = $request->all();
         $validate = Validator::make($fill, [
             'name'       => 'required',
-            'id_number'  => 'required|unique:users,id_number',
+            'id_number'  => 'required',
             'type'       => 'required|in:学生,教师',
             'province'   => 'required|exists:provinces,name',
             'city'       => 'required|max:20',

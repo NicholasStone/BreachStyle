@@ -22,21 +22,21 @@
     </tr>
     @foreach($data as $item)
         <tr>
-            <td>{{ $item->id }}</td>
+            <td>{{ $item['id']}}</td>
             <td>
-                {{ $item->verification != 1 ? $item->name : link_to($item->getShowUrl(), $item->name) }}
+                {{ $item['verification'] != 1 ? $item['name'] : link_to($item['url'], $item['']) }}
             </td>
-            <td>{{ $item->type }}</td>
-            <td>{{ $item->branch->name }}</td>
-            <td>{{ $item->branch['relations']['secretary']['original']['name'] }}</td>
-            <td>{{ $item->branch->tel }}</td>
-            <td>{{ $item->branch->type }}</td>
-            <td>{{ $item->branch->universit }}</td>
-            <td>{{ $item->summary }}</td>
-            <td>{{ $item->deleted_at ? "删除于" . $item->deleted_at : $item->verification ? "是" : "否" }}</td>
-            <td>{{ $item->getStatus() }}</td>
-            <td>{{ $item->created_at }}</td>
-            <td>{{ $item->verification ? $item->updated_at : "未审核" }}</td>
+            <td>{{ $item['type'] }}</td>
+            <td>{{ $item['branch-name'] }}</td>
+            <td>{{ $item['secretary'] }}</td>
+            <td>{{ $item['work-tel'] }}</td>
+            <td>{{ $item['branch-type'] }}</td>
+            <td>{{ $item['school'] }}</td>
+            <td>{{ $item['summary'] }}</td>
+            <td>{{ $item['verification'] }}</td>
+            <td>{{ $item['status'] }}</td>
+            <td>{{ $item['post-at'] }}</td>
+            <td>{{ $item['pass-at'] }}</td>
         </tr>
     @endforeach
 </table>
