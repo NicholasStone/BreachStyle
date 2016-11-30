@@ -116,6 +116,7 @@ class SSOAuthController extends Controller
         $fill['user_id'] = Session::get('user_id');
         $fill['avatar']  = $this->saveImage($request->file('avatar'), 'User/Avatar');
         $user            = User::Create($fill);
+        $user->attachRole(3);
         Auth::login($user);
         alert()->success('身份信息录入成功');
 
