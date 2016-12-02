@@ -10,7 +10,8 @@
     <div class="create">
         <div class="content">
             <div class="crtDepart">
-                <form id="application-form" autocomplete="off" action="{{ route('frontend.branch.create') }}" method="post"
+                <form id="application-form" autocomplete="off" action="{{ route('frontend.branch.create') }}"
+                      method="post"
                       enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="uploadImg">
@@ -141,9 +142,11 @@
     <script src="/vendor/ckeditor/ckeditor.js"></script>
     {{ Html::script('//cdn.bootcss.com/jquery-validate/1.15.1/jquery.validate.js') }}
     <script>
+        @if (old('type'))
         $(function () {
             $("#application-form input[type=radio][value={{ old('type') }}]").attr('selected', 'selected');
         });
+        @endif
         CKEDITOR.replace('detail', {
             language: 'zh-cn',
             uploadUrl: '{{ route("frontend.branch.image.drag") }}?_token={{ csrf_token() }}',
@@ -158,7 +161,8 @@
             var mobile = /^1[34578]\d{9}$/;
             return (length == 11 && mobile.exec(value)) ? true : false;
         }, "请正确填写您的手机号码");
-        $("#application-form").validate({
+        var application = $("#application-form");
+        application.validate({
             rules: {
                 avatar: {
                     required: true
@@ -242,6 +246,18 @@
             }
         });
         /*表单验证-end*/
+        application.submit(function (e) {
+            if (application.valid()) {
+                swal({
+                    title: "正在提交",
+                    text: "系统正在提交您所填写的信息，请稍后",
+                    type: "info",
+                    showCancelButton: false,
+                    showConfirmButton: false,
+                    allowEscapeKey: false
+                });
+            }
+        })
         /*获取元素实际样式-start*/
         function imgAttr(imgUrl) {
             var tmpImg = new Image;
@@ -265,8 +281,8 @@
         var uploadCertify = (function () {
             if (window.FileReader) {
                 var oPreviewImg = null,
-                        oFReader = new window.FileReader(),
-                        rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                    oFReader = new window.FileReader(),
+                    rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
                 oFReader.onload = function (oFREvent) {
                     if (!oPreviewImg) {
                         var newPreview = document.getElementById("img-preview");
@@ -309,8 +325,8 @@
         var loadImageFile = (function () {
             if (window.FileReader) {
                 var oPreviewImg = null,
-                        oFReader = new window.FileReader(),
-                        rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                    oFReader = new window.FileReader(),
+                    rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
                 oFReader.onload = function (oFREvent) {
                     if (!oPreviewImg) {
                         var newPreview = document.getElementById("imgBox");
