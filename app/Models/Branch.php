@@ -110,7 +110,9 @@ class Branch extends Model
         });
 
         $secretary = User::find($this->secretary);
-        $secretary->detachBranch();
+        if ($secretary) {
+            $secretary->detachBranch();
+        }
 
         $this->runSoftDelete();
         $this->sendNotify('branch.delete', "javascript:void(0)", $reason);
