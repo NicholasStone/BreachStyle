@@ -81,7 +81,8 @@ class BranchController extends VerificationController
     {
         Excel::create("支部数据-截止于" . Carbon::now('Asia/Shanghai'), function ($excel) {
             $excel->sheet("支部数据", function ($sheet) {
-                $sheet->with($this->getExcelData());
+                $data = $this->getExcelData();
+                $sheet->loadView('backend.inner.excel-branch')->with(['data' => $data]);
             });
         })->download('xlsx');
     }
@@ -98,21 +99,22 @@ class BranchController extends VerificationController
         $data = [];
         foreach ($branches as $item) {
             array_push($data, [
-                "ID"      => $item->id,
-                "支部名称"    => $item->name,
-                "支部类型"    => $item->type,
-                "支部联系电话"  => $item->tel,
-                "支部通讯地址"  => $item->address,
-                "简介"      => $item->summary,
-                "总人数"     => $item->total_membership,
-                "支部书记"    => empty($item->secretary) ? $item->secretary->name : '',
-                "支部书记简介"  => $item->secretary_summary,
-                "所在学校"    => $item->university,
-                '是否已通过审核' => $item->verification ? "是" : "否",
-                '状态'      => $item->getStatus(),
-                '提交于'     => $item->created_at,
-                '通过于'     => $item->verification ? $item->updated_at : "未审核",
-                '支部链接'    => route('frontend.branch.show', $item->id),
+                "id"                => $item->id,
+                "name"              => $item->name,
+                "type"              => $item->type,
+                "tel"               => $item->tel,
+                "address"           => $item->address,
+                "summary"           => $item->summary,
+                "total"             => $item->total_membership,
+                "secretary"         => empty($item->secretary) ? $item->secretary->name : '',
+                "secretary-summary" => $item->secretary_summary,
+                "school"            => $item->university,
+                "verification"      => $item->verification ? "是" : "否",
+                "status"            => $item->getStatus(),
+                "post-at"           => $item->created_at,
+                "pass-at"           => $item->verification ? $item->updated_at : "未审核",
+                "url"               => route('frontend.branch.show', $item->id),
+                'v'                 => $item->deleted_at ? false : $item->verification == 1 ? true : false,
             ]);
         }
 

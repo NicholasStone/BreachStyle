@@ -89,7 +89,7 @@ class ApplicationController extends VerificationController
         Excel::create("提交记录-截止于" . Carbon::now('Asia/Shanghai'), function ($excel) {
             $excel->sheet('提交记录', function ($sheet) {
                 $data = $this->getExcelData();
-                $sheet->loadView('backend.inner.excel')->with(['data' => $data]);
+                $sheet->loadView('backend.inner.excel-application')->with(['data' => $data]);
             });
         })->download('xlsx');
     }
