@@ -93,7 +93,7 @@ class BranchController extends VerificationController
             $query->select(['name', 'id']);
         }])->select([
             'id', 'name', 'type', 'university', 'tel', 'verification', 'address', 'summary',
-            'total_membership', 'secretary_summary', 'secretary', 'created_at', 'updated_at',
+            'total_membership', 'secretary_summary', 'secretary', 'created_at', 'updated_at', 'deleted_at',
         ])
             ->withTrashed()
             ->get();
