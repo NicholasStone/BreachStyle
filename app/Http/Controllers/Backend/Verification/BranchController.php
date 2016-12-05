@@ -94,7 +94,9 @@ class BranchController extends VerificationController
         }])->select([
             'id', 'name', 'type', 'university', 'tel', 'verification', 'address', 'summary',
             'total_membership', 'secretary_summary', 'secretary', 'created_at', 'updated_at',
-        ])->get();
+        ])
+            ->withTrashed()
+            ->get();
 //        dd($branches->toArray());
         $data = [];
         foreach ($branches as $item) {
