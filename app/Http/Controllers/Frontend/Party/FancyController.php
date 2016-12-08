@@ -15,9 +15,8 @@ class FancyController extends Controller
 {
     public function fancy($id)
     {
-        $application = Application::find($id);
-        $application->fancy++;
-        $application->save();
+        $application = Application::findorFail($id);
+        $application->increment('fancy');
 
         return response()->json(['total' => $application->fancy]);
     }

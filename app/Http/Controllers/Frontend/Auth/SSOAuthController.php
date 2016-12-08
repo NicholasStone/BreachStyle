@@ -89,14 +89,14 @@ class SSOAuthController extends Controller
         $fill     = $request->all();
         $validate = Validator::make($fill, [
             'name'       => 'required',
-            'id_number'  => 'required|unique:users,id_number',
+            'id_number'  => 'required',
             'type'       => 'required|in:学生,教师',
             'province'   => 'required|exists:provinces,name',
             'city'       => 'required|max:20',
             'university' => 'required|exists:universities,name',
-            'tel_work'   => 'required|unique:users,tel',
-            'tel'        => 'required|unique:users,tel_work',
-            'email'      => 'required|email|unique:users,email',
+            'tel_work'   => 'required',
+            'tel'        => 'required',
+            'email'      => 'required|email',
             'avatar'     => 'required|image|max:500',
         ], [
             'university.exists' => '所填大学不存在',
@@ -116,6 +116,7 @@ class SSOAuthController extends Controller
         $fill['user_id'] = Session::get('user_id');
         $fill['avatar']  = $this->saveImage($request->file('avatar'), 'User/Avatar');
         $user            = User::Create($fill);
+        $user->attachRole(3);
         Auth::login($user);
         alert()->success('身份信息录入成功');
 

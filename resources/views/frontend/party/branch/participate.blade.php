@@ -17,7 +17,7 @@
                 <a href="javascript:void(0);">全国</a>
                 @unless(empty($university))
                     <span> / </span>
-                    <a href="javascript:void(0);">{{ $page[0]['relations']['university']->province->name }}</a>
+                    <a href="javascript:void(0);">{{ $university->province->name}}</a>
                     <span> / </span>
                     <a href="javascript:void(0)">{{ $university->name }}</a>
                 @endunless
