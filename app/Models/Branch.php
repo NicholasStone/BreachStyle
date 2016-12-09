@@ -67,7 +67,7 @@ class Branch extends Model
         return $query;
     }
 
-    public function scopeWithStatus($query, $status)
+    public function scopeWithStatus($query, $status = 1)
     {
         if ($status == 3){
             return $query->withTrashed();
