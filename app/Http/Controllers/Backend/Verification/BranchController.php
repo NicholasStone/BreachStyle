@@ -89,45 +89,46 @@ class BranchController extends VerificationController
 
     protected function getExcelData()
     {
-        $branches = Branch::with(['secretary' => function ($query) {
-            $query->select(['name', 'id']);
-        }])->select([
-            'id',
-            'name',
-            'type',
-            'university',
-            'tel',
-            'verification',
-            'address',
-            'summary',
-            'total_membership',
-            'secretary',
-            'created_at',
-            'updated_at',
-            'deleted_at',
-        ])
-            ->withTrashed();
-        $branches = $branches->get();
-//        dd($branches->toArray());
+        $branches = $this->branch
+            ->with(['secretary' => function ($query) {
+                $query->select(['name', 'id'])->withTrashed();
+            }])->select([
+                'id',
+                'name',
+                'type',
+                'university',
+                'tel',
+                'verification',
+                'address',
+                'summary',
+//            'secretary_summary',
+                'total_membership',
+                'secretary',
+                'created_at',
+                'updated_at',
+                'deleted_at',
+            ])
+            ->withTrashed()
+            ->get();
         $data = [];
         foreach ($branches as $item) {
             array_push($data, [
-                "id"                => $item->id,
-                "name"              => $item->name,
-                "type"              => $item->type,
-                "tel"               => $item->tel,
-                "address"           => $item->address,
-                "summary"           => $item->summary,
-                "total"             => $item->total_membership,
-                "secretary"         => empty($item->secretary) ? $item->secretary->name : '',
-                "secretary-summary" => $item->secretary_summary,
-                "school"            => $item->university,
-                "verification"      => $item->verification ? "是" : "否",
-                "status"            => $item->getStatus(),
-                "post-at"           => $item->created_at,
-                "pass-at"           => $item->verification ? $item->updated_at : "未审核",
-                "url"               => route('frontend.branch.show', $item->id),
-                'v'                 => $item->deleted_at ? false : $item->verification == 1 ? true : false,
+                "id"           => $item->id,
+                "name"         => $item->name,
+                "type"         => $item->type,
+                "tel"          => $item->tel,
+                "address"      => $item->address,
+                "summary"      => $item->summary,
+                "total"        => $item->total_membership,
+                "secretary"    => $item["relations"]["secretary"]->name,
+//                "secretary-summary" => $item->secretary_summary,
+                "school"       => $item->university,
+                "verification" => $item->verification ? "是" : "否",
+                "status"       => $item->getStatus(),
+                "post-at"      => $item->created_at,
+                "pass-at"      => $item->verification ? $item->updated_at : "未审核",
+                "url"          => route('frontend.branch.show', $item->id),
+                'v'            => $item->deleted_at ? false : $item->verification == 1 ? true : false,
             ]);
         }
 

@@ -14,6 +14,7 @@
         <th>简介</th>
         <th>总人数</th>
         <th>支部书记</th>
+        {{--<th>支部书记简介</th>--}}
         <th>所在学校</th>
         <th>是否已通过审核</th>
         <th>状态</th>
@@ -32,6 +33,7 @@
             <td>{{ $item['summary'] }}</td>
             <td>{{ $item['total'] }}</td>
             <td>{{ $item['secretary'] }}</td>
+            {{--<td>{{ $item['secretary-summary'] }}</td>--}}
             <td>{{ $item['school'] }}</td>
             <td>{{ $item['verification'] }}</td>
             <td>{{ $item['status'] }}</td>
