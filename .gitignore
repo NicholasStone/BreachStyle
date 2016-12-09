@@ -10,3 +10,5 @@ public/storage/
 public/img/
 public/uploadImages/*
 public/uploadVideos/*
+*.sql
+将删除 nginx.sql

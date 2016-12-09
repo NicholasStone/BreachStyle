@@ -92,11 +92,22 @@ class BranchController extends VerificationController
         $branches = Branch::with(['secretary' => function ($query) {
             $query->select(['name', 'id']);
         }])->select([
-            'id', 'name', 'type', 'university', 'tel', 'verification', 'address', 'summary',
-            'total_membership', 'secretary_summary', 'secretary', 'created_at', 'updated_at', 'deleted_at',
+            'id',
+            'name',
+            'type',
+            'university',
+            'tel',
+            'verification',
+            'address',
+            'summary',
+            'total_membership',
+            'secretary',
+            'created_at',
+            'updated_at',
+            'deleted_at',
         ])
-            ->withTrashed()
-            ->get();
+            ->withTrashed();
+        $branches = $branches->get();
 //        dd($branches->toArray());
         $data = [];
         foreach ($branches as $item) {

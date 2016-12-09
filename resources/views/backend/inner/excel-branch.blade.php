@@ -33,7 +33,6 @@
             <td>{{ $item['summary'] }}</td>
             <td>{{ $item['total'] }}</td>
             <td>{{ $item['secretary'] }}</td>
-            <td>{{ $item['secretary-summary'] }}</td>
             <td>{{ $item['school'] }}</td>
             <td>{{ $item['verification'] }}</td>
             <td>{{ $item['status'] }}</td>

@@ -18,14 +18,16 @@ class CommentController extends Controller
     {
         $comments = Comment::with([
             'user'        => function ($query) {
-                return $query->select('id', 'name');
+                return $query->select('id', 'name')->withTrashed();
             },
             'application' => function ($query) {
-                return $query->select('id', 'name', 'type');
+                return $query->select('id', 'name', 'type')->withTrashed();
             }])->get();
-        foreach ($comments as $comment){
-            $comment->application->name = '<a href="'.$comment->application->getShowUrl().'">'.$comment->application->name.'</a>';
+
+        foreach ($comments as $comment) {
+            $comment->application->name = '<a href="' . $comment->application->getShowUrl() . '">' . $comment->application->name . '</a>';
         }
+
         return Datatables::of($comments)
             ->addColumn('operations', function ($comment) {
                 return '<a href="' . route('admin.verify.comments.deny', $comment->id) . '" class="btn btn-xs btn-danger"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="' . trans('buttons.general.crud.delete') . '"></i></a> ';
