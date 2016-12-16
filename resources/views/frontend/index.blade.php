@@ -6,12 +6,17 @@
 
 @section('after-styles-end')
     {!! Html::style(asset('css/frontend/map.css'))!!}
+    {!! Html::style(asset('css/frontend/qczb.css'))!!}
     {!! Html::style(asset('css/frontend/weibo.css'))!!}
     {!! Html::style(asset('css/frontend/swipeslider.css'))!!}
     <link rel="stylesheet" href="{{ asset('css/frontend/window.css') }}">
 @endsection
 
 @section('content')
+    <div class="qczb-qr">
+        <img src="{{ url('img/QR.png') }}" alt="青春支部">
+        <p>扫描下载 青春支部 APK</p>
+    </div>
     <div class="popdown-content">
         <header class="head_nav">
             <h2>提示：活动时间修改</h2>

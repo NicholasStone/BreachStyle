@@ -19,9 +19,6 @@
                         <div id="Region" style="position:relative; height:360px;">
                             <div class="regionList" id="MapControl">
                                 <ul>
-                                    <li class="one">
-                                        <p>参与党员<span id="count_user">{{ $all_count_user }}</span>个</p>
-                                    </li>
                                     <li class="two">
                                         <p>发布成果<span id="count_application">{{ $all_count_application }}</span>个</p>
                                     </li>

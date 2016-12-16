@@ -17,59 +17,35 @@ Route::group(['namespace' => 'Party', 'middleware' => 'auth'], function () {
     Route::group(['middleware' => 'submit'], function () {
 
         Route::group(['prefix' => 'course'], function () {
-//            Route::get('submit', 'CourseController@create')->name('frontend.course.create');
-            Route::get("submit", function () {
-                alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");
-
-                return redirect()->back();
-            })->name("frontend.course.create");
+            Route::get('submit', 'CourseController@create')->name('frontend.course.create');
+//            Route::get("submit", function () {alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");return redirect()->back();})->name("frontend.course.create");
             Route::post('image', 'CourseController@image')->name('frontend.course.image');
             Route::post('image/drag', 'CourseController@imageDrag')->name('frontend.course.image.drag');
             Route::get('edit/{id}', 'CourseController@edit')->name('frontend.course.edit');
-//            Route::post('submit', 'CourseController@store')->name('frontend.course.store');
-            Route::post('submit', function () {
-                alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");
-
-                return redirect()->back();
-            })->name('frontend.course.store');
+            Route::post('submit', 'CourseController@store')->name('frontend.course.store');
+//            Route::post('submit', function () {alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");return redirect()->back();})->name('frontend.course.store');
             Route::post('edit/{id}', 'CourseController@update')->name('frontend.course.update');
             Route::any('verify', 'CourseController@uploadVerify')->name('frontend.course.upload.verify');
         });
 
         Route::group(['prefix' => 'case'], function () {
-//            Route::get('submit', 'CaseController@create')->name('frontend.case.create');
-            Route::get('submit', function () {
-                alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");
-
-                return redirect()->back();
-            })->name('frontend.case.create');
+            Route::get('submit', 'CaseController@create')->name('frontend.case.create');
+//            Route::get('submit', function () {alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");return redirect()->back();})->name('frontend.case.create');
             Route::get('edit/{id}', 'CaseController@edit')->name('frontend.case.edit');
             Route::get('edit/{id}', 'CaseController@edit')->name('frontend.case.edit');
-//            Route::post('submit', 'CaseController@store')->name('frontend.case.store');
-            Route::post('submit', function () {
-                alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");
-
-                return redirect()->back();
-            })->name('frontend.case.store');
+            Route::post('submit', 'CaseController@store')->name('frontend.case.store');
+//            Route::post('submit', function () {alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");return redirect()->back();})->name('frontend.case.store');
             Route::post('image', 'CaseController@image')->name('frontend.case.image');
             Route::post('image/drag', 'CaseController@imageDrag')->name('frontend.case.image.drag');
             Route::post('edit/{id}', 'CaseController@update')->name('frontend.case.update');
         });
 
         Route::group(['prefix' => 'recommend'], function () {
-//            Route::get('submit', 'RecommendController@create')->name('frontend.recommend.create');
-            Route::get('submit', function () {
-                alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");
-
-                return redirect()->back();
-            })->name('frontend.recommend.create');
+            Route::get('submit', 'RecommendController@create')->name('frontend.recommend.create');
+//            Route::get('submit', function () {alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");return redirect()->back();})->name('frontend.recommend.create');
             Route::get('edit/{id}', 'RecommendController@edit')->name('frontend.recommend.edit');
-//            Route::post('submit', 'RecommendController@store')->name('frontend.recommend.store');
-            Route::post('submit', function () {
-                alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");
-
-                return redirect()->back();
-            })->name('frontend.recommend.store');
+            Route::post('submit', 'RecommendController@store')->name('frontend.recommend.store');
+//            Route::post('submit', function () {alert()->info("抱歉，成果提交已经结束！")->persistent("关闭");return redirect()->back();})->name('frontend.recommend.store');
             Route::post('image', 'RecommendController@image')->name('frontend.recommend.image');
             Route::post('image/drag', 'RecommendController@imageDrag')->name('frontend.recommend.image.drag');
             Route::post('edit/{id}', 'RecommendController@update')->name('frontend.recommend.update');

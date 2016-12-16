@@ -12,3 +12,5 @@ public/uploadImages/*
 public/uploadVideos/*
 *.sql
 将删除 nginx.sql
+将删除 .gitignore
+将删除 qczb.apk
