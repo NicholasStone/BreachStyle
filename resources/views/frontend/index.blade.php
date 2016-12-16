@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="qczb-qr">
-        <img src="{{ url('img/QR.png') }}" alt="青春支部">
+        <img src="{{ url('build/img/QR.png') }}" alt="青春支部">
         <p>扫描下载 青春支部 APK</p>
     </div>
     <div class="popdown-content">
