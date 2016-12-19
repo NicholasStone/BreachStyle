@@ -105,7 +105,6 @@ class FrontendController extends Controller
         $province = $province->where("id", $id)->with(["universities" => function ($query) {
             $query->has("branches");
         }])->get()[0];
-//        dd($province->universities);
         $count_branch                  = 0;
         $count_application             = 0;
         $count_universities_has_branch = 0;
