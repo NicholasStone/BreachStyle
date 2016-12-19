@@ -13,10 +13,10 @@
 @endsection
 
 @section('content')
-    <div class="qczb-qr">
-        <img src="{{ url('build/img/QR.png') }}" alt="青春支部">
-        <p>扫描下载 青春支部 APK</p>
-    </div>
+    {{--<div class="qczb-qr">--}}
+        {{--<img src="{{ url('build/img/QR.png') }}" alt="青春支部">--}}
+        {{--<p>扫描下载 青春支部 APK</p>--}}
+    {{--</div>--}}
     <div class="popdown-content">
         <header class="head_nav">
             <h2>提示：活动时间修改</h2>

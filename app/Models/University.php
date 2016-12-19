@@ -25,6 +25,6 @@ class University extends Model
      */
     public function applications()
     {
-        return $this->hasManyThrough(Application::class,Branch::class, 'university', 'branch_id', 'name');
+        return $this->hasManyThrough(Application::class, Branch::class, 'university', 'branch_id', 'name');
     }
 }
