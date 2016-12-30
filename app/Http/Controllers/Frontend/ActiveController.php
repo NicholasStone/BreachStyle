@@ -20,16 +20,18 @@ class ActiveController extends Controller
      */
     public function activeDetail()
     {
-        $all_count_user = User::where('user_id', '!=', '')->count();
-        $all_count_application = Application::withStatus()->count();
-        $all_count_student_branch = Branch::where('type', '学生党支部')->withStatus()->count();
-        $all_count_teacher_branch = Branch::where('type', '教师党支部')->withStatus()->count();
-        $all_count_throughed_university = University::has('branches')->count();
+//        $all_count_user = User::where('user_id', '!=', '')->count();
+//        $all_count_application = Application::withStatus()->count();
+//        $all_count_student_branch = Branch::where('type', '学生党支部')->withStatus()->count();
+//        $all_count_teacher_branch = Branch::where('type', '教师党支部')->withStatus()->count();
+//        $all_count_throughed_university = University::has('branches')->count();
         
         $datas = MapData::getMapData();
 
-        return view('frontend.active', compact('all_count_user', 'all_count_application',
-            'all_count_student_branch', 'all_count_teacher_branch', 'all_count_throughed_university','datas'));
+//        return view('frontend.active', compact('all_count_user', 'all_count_application',
+//            'all_count_student_branch', 'all_count_teacher_branch', 'all_count_throughed_university','datas'));
+        return view('frontend.active', compact('datas'));
+
     }
 
     /**

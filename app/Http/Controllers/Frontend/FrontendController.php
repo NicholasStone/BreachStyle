@@ -102,32 +102,33 @@ class FrontendController extends Controller
 
     public function universityList($id, Province $province)
     {
-        $province = $province->where("id", $id)->with(["universities" => function ($query) {
+        $province                      = $province->where("id", $id)->with(["universities" => function ($query) {
             $query->has("branches");
         }])->get()[0];
-        $count_branch                  = 0;
-        $count_application             = 0;
-        $count_universities_has_branch = 0;
-        $count_university              = University::where("province_id", $id)->count();
+//        $count_branch                  = 0;
+//        $count_application             = 0;
+//        $count_universities_has_branch = 0;
+//        $count_university              = University::where("province_id", $id)->count();
         foreach ($province->universities as $university) {
-            //branches count
+//            branches count
             $branches = $university->branches()->withStatus()->count();
 
-            $count_branch += $branches;
+//            $count_branch += $branches;
 
             $university->hasBranches = $branches;
 
-            if ($branches != 0) {
-                $count_universities_has_branch++;
-            }
-            //application count
-            foreach ($university->branches as $branch) {
-                $count_application += $branch->applications()->where('verification', 1)->count();
-            }
+//            if ($branches != 0) {
+//                $count_universities_has_branch++;
+//            }
+//            application count
+//            foreach ($university->branches as $branch) {
+//                $count_application += $branch->applications()->where('verification', 1)->count();
+//            }
         }
         $universities = $province->universities;
 
-        return view('frontend.universities', compact("count_application", "count_branch", "count_university", "universities", "count_universities_has_branch", "province"));
+//        return view('frontend.universities', compact("count_application", "count_branch", "count_university", "universities", "count_universities_has_branch", "province"));
+        return view('frontend.universities', compact("universities", "province"));
     }
 
 //    /**

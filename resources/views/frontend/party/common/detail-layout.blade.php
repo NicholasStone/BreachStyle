@@ -13,6 +13,7 @@
                             href="#">{{ $university }}</a><span>/</span><a
                             href="{{ route('frontend.branch.show', $branch->id) }}">{{ $branch->name }}</a>
                 </p>
+                <p>类型 : {{ $application->type }}</p>
                 <div class="data">
                     <span><i class="icon iconfont">&#xe60e;</i>{{ $application->total_comment or 0 }}</span>
                     <span><i class="icon iconfont">&#xe609;</i>{{ $application->fancy }}</span>
