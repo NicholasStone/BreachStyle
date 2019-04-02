@@ -36,7 +36,7 @@ class BranchController extends VerificationController
     public function restore($id)
     {
         $branch = Branch::onlyTrashed()->where('id', $id)->firstOrFail();
-        if (!$branch->restore()){
+        if (!$branch->restore()) {
             return redirect()->back()->withErrors('此支部支部书记已不存在，无法恢复');
         };
 
@@ -81,36 +81,54 @@ class BranchController extends VerificationController
     {
         Excel::create("支部数据-截止于" . Carbon::now('Asia/Shanghai'), function ($excel) {
             $excel->sheet("支部数据", function ($sheet) {
-                $sheet->with($this->getExcelData());
+                $data = $this->getExcelData();
+                $sheet->loadView('backend.inner.excel-branch')->with(['data' => $data]);
             });
         })->download('xlsx');
     }
 
     protected function getExcelData()
     {
-        $branches = Branch::with(['secretary' => function ($query) {
-            $query->select(['name', 'id']);
-        }])->select([
-            'id', 'name', 'type', 'university', 'tel', 'verification', 'address', 'summary',
-            'total_membership', 'secretary_summary', 'secretary', 'created_at', 'updated_at',
-        ])->get();
-//        dd($branches->toArray());
+        $branches = $this->branch
+            ->with(['secretary' => function ($query) {
+                $query->select(['name', 'id'])->withTrashed();
+            }])->select([
+                'id',
+                'name',
+                'type',
+                'university',
+                'tel',
+                'verification',
+                'address',
+                'summary',
+//            'secretary_summary',
+                'total_membership',
+                'secretary',
+                'created_at',
+                'updated_at',
+                'deleted_at',
+            ])
+            ->withTrashed()
+            ->get();
         $data = [];
         foreach ($branches as $item) {
             array_push($data, [
-                "#"       => $item->id,
-                "支部名称"    => $item->name,
-                "支部类型"    => $item->type,
-                "支部联系电话"  => $item->tel,
-                "支部通讯地址"  => $item->address,
-                "简介"      => $item->summary,
-                "总人数"     => $item->total_membership,
-                "支部书记"    => empty($item->secretary) ? $item->secretary->name : '',
-                "支部书记简介"  => $item->secretary_summary,
-                "所在学校"    => $item->university,
-                '是否已通过审核' => $item->verification ? "是" : "否",
-                '提交于'     => $item->created_at,
-                '通过于'     => $item->verification ? $item->updated_at : "未审核",
+                "id"           => $item->id,
+                "name"         => $item->name,
+                "type"         => $item->type,
+                "tel"          => $item->tel,
+                "address"      => $item->address,
+                "summary"      => $item->summary,
+                "total"        => $item->total_membership,
+                "secretary"    => $item["relations"]["secretary"]->name,
+//                "secretary-summary" => $item->secretary_summary,
+                "school"       => $item->university,
+                "verification" => $item->verification ? "是" : "否",
+                "status"       => $item->getStatus(),
+                "post-at"      => $item->created_at,
+                "pass-at"      => $item->verification ? $item->updated_at : "未审核",
+                "url"          => route('frontend.branch.show', $item->id),
+                'v'            => $item->deleted_at ? false : $item->verification == 1 ? true : false,
             ]);
         }
 

@@ -51,6 +51,10 @@
                     <button type="submit" class="btn btn-success">提交</button>
                 </form>
             </div>
+            <br>
+            <div>
+                <a class="btn btn-primary" href="{{ route("admin.university.excel") }}">导出参与高校列表</a>
+            </div>
         </div><!-- /.box-body -->
     </div><!--box-->
 @stop

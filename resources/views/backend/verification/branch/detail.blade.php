@@ -34,7 +34,8 @@
                 </p>
             </div>
             <div class="col-sm-2">
-                <a type="button" href="{{ route('admin.verify.branch') }}" class="btn bg-navy btn-flat pull-right">返回</a>
+                <a type="button" href="{{ route('admin.verify.branch') }}"
+                   class="btn bg-navy btn-flat pull-right">返回</a>
             </div>
         </div><!-- /.box-header -->
         <div class="box-body">
@@ -45,7 +46,7 @@
                     <dt>{{ trans('strings.backend.verification.branch.type') }}</dt>
                     <dd>{{ $type }}</dd>
                     <dt>{{ trans('strings.backend.verification.branch.secretary') }}</dt>
-                    <dd>{{ $secretary['name'] }}</dd>
+                    <dd><a href="{{ route('admin.access.user.edit', $secretary['id']) }}">{{ $secretary['name'] }}</a></dd>
                     <dt>{{ trans('strings.backend.verification.branch.tel') }}</dt>
                     <dd>{{ $tel }}</dd>
                     <dt>{{ trans('strings.backend.verification.branch.secretary-summary') }}</dt>

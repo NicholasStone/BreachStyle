@@ -22,7 +22,7 @@ return array(
         | memory|gzip|serialized|igbinary|discISAM|apc|memcache|temp|wincache|sqlite|sqlite3
         |
         */
-        'driver'   => 'memory',
+        'driver'   => 'gzip',
 
         /*
         |--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ return array(
         */
         'settings' => array(
 
-            'memoryCacheSize' => '32MB',
+            'memoryCacheSize' => '1024MB',
             'cacheTime'       => 600
 
         ),

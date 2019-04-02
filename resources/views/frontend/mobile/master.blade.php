@@ -14,8 +14,8 @@
     <link href="//cdn.bootcss.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/iconfont-m.css') }}"/>
-    {!! Html::style(asset('css/frontend/iconfont.css'))!!}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/new_style.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/iconfont.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/head.css') }}"/>
     @yield('styles')
     <!--[if IE 7]>
@@ -27,6 +27,10 @@
     <!--[if IE]>
     <script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
     <![endif]-->
+    <script src="//cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+    {{ Html::script('/js/jquery.event.move.min.js') }}
+    {{ Html::script('/js/jquery.event.swipe.js') }}
+    {{ Html::script('//cdn.bootcss.com/unslider/2.0.3/js/unslider-min.js') }}
 </head>
 
 <body>
@@ -90,13 +94,13 @@
                 <a href="{{ route('frontend.m.index') }}">首页</a>
             </li>
             <li class="nav">
-                <a href="{{ route('frontend.m.case') }}">工作案例</a>
+                <a href="{{ route('frontend.m.index', "工作案例") }}">工作案例</a>
             </li>
             <li class="nav">
-                <a href="{{ route('frontend.m.course') }}">微党课</a>
+                <a href="{{ route('frontend.m.index', "微党课") }}">微党课</a>
             </li>
             <li class="nav">
-                <a href="{{ route('frontend.m.recommend') }}">推荐展示</a>
+                <a href="{{ route('frontend.m.index', "推荐展示") }}">推荐展示</a>
             </li>
         </ul>
     </div>
@@ -104,15 +108,15 @@
 <!-- mainNav -->
 @yield('main-content')
 <!--footer-->
-<div class="footer">
-    <div class="content">
-        <div>
-            <p class="main">主办单位 : 教育部思想政治工作司</p>
-            <p class="sub">承办单位 : 中国大学生在线</p>
-        </div>
-        <p>©2004-2016 教育部中国大学生在线网站 版权所有 京ICP备10028400号-2 京公安网备11010502025664</p>
-    </div>
-</div>
+{{--<div class="footer">--}}
+    {{--<div class="content">--}}
+        {{--<div>--}}
+            {{--<p class="main">主办单位 : 教育部思想政治工作司</p>--}}
+            {{--<p class="sub">承办单位 : 中国大学生在线</p>--}}
+        {{--</div>--}}
+        {{--<p>©2004-2016 教育部中国大学生在线网站 版权所有 京ICP备10028400号-2 京公安网备11010502025664</p>--}}
+    {{--</div>--}}
+{{--</div>--}}
 <!--footer-->
 </body>
 @yield('scripts')

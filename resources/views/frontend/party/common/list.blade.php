@@ -1,4 +1,7 @@
 @extends("frontend.layouts.master")
+@section('fit')
+    @include('frontend.mobile.fit', ['route' => route('frontend.m.index') ])
+@endsection
 @section('title')
 {{ $type }}_
 @endsection

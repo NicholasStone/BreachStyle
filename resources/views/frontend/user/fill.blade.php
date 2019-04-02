@@ -132,7 +132,8 @@
                 var mobile = /^1[34578]\d{9}$/;
                 return (length == 11 && mobile.exec(value)) ? true : false;
             }, "请正确填写您的手机号码");
-            $("#signupform").validate({
+            var form = $("#signupform");
+            form.validate({
                 rules: {
                     avatar: {
                         required: true
@@ -213,6 +214,18 @@
                     $(element).parent().next().find("." + errorClass).removeClass("checked");
                 }
             });
+            form.submit(function (e) {
+                if (form.valid()) {
+                    swal({
+                        title: "正在提交",
+                        text: "系统正在提交您所填写的信息，请稍后",
+                        type: "info",
+                        showCancelButton: false,
+                        showConfirmButton: false,
+                        allowEscapeKey:false
+                    });
+                }
+            })
             function isIdCardNo(num) {
                 var factorArr = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2, 1];
                 var parityBit = ["1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"];

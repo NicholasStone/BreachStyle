@@ -26,22 +26,10 @@ class MapData
                 $decimal = '0';
                 $rate = $decimal . '%';
             }
-            if ($decimal >= '80') {
-                $color = '0';
-            } elseif ($decimal >= '60' && $decimal < '80') {
-                $color = '1';
-            } elseif ($decimal >= '40' && $decimal < '60') {
-                $color = '2';
-            } elseif ($decimal >= '20' && $decimal < '40') {
-                $color = '3';
-            } elseif ($decimal < '20') {
-                $color = '5';
-            }
             $datas[] = [
                 'id' => $province->id,
                 'name' => $province->name,
                 'rate' => $rate,
-                'color' => $color
             ];
         }
         return $datas;

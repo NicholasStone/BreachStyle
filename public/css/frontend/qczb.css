@@ -1,0 +1,16 @@
+.qczb-qr{
+    width: 200px;
+    height: 250px;
+    position: absolute;
+    top:700px;
+    left: 0;
+    background-color: white;
+}
+
+.qczb-qr img{
+    width: 200px;
+    height: 200px;
+}
+.qczb-qr p{
+    text-align: center;
+}

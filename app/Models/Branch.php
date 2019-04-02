@@ -67,7 +67,7 @@ class Branch extends Model
         return $query;
     }
 
-    public function scopeWithStatus($query, $status)
+    public function scopeWithStatus($query, $status = 1)
     {
         if ($status == 3){
             return $query->withTrashed();
@@ -110,7 +110,9 @@ class Branch extends Model
         });
 
         $secretary = User::find($this->secretary);
-        $secretary->detachBranch();
+        if ($secretary) {
+            $secretary->detachBranch();
+        }
 
         $this->runSoftDelete();
         $this->sendNotify('branch.delete', "javascript:void(0)", $reason);
@@ -153,5 +155,29 @@ class Branch extends Model
                 'reason' => $reason,
             ])
             ->send();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getStatus()
+    {
+        $status = null;
+        if ($this->trashed()){
+            $status = "已删除";
+        }else{
+            switch ($this->verification){
+                case -1:
+                    $status = "已驳回";
+                    break;
+                case 0:
+                    $status = "待审核";
+                    break;
+                case 1:
+                    $status = "已通过";
+                    break;
+            }
+        }
+        return $status;
     }
 }
